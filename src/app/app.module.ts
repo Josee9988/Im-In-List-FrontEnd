@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
+import { NgModule, Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AppRoutingModule, routingComponents } from "./app-routing.module";
 
 /**
  * Angular material modules
@@ -52,30 +51,13 @@ import { MatTreeModule } from '@angular/material/tree';
  * Components
  */
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { HomeComponent } from './components/home/home.component';
-import { PricingComponent } from './components/pricing/pricing.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { ListComponent } from './components/list/list.component';
-import { ContactComponent } from './components/contact/contact.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    NotFoundComponent,
-    LoginComponent,
-    RegisterComponent,
-    ProfileComponent,
-    HomeComponent,
-    PricingComponent,
-    AboutUsComponent,
-    ListComponent,
-    ContactComponent
+    routingComponents
   ],
   imports: [
     BrowserModule,
