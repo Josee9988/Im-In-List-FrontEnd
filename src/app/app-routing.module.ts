@@ -17,11 +17,6 @@ import { ContactComponent } from './components/contact/contact.component';
 
 
 const routes: Routes = [{
-  path: '',
-  pathMatch: 'full',
-  redirectTo: 'home'
-},
-{
   path: 'home', component: HomeComponent
 },
 {
@@ -46,7 +41,8 @@ const routes: Routes = [{
   path: 'contact', component: ContactComponent
 },
 // fallback route
-{ path: '**', component: NotFoundComponent }];
+{ path: '**', component: NotFoundComponent },
+{ path: '', pathMatch: 'full', redirectTo: 'home' }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
