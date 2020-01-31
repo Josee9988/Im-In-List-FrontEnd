@@ -2,22 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { INavbarLinks } from './inavbar-links';
 
-
-interface NavbarLinks {
-  /**
-   * Name of the icon of the material icons of google.
-   */
-  icon: string;
-  /**
-   * Name of the field, the text that will be displayed.
-   */
-  field: string;
-  /**
-   * Name of the route that references.
-   */
-  route: string;
-}
 
 @Component({
   selector: 'app-navbar',
@@ -25,8 +11,7 @@ interface NavbarLinks {
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  navbarLinks: Array<NavbarLinks> = [
-    { icon: 'home', field: 'Inicio', route: 'home' },
+  navbarLinks: Array<INavbarLinks> = [
     { icon: 'person', field: 'Perfil', route: 'profile' },
     { icon: 'attach_money', field: 'Precios', route: 'pricing' },
     { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about' },
