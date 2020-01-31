@@ -2,11 +2,28 @@
   <div class="login-container">
     <mat-card>
       <mat-card-title>
-        <mat-icon>fingerprint</mat-icon> Inicio de sesión
+        <div *ngIf="isRegister; then isRegisterBlock else isLoginBlock"></div>
+        <ng-template #isLoginBlock>
+          <mat-icon>fingerprint</mat-icon> Inicio de sesión
+        </ng-template>
+        <ng-template #isRegisterBlock>
+          <mat-icon>post_add</mat-icon> Registro de usuario
+        </ng-template>
       </mat-card-title>
       <mat-card-content>
         <mat-progress-bar mode="determinate" value="{{getProgressBarValue()}}"></mat-progress-bar>
         <form class="form-container">
+
+          <div *ngIf="isRegister">
+            <mat-form-field appearance="outline">
+              <input type="text" [formControl]="name" matInput placeholder="ej: ElMusk62" autocomplete="on">
+              <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+              <mat-hint>Introduce tu nombre de usuario</mat-hint>
+            </mat-form-field>
+            <div class="spacer"></div>
+          </div>
+
+
           <mat-form-field appearance="outline">
             <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" autocomplete="on">
             <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
