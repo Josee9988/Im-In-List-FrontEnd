@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
     { icon: 'person', field: 'Perfil', route: 'profile' },
     { icon: 'attach_money', field: 'Precios', route: 'pricing' },
     { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about' },
-    { icon: 'contact_mail', field: 'contacta', route: 'contact' },
-    { icon: 'post_add', field: 'crea nueva lista', route: 'newList' },
+    { icon: 'contact_mail', field: 'Contacta', route: 'contact' },
+    { icon: 'post_add', field: 'Nueva lista', route: 'newList' },
     { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login' },
     { icon: 'how_to_reg', field: 'Registro', route: 'register' }];
 
