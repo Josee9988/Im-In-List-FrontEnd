@@ -1,10 +1,10 @@
-.login-bg {
+.login-register-bg {
   background: #e9e4e4 !important;
   width: 100%;
   height: 93%;
 }
 
-.login-container {
+.login-register-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -23,7 +23,8 @@
   flex-direction: column;
 }
 
-.form-container > * {
+.form-container > *,
+.form-container > * > * {
   width: 100%;
 }
 
@@ -31,7 +32,7 @@
   text-align: right;
 }
 
-.submit-login {
+.submit-login-register {
   margin-top: 10px;
 }
 

@@ -1,0 +1,62 @@
+<div class="login-register-bg">
+  <div class="login-register-container">
+    <mat-card>
+      <mat-card-title>
+        <div *ngIf="isRegister; then isRegisterBlock else isLoginBlock"></div>
+        <ng-template #isLoginBlock>
+          <mat-icon>fingerprint</mat-icon> Inicio de sesión
+        </ng-template>
+        <ng-template #isRegisterBlock>
+          <mat-icon>post_add</mat-icon> Registro de usuario
+        </ng-template>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-progress-bar mode="determinate" value="{{getProgressBarValue()}}"></mat-progress-bar>
+        <form class="form-container">
+
+          <div *ngIf="isRegister">
+            <!-- Name field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input type="text" [formControl]="name" matInput placeholder="ej: ElMusk62" autocomplete="on">
+              <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+              <mat-hint>Introduce tu nombre de usuario</mat-hint>
+            </mat-form-field>
+            <div class="spacer"></div>
+          </div>
+
+          <!-- Email field -->
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" autocomplete="on">
+            <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+            <mat-hint>Introduce tu email</mat-hint>
+            <div class="spacer"></div>
+          </mat-form-field>
+
+          <!-- Password field -->
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
+              [type]="hide ? 'password' : 'text'" autocomplete="current-password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint>Introduce tu contraseña</mat-hint>
+            <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <!-- Submit button -->
+          <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
+          <ng-template #isLoginBlockBtn>
+            <button class="submit-login-register" type="submit" mat-raised-button color="primary">Iniciar</button>
+          </ng-template>
+          <ng-template #isRegisterBlockBtn>
+            <button class="submit-login-register" type="submit" mat-raised-button color="primary">Registro</button>
+          </ng-template>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
