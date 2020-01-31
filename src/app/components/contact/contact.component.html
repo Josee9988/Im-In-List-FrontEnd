@@ -1,1 +1,57 @@
-<p>contact works!</p>
+<div class="container-contact100">
+  <div class="wrap-contact100">
+    <div class="contact100-form">
+
+
+      <mat-card>
+        <mat-card-title>
+          <mat-icon>contact_mail</mat-icon> Contacta con nosotros
+        </mat-card-title>
+        <mat-card-content>
+          <mat-progress-bar mode="determinate" value="{{getProgressBarValue()}}"></mat-progress-bar>
+          <form class="form-container">
+
+
+            <!-- Email field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" autocomplete="on">
+              <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+              <mat-hint>Introduce tu email</mat-hint>
+              <div class="spacer"></div>
+            </mat-form-field>
+
+            <!-- Subject field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Asunto</mat-label>
+              <input type="text" [formControl]="asunto" matInput placeholder="ej: Felicitación por la web"
+                autocomplete="off">
+              <mat-error *ngIf="asunto.invalid">{{getAsuntoErrorMessage()}}</mat-error>
+              <mat-hint>Introduce el asunto de tu email</mat-hint>
+              <div class="spacer"></div>
+            </mat-form-field>
+
+
+            <!-- Message field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Mensaje</mat-label>
+              <textarea type="text" [formControl]="mensaje" matInput placeholder="ej: Hola, gracias por tu trabajo..."
+                autocomplete="off"></textarea>
+              <mat-error *ngIf="mensaje.invalid">{{getMensajeErrorMessage()}}</mat-error>
+              <mat-hint>Introduce el mensaje de tu email</mat-hint>
+              <div class="spacer"></div>
+            </mat-form-field>
+
+
+            <!-- Submit button -->
+            <button class="submit-login-register" type="submit" mat-raised-button color="primary">Registro</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+
+    </div>
+    <div class="contact100-more" id="bg-image">
+    </div>
+  </div>
+</div>
