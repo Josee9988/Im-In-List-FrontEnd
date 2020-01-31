@@ -3,17 +3,16 @@
   height: 93%;
 
   /* Imagen utilizada */
-  background: url("../../../assets/pics/background.jpg");
+  background: url("../../../assets/images/background.jpg");
 
   /* Centramos la imagen, y hacemos que no se repita */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
 
 .textoPrincipal {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   /* Background que usaremos para destacar el texto */
   background-color: #00000080;
 
@@ -23,6 +22,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   z-index: 2;
   width: 80%;
@@ -49,7 +49,9 @@ a {
   top: 75%;
   margin-left: 42%;
 
-  transition: all .2s ease;
+  -webkit-transition: all 0.2s ease;
+
+  transition: all 0.2s ease;
 
   &:before {
     content: "";
@@ -61,7 +63,8 @@ a {
     background-color: #00000080;
     width: 56px;
     height: 56px;
-    transition: all .3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   span {
@@ -70,7 +73,7 @@ a {
     font-size: 16px;
     line-height: 18px;
     font-weight: 900;
-    letter-spacing: .25em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     vertical-align: middle;
   }
@@ -84,8 +87,10 @@ a {
     stroke-linejoin: round;
     stroke: #ffffff;
     stroke-width: 2;
+    -webkit-transform: translateX(-5px);
     transform: translateX(-5px);
-    transition: all .3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   &:hover {
@@ -95,11 +100,13 @@ a {
     }
 
     svg {
+      -webkit-transform: translateX(0);
       transform: translateX(0);
     }
   }
 
   &:active {
-    transform: scale(.96);
+    -webkit-transform: scale(0.96);
+    transform: scale(0.96);
   }
 }
