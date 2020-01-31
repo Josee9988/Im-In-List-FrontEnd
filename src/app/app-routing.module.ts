@@ -16,33 +16,18 @@ import { ListComponent } from './components/list/list.component';
 import { ContactComponent } from './components/contact/contact.component';
 
 
-const routes: Routes = [{
-  path: 'home', component: HomeComponent
-},
-{
-  path: 'login', component: LoginComponent
-},
-{
-  path: 'register', component: RegisterComponent
-},
-{
-  path: 'profile', component: ProfileComponent
-},
-{
-  path: 'pricing', component: PricingComponent
-},
-{
-  path: 'about', component: AboutUsComponent
-},
-{
-  path: 'newList', component: ListComponent
-},
-{
-  path: 'contact', component: ContactComponent
-},
-// fallback route
-{ path: '**', component: NotFoundComponent },
-{ path: '', pathMatch: 'full', redirectTo: 'home' }];
+const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'pricing', component: PricingComponent },
+  { path: 'about', component: AboutUsComponent },
+  { path: 'newList', component: ListComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
