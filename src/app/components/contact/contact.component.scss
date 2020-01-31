@@ -64,6 +64,7 @@
 [ Form ]*/
 
 .contact100-form {
+  background: #e9e4e4 !important;
   width: 560px;
   min-height: 100vh;
   display: block;
@@ -98,4 +99,30 @@
   .contact100-form {
     padding: 110px 15px 55px 15px;
   }
+}
+
+.form-container {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+}
+
+.form-container > *,
+.form-container > * > * {
+  width: 100%;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+.submit-login-register {
+  margin-top: 10px;
+}
+
+.spacer {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
