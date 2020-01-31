@@ -9,21 +9,25 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
-  password: FormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  email: FormControl;
+  password: FormControl;
+  inputs: Array<FormControl>;
 
-  constructor() { }
+  constructor() {
+    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.inputs = [this.email, this.password];
+  }
 
   ngOnInit() {
   }
 
   getProgressBarValue(): number {
     let progress = 100;
-    if (this.email.invalid) {
-      progress -= 50;
-    }
-    if (this.password.invalid) {
-      progress -= 50;
+    for (const input of this.inputs) {
+      if (input.invalid) {
+        progress -= 100 / this.inputs.length;
+      }
     }
     return progress;
   }
