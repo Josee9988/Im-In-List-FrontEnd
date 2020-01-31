@@ -3,11 +3,11 @@ import { FormControl, Validators } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-login-register',
+  templateUrl: './login-register.component.html',
+  styleUrls: ['./login-register.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginRegisterComponent implements OnInit {
   hide = true;
   email: FormControl;
   password: FormControl;
