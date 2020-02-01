@@ -14,28 +14,35 @@
   margin-bottom: 20px;
 }
 .graficasListas {
+  display: -webkit-box;
   display: flex;
 }
 .cardNumbers {
-  width: 50%;
+  width: 40%;
+  margin-left: 2%;
   height: 100px;
-  background-color: #bbb;
+  background-color: #dddddd;
+}
+.cardNumbers:hover {
+  background-color: #b1b1b1;
+  box-shadow: 1px 1px 5px;
+  width: 50%;
+  height: 120px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .wrapper {
   height: 30%;
   width: 30%;
   position: absolute;
+  display: -webkit-box;
   display: flex;
   -webkit-transform: translate(-0%, -0%);
   transform: translate(-0%, -0%);
 }
 .wrapper span {
-  color: rgb(189, 129, 129);
-  border: 5px solid #ddd;
-  padding: 0 30px;
-  border-radius: 25px;
-  margin: 0 10px;
+  color: #3f51b5;
 }
 .box {
   display: inline-block;
@@ -43,7 +50,7 @@
   height: 1em;
   line-height: 1em;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 3vw;
 }
 
 .box:after {
@@ -51,14 +58,26 @@
   white-space: pre;
   content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
 }
-.box.first-number:after {
+.box.third-number:after {
+  -webkit-animation: animate 1s steps(10) infinite;
   animation: animate 1s steps(10) infinite;
 }
 .box.second-number:after {
+  -webkit-animation: animate 10s steps(10) infinite;
   animation: animate 10s steps(10) infinite;
 }
-.box.third-number:after {
+.box.first-number:after {
+  -webkit-animation: animate 100s steps(10) infinite;
   animation: animate 100s steps(10) infinite;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: -29.3vw;
+  }
 }
 
 @keyframes animate {
@@ -66,6 +85,6 @@
     top: 0%;
   }
   100% {
-    top: -10em;
+    top: -29.3vw;
   }
 }
