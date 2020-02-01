@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  nickname: string;
+  email: string;
+  profilePicture: string;
+  constructor() {
+    this.nickname = 'Carlos Alfredo'; 0
+    this.email = 'carlos98@gmail.com';
+    this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
+  }
 
   ngOnInit() {
   }
+
 
 }

@@ -1,0 +1,71 @@
+.card {
+  margin-top: 5%;
+  margin-left: 30%;
+  width: 40%;
+  min-width: 35%;
+}
+
+.headerImage {
+  background-image: url("https://manabinoticias.com/wp-content/uploads/2019/11/JORGITO-GUAYACO-678x381.jpg");
+  background-size: cover;
+}
+.actionsButton {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.graficasListas {
+  display: flex;
+}
+.cardNumbers {
+  width: 50%;
+  height: 100px;
+  background-color: #bbb;
+}
+
+.wrapper {
+  height: 30%;
+  width: 30%;
+  position: absolute;
+  display: flex;
+  -webkit-transform: translate(-0%, -0%);
+  transform: translate(-0%, -0%);
+}
+.wrapper span {
+  color: rgb(189, 129, 129);
+  border: 5px solid #ddd;
+  padding: 0 30px;
+  border-radius: 25px;
+  margin: 0 10px;
+}
+.box {
+  display: inline-block;
+  overflow: hidden;
+  height: 1em;
+  line-height: 1em;
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.box:after {
+  position: relative;
+  white-space: pre;
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+}
+.box.first-number:after {
+  animation: animate 1s steps(10) infinite;
+}
+.box.second-number:after {
+  animation: animate 10s steps(10) infinite;
+}
+.box.third-number:after {
+  animation: animate 100s steps(10) infinite;
+}
+
+@keyframes animate {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: -10em;
+  }
+}
