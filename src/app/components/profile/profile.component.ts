@@ -5,11 +5,23 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
+
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  nickname: string;
+  email: string;
+  profilePicture: string;
+
+
+  constructor() {
+    this.nickname = 'Carlos Alfredo';
+    this.email = 'carlos98@gmail.com';
+    this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
+  }
+
 
   ngOnInit() {
   }
+
 
 }
