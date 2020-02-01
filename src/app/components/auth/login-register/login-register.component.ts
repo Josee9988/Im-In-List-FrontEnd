@@ -18,12 +18,12 @@ export class LoginRegisterComponent implements OnInit {
 
   constructor(router: Router) {
     this.hide = true;
-    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
 
     if (router.url.includes('register')) { // si es un formulario de registro
       this.isRegister = true;
-      this.name = new FormControl('', [Validators.required, Validators.minLength(4)]);
+      this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
       this.inputs = [this.email, this.password, this.name];
     } else { // si es un formulario de login
       this.isRegister = false;
@@ -47,7 +47,8 @@ export class LoginRegisterComponent implements OnInit {
   getEmailErrorMessage(): string {
     return this.email.hasError('required') ? 'Debes introducir un email' :
       this.email.hasError('email') ? 'Introduce un email válido' :
-        '';
+        this.email.hasError('maxLength') ? 'Debes de introducir un email con menos de 255 carácteres.' :
+          '';
   }
 
   getPasswordErrorMessage(): string {
@@ -59,7 +60,8 @@ export class LoginRegisterComponent implements OnInit {
   getNameErrorMessage(): string {
     return this.name.hasError('required') ? 'Debes introducir una nombre de usuario' :
       this.name.hasError('minlength') ? 'Debes de introducir una nombre de usuario con al menos 4 carácteres.' :
-        '';
+        this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
+          '';
   }
 
 }
