@@ -58,8 +58,8 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   getNameErrorMessage(): string {
-    return this.name.hasError('required') ? 'Debes introducir una nombre de usuario' :
-      this.name.hasError('minlength') ? 'Debes de introducir una nombre de usuario con al menos 4 carácteres.' :
+    return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
+      this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
         this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
           '';
   }

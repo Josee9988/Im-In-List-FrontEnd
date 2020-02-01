@@ -42,14 +42,14 @@ export class ContactComponent implements OnInit {
   }
 
   getAsuntoErrorMessage(): string {
-    return this.asunto.hasError('required') ? 'Debes introducir una asunto' :
+    return this.asunto.hasError('required') ? 'Debes introducir un asunto' :
       this.asunto.hasError('minlength') ? 'Debes de introducir un asunto con al menos 6 carácteres.' :
         this.asunto.hasError('maxLength') ? 'Debes de introducir un asunto con menos de 80 carácteres.' :
           '';
   }
 
   getMensajeErrorMessage(): string {
-    return this.mensaje.hasError('required') ? 'Debes introducir una mensaje' :
+    return this.mensaje.hasError('required') ? 'Debes introducir un mensaje' :
       this.mensaje.hasError('minlength') ? 'Debes de introducir un mensaje con al menos 10 carácteres.' :
         this.mensaje.hasError('maxLength') ? 'Debes de introducir un mensaje con menos de 255 carácteres.' :
           '';
