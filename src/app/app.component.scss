@@ -1,17 +1,16 @@
 app-navbar {
-  position: fixed; /* always at the top */
   top: 0;
   left: 0;
   right: 0;
   z-index: 2;
+  margin-bottom: 4.8%;
 }
-
-main {
-  margin-top: 4.8%;
-}
-
 #page-container {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 2.5rem; /* Footer height */
+}
+app-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
