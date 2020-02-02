@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 /**
  * Components
  */
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginRegisterComponent } from './components/auth/login-register/login-register.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -33,7 +34,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents: Array<any> = [NavbarComponent, NotFoundComponent,
+export const routingComponents: Array<any> = [NavbarComponent, FooterComponent, NotFoundComponent,
   LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent,
   ListComponent, ContactComponent];

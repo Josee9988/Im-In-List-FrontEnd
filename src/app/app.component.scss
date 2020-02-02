@@ -1,0 +1,16 @@
+app-navbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  margin-bottom: 4.8%;
+}
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+app-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

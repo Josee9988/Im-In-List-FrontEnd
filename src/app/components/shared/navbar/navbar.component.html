@@ -3,7 +3,7 @@
     fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>I'm in List</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list id="header">
       <h2 matSubheader>Elementos de navegación</h2>
       <li *ngFor="let item of navbarLinks">
         <a mat-list-item routerLink="/{{ item.route }}" routerLinkActive="active">
@@ -18,7 +18,7 @@
       <button class="sidenav-btn" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>
+      <span class="minium-header-pads">
         <mat-icon>home</mat-icon><a class="main-navbar-text" routerLink="/home" routerLinkActive="active">I'm in
           List</a>
       </span>
@@ -30,7 +30,5 @@
         </button>
       </div>
     </mat-toolbar>
-    <!-- Content -->
-    <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
