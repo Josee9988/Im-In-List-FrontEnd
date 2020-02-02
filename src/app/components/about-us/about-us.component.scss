@@ -1,0 +1,92 @@
+.card {
+  margin-top: 5%;
+  margin-left: 30%;
+  width: 40%;
+  min-width: 35%;
+}
+
+.headerImage {
+  background-image: url("../../../assets/images/iLogo.png");
+  background-size: cover;
+  margin-bottom: 5px;
+}
+.actionsButton {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.graficasListas {
+  display: -webkit-box;
+  display: flex;
+}
+.cardNumbers {
+  width: 40%;
+  margin-left: 2%;
+  height: 100px;
+  background-color: #dddddd;
+}
+.cardNumbers:hover {
+  background-color: #b1b1b1;
+  box-shadow: 1px 1px 5px;
+  width: 50%;
+  height: 120px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.wrapper {
+  height: 30%;
+  width: 30%;
+  position: absolute;
+  display: -webkit-box;
+  display: flex;
+}
+.wrapper span {
+  color: #673ab7;
+}
+mat-card-title {
+  font-size: 2vw;
+}
+.box {
+  display: inline-block;
+  overflow: hidden;
+  height: 1em;
+  line-height: 1em;
+  font-weight: bold;
+  font-size: 3vw;
+}
+
+.box:after {
+  position: relative;
+  white-space: pre;
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+}
+.box.third-number:after {
+  -webkit-animation: animate 1s steps(10) infinite;
+  animation: animate 1s steps(10) infinite;
+}
+.box.second-number:after {
+  -webkit-animation: animate 10s steps(10) infinite;
+  animation: animate 10s steps(10) infinite;
+}
+.box.first-number:after {
+  -webkit-animation: animate 100s steps(10) infinite;
+  animation: animate 100s steps(10) infinite;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: -29.3vw;
+  }
+}
+
+@keyframes animate {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: -29.3vw;
+  }
+}
