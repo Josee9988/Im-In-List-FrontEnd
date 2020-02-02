@@ -47,11 +47,6 @@ $main-color: #3f51b5;
         color: $main-color;
       }
 
-      .front {
-        opacity: 0;
-        visibility: hidden;
-      }
-
       .back {
         opacity: 1 !important;
         visibility: visible !important;
@@ -95,7 +90,6 @@ $main-color: #3f51b5;
         span.price {
           font-size: 2rem;
           text-transform: uppercase;
-          margin-top: 20px;
           display: block;
           font-weight: 700;
           position: relative;
@@ -154,5 +148,13 @@ $main-color: #3f51b5;
         margin: 30px 0 !important;
       }
     }
+  }
+}
+
+button {
+  background-color: $main-color !important;
+
+  &:hover {
+    background-color: darken($main-color, 10%) !important;
   }
 }
