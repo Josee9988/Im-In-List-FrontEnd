@@ -27,9 +27,13 @@
     <hr />
   </mat-card-content>
   <div class="actions">
-    <button mat-raised-button color="primary" class="actionsButton">Ver mis listas </button>
-    <button mat-raised-button color="accent" class="actionsButton">Ver listas que participo</button>
-    <button mat-raised-button color="accent" class="actionsButton">Editar perfil</button>
-    <button mat-raised-button color="warn" class="actionsButton">Cerrar sesion</button>
+    <button mat-raised-button color="primary" matTooltip="Ver tus listas creadas" matTooltipPosition="right"
+      class="actionsButton">Ver mis listas </button>
+    <button mat-raised-button color="accent" matTooltip="Ver las listas en las que eres participante"
+      matTooltipPosition="right" class="actionsButton">Ver listas que participo</button>
+    <button mat-raised-button color="accent" matTooltip="Editar tu perfil" matTooltipPosition="right"
+      class="actionsButton">Editar perfil</button>
+    <button mat-raised-button color="warn" matTooltip="Cierra sesión" matTooltipPosition="right"
+      class="actionsButton">Cerrar sesion</button>
   </div>
 </mat-card>

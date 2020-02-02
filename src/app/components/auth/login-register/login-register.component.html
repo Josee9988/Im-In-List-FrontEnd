@@ -50,10 +50,12 @@
           <!-- Submit button -->
           <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
           <ng-template #isLoginBlockBtn>
-            <button class="submit-login-register" type="submit" mat-raised-button color="primary">Iniciar</button>
+            <button class="submit-login-register" type="submit" matTooltip="Inicia sesión" matTooltipPosition="below"
+              mat-raised-button color="primary">Iniciar</button>
           </ng-template>
           <ng-template #isRegisterBlockBtn>
-            <button class="submit-login-register" type="submit" mat-raised-button color="primary">Registro</button>
+            <button class="submit-login-register" type="submit" matTooltip="Regístrate" matTooltipPosition="below"
+              mat-raised-button color="primary">Registro</button>
           </ng-template>
         </form>
       </mat-card-content>
