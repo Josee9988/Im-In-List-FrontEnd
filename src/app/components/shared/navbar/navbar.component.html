@@ -2,7 +2,9 @@
   <mat-sidenav [ngClass]="{hidden: !(isHandset$ | async) === true}" #drawer class="sidenav" color="primary"
     fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>I'm in List</mat-toolbar>
+    <mat-toolbar>
+      <img class="logo-header" src="../../../../assets/images/logoImInList.png">I'm in List
+    </mat-toolbar>
     <mat-nav-list id="header">
       <h2 matSubheader>Elementos de navegación</h2>
       <li *ngFor="let item of navbarLinks">
@@ -20,7 +22,7 @@
       </button>
       <span class="minium-header-pads">
         <a class="main-navbar-text" routerLink="/home" routerLinkActive="active">
-          <mat-icon>home</mat-icon>I'm in
+          <img class="logo-header-white" src="../../../../assets/images/logoImInListWhite.png">I'm in
           List
         </a>
       </span>
