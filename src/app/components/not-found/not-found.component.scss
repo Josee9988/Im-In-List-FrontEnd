@@ -86,7 +86,7 @@
 .permission_denied,
 #particles-js {
   width: 100%;
-  height: 100%;
+  height: 93%;
   margin: 0px !important;
 }
 
@@ -97,6 +97,7 @@
 
 .permission_denied {
   background: #24344c !important;
+  position: absolute;
 }
 
 .permission_denied a {
