@@ -1,6 +1,5 @@
 footer {
   font-size: 12px;
-  margin-top: 40px;
   border-top: 1px solid #b1a3a32a;
 }
 
@@ -21,4 +20,19 @@ footer {
 .footer-logo {
   height: 60px;
   vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .column {
+    width: 50%;
+  }
+  .column:last-of-type {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .tu-app-listas-txt {
+    display: none;
+  }
 }
