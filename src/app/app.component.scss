@@ -5,3 +5,13 @@ app-navbar {
   right: 0;
   z-index: 2;
 }
+
+main {
+  margin-top: 4.8%;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 2.5rem; /* Footer height */
+}
