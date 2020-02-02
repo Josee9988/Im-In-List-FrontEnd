@@ -53,6 +53,8 @@ import { MatTreeModule } from '@angular/material/tree';
  * Components
  */
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 
 
@@ -105,7 +107,13 @@ import { AppComponent } from './app.component';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
