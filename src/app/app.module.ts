@@ -54,16 +54,14 @@ import { MatTreeModule } from '@angular/material/tree';
  */
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
-import { BackofficeComponent } from './components/backoffice/backoffice.component';
-
+// import { reducers, metaReducers } from './reducers';
+import { UserReducer } from './reducers/User.reducer';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    BackofficeComponent
   ],
   imports: [
     BrowserModule,
@@ -109,13 +107,8 @@ import { BackofficeComponent } from './components/backoffice/backoffice.componen
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    FormsModule, ReactiveFormsModule, StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    })
+    FormsModule, ReactiveFormsModule,
+    StoreModule.forRoot({ users: UserReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]
