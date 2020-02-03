@@ -12,9 +12,8 @@ export class BackofficeComponent {
   public doughnutChartLabels: Label[] = ['Enero', 'Febrero', 'Marzo',
     'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   public doughnutChartData: MultiDataSet = [
-    [350, 450, 100],
-    [50, 150, 120],
-    [250, 130, 70],
+    [350, 403, 200, 10, 40, 512],
+
   ];
   public doughnutChartType: ChartType = 'doughnut';
 
