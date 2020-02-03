@@ -47,6 +47,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+// Modulo importado para las graficas
+import { ChartsModule } from 'ng2-charts';
 
 
 /**
@@ -109,6 +111,7 @@ import { UserReducer } from './reducers/User.reducer';
     ScrollingModule,
     FormsModule, ReactiveFormsModule,
     StoreModule.forRoot({ users: UserReducer }),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

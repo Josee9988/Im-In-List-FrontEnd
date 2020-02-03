@@ -1,1 +1,16 @@
-<p>backoffice works!</p>
+<div class="graficas">
+  <div class="graficasDatos">
+    <p>Usuarios registrados</p>
+    <hr />
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="graficasDatos">Usuarios premium</div>
+  <div class="graficasDatos">Listas creadas</div>
+</div>
