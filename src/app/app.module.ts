@@ -55,13 +55,15 @@ import { MatTreeModule } from '@angular/material/tree';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { BackofficeComponent } from './components/backoffice/backoffice.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    BackofficeComponent
   ],
   imports: [
     BrowserModule,
