@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { MultiDataSet, Label } from 'ng2-charts';
+
 @Component({
   selector: 'app-backoffice',
   templateUrl: './backoffice.component.html',
   styleUrls: ['./backoffice.component.scss']
 })
+
 export class BackofficeComponent {
-  public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartLabels: Label[] = ['Enero', 'Febrero', 'Marzo',
+    'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   public doughnutChartData: MultiDataSet = [
     [350, 450, 100],
     [50, 150, 120],
@@ -16,9 +19,6 @@ export class BackofficeComponent {
   public doughnutChartType: ChartType = 'doughnut';
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
