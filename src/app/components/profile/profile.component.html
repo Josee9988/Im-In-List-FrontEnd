@@ -8,20 +8,23 @@
     <hr />
     <div class="graficasListas">
       <mat-card class="cardNumbers">
-        <mat-card-title>Creadas</mat-card-title>
-        <div class="wrapper">
-          <span class="box first-number"></span>
-          <span class="box second-number"></span>
-          <span class="box third-number"></span>
-        </div>
-      </mat-card>
-      <mat-card class="cardNumbers">
-        <mat-card-title>Participante</mat-card-title>
-        <div class="wrapper">
-          <span class="box first-number"></span>
-          <span class="box second-number"></span>
-          <span class="box third-number"></span>
-        </div>
+        <mat-card-title>Listas</mat-card-title>
+        <hr />
+        <a href="#" class="graficasDatos">
+          <div>
+            <!-- Grafico -->
+            <div>
+              <div style="display: block">
+                <canvas baseChart [data]="doughnutChartDataLists" [labels]="doughnutChartDataLists"
+                  [chartType]="doughnutChartType">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Grafico -->
+          <hr />
+
+        </a>
       </mat-card>
     </div>
     <hr />
