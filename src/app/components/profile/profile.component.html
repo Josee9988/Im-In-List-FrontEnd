@@ -13,17 +13,14 @@
         <a href="#" class="graficasDatos">
           <div>
             <!-- Grafico -->
-            <div>
-              <div style="display: block">
-                <canvas baseChart [data]="doughnutChartDataLists" [labels]="doughnutChartDataLists"
-                  [chartType]="doughnutChartType">
-                </canvas>
-              </div>
+            <div style="display: block">
+              <canvas baseChart [data]="doughnutChartDataLists" [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+              </canvas>
             </div>
           </div>
           <!-- Grafico -->
           <hr />
-
         </a>
       </mat-card>
     </div>

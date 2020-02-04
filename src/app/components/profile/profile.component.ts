@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
     // this.getUser();
 
     // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Enero', 'Febrero'];
+    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
 
     // Valores obtenidos de la base de datos para usuarios premium
     this.doughnutChartDataLists = [

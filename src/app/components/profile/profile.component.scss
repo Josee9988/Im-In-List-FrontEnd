@@ -16,13 +16,12 @@
 .graficasListas {
   display: -webkit-box;
   display: flex;
-  background-color: red;
 }
 .cardNumbers {
-  width: 90%;
-  margin-left: 5%;
-  height: 400px;
-  background-color: #b9b9b9;
+  width: 80%;
+  margin-left: 10%;
+  height: 350px;
+  background-color: #e7e7e7;
 }
 mat-card-title {
   text-align: center;
@@ -30,13 +29,13 @@ mat-card-title {
 .cardNumbers:hover {
   background-color: #b1b1b1;
   box-shadow: 1px 1px 5px;
-  width: 50%;
-  height: 120px;
+  margin-left: 5%;
+  width: 90%;
+  height: 380px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .graficas {
-  margin-top: 5%;
   display: inline-flex;
   width: 100%;
 }
@@ -48,6 +47,6 @@ a:link {
   text-align: center;
   background-color: #ebebeb;
   width: 30%;
-  height: 60%;
+  height: 100%;
   margin-left: 2.3%;
 }
