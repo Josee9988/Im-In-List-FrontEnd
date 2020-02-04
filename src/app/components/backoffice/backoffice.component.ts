@@ -9,15 +9,25 @@ import { MultiDataSet, Label } from 'ng2-charts';
 })
 
 export class BackofficeComponent {
+  nickname: string;
+  email: string;
+  profilePicture: string;
+
+  constructor() {
+
+  }
+
+  //Clases donde se almacenerán los valores
   public doughnutChartLabels: Label[] = ['Enero', 'Febrero', 'Marzo',
     'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+  //Valores obtenidos de la base de datos
   public doughnutChartData: MultiDataSet = [
     [350, 403, 200, 10, 40, 512],
 
   ];
   public doughnutChartType: ChartType = 'doughnut';
 
-  constructor() { }
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {

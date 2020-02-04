@@ -14,6 +14,32 @@
     <!-- Grafico -->
     <hr />
   </div>
-  <div class="graficasDatos">Usuarios premium</div>
-  <div class="graficasDatos">Listas creadas</div>
+  <div class="graficasDatos">Usuarios premium
+    <hr />
+    <!-- Grafico -->
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <!-- Grafico -->
+    <hr />
+  </div>
+  <div class="graficasDatos">Listas creadas
+    <hr />
+    <!-- Grafico -->
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <!-- Grafico -->
+    <hr />
+  </div>
 </div>
