@@ -17,22 +17,25 @@
       <hr />
     </div>
   </a>
-
-  <div class="graficasDatos">Usuarios premium
-    <hr />
-    <!-- Grafico -->
-    <div>
+  <a href="/adminUsers" class="graficasDatos">
+    <div>Usuarios premium
+      <hr />
+      <!-- Grafico -->
       <div>
-        <div style="display: block">
-          <canvas baseChart [data]="doughnutChartPremiumUsers" [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType">
-          </canvas>
+        <div>
+          <div style="display: block">
+            <canvas baseChart [data]="doughnutChartPremiumUsers" [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
         </div>
       </div>
+      <!-- Grafico -->
+      <hr />
     </div>
-    <!-- Grafico -->
-    <hr />
-  </div>
+  </a>
+
+
   <div class="graficasDatos">Listas creadas
     <hr />
     <!-- Grafico -->
