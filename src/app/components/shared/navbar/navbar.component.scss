@@ -1,9 +1,10 @@
-#header {
-  height: 100%;
-}
 .minium-header-pads {
   padding-top: 1%;
   padding-bottom: 1%;
+}
+
+.mat-drawer-content {
+  display: contents;
 }
 
 .sidenav {
@@ -15,17 +16,14 @@
 }
 
 .mat-toolbar.mat-primary {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
-/* Remain hidden until the screen is smaller than X px */
-@media (min-width: 600px) {
-  .sidenav,
-  .sidenav-btn {
-    display: none !important;
-  }
+.top-navbar-item {
+  display: none;
 }
 
 .hidden {
@@ -33,6 +31,7 @@
 }
 
 .fill-space {
+  -webkit-box-flex: 1;
   flex: 1 1 auto;
 }
 
@@ -59,4 +58,40 @@ img {
 
 .logo-header-white {
   height: 28px !important;
+}
+
+.logo-header {
+  cursor: pointer;
+}
+
+/* Remain hidden until the screen is smaller than X px */
+@media (min-width: 850px) {
+  .sidenav,
+  .sidenav-btn {
+    display: none !important;
+  }
+  .top-navbar-item {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .top-navbar-item {
+    display: inline !important;
+    font-size: 14px;
+  }
+  .material-icons {
+    font-size: 18.5px !important;
+    padding-top: 2px;
+    vertical-align: middle;
+  }
+  .mat-button {
+    padding: 0 6px;
+  }
+}
+
+@media (max-width: 882px) {
+  .mat-button {
+    padding: 0 3px;
+  }
 }
