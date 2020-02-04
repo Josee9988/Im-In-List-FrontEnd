@@ -59,6 +59,7 @@ import { StoreModule } from '@ngrx/store';
 // import { reducers, metaReducers } from './reducers';
 import { UserReducer } from './reducers/User.reducer';
 import { UsersTableComponent } from './components/users-table/users-table.component';
+import { ListsTableComponent } from './components/lists-table/lists-table.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
     AppComponent,
     routingComponents,
     UsersTableComponent,
+    ListsTableComponent,
   ],
   imports: [
     BrowserModule,

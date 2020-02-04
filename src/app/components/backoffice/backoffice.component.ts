@@ -51,6 +51,8 @@ export class BackofficeComponent implements OnInit {
   doughnutChartRegisterUsers: Array<any>;
   doughnutChartPremiumUsers: Array<any>;
   doughnutChartCreatedLists: Array<any>;
+
+
   constructor() {
     this.registradosEnero = 15;
     this.registradosAgosto = 2;

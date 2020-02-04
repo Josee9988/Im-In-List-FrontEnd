@@ -16,6 +16,7 @@ import { ListComponent } from './components/list/list.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { BackofficeComponent } from './components/backoffice/backoffice.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
+import { ListsTableComponent } from './components/lists-table/lists-table.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'admin', component: BackofficeComponent },
   { path: 'adminUsers', component: UsersTableComponent },
+  { path: 'adminLists', component: ListsTableComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
@@ -40,4 +42,4 @@ export class AppRoutingModule { }
 export const routingComponents: Array<any> = [NavbarComponent, FooterComponent, NotFoundComponent,
   LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent,
-  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent];
+  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent];
