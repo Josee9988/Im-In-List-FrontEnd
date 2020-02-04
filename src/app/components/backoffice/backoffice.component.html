@@ -1,20 +1,23 @@
 <div class="graficas">
-  <div class="graficasDatos">
-    <p>Usuarios registrados</p>
-    <hr />
-    <!-- Grafico -->
+  <a href="/adminUsers" class="graficasDatos">
     <div>
+      <p>Usuarios registrados</p>
+      <hr />
+      <!-- Grafico -->
       <div>
-        <div style="display: block">
-          <canvas baseChart [data]="doughnutChartRegisterUsers" [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType">
-          </canvas>
+        <div>
+          <div style="display: block">
+            <canvas baseChart [data]="doughnutChartRegisterUsers" [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
         </div>
       </div>
+      <!-- Grafico -->
+      <hr />
     </div>
-    <!-- Grafico -->
-    <hr />
-  </div>
+  </a>
+
   <div class="graficasDatos">Usuarios premium
     <hr />
     <!-- Grafico -->
