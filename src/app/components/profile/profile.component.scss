@@ -18,74 +18,35 @@
   display: flex;
 }
 .cardNumbers {
-  width: 40%;
-  margin-left: 2%;
-  height: 100px;
-  background-color: #dddddd;
+  width: 80%;
+  margin-left: 10%;
+  height: 350px;
+  background-color: #e7e7e7;
+}
+mat-card-title {
+  text-align: center;
 }
 .cardNumbers:hover {
   background-color: #b1b1b1;
   box-shadow: 1px 1px 5px;
-  width: 50%;
-  height: 120px;
+  margin-left: 5%;
+  width: 90%;
+  height: 380px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-
-.wrapper {
-  height: 30%;
+.graficas {
+  display: inline-flex;
+  width: 100%;
+}
+a:link {
+  text-decoration: none;
+}
+.graficasDatos {
+  align-content: center;
+  text-align: center;
+  background-color: #ebebeb;
   width: 30%;
-  position: absolute;
-  display: -webkit-box;
-  display: flex;
-}
-.wrapper span {
-  color: #673ab7;
-}
-mat-card-title {
-  font-size: 2vw;
-}
-.box {
-  display: inline-block;
-  overflow: hidden;
-  height: 1em;
-  line-height: 1em;
-  font-weight: bold;
-  font-size: 3vw;
-}
-
-.box:after {
-  position: relative;
-  white-space: pre;
-  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
-}
-.box.third-number:after {
-  -webkit-animation: animate 1s steps(10) infinite;
-  animation: animate 1s steps(10) infinite;
-}
-.box.second-number:after {
-  -webkit-animation: animate 10s steps(10) infinite;
-  animation: animate 10s steps(10) infinite;
-}
-.box.first-number:after {
-  -webkit-animation: animate 100s steps(10) infinite;
-  animation: animate 100s steps(10) infinite;
-}
-
-@-webkit-keyframes animate {
-  0% {
-    top: 0%;
-  }
-  100% {
-    top: -29.3vw;
-  }
-}
-
-@keyframes animate {
-  0% {
-    top: 0%;
-  }
-  100% {
-    top: -29.3vw;
-  }
+  height: 100%;
+  margin-left: 2.3%;
 }

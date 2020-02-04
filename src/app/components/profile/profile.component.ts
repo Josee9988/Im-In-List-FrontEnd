@@ -1,6 +1,8 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { UserService } from './../../services/user.service';
 import { User } from './../../models/Users.model';
+import { ChartType } from 'chart.js';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,17 +12,32 @@ import { User } from './../../models/Users.model';
 
 @Injectable()
 export class ProfileComponent implements OnInit {
+  // Variables para el gráfico
+  listasCreadas: number;
+  listasParticipadas: number;
+
+  // Titulo variables y datos guardados
+  doughnutChartLabels: string[];
+  doughnutChartDataLists: Array<any>;
+
   user: User[];
   nickname: string;
   email: string;
   profilePicture: string;
 
 
+  // Tipo de grafico que se mostrará
+  public doughnutChartType: ChartType = 'doughnut';
+
   // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserService: UserService) { // injected
+  constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
     this.nickname = 'Carlos Alfredo';
     this.email = 'carlos98@gmail.com';
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
+    this.listasCreadas = 2;
+    this.listasParticipadas = 5;
+
+
 
   }
 
@@ -35,6 +52,18 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     // this.getUser();
+
+    // Clases donde se almacenerán los valores
+    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
+
+    // Valores obtenidos de la base de datos para usuarios premium
+    this.doughnutChartDataLists = [
+      [this.listasCreadas, this.listasParticipadas],
+    ];
+
+    // Recibimos el ID
+    const id = this.router.snapshot.paramMap.get('id');
+    console.log(id);
   }
 
 
