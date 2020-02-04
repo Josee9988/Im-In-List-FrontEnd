@@ -82,6 +82,10 @@
   fill: #53515b;
 }
 
+#planet {
+  cursor: pointer;
+}
+
 .particle-error,
 .permission_denied,
 #particles-js {
@@ -199,6 +203,7 @@
 }
 
 #astronaut {
+  cursor: pointer;
   width: 43px;
   position: absolute;
   right: 20px;

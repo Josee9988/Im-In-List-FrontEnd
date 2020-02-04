@@ -1,11 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [ngClass]="{hidden: !(isHandset$ | async) === true}" #drawer class="sidenav" color="primary"
     fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" (click)="drawer.toggle()">
     <mat-toolbar>
-      <img class="logo-header" src="../../../../assets/images/iLogo.png">I'm in List
+      <img class="logo-header" routerLink="/home" routerLinkActive="active"
+        src="../../../../assets/images/iLogo.png">I'm in List
     </mat-toolbar>
-    <mat-nav-list id="header">
+    <mat-nav-list>
       <h2 matSubheader>Elementos de navegación</h2>
       <li *ngFor="let item of navbarLinks">
         <a mat-list-item routerLink="/{{ item.route }}" routerLinkActive="active">
@@ -26,9 +27,10 @@
           List
         </a>
       </span>
+
       <span class="fill-space"></span>
       <div *ngFor="let item of navbarLinks">
-        <button routerLink="/{{ item.route }}" routerLinkActive="active" mat-button>
+        <button class="top-navbar-item" routerLink="/{{ item.route }}" routerLinkActive="active" mat-button>
           <mat-icon>
             {{item.icon}} </mat-icon>{{item.field}}
         </button>
