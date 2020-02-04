@@ -1,5 +1,5 @@
 export interface Lista {
-    id: number;
+    id?: number;
     idUsuarioCreador: number;
     titulo: string;
     descripcion: string;
