@@ -1,23 +1,38 @@
 <div class="list-title">
+  <mat-card>
+    <mat-card-content>
+      <mat-card-title>
+        <input class="list-tittle-input" [(ngModel)]="list.title" placeholder="Tu título aquí..." />
 
-  <h1>duwei</h1>
-  <input [(ngModel)]="list.title" placeholder="tu título aquí" />
+      </mat-card-title>
+
+    </mat-card-content>
+  </mat-card>
 </div>
 
 <div class="login-register-bg">
   <div class="login-register-container">
     <mat-card>
-      <mat-card-title>
-        <mat-icon>post_add</mat-icon><input [(ngModel)]="list.subtitle" placeholder="tu subtítulo aquí" />
-
-      </mat-card-title>
       <mat-card-content>
-        <form class="form-container">
+        <mat-icon>post_add</mat-icon>
+        <input [(ngModel)]="list.subtitle" class="list-subtitle-input" placeholder="Tu subtítulo aquí..." />
 
-          <!-- Name field -->
+
+
+        <form class="form-container">
+          <div class="spacer"></div>
+          <hr>
+          <mat-label>Tus elementos:</mat-label>
+
+          <mat-form-field appearance="outline">
+            <input type="text" matInput placeholder="Tu elemento aquí" autocomplete="off">
+            <mat-hint>Tu elemento de lista</mat-hint>
+          </mat-form-field>
+          <div class="spacer"></div>
+
           <mat-form-field appearance="outline">
             <mat-label>Nuevo elemento</mat-label>
-            <input type="text" matInput placeholder="tu elemento aquí" autocomplete="off">
+            <input type="text" matInput placeholder="Tu elemento aquí" autocomplete="off">
             <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
           </mat-form-field>
           <div class="spacer"></div>

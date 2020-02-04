@@ -39,3 +39,22 @@ list-title .example-right-align {
   align-items: center;
   margin-top: 7%;
 }
+
+.list-tittle-input,
+.list-title > mat-card {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 95%;
+  text-align: center;
+  border: none;
+}
+
+.mat-card {
+  box-shadow: none !important;
+}
+
+.list-subtitle-input {
+  width: 95%;
+  border: none;
+}
