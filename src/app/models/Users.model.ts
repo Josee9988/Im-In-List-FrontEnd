@@ -1,8 +1,7 @@
 export interface User {
-    id: number;
+    id?: number;
     name: string;
     email: string;
-    password?: string;
     role: number;
     listasCreadas: Array<number>;
     listasParticipantes: Array<number>;

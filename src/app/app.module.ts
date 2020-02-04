@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 /**
@@ -55,11 +56,10 @@ import { ChartsModule } from 'ng2-charts';
  * Components
  */
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
 // import { reducers, metaReducers } from './reducers';
-import { UserReducer } from './reducers/User.reducer';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { ListsTableComponent } from './components/lists-table/lists-table.component';
+
 
 
 @NgModule({
@@ -113,9 +113,10 @@ import { ListsTableComponent } from './components/lists-table/lists-table.compon
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    FormsModule, ReactiveFormsModule,
-    StoreModule.forRoot({ users: UserReducer }),
-    ChartsModule
+    FormsModule,
+    ChartsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
