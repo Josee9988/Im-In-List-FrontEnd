@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { UserService } from './../../services/user.service';
 import { User } from './../../models/Users.model';
 import { ChartType } from 'chart.js';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -29,12 +30,14 @@ export class ProfileComponent implements OnInit {
   public doughnutChartType: ChartType = 'doughnut';
 
   // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserService: UserService) { // injected
+  constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
     this.nickname = 'Carlos Alfredo';
     this.email = 'carlos98@gmail.com';
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
     this.listasCreadas = 2;
     this.listasParticipadas = 5;
+
+
 
   }
 
@@ -57,6 +60,10 @@ export class ProfileComponent implements OnInit {
     this.doughnutChartDataLists = [
       [this.listasCreadas, this.listasParticipadas],
     ];
+
+    // Recibimos el ID
+    const id = this.router.snapshot.paramMap.get('id');
+    console.log(id);
   }
 
 
