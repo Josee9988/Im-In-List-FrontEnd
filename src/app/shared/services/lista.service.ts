@@ -6,9 +6,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Lista } from './../models/Listas.model';
+import { Lista } from '../models/Listas.model';
 
-import listasurl from './../../assets/config.json';
+import listasurl from './../../../assets/config.json';
 
 @Injectable({
   providedIn: 'root'

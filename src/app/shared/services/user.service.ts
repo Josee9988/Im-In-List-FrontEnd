@@ -6,9 +6,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from './../models/Users.model';
+import { User } from '../models/Users.model';
 
-import usersUrl from './../../assets/config.json';
+import usersUrl from './../../../assets/config.json';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { UserService } from './../../services/user.service';
-import { User } from './../../models/Users.model';
+import { UserService } from './../../shared/services/user.service';
+import { User } from '../../shared/models/Users.model';
 
 @Component({
   selector: 'app-profile',
