@@ -53,9 +53,7 @@ import { MatTreeModule } from '@angular/material/tree';
  * Components
  */
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
-// import { reducers, metaReducers } from './reducers';
-import { UserReducer } from './reducers/User.reducer';
+
 
 
 @NgModule({
@@ -107,8 +105,8 @@ import { UserReducer } from './reducers/User.reducer';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    FormsModule, ReactiveFormsModule,
-    StoreModule.forRoot({ users: UserReducer }),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
