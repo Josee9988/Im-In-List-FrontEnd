@@ -1,1 +1,32 @@
-<p>list works!</p>
+<div class="list-title">
+
+  <h1>duwei</h1>
+  <input [(ngModel)]="list.title" placeholder="tu título aquí" />
+</div>
+
+<div class="login-register-bg">
+  <div class="login-register-container">
+    <mat-card>
+      <mat-card-title>
+        <mat-icon>post_add</mat-icon><input [(ngModel)]="list.subtitle" placeholder="tu subtítulo aquí" />
+
+      </mat-card-title>
+      <mat-card-content>
+        <form class="form-container">
+
+          <!-- Name field -->
+          <mat-form-field appearance="outline">
+            <mat-label>Nuevo elemento</mat-label>
+            <input type="text" matInput placeholder="tu elemento aquí" autocomplete="off">
+            <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
+          </mat-form-field>
+          <div class="spacer"></div>
+
+          <!-- Submit button -->
+          <button class="submit-login-register" type="submit" matTooltip="Crea la lista" matTooltipPosition="below"
+            mat-raised-button color="primary">Crear</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
