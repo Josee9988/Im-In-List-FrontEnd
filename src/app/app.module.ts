@@ -58,12 +58,14 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 // import { reducers, metaReducers } from './reducers';
 import { UserReducer } from './reducers/User.reducer';
+import { UsersTableComponent } from './components/users-table/users-table.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    UsersTableComponent,
   ],
   imports: [
     BrowserModule,
