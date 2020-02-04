@@ -28,9 +28,11 @@ const routes: Routes = [
   { path: 'about', component: AboutUsComponent },
   { path: 'newList', component: ListComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'admin', component: BackofficeComponent },
-  { path: 'adminUsers', component: UsersTableComponent },
-  { path: 'adminLists', component: ListsTableComponent },
+  {
+    path: 'admin', component: BackofficeComponent, children: [
+      { path: 'adminUsers', component: UsersTableComponent },
+      { path: 'adminLists', component: ListsTableComponent }]
+  },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
