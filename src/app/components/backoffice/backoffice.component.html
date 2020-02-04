@@ -35,20 +35,21 @@
     </div>
   </a>
 
-
-  <div class="graficasDatos">Listas creadas
-    <hr />
-    <!-- Grafico -->
-    <div>
+  <a href="/adminLists" class="graficasDatos">
+    <div>Listas creadas
+      <hr />
+      <!-- Grafico -->
       <div>
-        <div style="display: block">
-          <canvas baseChart [data]="doughnutChartCreatedLists" [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType">
-          </canvas>
+        <div>
+          <div style="display: block">
+            <canvas baseChart [data]="doughnutChartCreatedLists" [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
         </div>
       </div>
+      <!-- Grafico -->
+      <hr />
     </div>
-    <!-- Grafico -->
-    <hr />
-  </div>
+  </a>
 </div>

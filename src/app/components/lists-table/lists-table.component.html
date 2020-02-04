@@ -9,33 +9,27 @@
       </ng-container>
 
       <!-- nombre Column -->
-      <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      <ng-container matColumnDef="idCreador">
+        <th mat-header-cell *matHeaderCellDef> ID usuario creador </th>
+        <td mat-cell *matCellDef="let element"> {{element.idCreador}} </td>
       </ng-container>
 
       <!-- email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef> Título </th>
+        <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
       </ng-container>
 
       <!-- rol Column -->
-      <ng-container matColumnDef="rol">
-        <th mat-header-cell *matHeaderCellDef> Rol </th>
-        <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
       </ng-container>
 
       <!-- listasCreadas Column -->
-      <ng-container matColumnDef="listasCreadas">
-        <th mat-header-cell *matHeaderCellDef> Listas creadas </th>
-        <td mat-cell *matCellDef="let element"> {{element.listasCreadas}} </td>
-      </ng-container>
-
-      <!-- listasParticipantes Column -->
-      <ng-container matColumnDef="listasParticipante">
-        <th mat-header-cell *matHeaderCellDef> Listas participante </th>
-        <td mat-cell *matCellDef="let element"> {{element.listasParticipante}} </td>
+      <ng-container matColumnDef="elemento">
+        <th mat-header-cell *matHeaderCellDef> Elementos </th>
+        <td mat-cell *matCellDef="let element"> {{element.elemento}} </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">
