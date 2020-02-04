@@ -64,6 +64,12 @@ img {
   cursor: pointer;
 }
 
+@media (max-width: 882px) and (max-width: 991.99px) {
+  .mat-button {
+    padding: 0 3px;
+  }
+}
+
 /* Remain hidden until the screen is smaller than X px */
 @media (min-width: 850px) {
   .sidenav,
@@ -75,7 +81,7 @@ img {
   }
 }
 
-@media (max-width: 992px) {
+@media (min-width: 992px) {
   .top-navbar-item {
     display: inline !important;
     font-size: 14px;
@@ -87,11 +93,5 @@ img {
   }
   .mat-button {
     padding: 0 6px;
-  }
-}
-
-@media (max-width: 882px) {
-  .mat-button {
-    padding: 0 3px;
   }
 }
