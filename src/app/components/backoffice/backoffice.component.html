@@ -1,1 +1,55 @@
-<p>backoffice works!</p>
+<div class="graficas">
+  <a href="/adminUsers" class="graficasDatos">
+    <div>
+      <p>Usuarios registrados</p>
+      <hr />
+      <!-- Grafico -->
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart [data]="doughnutChartRegisterUsers" [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <!-- Grafico -->
+      <hr />
+    </div>
+  </a>
+  <a href="/adminUsers" class="graficasDatos">
+    <div>Usuarios premium
+      <hr />
+      <!-- Grafico -->
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart [data]="doughnutChartPremiumUsers" [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <!-- Grafico -->
+      <hr />
+    </div>
+  </a>
+
+  <a href="/adminLists" class="graficasDatos">
+    <div>Listas creadas
+      <hr />
+      <!-- Grafico -->
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart [data]="doughnutChartCreatedLists" [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <!-- Grafico -->
+      <hr />
+    </div>
+  </a>
+</div>
