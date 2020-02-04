@@ -7,7 +7,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './../models/Users.model';
-import { HttpErrorHandler, HandleError } from '../services/http-error-handler.service';
 
 import usersUrl from './../../assets/config.json';
 
@@ -24,7 +23,6 @@ const httpOptions = {
 
 export class UserService {
   private readonly USER_URL = usersUrl.usersUrl;
-  private handleError: HandleError;
 
   constructor(private http: HttpClient/*, httpErrorHandler: HttpErrorHandler,
     // tslint:disable-next-line: align
@@ -35,7 +33,7 @@ export class UserService {
     return this.http.get<User[]>(this.USER_URL)
       .pipe(tap( // Log the result or error
         data => console.log(data),
-        error => console.log(error)
+        error => console.error(error)
       ));
   }
 
