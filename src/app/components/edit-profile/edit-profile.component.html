@@ -1,1 +1,55 @@
-<p>edit-profile works!</p>
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>create</mat-icon>Editar perfil
+    </mat-card-title>
+    <mat-card-subtitle>Personaliza con total libertad tu perfil</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <hr />
+    <div class="graficasListas">
+      <form class="form-container">
+
+        <!-- Name field -->
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input type="text" [formControl]="name" matInput placeholder="ej: ElMusk62" autocomplete="on">
+          <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+          <mat-hint>Introduce tu nombre de usuario</mat-hint>
+        </mat-form-field>
+
+        <!-- Email field -->
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" autocomplete="on">
+          <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+          <mat-hint>Introduce tu email</mat-hint>
+          <div class="spacer"></div>
+        </mat-form-field>
+
+        <!-- Password field -->
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
+            [type]="hide ? 'password' : 'text'" autocomplete="current-password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint>Introduce tu contraseña</mat-hint>
+          <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+    <hr />
+  </mat-card-content>
+  <div class="actions">
+    <button mat-raised-button color="primary" matTooltip="Guardar cambios" matTooltipPosition="right"
+      class="actionsButton">Guardar cambios </button>
+    <button routerLink="/showParticipated" mat-raised-button color="accent"
+      matTooltip="Reiniciar campos de los formularios" matTooltipPosition="right" class="actionsButton">Reiniciar
+      campos</button>
+    <button mat-raised-button color="warn" matTooltip="Descarcart cambios " matTooltipPosition="right"
+      class="actionsButton">Descartar cambios</button>
+  </div>
+</mat-card>
