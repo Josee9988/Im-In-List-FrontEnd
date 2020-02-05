@@ -1,18 +1,17 @@
-<form (ngSubmit)="onSubmit()" novalidate>
-  <div class="list-title">
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>
-          <!-- Title -->
-          <input class="list-tittle-input" [(ngModel)]="list.title" [ngModelOptions]="{standalone: true}"
-            placeholder="Tu título aquí..." />
-        </mat-card-title>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
+<form (ngSubmit)="onSubmit()" novalidate style="vertical-align:top;">
   <div class="login-register-bg">
     <div class="login-register-container">
+      <div class="list-title">
+        <mat-card>
+          <mat-card-content>
+            <mat-card-title>
+              <!-- Title -->
+              <input class="list-tittle-input" [(ngModel)]="list.title" [ngModelOptions]="{standalone: true}"
+                placeholder="Tu título aquí..." />
+            </mat-card-title>
+          </mat-card-content>
+        </mat-card>
+      </div>
       <mat-card>
         <mat-card-content>
           <mat-icon>post_add</mat-icon>
