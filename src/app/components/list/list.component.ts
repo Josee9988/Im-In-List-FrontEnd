@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -6,14 +6,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  list: any;
+  @Input() list: any = [];
   constructor() { }
 
   ngOnInit() {
-    this.list = {
-      title: '',
-      subtitle: ''
-    };
+    this.list.elements = [{
+      order: 1,
+      text: 'Lechugas',
+      master: true,
+    },
+    {
+      order: 2,
+      text: 'Tomates',
+      master: true,
+    },
+    {
+      order: 3,
+      text: 'Plátanos',
+      master: false,
+    },
+    {
+      order: 4,
+      text: 'Duweis',
+      master: true,
+    }];
+  }
+
+  addElement(element: any): void {
+    console.log(element);
+
   }
 
 }
