@@ -57,17 +57,12 @@ import { ChartsModule } from 'ng2-charts';
  */
 import { AppComponent } from './app.component';
 // import { reducers, metaReducers } from './reducers';
-import { UsersTableComponent } from './components/users-table/users-table.component';
-import { ListsTableComponent } from './components/lists-table/lists-table.component';
-
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    UsersTableComponent,
-    ListsTableComponent,
   ],
   imports: [
     BrowserModule,

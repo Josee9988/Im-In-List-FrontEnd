@@ -14,9 +14,9 @@ import { PricingComponent } from './components/pricing/pricing.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ListComponent } from './components/list/list.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { BackofficeComponent } from './components/backoffice/backoffice.component';
-import { UsersTableComponent } from './components/users-table/users-table.component';
-import { ListsTableComponent } from './components/lists-table/lists-table.component';
+import { BackofficeComponent } from './components/admin/backoffice/backoffice.component';
+import { UsersTableComponent } from './components/admin/users-table/users-table.component';
+import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
@@ -29,8 +29,8 @@ const routes: Routes = [
   { path: 'newList', component: ListComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'admin', component: BackofficeComponent },
-  { path: 'adminUsers', component: UsersTableComponent },
-  { path: 'adminLists', component: ListsTableComponent },
+  { path: 'admin/adminUsers', component: UsersTableComponent },
+  { path: 'admin/adminLists', component: ListsTableComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
