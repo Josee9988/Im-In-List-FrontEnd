@@ -31,6 +31,8 @@ const routes: Routes = [
   { path: 'admin', component: BackofficeComponent },
   { path: 'admin/adminUsers', component: UsersTableComponent },
   { path: 'admin/adminLists', component: ListsTableComponent },
+  { path: 'showLists', component: ListsTableComponent },
+  { path: 'showParticipated', component: ListsTableComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
