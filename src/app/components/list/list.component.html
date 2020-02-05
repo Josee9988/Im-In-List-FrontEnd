@@ -6,7 +6,7 @@
           <mat-card-content>
             <mat-card-title>
               <!-- Title -->
-              <input class="list-tittle-input" [(ngModel)]="list.title" [ngModelOptions]="{standalone: true}"
+              <input class="list-tittle-input" [(ngModel)]="list.titulo" [ngModelOptions]="{standalone: true}"
                 placeholder="Tu título aquí..." />
             </mat-card-title>
           </mat-card-content>
@@ -16,7 +16,7 @@
         <mat-card-content class="elements-list" [ngStyle]="{'height.px': windowHeight}">
           <mat-icon>post_add</mat-icon>
           <!-- Subtitle -->
-          <input [(ngModel)]="list.subtitle" [ngModelOptions]="{standalone: true}" class="list-subtitle-input"
+          <input [(ngModel)]="list.descripcion" [ngModelOptions]="{standalone: true}" class="list-subtitle-input"
             placeholder="Tu subtítulo aquí..." />
 
           <div class="form-container">
@@ -25,7 +25,7 @@
             <mat-label>Tus elementos:</mat-label>
 
             <!-- Your elements -->
-            <mat-form-field appearance="outline" *ngFor="let element of list.elements; trackBy:list.elements.order">
+            <mat-form-field appearance="outline" *ngFor="let element of list.elementos; trackBy:list.elementos.order">
               <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
                 matInput placeholder="Tu elemento aquí" autocomplete="off">
               <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
