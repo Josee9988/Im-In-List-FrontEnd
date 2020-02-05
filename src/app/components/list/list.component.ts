@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   @Input() list: any = [];
+  @Input() newElement: string;
   constructor() { }
 
   ngOnInit() {
@@ -32,9 +33,22 @@ export class ListComponent implements OnInit {
     }];
   }
 
-  addElement(element: any): void {
-    console.log(element);
+  addElement(): void {
+    this.newElement.trim();
+    if (this.newElement) {
+      this.list.elements.push({
+        order: 4,
+        text: this.newElement,
+        master: true,
+      });
+      this.newElement = '';
+    }
 
+
+  }
+
+  onSubmit(): void {
+    console.log(this.list);
   }
 
 }

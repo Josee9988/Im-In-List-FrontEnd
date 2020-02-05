@@ -1,47 +1,53 @@
-<div class="list-title">
-  <mat-card>
-    <mat-card-content>
-      <mat-card-title>
-        <input class="list-tittle-input" [(ngModel)]="list.title" placeholder="Tu título aquí..." />
-
-      </mat-card-title>
-
-    </mat-card-content>
-  </mat-card>
-</div>
-
-<div class="login-register-bg">
-  <div class="login-register-container">
+<form (ngSubmit)="onSubmit()" novalidate>
+  <div class="list-title">
     <mat-card>
       <mat-card-content>
-        <mat-icon>post_add</mat-icon>
-        <input [(ngModel)]="list.subtitle" class="list-subtitle-input" placeholder="Tu subtítulo aquí..." />
-
-
-
-        <form class="form-container">
-          <div class="spacer"></div>
-          <hr>
-          <mat-label>Tus elementos:</mat-label>
-
-          <mat-form-field appearance="outline" *ngFor="let element of list.elements; trackBy:list.elements.order">
-            <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
-              matInput placeholder="Tu elemento aquí" autocomplete="off">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Nuevo elemento</mat-label>
-            <input type="text" matInput #myInput ng-blur="addElement(myInput.value)" placeholder="Tu elemento aquí"
-              autocomplete="off">
-            <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
-          </mat-form-field>
-          <div class="spacer"></div>
-
-          <!-- Submit button -->
-          <button class="submit-login-register" type="submit" matTooltip="Crea la lista" matTooltipPosition="below"
-            mat-raised-button color="primary">Crear</button>
-        </form>
+        <mat-card-title>
+          <!-- Title -->
+          <input class="list-tittle-input" [(ngModel)]="list.title" [ngModelOptions]="{standalone: true}"
+            placeholder="Tu título aquí..." />
+        </mat-card-title>
       </mat-card-content>
     </mat-card>
   </div>
-</div>
+
+  <div class="login-register-bg">
+    <div class="login-register-container">
+      <mat-card>
+        <mat-card-content>
+          <mat-icon>post_add</mat-icon>
+          <!-- Subtitle -->
+          <input [(ngModel)]="list.subtitle" [ngModelOptions]="{standalone: true}" class="list-subtitle-input"
+            placeholder="Tu subtítulo aquí..." />
+
+          <div class="form-container">
+            <div class="spacer"></div>
+            <hr>
+            <mat-label>Tus elementos:</mat-label>
+
+            <!-- Your elements -->
+            <mat-form-field appearance="outline" *ngFor="let element of list.elements; trackBy:list.elements.order">
+              <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
+                matInput placeholder="Tu elemento aquí" autocomplete="off">
+            </mat-form-field>
+
+
+            <!-- Add new -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nuevo elemento</mat-label>
+              <input type="text" matInput [(ngModel)]="newElement" name="newElement" (blur)="addElement()"
+                placeholder="Tu elemento aquí" autocomplete="off">
+              <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
+            </mat-form-field>
+
+            <div class="spacer"></div>
+
+            <!-- Submit button -->
+            <button class="submit-login-register" type="submit" matTooltip="Crea tu lista" matTooltipPosition="below"
+              mat-raised-button color="primary">Crear</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</form>
