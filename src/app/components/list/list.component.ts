@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ILista } from '../../shared/models/IListas.model';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 
 @Component({
@@ -66,6 +68,17 @@ export class ListComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.list);
+
+  }
+
+
+  drop(event: CdkDragDrop<string[]>) {
+    const aux = this.list.elementos[event.currentIndex].order;
+    this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
+    this.list.elementos[event.previousIndex].order = aux;
+
+
+    moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
 
   }
 

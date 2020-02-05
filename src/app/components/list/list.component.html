@@ -25,20 +25,22 @@
             <mat-label>Tus elementos:</mat-label>
 
             <!-- Your elements -->
-            <div *ngFor="let element of list.elementos; trackBy:list.elementos.order"
-              [ngClass]="{'child-list': !element.master}">
-              <mat-icon *ngIf="!element.master" class="icon-slave">keyboard_return</mat-icon>
+            <div cdkDropList (cdkDropListDropped)="drop($event)">
+              <div *ngFor="let element of list.elementos; trackBy:list.elementos.order"
+                [ngClass]="{'child-list': !element.master}" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
-              <mat-form-field appearance="outline">
+                <mat-icon *ngIf="!element.master" class="icon-slave">keyboard_return</mat-icon>
+                <mat-form-field appearance="outline">
+                  <input type="text" name="element.text" [(ngModel)]="element.text"
+                    [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí" autocomplete="off">
+                  <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
+                    (click)="deleteElement(element.order)">
+                    <mat-icon class="c-red">delete</mat-icon>
+                  </button>
+                </mat-form-field>
 
-
-                <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
-                  matInput placeholder="Tu elemento aquí" autocomplete="off">
-                <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                  (click)="deleteElement(element.order)">
-                  <mat-icon class="c-red">delete</mat-icon>
-                </button>
-              </mat-form-field>
+              </div>
             </div>
 
             <!-- Add new -->
