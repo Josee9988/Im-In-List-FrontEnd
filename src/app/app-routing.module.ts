@@ -17,6 +17,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { BackofficeComponent } from './components/admin/backoffice/backoffice.component';
 import { UsersTableComponent } from './components/admin/users-table/users-table.component';
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'admin/adminLists', component: ListsTableComponent },
   { path: 'showLists', component: ListsTableComponent },
   { path: 'showParticipated', component: ListsTableComponent },
+  { path: 'editProfile', component: EditProfileComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
