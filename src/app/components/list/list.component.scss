@@ -25,12 +25,9 @@
   -webkit-box-direction: normal;
   flex-direction: column;
 }
-list-title .example-right-align {
-  text-align: right;
-}
 
 .submit-login-register {
-  margin-top: 10px;
+  width: 100%;
 }
 
 .spacer {
@@ -67,9 +64,13 @@ list-title .example-right-align {
   border: 1px solid #ccc;
 }
 
-.child-list {
-  padding-left: 10%;
+.element-drag {
+  padding-left: 0.3%;
   display: flex;
+}
+
+.child-list {
+  padding-left: 7.5%;
 }
 
 .mat-form-field {
@@ -79,21 +80,10 @@ list-title .example-right-align {
 .icon-slave {
   margin-top: auto;
   margin-bottom: auto;
-  transform: rotateY(180deg);
 }
 
-.example-box {
-  padding: 20px 10px;
-  border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  cursor: move;
-  background: white;
-  font-size: 14px;
+.rotate-y {
+  transform: rotateY(180deg);
 }
 
 .cdk-drag-preview {
@@ -104,14 +94,6 @@ list-title .example-right-align {
 }
 
 .cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.example-box:last-child {
-  border: none;
-}
-
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 

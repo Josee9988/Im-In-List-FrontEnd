@@ -76,8 +76,6 @@ export class ListComponent implements OnInit {
     const aux = this.list.elementos[event.currentIndex].order;
     this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
     this.list.elementos[event.previousIndex].order = aux;
-
-
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
 
   }

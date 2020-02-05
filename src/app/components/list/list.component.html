@@ -27,10 +27,14 @@
             <!-- Your elements -->
             <div cdkDropList (cdkDropListDropped)="drop($event)">
               <div *ngFor="let element of list.elementos; trackBy:list.elementos.order"
-                [ngClass]="{'child-list': !element.master}" cdkDrag>
+                [ngClass]="{'child-list': !element.master}" class="element-drag" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
-                <mat-icon *ngIf="!element.master" class="icon-slave">keyboard_return</mat-icon>
+                <mat-icon *ngIf="element.master" class="icon-slave" matTooltip="Haz un subelemento"
+                  matTooltipPosition="left">double_arrow</mat-icon>
+                <mat-icon *ngIf="!element.master" class="icon-slave rotate-y" matTooltip="Subelemento"
+                  matTooltipPosition="left">keyboard_return</mat-icon>
+
                 <mat-form-field appearance="outline">
                   <input type="text" name="element.text" [(ngModel)]="element.text"
                     [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí" autocomplete="off">
@@ -53,14 +57,12 @@
                 <mat-icon>library_add</mat-icon>
               </button>
             </mat-form-field>
-
             <div class="spacer"></div>
-
-            <!-- Submit button -->
-            <button class="submit-login-register" type="submit" matTooltip="Crea tu lista" matTooltipPosition="below"
-              mat-raised-button color="primary">Crear</button>
           </div>
         </mat-card-content>
+        <!-- Submit button -->
+        <button class="submit-login-register" type="submit" matTooltip="Crea tu lista" matTooltipPosition="below"
+          mat-raised-button color="primary">Crear</button>
       </mat-card>
     </div>
   </div>
