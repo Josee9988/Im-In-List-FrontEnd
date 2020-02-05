@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ListComponent implements OnInit {
   @Input() list: any = [];
   @Input() newElement: string;
+  @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
+
   constructor() { }
 
   ngOnInit() {
@@ -34,8 +36,8 @@ export class ListComponent implements OnInit {
   }
 
   addElement(): void {
-    this.newElement.trim();
-    if (this.newElement) {
+    if (this.newElement) { // if the element exisys
+      this.newElement.trim();
       this.list.elements.push({
         order: 4,
         text: this.newElement,
@@ -43,12 +45,12 @@ export class ListComponent implements OnInit {
       });
       this.newElement = '';
     }
-
-
+    this.newElementInput.nativeElement.focus(); // add the focus again
   }
 
   onSubmit(): void {
     console.log(this.list);
+
   }
 
 }

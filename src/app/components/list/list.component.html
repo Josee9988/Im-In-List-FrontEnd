@@ -35,8 +35,8 @@
             <!-- Add new -->
             <mat-form-field appearance="outline">
               <mat-label>Nuevo elemento</mat-label>
-              <input type="text" matInput [(ngModel)]="newElement" name="newElement" (blur)="addElement()"
-                placeholder="Tu elemento aquí" autocomplete="off">
+              <input type="text" matInput [(ngModel)]="newElement" #newElementInput name="newElementInput"
+                (blur)="addElement()" placeholder="Tu elemento aquí" autocomplete="off">
               <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
             </mat-form-field>
 
