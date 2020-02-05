@@ -21,6 +21,11 @@ export class UsersTableComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 }
 
 export interface IPeriodicElement {
