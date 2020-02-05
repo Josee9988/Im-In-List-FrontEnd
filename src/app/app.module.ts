@@ -56,6 +56,7 @@ import { ChartsModule } from 'ng2-charts';
  * Components
  */
 import { AppComponent } from './app.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 // import { reducers, metaReducers } from './reducers';
 
 
@@ -63,6 +64,7 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent,
     routingComponents,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
