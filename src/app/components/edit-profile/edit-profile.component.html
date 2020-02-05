@@ -14,7 +14,7 @@
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input type="text" [formControl]="name" matInput placeholder="ej: ElMusk62" autocomplete="on">
-          <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+          <mat-error *ngIf="name.invalid">{{super.getNameErrorMessage()}}</mat-error>
           <mat-hint>Introduce tu nombre de usuario</mat-hint>
         </mat-form-field>
 
@@ -22,7 +22,7 @@
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" autocomplete="on">
-          <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+          <mat-error *ngIf="email.invalid">{{super.getEmailErrorMessage()}}</mat-error>
           <mat-hint>Introduce tu email</mat-hint>
           <div class="spacer"></div>
         </mat-form-field>
@@ -37,7 +37,7 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-hint>Introduce tu contraseña</mat-hint>
-          <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+          <mat-error *ngIf="password.invalid">{{super.getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </form>
     </div>
