@@ -4,3 +4,12 @@
 table {
   width: 100%;
 }
+.filter {
+  margin-left: 1%;
+  margin-top: 1%;
+  width: 10%;
+}
+.filter:hover {
+  width: 30%;
+  transition: 0.2s;
+}
