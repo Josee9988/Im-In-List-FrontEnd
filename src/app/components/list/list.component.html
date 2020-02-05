@@ -25,22 +25,31 @@
             <mat-label>Tus elementos:</mat-label>
 
             <!-- Your elements -->
-            <mat-form-field appearance="outline" *ngFor="let element of list.elementos; trackBy:list.elementos.order">
-              <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
-                matInput placeholder="Tu elemento aquí" autocomplete="off">
-              <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                (click)="deleteElement(element.order)">
-                <mat-icon class="c-red">delete</mat-icon>
-              </button>
-            </mat-form-field>
+            <div *ngFor="let element of list.elementos; trackBy:list.elementos.order"
+              [ngClass]="{'child-list': !element.master}">
+              <mat-icon *ngIf="!element.master" class="icon-slave">keyboard_return</mat-icon>
 
+              <mat-form-field appearance="outline">
+
+
+                <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
+                  matInput placeholder="Tu elemento aquí" autocomplete="off">
+                <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
+                  (click)="deleteElement(element.order)">
+                  <mat-icon class="c-red">delete</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
 
             <!-- Add new -->
             <mat-form-field appearance="outline">
               <mat-label>Nuevo elemento</mat-label>
               <input type="text" matInput [(ngModel)]="newElement" #newElementInput name="newElementInput"
-                (blur)="addElement()" placeholder="Tu elemento aquí" autocomplete="off">
+                placeholder="Tu elemento aquí" autocomplete="off">
               <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
+              <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'" (click)="addElement()">
+                <mat-icon>library_add</mat-icon>
+              </button>
             </mat-form-field>
 
             <div class="spacer"></div>

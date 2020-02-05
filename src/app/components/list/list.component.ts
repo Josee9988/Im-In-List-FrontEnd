@@ -62,7 +62,6 @@ export class ListComponent implements OnInit {
 
   deleteElement(order: number): void {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
-
   }
 
   onSubmit(): void {

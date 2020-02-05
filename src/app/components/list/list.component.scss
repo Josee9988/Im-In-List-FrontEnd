@@ -66,3 +66,18 @@ list-title .example-right-align {
   overflow: scroll;
   border: 1px solid #ccc;
 }
+
+.child-list {
+  padding-left: 10%;
+  display: flex;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.icon-slave {
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: rotateY(180deg);
+}
