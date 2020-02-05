@@ -9,10 +9,13 @@ export class ListComponent implements OnInit {
   @Input() list: any = [];
   @Input() newElement: string;
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
-
+  public windowHeight: number;
   constructor() { }
 
   ngOnInit() {
+    this.windowHeight = window.innerHeight / 1.4;
+
+    // mock
     this.list.elements = [{
       order: 1,
       text: 'Lechugas',
@@ -39,7 +42,7 @@ export class ListComponent implements OnInit {
     if (this.newElement) { // if the element exisys
       this.newElement.trim();
       this.list.elements.push({
-        order: 4,
+        order: this.list.elements.length + 1,
         text: this.newElement,
         master: true,
       });

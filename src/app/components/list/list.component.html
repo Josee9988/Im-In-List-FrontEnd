@@ -13,7 +13,7 @@
         </mat-card>
       </div>
       <mat-card>
-        <mat-card-content>
+        <mat-card-content class="elements-list" [ngStyle]="{'height.px': windowHeight}">
           <mat-icon>post_add</mat-icon>
           <!-- Subtitle -->
           <input [(ngModel)]="list.subtitle" [ngModelOptions]="{standalone: true}" class="list-subtitle-input"
