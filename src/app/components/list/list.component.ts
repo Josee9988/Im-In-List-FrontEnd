@@ -51,6 +51,11 @@ export class ListComponent implements OnInit {
     this.newElementInput.nativeElement.focus(); // add the focus again
   }
 
+  deleteElement(order: number): void {
+    this.list.elements = this.list.elements.filter(element => element.order !== order);
+
+  }
+
   onSubmit(): void {
     console.log(this.list);
 

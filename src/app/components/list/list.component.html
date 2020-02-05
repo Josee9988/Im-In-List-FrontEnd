@@ -28,6 +28,10 @@
             <mat-form-field appearance="outline" *ngFor="let element of list.elements; trackBy:list.elements.order">
               <input type="text" name="element.text" [(ngModel)]="element.text" [ngModelOptions]="{standalone: true}"
                 matInput placeholder="Tu elemento aquí" autocomplete="off">
+              <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
+                (click)="deleteElement(element.order)">
+                <mat-icon class="c-red">delete</mat-icon>
+              </button>
             </mat-form-field>
 
 
