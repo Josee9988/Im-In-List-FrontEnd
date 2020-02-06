@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
-import { HttpErrorHandler } from './http-error-handler.service';
 import { SnackbarDisplayerService } from './snackbar-displayer.service';
 import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
 
@@ -22,19 +21,19 @@ export class RequestCacheWithMap implements RequestCache {
 
   cache = new Map<string, RequestCacheEntry>();
 
-  constructor(private httpErrorHandler: HttpErrorHandler, private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
 
   get(req: HttpRequest<any>): HttpResponse<any> | undefined {
     const url = req.urlWithParams;
     const cached = this.cache.get(url);
-
     if (!cached) {
       return undefined;
     }
 
     const isExpired = cached.lastRead < (Date.now() - maxAge);
     const expired = isExpired ? 'expired ' : '';
-    this.errorSnackbarDisplayerService.openSnackBar(`Found ${expired}cached response for "${url}".`, SnackBarErrorType.informational);
+    this.errorSnackbarDisplayerService.openSnackBar(`Los datos mostrados ${expired}han sido recibidos de la memoria.`,
+      SnackBarErrorType.informational);
     return isExpired ? undefined : cached.response;
   }
 
