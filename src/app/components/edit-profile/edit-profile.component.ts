@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 
@@ -10,7 +9,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  isRegister: boolean;
   hide: boolean;
   name: FormControl;
   email: FormControl;
@@ -18,20 +16,15 @@ export class EditProfileComponent implements OnInit {
   inputs: Array<FormControl>;
   files: File[];
 
-  constructor(router: Router, private location: Location) {
+  constructor(private location: Location) {
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.files = [];
 
-    if (router.url.includes('register')) { // si es un formulario de registro
-      this.isRegister = true;
-      this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
-      this.inputs = [this.email, this.password, this.name];
-    } else { // si es un formulario de login
-      this.isRegister = false;
-      this.inputs = [this.email, this.password];
-    }
+    this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
+    this.inputs = [this.email, this.password, this.name];
+
   }
 
   ngOnInit() {
