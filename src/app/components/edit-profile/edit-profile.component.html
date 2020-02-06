@@ -45,18 +45,18 @@
       <!-- Picture field -->
       <mat-label>Imagen de perfil</mat-label>
       <ngx-dropzone (change)="onSelect($event)">
-        <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+        <ngx-dropzone-label>¡Arrastra tu imagen!</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
-        <button (click)="drop.showFileSelector()">Open</button>
+        <button (click)="drop.showFileSelector()">Seleccionar archivo</button>
       </ngx-dropzone>
 
       <!-- Submit button -->
       <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
       <ng-template #isLoginBlockBtn>
         <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
-          mat-raised-button color="primary">Guardarcambios</button>
+          mat-raised-button color="primary">Guardar cambios</button>
       </ng-template>
 
     </form>
