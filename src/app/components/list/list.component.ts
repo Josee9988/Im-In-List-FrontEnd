@@ -50,7 +50,7 @@ export class ListComponent implements OnInit {
   }
 
   addElement(): void {
-    if (this.newElement) { // if the element exisys
+    if (this.newElement) { // if the element exists
       this.newElement.trim();
       this.list.elementos.push({
         order: this.list.elementos.length + 1,
@@ -64,6 +64,20 @@ export class ListComponent implements OnInit {
 
   deleteElement(order: number): void {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
+  }
+
+  makeSlave(order: number): void {
+    const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
+    if (futureSlave) {
+      futureSlave.master = false;
+    }
+  }
+
+  makeMaster(order: number): void {
+    const futureMaster = this.list.elementos.find(elemento => elemento.order === order);
+    if (futureMaster) {
+      futureMaster.master = true;
+    }
   }
 
   onSubmit(): void {

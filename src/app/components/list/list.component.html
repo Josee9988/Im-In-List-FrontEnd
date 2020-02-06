@@ -31,9 +31,9 @@
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
                 <mat-icon *ngIf="element.master" class="icon-slave" matTooltip="Haz un subelemento"
-                  matTooltipPosition="left">double_arrow</mat-icon>
-                <mat-icon *ngIf="!element.master" class="icon-slave rotate-y" matTooltip="Subelemento"
-                  matTooltipPosition="left">keyboard_return</mat-icon>
+                  (click)="makeSlave(element.order)" matTooltipPosition="left">double_arrow</mat-icon>
+                <mat-icon *ngIf="!element.master" class="icon-slave rotate-y" (click)="makeMaster(element.order)"
+                  matTooltip="Subelemento" matTooltipPosition="left">keyboard_return</mat-icon>
 
                 <mat-form-field appearance="outline">
                   <input type="text" name="element.text" [(ngModel)]="element.text"
