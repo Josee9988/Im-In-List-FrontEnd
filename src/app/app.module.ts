@@ -118,8 +118,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     ChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxDropzoneModulo,
-    DraggDropModule
+    NgxDropzoneModule,
+    DragDropModule
 
   ],
   providers: [],
