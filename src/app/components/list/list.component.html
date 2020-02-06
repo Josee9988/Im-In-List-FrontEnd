@@ -6,19 +6,23 @@
           <mat-card-content>
             <mat-card-title>
               <!-- Title -->
-              <input class="list-tittle-input" [(ngModel)]="list.titulo" [ngModelOptions]="{standalone: true}"
-                placeholder="Tu título aquí..." />
+              <mat-form-field>
+                <input matInput class="list-tittle-input" placeholder="Tu título aquí..." [formControl]="titulo" />
+                <mat-error *ngIf="titulo.invalid">{{getTituloErrorMessage()}}</mat-error>
+              </mat-form-field>
             </mat-card-title>
           </mat-card-content>
         </mat-card>
       </div>
       <mat-card>
         <mat-card-content class="elements-list" [ngStyle]="{'height.px': windowHeight}">
-          <mat-icon>post_add</mat-icon>
+          <mat-icon>subtitles</mat-icon>
           <!-- Subtitle -->
-          <input [(ngModel)]="list.descripcion" [ngModelOptions]="{standalone: true}" class="list-subtitle-input"
-            placeholder="Tu subtítulo aquí..." />
-
+          <mat-form-field>
+            <input matInput [formControl]="descripcion" class="list-subtitle-input"
+              placeholder="Tu subtítulo aquí..." />
+            <mat-error *ngIf="titulo.invalid">{{getDescripcionErrorMessage()}}</mat-error>
+          </mat-form-field>
           <div class="form-container">
             <div class="spacer"></div>
             <hr>
@@ -33,7 +37,7 @@
                 <mat-icon *ngIf="element.master" class="icon-slave" matTooltip="Haz un subelemento"
                   (click)="makeSlave(element.order)" matTooltipPosition="left">double_arrow</mat-icon>
                 <mat-icon *ngIf="!element.master" class="icon-slave rotate-y" (click)="makeMaster(element.order)"
-                  matTooltip="Subelemento" matTooltipPosition="left">keyboard_return</mat-icon>
+                  matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
 
                 <mat-form-field appearance="outline">
                   <input type="text" name="element.text" [(ngModel)]="element.text"

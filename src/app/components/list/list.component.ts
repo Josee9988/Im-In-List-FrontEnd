@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ILista } from '../../shared/models/IListas.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FormControl, Validators } from '@angular/forms';
 
 
 
@@ -12,10 +14,20 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class ListComponent implements OnInit {
   @Input() list: ILista;
   @Input() newElement: string;
+
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
+  @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
+
+  titulo: FormControl;
+  descripcion: FormControl;
+
   public windowHeight: number;
 
-  constructor() { }
+  constructor() {
+    this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
+    this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
+
+  }
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 1.4;
@@ -81,6 +93,7 @@ export class ListComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.list.titulo = this.titulo.value;
     console.log(this.list);
 
   }
@@ -92,6 +105,20 @@ export class ListComponent implements OnInit {
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
 
+  }
+
+  getTituloErrorMessage(): string {
+    return this.titulo.hasError('required') ? 'Debes introducir un titulo' :
+      this.titulo.hasError('minlength') ? 'Debes de introducir un titulo con al menos 4 carácteres.' :
+        this.titulo.hasError('maxLength') ? 'Debes de introducir un titulo con menos de 60 carácteres.' :
+          '';
+  }
+
+  getDescripcionErrorMessage(): string {
+    return this.descripcion.hasError('required') ? 'Debes introducir una descripción' :
+      this.descripcion.hasError('minlength') ? 'Debes de introducir una descripción con al menos 4 carácteres.' :
+        this.descripcion.hasError('maxLength') ? 'Debes de introducir una descripción con menos de 60 carácteres.' :
+          '';
   }
 
 }
