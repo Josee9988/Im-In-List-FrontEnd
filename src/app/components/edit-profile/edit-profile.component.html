@@ -54,6 +54,7 @@
       [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar contraseña
     </mat-slide-toggle>
+
     <form class="form-container" *ngIf="editPassword">
       <!-- Old password field -->
       <mat-form-field appearance="outline">
@@ -71,27 +72,27 @@
       <!-- Password field -->
       <mat-form-field appearance="outline">
         <mat-label>Nueva contraseña</mat-label>
-        <input type="password" matInput [formGroup]="groupPassword" placeholder="Introduce tu nueva contraseña"
+        <input name="password" type="password" matInput placeholder="Introduce tu nueva contraseña"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Introduce tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        <mat-error *ngIf="groupPassword.invalid">{{getCheckPasswordsErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <!-- Confirm password field -->
       <mat-form-field appearance="outline">
-        <mat-label>Connfirma tu nueva contraseña</mat-label>
-        <input type="password" matInput [formGroup]="groupPassword" placeholder="Confirma tu nueva contraseña"
+        <mat-label>Confirma tu nueva contraseña</mat-label>
+        <input name="confirmPassword" type="password" matInput placeholder="Confirma tu nueva contraseña"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Confirma tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        <mat-error *ngIf="groupPassword.invalid">{{getCheckPasswordsErrorMessage()}}</mat-error>
       </mat-form-field>
       <!-- Submit button -->
       <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"

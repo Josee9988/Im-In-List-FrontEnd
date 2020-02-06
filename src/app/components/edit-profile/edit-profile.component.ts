@@ -28,73 +28,73 @@ export class EditProfileComponent implements OnInit {
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.inputs = [this.email, this.password, this.name];
 
-
+    this.groupPassword = new FormGroup({
+      password: new FormControl(''),
+      confirmPassword: new FormControl('')
+    });
   }
 
-  checkPasswords(groupPassword: FormGroup) { // here we have the 'passwords' group
-    const password = groupPassword.get('password').value;
-    const confirmPassword = groupPassword.get('password').value;
+  checkPasswords() {
 
-    return password === confirmPassword ? null : { notSame: true };
+  }
+  getCheckPasswordsErrorMessage() {
+    return this.groupPassword.get('password').value === this.groupPassword.get('passwordRepeat').value ? null : { mismatch: true };
   }
 
 
-  this.myForm = this.fb.group({
-    password: ['', [Validators.required]],
-    confirmPassword: ['']
-  }, { validator: this.checkPasswords })
 
 
-ngOnInit() {
-}
 
-getProgressBarValue(): number {
-  let progress = 100;
-  for (const input of this.inputs) {
-    if (input.invalid) {
-      progress -= 100 / this.inputs.length;
+  ngOnInit() {
+  }
+
+  getProgressBarValue(): number {
+    let progress = 100;
+    for (const input of this.inputs) {
+      if (input.invalid) {
+        progress -= 100 / this.inputs.length;
+      }
     }
+    return progress;
   }
-  return progress;
-}
 
-getEmailErrorMessage(): string {
-  return this.email.hasError('required') ? 'Debes introducir un email' :
-    this.email.hasError('email') ? 'Introduce un email válido' :
-      this.email.hasError('maxLength') ? 'Debes de introducir un email con menos de 255 carácteres.' :
+  getEmailErrorMessage(): string {
+    return this.email.hasError('required') ? 'Debes introducir un email' :
+      this.email.hasError('email') ? 'Introduce un email válido' :
+        this.email.hasError('maxLength') ? 'Debes de introducir un email con menos de 255 carácteres.' :
+          '';
+  }
+
+  getPasswordErrorMessage(): string {
+    return this.password.hasError('required') ? 'Debes introducir una contraseña' :
+      this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
         '';
-}
+  }
 
-getPasswordErrorMessage(): string {
-  return this.password.hasError('required') ? 'Debes introducir una contraseña' :
-    this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
-      '';
-}
-
-getConfirmPasswordErrorMessage(): string {
-  return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
-    this.confirmPassword.hasError('must') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
-      '';
-}
-getNameErrorMessage(): string {
-  return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
-    this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
-      this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
+  getConfirmPasswordErrorMessage(): string {
+    return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
+      this.confirmPassword.hasError('must') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
         '';
-}
+  }
+  getNameErrorMessage(): string {
+    return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
+      this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
+        this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
+          '';
+  }
 
 
-onSelect(event) {
-  console.log(event);
-  this.files.push(...event.addedFiles);
-}
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
 
-onRemove(event) {
-  console.log(event);
-  this.files.splice(this.files.indexOf(event), 1);
-}
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
-goBack(): void {
-  this.location.back();
-}
+  goBack(): void {
+    this.location.back();
+  }
 }
