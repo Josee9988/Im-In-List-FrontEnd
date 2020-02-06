@@ -12,6 +12,7 @@ export class EditProfileComponent implements OnInit {
   hide: boolean;
   name: FormControl;
   email: FormControl;
+  oldPassword: FormControl;
   password: FormControl;
   confirmPassword: FormControl;
   inputs: Array<FormControl>;
@@ -21,8 +22,9 @@ export class EditProfileComponent implements OnInit {
   constructor(private location: Location) {
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
+    this.oldPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
-    this.confirmPassword = new FormControl('', [Validators.required]);
+    this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.files = [];
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -35,15 +37,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   checkPasswords() {
-
+    if (this.password === this.confirmPassword) {
+      return true;
+    }
+    return false;
   }
-  getCheckPasswordsErrorMessage() {
-    return this.groupPassword.get('password').value === this.groupPassword.get('passwordRepeat').value ? null : { mismatch: true };
-  }
-
-
-
-
 
   ngOnInit() {
   }
@@ -74,7 +72,8 @@ export class EditProfileComponent implements OnInit {
   getConfirmPasswordErrorMessage(): string {
     return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
       this.confirmPassword.hasError('must') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
-        '';
+        this.checkPasswords() === false ? 'Las contraseñas nuevas deben coincidir.' :
+          '';
   }
   getNameErrorMessage(): string {
     return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :

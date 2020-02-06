@@ -59,7 +59,7 @@
       <!-- Old password field -->
       <mat-form-field appearance="outline">
         <mat-label>Tu contraseña antigua</mat-label>
-        <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña antigua"
+        <input type="password" matInput [formControl]="oldPassword" placeholder="Introduce tu contraseña antigua"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
@@ -72,27 +72,30 @@
       <!-- Password field -->
       <mat-form-field appearance="outline">
         <mat-label>Nueva contraseña</mat-label>
-        <input name="password" type="password" matInput placeholder="Introduce tu nueva contraseña"
-          [type]="hide ? 'password' : 'text'" autocomplete="current-password">
+        <input name="password" type="password" [formControl]="password" matInput
+          placeholder="Introduce tu nueva contraseña" [type]="hide ? 'password' : 'text'"
+          autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Introduce tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="groupPassword.invalid">{{getCheckPasswordsErrorMessage()}}</mat-error>
+        <mat-error *ngIf="password.invalid || checkPasswords()===false">{{getCheckPasswordsErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <!-- Confirm password field -->
       <mat-form-field appearance="outline">
         <mat-label>Confirma tu nueva contraseña</mat-label>
-        <input name="confirmPassword" type="password" matInput placeholder="Confirma tu nueva contraseña"
-          [type]="hide ? 'password' : 'text'" autocomplete="current-password">
+        <input name="confirmPassword" type="password" [formControl]="confirmPassword" matInput
+          placeholder=" Confirma tu nueva contraseña" [type]="hide ? 'password' : 'text'"
+          autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Confirma tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="groupPassword.invalid">{{getCheckPasswordsErrorMessage()}}</mat-error>
+        <mat-error *ngIf="confirmPassword.invalid || checkPasswords()===false">{{getConfirmPasswordErrorMessage()}}
+        </mat-error>
       </mat-form-field>
       <!-- Submit button -->
       <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
