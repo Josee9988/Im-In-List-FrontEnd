@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,26 @@ export class SnackbarDisplayerService {
    * @param action tipo de snackbar/alerta mostrada al usuario, comunmente (Error/Éxito/Información).
    * @param duration duración en milisegundos del snackbar si esque no es cerrado por el usuario.
    */
-  public openSnackBar(message: string, action: string = 'Error', duration: number = 400000): void {
+  public openSnackBar(message: string, action: SnackBarErrorType, duration: number = 400000): void {
+    const receivedClass = this.getConfigStyleClass(action);
     const config = new MatSnackBarConfig();
-    config.panelClass = ['snackbar-error'];
+    config.panelClass = [receivedClass];
     this.zone.run(() => { this.snackBar.open(message, action, { duration, panelClass: config.panelClass }); });
+  }
+
+  private getConfigStyleClass(action: SnackBarErrorType): string {
+    switch (action) {
+      case SnackBarErrorType.error:
+        return 'snackbar-error';
+      case SnackBarErrorType.informational:
+        return 'snackbar-info';
+      case SnackBarErrorType.warning:
+        return 'snackbar-warning';
+      case SnackBarErrorType.success:
+        return 'snackbar-success';
+      default:
+        return 'snackbar-info';
+    }
+
   }
 }

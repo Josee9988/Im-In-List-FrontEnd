@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
 
 /** Type of the handleError function returned by HttpErrorHandler.createHandleError */
 export type HandleError =
@@ -28,14 +29,13 @@ export class HttpErrorHandler {
   handleError<T>(serviceName = '', operation = 'operation', result = {} as T) {
 
     return (error: HttpErrorResponse): Observable<T> => {
-      this.errorSnackbarDisplayerService.openSnackBar(error.toString());
-
+      this.errorSnackbarDisplayerService.openSnackBar(error.toString(), SnackBarErrorType.error);
 
       const message = (error.error instanceof ErrorEvent) ?
         error.error.message :
         `server returned code ${error.status} with body: "${JSON.stringify(error.error)}"`;
 
-      this.errorSnackbarDisplayerService.openSnackBar(`${serviceName}: ${operation} failed: ${message}`);
+      this.errorSnackbarDisplayerService.openSnackBar(`${serviceName}: ${operation} failed: ${message}`, SnackBarErrorType.error);
 
       // Let the app keep running by returning a safe result.
       return of(result);
