@@ -9,6 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ILista } from '../models/IListas.model';
 
 import listasurl from './../../../assets/config.json';
+import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,12 @@ export class ListaService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) {
+  private handleError: HandleError;
+
+  constructor(
+    private http: HttpClient,
+    httpErrorHandler: HttpErrorHandler) {
+    this.handleError = httpErrorHandler.createHandleError('UserService');
   }
 
   getListas(): Observable<ILista[]> {
@@ -54,24 +60,5 @@ export class ListaService {
 
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteLista')));
-  }
-
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      console.error(error); // log to console instead
-
-      console.error(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 }
