@@ -4,6 +4,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 
 
 @Component({
@@ -107,10 +108,10 @@ export class ListComponent implements OnInit {
         console.log(this.list);
 
       } else { // has password but it is not valid
-        this.errorSnackbarDisplayerService.openSnackBar('La contraseña no es válida');
+        this.errorSnackbarDisplayerService.openSnackBar('La contraseña no es válida', SnackBarErrorType.error);
       }
     } else { // titulo and description not ok
-      this.errorSnackbarDisplayerService.openSnackBar('El título o descripción no son válidos');
+      this.errorSnackbarDisplayerService.openSnackBar('El título o descripción no son válidos', SnackBarErrorType.error);
     }
   }
 

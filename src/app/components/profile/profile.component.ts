@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
   getUser(id: number): void {
     // this.UserService.getUsers().subscribe(Response => console.log(Response));
-    // this.UserService.getUser(id).subscribe(Response => console.log(Response));
+    this.UserService.getUser(id).subscribe(Response => console.log(Response));
     // this.UserService.postUser(myuser).subscribe(Response => console.log(Response));
 
   }
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.getUser();
+    this.getUser(4);
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
