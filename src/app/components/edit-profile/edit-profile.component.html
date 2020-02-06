@@ -8,17 +8,11 @@
   <mat-card-content>
     <hr />
     <form class="form-container">
-
-      <div *ngIf="isRegister">
-        <!-- Name field -->
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input type="text" [formControl]="name" matInput placeholder="ej: ElMusk62" autocomplete="on">
-          <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
-          <mat-hint>Introduce tu nombre de usuario</mat-hint>
-        </mat-form-field>
-        <div class="spacer"></div>
-      </div>
+      <!-- Name field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input type="name" [formControl]="name" matInput placehold="ej: Carlos Alfredo" autocomplete="on">
+      </mat-form-field>
 
       <!-- Email field -->
       <mat-form-field appearance="outline">
