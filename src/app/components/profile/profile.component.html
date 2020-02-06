@@ -1,10 +1,10 @@
-<mat-card class="card">
+<mat-card class="card" [style.height.%]="90">
   <mat-card-header>
     <div mat-card-avatar class="headerImage"></div>
     <mat-card-title>{{nickname}}</mat-card-title>
     <mat-card-subtitle>{{email}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content [style.height.%]="30">
     <hr />
     <div class="graficasListas">
       <mat-card class="cardNumbers">
@@ -26,7 +26,7 @@
     </div>
     <hr />
   </mat-card-content>
-  <div class="actions">
+  <div class="actions" [style.height.%]="50">
     <button routerLink="/showLists" mat-raised-button color="primary" matTooltip="Ver tus listas creadas"
       matTooltipPosition="right" class="actionsButton">Ver mis listas </button>
     <button routerLink="/showParticipated" mat-raised-button color="accent"

@@ -18,6 +18,9 @@
 .sidenav .mat-toolbar {
   background: inherit;
 }
+.mat-drawer-container {
+  display: contents;
+}
 
 .mat-toolbar.mat-primary {
   position: -webkit-sticky;
