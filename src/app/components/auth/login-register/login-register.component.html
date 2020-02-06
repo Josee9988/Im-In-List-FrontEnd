@@ -12,6 +12,7 @@
       </mat-card-title>
       <mat-card-content>
         <mat-progress-bar mode="determinate" value="{{getProgressBarValue()}}"></mat-progress-bar>
+        <div class="spacer"></div>
         <form class="form-container">
 
           <div *ngIf="isRegister">
@@ -38,10 +39,10 @@
           <mat-form-field appearance="outline">
             <mat-label>Contraseña</mat-label>
             <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
-              [type]="hide ? 'password' : 'text'" autocomplete="current-password">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              [type]="isHidden ? 'password' : 'text'" autocomplete="current-password">
+            <button mat-icon-button matSuffix (click)="isHidden = !isHidden" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="isHidden">
+              <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-hint>Introduce tu contraseña</mat-hint>
             <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
