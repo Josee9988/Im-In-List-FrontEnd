@@ -50,6 +50,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 // Modulo importado para las graficas
 import { ChartsModule } from 'ng2-charts';
+// Modulo drop
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 /**
@@ -113,7 +115,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     FormsModule,
     ChartsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDropzoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]

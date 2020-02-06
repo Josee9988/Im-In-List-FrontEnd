@@ -42,6 +42,10 @@
         <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
 
+      <!-- Picture field -->
+      <mat-label>Imagen de perfil</mat-label>
+
+
       <!-- Submit button -->
       <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
       <ng-template #isLoginBlockBtn>
