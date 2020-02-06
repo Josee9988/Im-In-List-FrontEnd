@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpErrorHandler } from './shared/services/http-error-handler.service';
 import { RequestCache, RequestCacheWithMap } from './shared/services/request-cache.service';
-
+import { httpInterceptorProviders } from './shared/http-interceptors/index';
 
 /**
  * Angular material modules
@@ -126,6 +126,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
   ],
   providers: [HttpErrorHandler,
     { provide: RequestCache, useClass: RequestCacheWithMap },
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

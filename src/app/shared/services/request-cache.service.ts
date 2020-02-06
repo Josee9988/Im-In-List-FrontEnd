@@ -41,7 +41,7 @@ export class RequestCacheWithMap implements RequestCache {
   put(req: HttpRequest<any>, response: HttpResponse<any>): void {
     const url = req.urlWithParams;
 
-    this.errorSnackbarDisplayerService.openSnackBar(`Caching response from "${url}".`, SnackBarErrorType.informational);
+    // this.errorSnackbarDisplayerService.openSnackBar(`Caching response from "${url}".`, SnackBarErrorType.informational);
     const entry = { url, response, lastRead: Date.now() };
     this.cache.set(url, entry);
 
@@ -54,6 +54,6 @@ export class RequestCacheWithMap implements RequestCache {
       }
     });
 
-    this.errorSnackbarDisplayerService.openSnackBar(`Request cache size: ${this.cache.size}.`, SnackBarErrorType.informational);
+    // console.log(`Request cache size: ${this.cache.size}.`);
   }
 }
