@@ -50,6 +50,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 // Modulo importado para las graficas
 import { ChartsModule } from 'ng2-charts';
+// Modulo drop
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
@@ -58,6 +60,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
  * Components
  */
 import { AppComponent } from './app.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 // import { reducers, metaReducers } from './reducers';
 
 
@@ -65,6 +68,7 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent,
     routingComponents,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,7 +118,9 @@ import { AppComponent } from './app.component';
     ChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DragDropModule
+    NgxDropzoneModulo,
+    DraggDropModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
