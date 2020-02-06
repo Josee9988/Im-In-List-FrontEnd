@@ -9,12 +9,11 @@
     <hr />
 
     <!-- Slider edit name -->
-    <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="editName"
-      [ngModelOptions]="{standalone: true}">
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editName" [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar nombre
     </mat-slide-toggle>
 
-
+    <!-- Edit name form -->
     <form class="form-container" *ngIf="editName">
       <!-- Name field -->
       <mat-form-field appearance="outline">
@@ -23,28 +22,15 @@
         <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
       </mat-form-field>
       <!-- Submit button -->
-
-      <ng-template #isLoginBlockBtn>
-        <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
-          mat-raised-button color="primary">Guardar cambios</button>
-      </ng-template>
+      <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
+        mat-raised-button color="primary">Guardar cambios</button>
     </form>
 
-
-
-
-
-
-
-
-    <form class="form-container">
-      <!-- Name field -->
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input type="name" [formControl]="name" matInput placehold="ej: Carlos Alfredo" autocomplete="on">
-        <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
-      </mat-form-field>
-
+    <!-- Slider edit email -->
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editEmail" [ngModelOptions]="{standalone: true}">
+      <mat-icon>create</mat-icon> Modificar email
+    </mat-slide-toggle>
+    <form class="form-container" *ngIf="editEmail">
       <!-- Email field -->
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -53,6 +39,16 @@
         <mat-hint>Introduce tu email</mat-hint>
         <div class="spacer"></div>
       </mat-form-field>
+    </form>
+
+
+
+
+
+
+    <form class="form-container">
+
+
 
       <!-- Password field -->
       <mat-form-field appearance="outline">
