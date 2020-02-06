@@ -71,7 +71,7 @@
       <!-- Password field -->
       <mat-form-field appearance="outline">
         <mat-label>Nueva contraseña</mat-label>
-        <input type="password" matInput [formControl]="password" placeholder="Introduce tu nueva contraseña"
+        <input type="password" matInput [formGroup]="groupPassword" placeholder="Introduce tu nueva contraseña"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
@@ -84,7 +84,7 @@
       <!-- Confirm password field -->
       <mat-form-field appearance="outline">
         <mat-label>Connfirma tu nueva contraseña</mat-label>
-        <input type="password" matInput [formControl]="password" placeholder="Confirma tu nueva contraseña"
+        <input type="password" matInput [formGroup]="groupPassword" placeholder="Confirma tu nueva contraseña"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
@@ -123,9 +123,6 @@
     <hr />
   </mat-card-content>
   <div class="actions">
-    <button routerLink="/showParticipated" mat-raised-button color="accent"
-      matTooltip="Reiniciar campos de los formularios" matTooltipPosition="right" class="actionsButton">Reiniciar
-      campos</button>
     <button (click)="goBack()" mat-raised-button color="warn" matTooltip="Descarcart cambios "
       matTooltipPosition="right" class="actionsButton">Descartar cambios</button>
   </div>
