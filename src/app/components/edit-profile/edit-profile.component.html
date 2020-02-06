@@ -66,7 +66,7 @@
     <button routerLink="/showParticipated" mat-raised-button color="accent"
       matTooltip="Reiniciar campos de los formularios" matTooltipPosition="right" class="actionsButton">Reiniciar
       campos</button>
-    <button mat-raised-button color="warn" matTooltip="Descarcart cambios " matTooltipPosition="right"
-      class="actionsButton">Descartar cambios</button>
+    <button (click)="goBack()" mat-raised-button color="warn" matTooltip="Descarcart cambios "
+      matTooltipPosition="right" class="actionsButton">Descartar cambios</button>
   </div>
 </mat-card>
