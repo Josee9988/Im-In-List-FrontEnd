@@ -49,7 +49,6 @@ export class ProfileComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
     this.getUser(4);
 
@@ -63,7 +62,7 @@ export class ProfileComponent implements OnInit {
 
     // Recibimos el ID
     const id = this.router.snapshot.paramMap.get('id');
-    console.log(id);
+
   }
 
 
