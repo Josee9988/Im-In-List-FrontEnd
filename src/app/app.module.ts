@@ -52,6 +52,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ChartsModule } from 'ng2-charts';
 // Modulo drop
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 /**
@@ -116,7 +118,9 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     ChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxDropzoneModule
+    NgxDropzoneModulo,
+    DraggDropModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
