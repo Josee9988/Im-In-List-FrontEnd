@@ -15,11 +15,13 @@ export class EditProfileComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   inputs: Array<FormControl>;
+  files: File[];
 
   constructor(router: Router) {
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.files = [];
 
     if (router.url.includes('register')) { // si es un formulario de registro
       this.isRegister = true;
@@ -64,4 +66,13 @@ export class EditProfileComponent implements OnInit {
           '';
   }
 
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 }
