@@ -16,3 +16,12 @@ body {
   padding-top: 1px;
   font-size: 22.5px !important;
 }
+
+.snackbar-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  button {
+    color: black;
+  }
+}

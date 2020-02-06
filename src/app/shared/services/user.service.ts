@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
 
 import { Observable, of } from 'rxjs';
@@ -20,7 +21,12 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) {
+  private handleError: HandleError;
+
+  constructor(
+    private http: HttpClient,
+    httpErrorHandler: HttpErrorHandler) {
+    this.handleError = httpErrorHandler.createHandleError('UserService');
   }
 
   getUsers(): Observable<IUser[]> {
@@ -64,7 +70,7 @@ export class UserService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T>(operation = 'operation', result?: T) {
+  /*private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       console.error(error); // log to console instead
@@ -74,5 +80,5 @@ export class UserService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
+  }*/
 }

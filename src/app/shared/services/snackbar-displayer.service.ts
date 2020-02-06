@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,9 @@ export class SnackbarDisplayerService {
    * @param action tipo de snackbar/alerta mostrada al usuario, comunmente (Error/Éxito/Información).
    * @param duration duración en milisegundos del snackbar si esque no es cerrado por el usuario.
    */
-  public openSnackBar(message: string, action: string = 'Error', duration: number = 3000): void {
-    this.zone.run(() => { this.snackBar.open(message, action, { duration }); });
+  public openSnackBar(message: string, action: string = 'Error', duration: number = 400000): void {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['snackbar-error'];
+    this.zone.run(() => { this.snackBar.open(message, action, { duration, panelClass: config.panelClass }); });
   }
 }

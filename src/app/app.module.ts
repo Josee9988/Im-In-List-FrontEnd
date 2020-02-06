@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpErrorHandler } from './shared/services/http-error-handler.service';
 
 
 /**
@@ -116,7 +117,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     DragDropModule
   ],
-  providers: [],
+  providers: [HttpErrorHandler],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
