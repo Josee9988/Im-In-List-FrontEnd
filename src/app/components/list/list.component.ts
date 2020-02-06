@@ -3,7 +3,7 @@ import { ILista } from '../../shared/models/IListas.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
-
+import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class ListComponent implements OnInit {
 
   public windowHeight: number;
 
-  constructor() {
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
@@ -98,7 +98,22 @@ export class ListComponent implements OnInit {
 
   onSubmit(): void {
     this.list.titulo = this.titulo.value;
-    console.log(this.list);
+    this.list.descripcion = this.descripcion.value;
+    if (this.titulo.valid && this.descripcion.valid) { // titulo and description ok
+      if (this.hasPassword && this.password.valid) { // if it has a password and it's valid
+        console.log(this.list);
+
+      } else if (!this.hasPassword) { // if it has not a password
+        console.log(this.list);
+
+      } else { // has password but it is not valid
+        this.errorSnackbarDisplayerService.openSnackBar('La contraseña no es válida');
+      }
+    } else { // titulo and description not ok
+      this.errorSnackbarDisplayerService.openSnackBar('El título o descripción no son válidos');
+
+    }
+
 
   }
 
