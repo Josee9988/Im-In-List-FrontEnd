@@ -20,17 +20,21 @@ export class ListComponent implements OnInit {
 
   titulo: FormControl;
   descripcion: FormControl;
+  password: FormControl;
+
+  hasPassword: boolean;
 
   public windowHeight: number;
 
   constructor() {
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
 
   }
 
   ngOnInit() {
-    this.windowHeight = window.innerHeight / 1.4;
+    this.windowHeight = window.innerHeight / 1.75;
 
     // mock
     this.list = {
@@ -120,5 +124,12 @@ export class ListComponent implements OnInit {
         this.descripcion.hasError('maxLength') ? 'Debes de introducir una descripción con menos de 60 carácteres.' :
           '';
   }
+
+  getPasswordErrorMessage(): string {
+    return this.password.hasError('required') ? 'Debes introducir una contraseña' :
+      this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
+        '';
+  }
+
 
 }
