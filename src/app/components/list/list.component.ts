@@ -18,13 +18,13 @@ export class ListComponent implements OnInit {
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  titulo: FormControl;
-  descripcion: FormControl;
-  password: FormControl;
+  private titulo: FormControl;
+  private descripcion: FormControl;
+  private password: FormControl;
 
-  hasPassword: boolean;
+  private hasPassword: boolean;
 
-  public windowHeight: number;
+  private windowHeight: number;
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -36,7 +36,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.windowHeight = window.innerHeight / 1.75;
 
-    // mock
+    // mock list
     this.list = {
       id: 1,
       idUsuarioCreador: 5,
@@ -100,10 +100,10 @@ export class ListComponent implements OnInit {
     this.list.titulo = this.titulo.value;
     this.list.descripcion = this.descripcion.value;
     if (this.titulo.valid && this.descripcion.valid) { // titulo and description ok
-      if (this.hasPassword && this.password.valid) { // if it has a password and it's valid
+      if (this.hasPassword && this.password.valid) { // if it has a password and it's valid (OK)
         console.log(this.list);
 
-      } else if (!this.hasPassword) { // if it has not a password
+      } else if (!this.hasPassword) { // if it has not a password (OK)
         console.log(this.list);
 
       } else { // has password but it is not valid
@@ -111,10 +111,7 @@ export class ListComponent implements OnInit {
       }
     } else { // titulo and description not ok
       this.errorSnackbarDisplayerService.openSnackBar('El título o descripción no son válidos');
-
     }
-
-
   }
 
 
