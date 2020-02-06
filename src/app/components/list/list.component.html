@@ -1,1 +1,91 @@
-<p>list works!</p>
+<form (ngSubmit)="onSubmit()" novalidate style="vertical-align:top;">
+  <div class="login-register-bg">
+    <div class="login-register-container">
+      <div class="list-title">
+        <mat-card>
+          <mat-card-content>
+            <mat-card-title>
+              <!-- Title -->
+              <mat-form-field>
+                <input matInput class="list-tittle-input" placeholder="Tu título aquí..." [formControl]="titulo" />
+                <mat-error *ngIf="titulo.invalid">{{getTituloErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </mat-card-title>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <mat-card>
+        <mat-card-content class="elements-list" [ngStyle]="{'height.px': windowHeight}">
+          <mat-icon>subtitles</mat-icon>
+          <!-- Subtitle -->
+          <mat-form-field>
+            <input matInput [formControl]="descripcion" class="list-subtitle-input"
+              placeholder="Tu subtítulo aquí..." />
+            <mat-error *ngIf="titulo.invalid">{{getDescripcionErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <div class="form-container">
+            <div class="spacer"></div>
+            <hr>
+            <mat-label>Tus elementos:</mat-label>
+
+            <!-- Your elements -->
+            <div cdkDropList (cdkDropListDropped)="drop($event)">
+              <div *ngFor="let element of list.elementos; trackBy:list.elementos.order"
+                [ngClass]="{'child-list': !element.master}" class="element-drag" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+
+                <mat-icon *ngIf="element.master" class="icon-slave" matTooltip="Haz un subelemento"
+                  (click)="makeSlave(element.order)" matTooltipPosition="left">double_arrow</mat-icon>
+                <mat-icon *ngIf="!element.master" class="icon-slave rotate-y" (click)="makeMaster(element.order)"
+                  matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
+
+                <mat-form-field appearance="outline">
+                  <input type="text" name="element.text" [(ngModel)]="element.text"
+                    [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí" autocomplete="off">
+                  <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
+                    (click)="deleteElement(element.order)">
+                    <mat-icon class="c-red">delete</mat-icon>
+                  </button>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+            <!-- Add new -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nuevo elemento</mat-label>
+              <input type="text" matInput [(ngModel)]="newElement" #newElementInput name="newElementInput"
+                placeholder="Tu elemento aquí" autocomplete="off">
+              <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
+              <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'" (click)="addElement()">
+                <mat-icon>library_add</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="spacer"></div>
+          </div>
+        </mat-card-content>
+
+        <!-- Slider has password -->
+        <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
+          [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
+
+        <!-- Password field -->
+        <mat-form-field appearance="outline" *ngIf="hasPassword">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
+            [type]="hide ? 'password' : 'text'" autocomplete="current-password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint>Introduce tu contraseña</mat-hint>
+          <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <!-- Submit button -->
+        <button class="submit-login-register" type="submit" matTooltip="Crea tu lista" matTooltipPosition="below"
+          mat-raised-button color="primary">Crear</button>
+      </mat-card>
+    </div>
+  </div>
+</form>

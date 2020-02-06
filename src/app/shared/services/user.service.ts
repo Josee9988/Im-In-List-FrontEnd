@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from '../models/Users.model';
+import { IUser } from '../models/IUsers.model';
 
 import usersUrl from './../../../assets/config.json';
 
@@ -23,38 +23,38 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.USER_URL)
-      .pipe(tap(), catchError(this.handleError<User[]>('getUsers', [])));
+  getUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(this.USER_URL)
+      .pipe(tap(), catchError(this.handleError<IUser[]>('getUsers', [])));
   }
 
 
-  getUser(id: number): Observable<User> {
+  getUser(id: number): Observable<IUser> {
     const url = `${this.USER_URL}/?id=${id}`;
-    return this.http.get<User[]>(url)
+    return this.http.get<IUser[]>(url)
       .pipe(map(user => user[0]), // returns a {0|1} element array
-        tap(), catchError(this.handleError<User>(`getUser id=${id}`)));
+        tap(), catchError(this.handleError<IUser>(`getUser id=${id}`)));
   }
 
 
-  postUser(user: User): Observable<User> {
-    return this.http.post<User>(this.USER_URL, user, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<User>('postUser')));
+  postUser(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<IUser>('postUser')));
   }
 
 
-  putUser(user: User): Observable<any> {
+  putUser(user: IUser): Observable<any> {
     return this.http.put(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('updatedUser')));
   }
 
 
-  deleteUser(user: User | number): Observable<User> {
+  deleteUser(user: IUser | number): Observable<IUser> {
     const id = typeof user === 'number' ? user : user.id;
     const url = `${this.USER_URL}/${id}`;
 
-    return this.http.delete<User>(url, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<User>('deletedUser')));
+    return this.http.delete<IUser>(url, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<IUser>('deletedUser')));
   }
 
 

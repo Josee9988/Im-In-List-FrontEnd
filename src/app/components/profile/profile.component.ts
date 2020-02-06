@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
-import { User } from '../../shared/models/Users.model';
+import { IUser } from '../../shared/models/IUsers.model';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   doughnutChartLabels: string[];
   doughnutChartDataLists: Array<any>;
 
-  user: User[];
+  user: IUser[];
   nickname: string;
   email: string;
   profilePicture: string;

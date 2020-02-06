@@ -50,6 +50,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 // Modulo importado para las graficas
 import { ChartsModule } from 'ng2-charts';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 /**
@@ -111,7 +113,8 @@ import { AppComponent } from './app.component';
     FormsModule,
     ChartsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
