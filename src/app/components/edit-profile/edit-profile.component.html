@@ -114,8 +114,8 @@
       <!-- Picture field -->
       <mat-label>Imagen de perfil</mat-label>
       <ngx-dropzone class="image-uploader" #drop (change)="onSelect($event)" [accept]="'image/png,image/jpeg'"
-        [multiple]="false">
-        <ngx-dropzone-label>¡Arrastra tu imagen!</ngx-dropzone-label>
+        [multiple]="false" [maxFileSize]="1000000">
+        <ngx-dropzone-label>¡Arrastra tu imagen!(MAX 1MG)</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
