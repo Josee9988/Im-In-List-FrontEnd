@@ -2,14 +2,14 @@
   <mat-sidenav [ngClass]="{hidden: !(isHandset$ | async) === true}" #drawer class="sidenav" color="primary"
     fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false" (click)="drawer.toggle()">
-    <mat-toolbar>
+    <mat-toolbar class="hvr-hang">
       <img class="logo-header" routerLink="/home" routerLinkActive="active"
         src="../../../../assets/images/iLogo.png">I'm in List
     </mat-toolbar>
     <mat-nav-list>
       <h2 matSubheader>Elementos de navegación</h2>
       <li *ngFor="let item of navbarLinks">
-        <a mat-list-item routerLink="/{{ item.route }}" routerLinkActive="active">
+        <a mat-list-item routerLink="/{{ item.route }}" routerLinkActive="active" class="hvr-bounce-in">
           <mat-icon>
             {{item.icon}}</mat-icon>{{item.field}}
         </a>
@@ -22,15 +22,17 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="minium-header-pads">
-        <a class="main-navbar-text" routerLink="/home" routerLinkActive="active">
-          <img class="logo-header-white" src="../../../../assets/images/logoImInListWhite.png">I'm in
-          List
+        <a routerLink="/home" routerLinkActive="active" class="hvr-hang">
+          <img class="logo-header-white" src="../../../../assets/images/logoImInListWhite.png"><span
+            class="main-navbar-text">I'm in
+            List</span>
         </a>
       </span>
 
       <span class="fill-space"></span>
       <div *ngFor="let item of navbarLinks">
-        <button class="top-navbar-item" routerLink="/{{ item.route }}" routerLinkActive="active" mat-button>
+        <button class="top-navbar-item" routerLink="/{{ item.route }}" routerLinkActive="active" mat-button
+          class="hvr-bounce-in">
           <mat-icon>
             {{item.icon}} </mat-icon>{{item.field}}
         </button>
