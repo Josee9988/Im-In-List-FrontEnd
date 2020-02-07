@@ -36,7 +36,7 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  checkPasswords() {
+  checkPasswords(): boolean {
     if (this.password.value === this.confirmPassword.value) {
       console.log('Coinciden!' + this.password.value + ' y ' + this.confirmPassword.value);
       return true;
@@ -64,10 +64,19 @@ export class EditProfileComponent implements OnInit {
   }
 
   getConfirmPasswordErrorMessage(): string {
-    return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
-      this.confirmPassword.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
-        this.checkPasswords() === false ? 'Las contraseñas nuevas deben coincidir.' :
+    if (this.checkPasswords()) {
+      return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
+        this.confirmPassword.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
           '';
+    } else if (!this.checkPasswords()) {
+      const toReturn: string = this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
+        this.confirmPassword.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' : '';
+      return 'Las contraseñas nuevas deben coincidir. ' + toReturn;
+
+    }
+
+
+
   }
   getNameErrorMessage(): string {
     return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
