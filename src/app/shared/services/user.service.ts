@@ -6,16 +6,17 @@ import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { IUser } from '../models/IUsers.model';
+import { IUser } from '../models/IUsers.interface';
 
 import { environment } from './../../../environments/environment';
+import { ILoginUser } from '../models/ILogin-user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  private readonly USER_URL: string = environment.apiUrl + 'api/users';
+  private readonly USER_URL: string = environment.apiUrl + 'users';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -44,6 +45,11 @@ export class UserService {
 
   postUser(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<IUser>('postUser')));
+  }
+
+  postLogin(loginUser: ILoginUser): Observable<IUser> {
+    return this.http.post<IUser>(environment.apiUrl + '', loginUser, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('postUser')));
   }
 

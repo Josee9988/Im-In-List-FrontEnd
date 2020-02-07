@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://iminlist.back.stagging.grupo04.ddaw.site/',
+  apiUrl: 'http://iminlist.back.stagging.grupo04.ddaw.site/api/',
 };
 
 /*

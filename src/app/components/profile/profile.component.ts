@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
-import { IUser } from '../../shared/models/IUsers.model';
+import { IUser } from '../../shared/models/IUsers.interface';
 
 @Component({
   selector: 'app-profile',
@@ -43,8 +43,10 @@ export class ProfileComponent implements OnInit {
 
   getUser(id: number): void {
     // this.UserService.getUsers().subscribe(Response => console.log(Response));
-    this.UserService.getUser(id).subscribe(Response => console.log(Response));
+    // this.UserService.getUser(id).subscribe(Response => console.log(Response));
     // this.UserService.postUser(myuser).subscribe(Response => console.log(Response));
+
+    // this.UserService.postLogin('jose@gmail.com', '1234').subscribe(Response => console.log(Response));
 
   }
 
