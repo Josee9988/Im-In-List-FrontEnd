@@ -50,7 +50,6 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getUser(4);
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
@@ -61,7 +60,9 @@ export class ProfileComponent implements OnInit {
     ];
 
     // Recibimos el ID
-    const id = this.router.snapshot.paramMap.get('id');
+
+    const id: number = Number(this.router.snapshot.paramMap.get('id'));
+    this.getUser(id);
 
   }
 

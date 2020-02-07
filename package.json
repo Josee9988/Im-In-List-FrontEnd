@@ -2,10 +2,13 @@
   "name": "im-in-list",
   "description": "Aplicación para la creación de listas online.",
   "version": "0.0.0",
-  "author": {
+  "author": [{
     "name": "Jose Gracia Berenguer",
     "email": "jgracia9988@gmail.com"
-  },
+  }, {
+    "name": "Jose Gracia Berenguer",
+    "email": "jgracia9988@gmail.com"
+  }],
   "bugs": {
     "url": "https://github.com/Josee9988/Im-In-List-FrontEnd/issues",
     "email": "jgracia9988@gmail.com"
@@ -45,8 +48,8 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.24",
-    "@angular/cli": "^8.3.24",
+    "@angular-devkit/build-angular": "^0.803.25",
+    "@angular/cli": "^8.3.25",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
     "@types/jasmine": "~3.3.8",

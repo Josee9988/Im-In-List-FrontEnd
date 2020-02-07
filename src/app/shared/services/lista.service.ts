@@ -25,7 +25,7 @@ export class ListaService {
   constructor(
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
-    this.handleError = httpErrorHandler.createHandleError('UserService');
+    this.handleError = httpErrorHandler.createHandleError('Lista service');
   }
 
   getListas(): Observable<ILista[]> {
