@@ -34,7 +34,7 @@
         <mat-label>Contraseña</mat-label>
         <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        <button class="hvr-pop" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
@@ -55,8 +55,8 @@
       <!-- Submit button -->
       <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
       <ng-template #isLoginBlockBtn>
-        <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
-          mat-raised-button color="primary">Guardar cambios</button>
+        <button class="submit-login-register hvr-pop" type="submit" matTooltip="Guardar cambios"
+          matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
       </ng-template>
 
     </form>
@@ -64,9 +64,10 @@
   </mat-card-content>
   <div class="actions">
     <button routerLink="/showParticipated" mat-raised-button color="accent"
-      matTooltip="Reiniciar campos de los formularios" matTooltipPosition="right" class="actionsButton">Reiniciar
+      matTooltip="Reiniciar campos de los formularios" matTooltipPosition="right"
+      class="actionsButton hvr-pop">Reiniciar
       campos</button>
     <button mat-raised-button color="warn" matTooltip="Descarcart cambios " matTooltipPosition="right"
-      class="actionsButton">Descartar cambios</button>
+      class="actionsButton hvr-pop">Descartar cambios</button>
   </div>
 </mat-card>
