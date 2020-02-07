@@ -94,7 +94,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Confirma tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="checkPasswords()===false">{{getConfirmPasswordErrorMessage()}}
+        <mat-error *ngIf="password.invalid">{{getConfirmPasswordErrorMessage()}}
         </mat-error>
       </mat-form-field>
       <!-- Submit button -->
