@@ -18,7 +18,7 @@ import { ILoginUser } from '../models/ILogin-user.interface';
 export class UserService {
   private readonly USER_URL: string = environment.apiUrl + 'users';
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
   };
 
   private handleError: HandleError;
@@ -49,8 +49,8 @@ export class UserService {
   }
 
   postLogin(loginUser: ILoginUser): Observable<IUser> {
-    return this.http.post<IUser>(environment.apiUrl + '', loginUser, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<IUser>('postUser')));
+    return this.http.post<any>(environment.apiUrl + 'login', loginUser, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<any>('postLogin')));
   }
 
 

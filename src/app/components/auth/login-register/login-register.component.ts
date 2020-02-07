@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ILoginUser } from 'src/app/shared/models/ILogin-user.interface';
+import { UserService } from './../../../shared/services/user.service';
 
 
 @Component({
@@ -17,7 +19,8 @@ export class LoginRegisterComponent implements OnInit {
   protected inputs: Array<FormControl>;
   protected router: Router;
 
-  constructor(router: Router) {
+  // tslint:disable-next-line: no-shadowed-variable
+  constructor(private UserService: UserService, router: Router) {
     this.router = router;
   }
 
@@ -64,5 +67,12 @@ export class LoginRegisterComponent implements OnInit {
       this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
         this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
           '';
+  }
+
+  login() {
+    const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
+    // this.UserService.getUser(2).subscribe(Response => console.log(Response));
+
+    this.UserService.postLogin(loginUser).subscribe(Response => console.log(Response));
   }
 }
