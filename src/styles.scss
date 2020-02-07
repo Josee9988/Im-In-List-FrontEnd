@@ -1,59 +1,51 @@
 // Global styles
-
 html,
 body {
   height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 }
 
+// Google material icons
 .material-icons {
   vertical-align: middle;
   padding-top: 1px;
   font-size: 22.5px !important;
 }
 
+// Snackbar (information popups)
+.mat-snack-bar-container {
+  button {
+    color: black;
+  }
+}
 .snackbar-error {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
-  button {
-    color: black;
-  }
 }
 
 .snackbar-warning {
   color: #856404;
   background-color: #fff3cd;
   border-color: #ffeeba;
-  button {
-    color: black;
-  }
 }
 
 .snackbar-info {
   color: #0c5460;
   background-color: #d1ecf1;
   border-color: #bee5eb;
-  button {
-    color: black;
-  }
 }
 
 .snackbar-success {
   color: #155724;
   background-color: #d4edda;
   border-color: #c3e6cb;
-  button {
-    color: black;
-  }
 }
 
 // Animations
-
-/* Bounce In */
 .hvr-bounce-in {
   display: inline-block;
   vertical-align: middle;
@@ -71,8 +63,6 @@ body {
   -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
   transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }
-
-/* Hang */
 @-webkit-keyframes hvr-hang {
   0% {
     -webkit-transform: translateY(8px);
@@ -139,8 +129,6 @@ body {
   -webkit-animation-direction: normal, alternate;
   animation-direction: normal, alternate;
 }
-
-/* Pop */
 @-webkit-keyframes hvr-pop {
   50% {
     -webkit-transform: scale(1.08);
