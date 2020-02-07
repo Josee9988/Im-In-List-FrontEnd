@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { ILista } from '../models/IListas.model';
 
-import listasurl from './../../../assets/config.json';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
+
+import { environment } from './../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListaService {
-  private readonly LISTA_URL: string = listasurl.listasUrl;
+  private readonly LISTA_URL: string = environment.apiUrl + 'api/listas';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

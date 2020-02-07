@@ -8,14 +8,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { IUser } from '../models/IUsers.model';
 
-import usersUrl from './../../../assets/config.json';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  private readonly USER_URL: string = usersUrl.usersUrl;
+  private readonly USER_URL: string = environment.apiUrl + 'api/users';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
