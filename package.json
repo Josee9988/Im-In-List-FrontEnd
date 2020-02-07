@@ -2,12 +2,14 @@
   "name": "im-in-list",
   "description": "Aplicación para la creación de listas online.",
   "version": "0.0.0",
-  "author": [{
-    "name": "Jose Gracia Berenguer",
+  "author": {
+    "name": "Jose Gracia",
     "email": "jgracia9988@gmail.com"
-  }, {
-    "name": "Jose Gracia Berenguer",
-    "email": "jgracia9988@gmail.com"
+  },
+  "maintainers": [{
+    "email": "jgracia9988@gmail.com",
+    "name": "Jose Gracia",
+    "url": "https://www.npmjs.com/~josee9988"
   }],
   "bugs": {
     "url": "https://github.com/Josee9988/Im-In-List-FrontEnd/issues",
