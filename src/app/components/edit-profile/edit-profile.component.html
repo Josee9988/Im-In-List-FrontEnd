@@ -80,7 +80,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Introduce tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="password.invalid || checkPasswords()===false">{{getCheckPasswordsErrorMessage()}}</mat-error>
+        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <!-- Confirm password field -->

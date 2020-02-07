@@ -37,9 +37,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   checkPasswords() {
-    if (this.password === this.confirmPassword) {
+    if (this.password.value === this.confirmPassword.value) {
+      console.log('Coinciden!');
       return true;
+
     }
+    console.log('NO COINCIDEN!');
     return false;
   }
 
@@ -71,7 +74,7 @@ export class EditProfileComponent implements OnInit {
 
   getConfirmPasswordErrorMessage(): string {
     return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
-      this.confirmPassword.hasError('must') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
+      this.confirmPassword.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
         this.checkPasswords() === false ? 'Las contraseñas nuevas deben coincidir.' :
           '';
   }
