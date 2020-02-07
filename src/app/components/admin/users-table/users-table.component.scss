@@ -13,3 +13,30 @@ table {
   width: 30%;
   transition: 0.2s;
 }
+
+.btn-edit {
+  padding: 0 !important;
+  border-color: #ffc107;
+  background-color: #ffc107 !important;
+  color: #212529;
+  margin: 0 10px 0 10px;
+}
+.btn-edit:hover {
+  border-color: #e0a800;
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+td.mat-cell:last-of-type {
+  padding: 0 !important;
+}
