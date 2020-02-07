@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -9,42 +9,46 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  isRegister: boolean;
   hide: boolean;
   name: FormControl;
   email: FormControl;
+  oldPassword: FormControl;
   password: FormControl;
+  confirmPassword: FormControl;
   inputs: Array<FormControl>;
   files: File[];
+  groupPassword: FormGroup;
 
-  constructor(router: Router) {
+  constructor(private location: Location) {
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
+    this.oldPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.files = [];
 
-    if (router.url.includes('register')) { // si es un formulario de registro
-      this.isRegister = true;
-      this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
-      this.inputs = [this.email, this.password, this.name];
-    } else { // si es un formulario de login
-      this.isRegister = false;
-      this.inputs = [this.email, this.password];
+    this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
+    this.inputs = [this.email, this.password, this.name];
+
+    this.groupPassword = new FormGroup({
+      password: new FormControl(''),
+      confirmPassword: new FormControl('')
+    });
+  }
+
+  checkPasswords() {
+    if (this.password.value === this.confirmPassword.value) {
+      console.log('Coinciden!' + this.password.value + ' y ' + this.confirmPassword.value);
+      return true;
     }
+    console.log('NO COINCIDEN!' + this.password.value + ' y ' + this.confirmPassword.value);
+    return false;
   }
 
   ngOnInit() {
   }
 
-  getProgressBarValue(): number {
-    let progress = 100;
-    for (const input of this.inputs) {
-      if (input.invalid) {
-        progress -= 100 / this.inputs.length;
-      }
-    }
-    return progress;
-  }
+
 
   getEmailErrorMessage(): string {
     return this.email.hasError('required') ? 'Debes introducir un email' :
@@ -59,12 +63,19 @@ export class EditProfileComponent implements OnInit {
         '';
   }
 
+  getConfirmPasswordErrorMessage(): string {
+    return this.confirmPassword.hasError('required') ? 'Debes introducir la confirmación de contraseña' :
+      this.confirmPassword.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
+        this.checkPasswords() === false ? 'Las contraseñas nuevas deben coincidir.' :
+          '';
+  }
   getNameErrorMessage(): string {
     return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
       this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
         this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
           '';
   }
+
 
   onSelect(event) {
     console.log(event);
@@ -74,5 +85,9 @@ export class EditProfileComponent implements OnInit {
   onRemove(event) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

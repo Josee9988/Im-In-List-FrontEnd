@@ -7,19 +7,33 @@
   </mat-card-header>
   <mat-card-content>
     <hr />
-    <form class="form-container">
 
-      <div *ngIf="isRegister">
-        <!-- Name field -->
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input type="text" [formControl]="name" matInput placeholder="ej: ElMusk62" autocomplete="on">
-          <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
-          <mat-hint>Introduce tu nombre de usuario</mat-hint>
-        </mat-form-field>
-        <div class="spacer"></div>
-      </div>
+    <!-- Slider edit name -->
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editName" [ngModelOptions]="{standalone: true}">
+      <mat-icon>create</mat-icon> Modificar nombre
+    </mat-slide-toggle>
 
+    <form class="form-container" *ngIf="editName">
+      <!-- Name field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input type="name" [formControl]="name" matInput placehold="ej: Carlos Alfredo" autocomplete="on">
+        <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <!-- Submit button -->
+      <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
+        mat-raised-button color="primary">Guardar cambios</button>
+    </form>
+
+    <hr />
+
+
+    <!-- Slider edit email -->
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editEmail" [ngModelOptions]="{standalone: true}">
+      <mat-icon>create</mat-icon> Modificar email
+    </mat-slide-toggle>
+
+    <form class="form-container" *ngIf="editEmail">
       <!-- Email field -->
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -28,46 +42,94 @@
         <mat-hint>Introduce tu email</mat-hint>
         <div class="spacer"></div>
       </mat-form-field>
+      <!-- Submit button -->
+      <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
+        mat-raised-button color="primary">Guardar cambios</button>
+    </form>
 
-      <!-- Password field -->
+    <hr />
+
+    <!-- Slider edit password -->
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPassword"
+      [ngModelOptions]="{standalone: true}">
+      <mat-icon>create</mat-icon> Modificar contraseña
+    </mat-slide-toggle>
+
+    <form class="form-container" *ngIf="editPassword">
+      <!-- Old password field -->
       <mat-form-field appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
+        <mat-label>Tu contraseña antigua</mat-label>
+        <input type="password" matInput [formControl]="oldPassword" placeholder="Introduce tu contraseña antigua"
           [type]="hide ? 'password' : 'text'" autocomplete="current-password">
         <button class="hvr-pop" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-hint>Introduce tu contraseña</mat-hint>
+        <mat-hint>Introduce tu contraseña antigua</mat-hint>
+        <mat-error *ngIf="oldPassword.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Password field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nueva contraseña</mat-label>
+        <input name="password" type="password" [formControl]="password" matInput
+          placeholder="Introduce tu nueva contraseña" [type]="hide ? 'password' : 'text'"
+          autocomplete="current-password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint>Introduce tu nueva contraseña</mat-hint>
         <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
 
+      <!-- Confirm password field -->
+      <mat-form-field appearance="outline">
+        <mat-label>Confirma tu nueva contraseña</mat-label>
+        <input name="confirmPassword" type="password" [formControl]="confirmPassword" matInput
+          placeholder=" Confirma tu nueva contraseña" [type]="hide ? 'password' : 'text'"
+          autocomplete="current-password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint>Confirma tu nueva contraseña</mat-hint>
+        <mat-error *ngIf="checkPasswords()===false">{{getConfirmPasswordErrorMessage()}}
+        </mat-error>
+      </mat-form-field>
+      <!-- Submit button -->
+      <button class="submit-login-register hvr-pop" type="submit" matTooltip="Guardar cambios"
+        matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
+    </form>
+
+    <hr />
+
+    <!-- Slider edit picture -->
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPicture"
+      [ngModelOptions]="{standalone: true}">
+      <mat-icon>create</mat-icon> Modificar imagen de perfil
+    </mat-slide-toggle>
+
+    <form class="form-container" *ngIf="editPicture">
       <!-- Picture field -->
       <mat-label>Imagen de perfil</mat-label>
-      <ngx-dropzone (change)="onSelect($event)">
-        <ngx-dropzone-label>¡Arrastra tu imagen!</ngx-dropzone-label>
+      <ngx-dropzone class="image-uploader" #drop (change)="onSelect($event)" [accept]="'image/png,image/jpeg'"
+        [multiple]="false" [maxFileSize]="1000000">
+        <ngx-dropzone-label>¡Arrastra tu imagen!(MAX 1MG)</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
-        <button (click)="drop.showFileSelector()">Seleccionar archivo</button>
+        <button mat-raised-button color="accent" (click)="drop.showFileSelector()">Seleccionar archivo</button>
       </ngx-dropzone>
 
-      <!-- Submit button -->
-      <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
-      <ng-template #isLoginBlockBtn>
-        <button class="submit-login-register hvr-pop" type="submit" matTooltip="Guardar cambios"
-          matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
-      </ng-template>
-
+      <button class="submit-login-register hvr-pop" type="submit" matTooltip="Guardar cambios"
+        matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
     </form>
+
     <hr />
   </mat-card-content>
   <div class="actions">
-    <button routerLink="/showParticipated" mat-raised-button color="accent"
-      matTooltip="Reiniciar campos de los formularios" matTooltipPosition="right"
-      class="actionsButton hvr-pop">Reiniciar
-      campos</button>
-    <button mat-raised-button color="warn" matTooltip="Descarcart cambios " matTooltipPosition="right"
-      class="actionsButton hvr-pop">Descartar cambios</button>
+    <button (click)="goBack()" mat-raised-button color="warn" matTooltip="Descarcart cambios "
+      matTooltipPosition="right" class="actionsButton hvr-pop">Descartar cambios</button>
   </div>
 </mat-card>

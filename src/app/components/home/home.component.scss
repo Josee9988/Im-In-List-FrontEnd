@@ -11,6 +11,7 @@
   background-size: cover;
   position: absolute;
   width: 100%;
+  display: flex;
 }
 
 .textoPrincipal {
@@ -45,7 +46,7 @@ a {
 
 .zonaBoton {
   width: 100%;
-  margin-top: 350px;
+  margin-top: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,4 +55,22 @@ a {
 .newListButton {
   max-width: 50%;
   font-size: 18px;
+}
+
+//For smallest screens move button to the bottom
+@media (max-width: 450px) {
+  .zonaBoton {
+    margin-top: 70%;
+  }
+}
+@media (min-width: 451px) and (max-width: 720px) {
+  .zonaBoton {
+    margin-top: 40%;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1920px) {
+  .zonaBoton {
+    margin-top: 10%;
+  }
 }

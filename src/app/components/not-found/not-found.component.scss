@@ -171,7 +171,9 @@
   font-family: "Dosis", sans-serif;
   font-weight: 400;
 }
-
+svg {
+  padding: 0px;
+}
 .denied__link:hover {
   color: #ffbb39;
   border-color: #ffbb39;
