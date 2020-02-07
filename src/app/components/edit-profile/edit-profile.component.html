@@ -66,7 +66,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Introduce tu contraseña antigua</mat-hint>
-        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        <mat-error *ngIf="oldPassword.invalid">{{getPasswordErrorMessage()}}</mat-error>
       </mat-form-field>
 
       <!-- Password field -->
@@ -94,7 +94,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-hint>Confirma tu nueva contraseña</mat-hint>
-        <mat-error *ngIf="confirmPassword.invalid || checkPasswords()===false">{{getConfirmPasswordErrorMessage()}}
+        <mat-error *ngIf="checkPasswords()===false">{{getConfirmPasswordErrorMessage()}}
         </mat-error>
       </mat-form-field>
       <!-- Submit button -->
@@ -113,13 +113,15 @@
     <form class="form-container" *ngIf="editPicture">
       <!-- Picture field -->
       <mat-label>Imagen de perfil</mat-label>
-      <ngx-dropzone (change)="onSelect($event)">
+      <ngx-dropzone class="image-uploader" #drop (change)="onSelect($event)" [accept]="'image/png,image/jpeg'"
+        [multiple]="false">
         <ngx-dropzone-label>¡Arrastra tu imagen!</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
         <button mat-raised-button color="accent" (click)="drop.showFileSelector()">Seleccionar archivo</button>
       </ngx-dropzone>
+
       <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
         mat-raised-button color="primary">Guardar cambios</button>
     </form>

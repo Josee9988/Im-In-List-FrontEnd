@@ -38,26 +38,17 @@ export class EditProfileComponent implements OnInit {
 
   checkPasswords() {
     if (this.password.value === this.confirmPassword.value) {
-      console.log('Coinciden!');
+      console.log('Coinciden!' + this.password.value + ' y ' + this.confirmPassword.value);
       return true;
-
     }
-    console.log('NO COINCIDEN!');
+    console.log('NO COINCIDEN!' + this.password.value + ' y ' + this.confirmPassword.value);
     return false;
   }
 
   ngOnInit() {
   }
 
-  getProgressBarValue(): number {
-    let progress = 100;
-    for (const input of this.inputs) {
-      if (input.invalid) {
-        progress -= 100 / this.inputs.length;
-      }
-    }
-    return progress;
-  }
+
 
   getEmailErrorMessage(): string {
     return this.email.hasError('required') ? 'Debes introducir un email' :
