@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
   getUser(id: number): void {
     // this.UserService.getUsers().subscribe(Response => console.log(Response));
-    // this.UserService.getUser(id).subscribe(Response => console.log(Response));
+    this.UserService.getUser(id).subscribe(Response => console.log(Response));
     // this.UserService.postUser(myuser).subscribe(Response => console.log(Response));
 
     // this.UserService.postLogin('jose@gmail.com', '1234').subscribe(Response => console.log(Response));

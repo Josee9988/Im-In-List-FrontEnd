@@ -16,8 +16,8 @@ export class HttpErrorHandler {
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
 
   /** Create curried handleError function that already knows the service name */
-  createHandleError = (serviceName = '') => <T>
-    (operation = 'operation', result = {} as T) => this.handleError(serviceName, operation, result)
+  createHandleError = (serviceName: string = '') => <T>
+    (operation: string = 'operation', result: T = {} as T) => this.handleError(serviceName, operation, result)
 
   /**
    * Returns a function that handles Http operation failures.
@@ -26,20 +26,20 @@ export class HttpErrorHandler {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  handleError<T>(serviceName = '', operation = 'operation', result = {} as T) {
-
+  handleError<T>(serviceName: string = '', operation: string = 'operation', result: T = {} as T) {
     return (error: HttpErrorResponse): Observable<T> => {
       this.errorSnackbarDisplayerService.openSnackBar(error.toString(), SnackBarErrorType.error);
 
-      const message = (error.error instanceof ErrorEvent) ?
+      const message: string = (error.error instanceof ErrorEvent) ?
         error.error.message :
-        `server returned code ${error.status} with body: "${JSON.stringify(error.error)}"`;
+        `server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
 
-      this.errorSnackbarDisplayerService.openSnackBar(`${serviceName}: ${operation} failed: ${message}`, SnackBarErrorType.error);
+      this.errorSnackbarDisplayerService.openSnackBar(`${serviceName}: ${operation} failed: ${message}.`, SnackBarErrorType.error);
+
+      console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation} failed: ${message}.`);
 
       // Let the app keep running by returning a safe result.
       return of(result);
     };
-
   }
 }
