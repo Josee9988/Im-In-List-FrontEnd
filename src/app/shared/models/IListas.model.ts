@@ -1,5 +1,8 @@
 import { IListElements } from './IListElements.interface';
 
+/**
+ * The lista interface that will be used with the API calls.
+ */
 export interface ILista {
     id?: number;
     idUsuarioCreador: number;

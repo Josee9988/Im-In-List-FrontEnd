@@ -1,3 +1,6 @@
+/**
+ * The property 'elementos' from the listas interface.
+ */
 interface IListElement {
     order: number;
     text: string;

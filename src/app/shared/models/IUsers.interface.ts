@@ -1,3 +1,6 @@
+/**
+ * The user interface that will be used with the API calls.
+ */
 export interface IUser {
     id?: number;
     name: string;
