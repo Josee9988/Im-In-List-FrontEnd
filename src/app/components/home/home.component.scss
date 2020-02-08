@@ -11,6 +11,7 @@
   background-size: cover;
   position: absolute;
   width: 100%;
+  display: -webkit-box;
   display: flex;
 }
 
@@ -47,8 +48,11 @@ a {
 .zonaBoton {
   width: 100%;
   margin-top: 20%;
+  display: -webkit-box;
   display: flex;
+  -webkit-box-align: center;
   align-items: center;
+  -webkit-box-pack: center;
   justify-content: center;
 }
 

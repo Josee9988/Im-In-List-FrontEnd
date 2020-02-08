@@ -35,6 +35,7 @@
   transition: 0.3s;
 }
 .graficas {
+  display: -webkit-inline-box;
   display: inline-flex;
   width: 100%;
 }
