@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { LoginRegisterComponent } from './components/auth/login-register/login-register.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { PricingComponent } from './components/pricing/pricing.component';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginUser } from 'src/app/shared/models/ILogin-user.interface';
-import { UserService } from './../../../shared/services/user.service';
+import { UserService } from '../../shared/services/user.service';
 
 
 @Component({
