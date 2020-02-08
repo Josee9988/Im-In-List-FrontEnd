@@ -48,6 +48,12 @@ export class UserService {
       tap(), catchError(this.handleError<IUser>('postUser')));
   }
 
+  /**
+   * Summary: postLogin Inicia la sesión de un usuario a partir de sus credenciales, devuelve
+   * un observable con un token si la respuesta es satisfactoria.
+   *
+   * @param loginUser Credenciales del usuario para efectuar el inicio de sesión.
+   */
   postLogin(loginUser: ILoginUser): Observable<IUser> {
     return this.http.post<any>(environment.apiUrl + 'login', loginUser, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('postLogin')));
