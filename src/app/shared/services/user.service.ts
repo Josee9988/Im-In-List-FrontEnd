@@ -6,34 +6,44 @@ import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { IUser } from '../models/IUsers.model';
+import { IUser } from '../models/IUsers.interface';
 
-import usersUrl from './../../../assets/config.json';
+import { environment } from './../../../environments/environment';
+import { ILoginUser } from '../models/ILogin-user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
+/**
+ * HTTP calls to the API.
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class UserService {
-  private readonly USER_URL: string = usersUrl.usersUrl;
+  private readonly USER_URL: string = environment.apiUrl + 'users';
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
   };
 
   private handleError: HandleError;
 
-  constructor(
-    private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('UserService');
   }
 
+  /**
+   * Summary: gets all the users from the API.
+   */
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.USER_URL)
       .pipe(tap(), catchError(this.handleError<IUser[]>('getUsers', [])));
   }
 
 
+  /**
+   * Summary: retreives one user by an ID.
+   * @param id id of the user.
+   */
   getUser(id: number): Observable<IUser> {
     const url = `${this.USER_URL}/?id=${id}`;
     return this.http.get<IUser[]>(url)
@@ -42,18 +52,41 @@ export class UserService {
   }
 
 
+  /**
+   * Summary: creates an user
+   * @param user the user that will be created.
+   */
   postUser(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('postUser')));
   }
 
+  /**
+   * Summary: postLogin Inicia la sesión de un usuario a partir de sus credenciales, devuelve
+   * un observable con un token si la respuesta es satisfactoria.
+   *
+   * @param loginUser Credenciales del usuario para efectuar el inicio de sesión.
+   */
+  postLogin(loginUser: ILoginUser): Observable<IUser> {
+    return this.http.post<any>(environment.apiUrl + 'login', loginUser, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<any>('postLogin')));
+  }
 
+
+  /**
+   * Summary: modifys an existing user.
+   * @param user the user that will be modified.
+   */
   putUser(user: IUser): Observable<any> {
     return this.http.put(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('updatedUser')));
   }
 
 
+  /**
+   * Summay: removes an user from the database.
+   * @param user| number receives an user object, or an id, and removes that object from the database.
+   */
   deleteUser(user: IUser | number): Observable<IUser> {
     const id = typeof user === 'number' ? user : user.id;
     const url = `${this.USER_URL}/${id}`;
