@@ -15,6 +15,10 @@ import { ILoginUser } from '../models/ILogin-user.interface';
   providedIn: 'root'
 })
 
+/**
+ * HTTP calls to the API.
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class UserService {
   private readonly USER_URL: string = environment.apiUrl + 'users';
   private httpOptions = {
@@ -23,18 +27,23 @@ export class UserService {
 
   private handleError: HandleError;
 
-  constructor(
-    private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('UserService');
   }
 
+  /**
+   * Summary: gets all the users from the API.
+   */
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.USER_URL)
       .pipe(tap(), catchError(this.handleError<IUser[]>('getUsers', [])));
   }
 
 
+  /**
+   * Summary: retreives one user by an ID.
+   * @param id id of the user.
+   */
   getUser(id: number): Observable<IUser> {
     const url = `${this.USER_URL}/?id=${id}`;
     return this.http.get<IUser[]>(url)
@@ -43,6 +52,10 @@ export class UserService {
   }
 
 
+  /**
+   * Summary: creates an user
+   * @param user the user that will be created.
+   */
   postUser(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('postUser')));
@@ -60,12 +73,20 @@ export class UserService {
   }
 
 
+  /**
+   * Summary: modifys an existing user.
+   * @param user the user that will be modified.
+   */
   putUser(user: IUser): Observable<any> {
     return this.http.put(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('updatedUser')));
   }
 
 
+  /**
+   * Summay: removes an user from the database.
+   * @param user| number receives an user object, or an id, and removes that object from the database.
+   */
   deleteUser(user: IUser | number): Observable<IUser> {
     const id = typeof user === 'number' ? user : user.id;
     const url = `${this.USER_URL}/${id}`;
