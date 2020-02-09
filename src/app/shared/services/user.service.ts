@@ -67,7 +67,7 @@ export class UserService {
    *
    * @param loginUser Credenciales del usuario para efectuar el inicio de sesión.
    */
-  postLogin(loginUser: ILoginUser): Observable<IUser> {
+  postLogin(loginUser: ILoginUser): Observable<any> {
     return this.http.post<any>(environment.apiUrl + 'login', loginUser, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('postLogin')));
   }

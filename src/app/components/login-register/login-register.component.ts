@@ -18,6 +18,7 @@ export class LoginRegisterComponent implements OnInit {
   protected password: FormControl;
   protected inputs: Array<FormControl>;
   protected router: Router;
+  token: string;
 
   // tslint:disable-next-line: no-shadowed-variable
   constructor(private UserService: UserService, router: Router) {
@@ -69,10 +70,15 @@ export class LoginRegisterComponent implements OnInit {
           '';
   }
 
-  login() {
+  login(): void {
     const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
-    // this.UserService.getUser(2).subscribe(Response => console.log(Response));
+    this.UserService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
+  }
 
-    this.UserService.postLogin(loginUser).subscribe(Response => console.log(Response));
+  functionSaveToken(token: string): void {
+    if (token) {
+      localStorage.removeItem('loginUserToken');
+      localStorage.setItem('loginUserToken', 'Bearer ' + token);
+    }
   }
 }

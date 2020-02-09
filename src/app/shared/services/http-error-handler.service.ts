@@ -28,18 +28,27 @@ export class HttpErrorHandler {
    */
   handleError<T>(serviceName: string = '', operation: string = 'operation', result: T = {} as T) {
     return (error: HttpErrorResponse): Observable<T> => {
-      this.errorSnackbarDisplayerService.openSnackBar(error.toString(), SnackBarErrorType.error);
+      const message = this.getMessage(error);
 
-      const message: string = (error.error instanceof ErrorEvent) ?
-        error.error.message :
-        `server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
+      this.errorSnackbarDisplayerService.openSnackBar(`ERROR: ${serviceName}, ${operation} failed: ${message}`, SnackBarErrorType.error);
 
-      this.errorSnackbarDisplayerService.openSnackBar(`${serviceName}: ${operation} failed: ${message}.`, SnackBarErrorType.error);
-
-      console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation} failed: ${message}.`);
+      console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation}:`);
+      console.error(error); // show full error to the console
 
       // Let the app keep running by returning a safe result.
       return of(result);
     };
+  }
+
+  getMessage(error: HttpErrorResponse): string {
+    if (error.error instanceof ErrorEvent) {
+      return `Error: server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
+    } else if (error.error.message) {
+      return `Error: ${error.error.message}`;
+    } else if (error.error) {
+      return `Error: ${error.error}`;
+    } else {
+      return error.toString();
+    }
   }
 }
