@@ -65,15 +65,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
  * Components
  */
 import { AppComponent } from './app.component';
-import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-// import { reducers, metaReducers } from './reducers';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -127,7 +124,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     DragDropModule
 
   ],
-  providers: [AuthService,
+  providers: [
+    AuthService,
     HttpErrorHandler,
     { provide: RequestCache, useClass: RequestCacheWithMap },
     httpInterceptorProviders
