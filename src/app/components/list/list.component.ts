@@ -5,7 +5,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-
+import { IListElement } from 'src/app/shared/models/IListElements.interface';
 
 @Component({
   selector: 'app-list',
@@ -64,6 +64,12 @@ export class ListComponent implements OnInit {
       {
         order: 4,
         text: 'Duweis',
+        master: false,
+        subTasks: []
+      },
+      {
+        order: 5,
+        text: 'Melocotones',
         master: true,
         subTasks: []
       }]
@@ -89,9 +95,30 @@ export class ListComponent implements OnInit {
   }
 
   makeSlave(order: number): void {
-    const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
-    if (futureSlave) {
-      futureSlave.master = false;
+    if (order !== 1) {
+      const futureSlave: IListElement = this.list.elementos.find(elemento => elemento.order === order);
+      if (futureSlave) {
+        futureSlave.master = false;
+        // TODO: ASIGN IN A NEW MASTER SUBTASK
+        debugger;
+        for (let i = futureSlave.order - 2; i > 0; i--) {
+          if (this.list.elementos[i].master) {
+            this.list.elementos[i].subTasks.push(futureSlave.order);
+
+          }
+
+
+        }
+
+        // remove all of his subtasks
+        futureSlave.subTasks.forEach(subTaskOrder => {
+          const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder);
+          slaveOfFutureSlave.master = true;
+          slaveOfFutureSlave.subTasks = [];
+        });
+      }
+    } else {
+      this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
     }
   }
 
