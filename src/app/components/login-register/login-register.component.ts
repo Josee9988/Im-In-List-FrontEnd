@@ -72,12 +72,12 @@ export class LoginRegisterComponent implements OnInit {
 
   login(): void {
     const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
-    this.UserService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken('Bearer ' + Response.token)));
+    this.UserService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
   }
 
   functionSaveToken(token: string): void {
     if (token) {
-      localStorage.setItem('loginUserToken', token);
+      localStorage.setItem('loginUserToken', 'Bearer' + token);
     }
   }
 }
