@@ -66,12 +66,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
  */
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
+import { GetSubChildsPipe } from './components/list/get-sub-childs.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    GetSubChildsPipe,
   ],
   imports: [
     BrowserModule,

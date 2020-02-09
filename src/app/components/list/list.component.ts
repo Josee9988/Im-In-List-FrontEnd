@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
 
   private hasPassword: boolean;
 
-  private windowHeight: number;
+  windowHeight: number;
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -47,21 +47,25 @@ export class ListComponent implements OnInit {
         order: 1,
         text: 'Lechugas',
         master: true,
+        subTasks: []
       },
       {
         order: 2,
         text: 'Tomates',
         master: true,
+        subTasks: [3]
       },
       {
         order: 3,
         text: 'Plátanos',
         master: false,
+        subTasks: []
       },
       {
         order: 4,
         text: 'Duweis',
         master: true,
+        subTasks: []
       }]
     };
   }
@@ -73,6 +77,7 @@ export class ListComponent implements OnInit {
         order: this.list.elementos.length + 1,
         text: this.newElement,
         master: true,
+        subTasks: []
       });
       this.newElement = '';
     }
