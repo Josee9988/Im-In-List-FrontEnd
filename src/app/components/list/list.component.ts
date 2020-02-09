@@ -99,8 +99,6 @@ export class ListComponent implements OnInit {
       const futureSlave: IListElement = this.list.elementos.find(elemento => elemento.order === order);
       if (futureSlave) {
         futureSlave.master = false;
-        // TODO: ASIGN IN A NEW MASTER SUBTASK
-        debugger;
         for (let i = futureSlave.order - 2; i > 0; i--) {
           if (this.list.elementos[i].master) {
             this.list.elementos[i].subTasks.push(futureSlave.order);
