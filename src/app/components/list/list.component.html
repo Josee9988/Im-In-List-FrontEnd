@@ -54,14 +54,14 @@
                   <ng-container *ngIf="element.subTasks.length > 0 ">
                     <!-- idChild es cada ID de los subelementos de ese elemento -->
                     <div cdkDropList (cdkDropListDropped)="drop($event)">
-                      <div *ngFor="let childElement of element.subTasks | getSubChilds: list.elementos: childElement"
-                        [ngClass]="{'child-list': !element.master}" class="element-drag" cdkDrag>
-                        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                        {{childElement}}
+                      <div *ngFor="let childElement of element.subTasks | getSubChilds: list.elementos: childElement">
+                        <div *ngFor="let child of childElement" [ngClass]="{'child-list': !element.master}"
+                          class="element-drag" cdkDrag>
+                          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                          aa{{child}}aa{{childElement}}
+                          aaa
 
-
-
-
+                        </div>
                       </div>
                     </div>
                   </ng-container>

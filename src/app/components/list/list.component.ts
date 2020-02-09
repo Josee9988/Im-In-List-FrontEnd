@@ -53,7 +53,7 @@ export class ListComponent implements OnInit {
         order: 2,
         text: 'Tomates',
         master: true,
-        subTasks: [3]
+        subTasks: [3, 4]
       },
       {
         order: 3,

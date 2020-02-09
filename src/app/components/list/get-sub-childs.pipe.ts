@@ -6,12 +6,12 @@ import { IListElements } from 'src/app/shared/models/IListElements.interface';
 })
 export class GetSubChildsPipe implements PipeTransform {
 
-  transform(value: number, elementos: IListElements): any {
-    console.log(elementos);
-    console.log();
-    console.log(value);
-
-
+  transform(value: Array<number>, elementos: IListElements) {
+    const arrayFiltered = [];
+    value.forEach(val => {
+      arrayFiltered.push(elementos.filter(elemento => elemento.order === Number(val)));
+    });
+    return arrayFiltered;
 
 
   }
