@@ -28,13 +28,11 @@ export class HttpErrorHandler {
    */
   handleError<T>(serviceName: string = '', operation: string = 'operation', result: T = {} as T) {
     return (error: HttpErrorResponse): Observable<T> => {
-      this.errorSnackbarDisplayerService.openSnackBar(error.toString(), SnackBarErrorType.error);
-
       const message: string = (error.error instanceof ErrorEvent) ?
-        error.error.message :
-        `server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
+        `server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}` :
+        error.toString();
 
-      this.errorSnackbarDisplayerService.openSnackBar(`${serviceName}: ${operation} failed: ${message}.`, SnackBarErrorType.error);
+      this.errorSnackbarDisplayerService.openSnackBar(`ERROR: ${serviceName}, ${operation} failed: ${message}.`, SnackBarErrorType.error);
 
       console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation} failed: ${message}.`);
 
