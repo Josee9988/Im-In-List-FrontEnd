@@ -43,10 +43,10 @@ export class HttpErrorHandler {
   getMessage(error: HttpErrorResponse): string {
     if (error.error instanceof ErrorEvent) {
       return `Error: server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
-    } else if (error.error.message) {
-      return `Error: ${error.error.message}`;
     } else if (error.error) {
       return `Error: ${error.error}`;
+    } else if (error.message) {
+      return `Error: ${error.message}`;
     } else {
       return error.toString();
     }

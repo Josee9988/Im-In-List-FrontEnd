@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorHandler } from './shared/services/http-error-handler.service';
 import { AuthService } from './shared/services/auth.service';
 
@@ -65,6 +65,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
  * Components
  */
 import { AppComponent } from './app.component';
+import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
 
 
 @NgModule({
@@ -127,8 +128,9 @@ import { AppComponent } from './app.component';
   providers: [
     AuthService,
     HttpErrorHandler,
+    httpInterceptorProviders,
     { provide: RequestCache, useClass: RequestCacheWithMap },
-    httpInterceptorProviders
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
