@@ -77,7 +77,8 @@ export class LoginRegisterComponent implements OnInit {
 
   functionSaveToken(token: string): void {
     if (token) {
-      localStorage.setItem('loginUserToken', 'Bearer' + token);
+      localStorage.removeItem('loginUserToken');
+      localStorage.setItem('loginUserToken', 'Bearer ' + token);
     }
   }
 }
