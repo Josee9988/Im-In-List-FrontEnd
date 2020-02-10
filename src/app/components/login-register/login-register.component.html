@@ -52,11 +52,11 @@
           <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
           <ng-template #isLoginBlockBtn>
             <button class="submit-login-register hvr-hang" type="submit" matTooltip="Inicia sesión"
-              matTooltipPosition="below" (click)="submit()" mat-raised-button color="primary">Iniciar sesión</button>
+              matTooltipPosition="below" (click)="onSubmit()" mat-raised-button color="primary">Iniciar sesión</button>
           </ng-template>
           <ng-template #isRegisterBlockBtn>
             <button class="submit-login-register hvr-hang" type="submit" matTooltip="Regístrate"
-              matTooltipPosition="below" (click)="submit()" mat-raised-button color="primary">Registro</button>
+              matTooltipPosition="below" (click)="onSubmit()" mat-raised-button color="primary">Registro</button>
           </ng-template>
         </form>
       </mat-card-content>
