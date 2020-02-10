@@ -127,7 +127,7 @@ export class ListComponent implements OnInit {
 
 
   makeMaster(order: number): void {
-    const futureMaster = this.list.elementos.find(elemento => elemento.order === order);
+    const futureMaster: IListElement = this.list.elementos.find(elemento => elemento.order === order);
     if (futureMaster) {
       futureMaster.master = true;
       for (const element of this.list.elementos) {
