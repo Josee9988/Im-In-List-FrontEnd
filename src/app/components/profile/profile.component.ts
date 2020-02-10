@@ -40,8 +40,6 @@ export class ProfileComponent implements OnInit {
     // Recibimos el ID
     const id: number = Number(this.router.snapshot.paramMap.get('id'));
 
-    console.log(id);
-
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.UserService.getUser(id).subscribe(Response => this.fillData(Response));
 
@@ -52,8 +50,6 @@ export class ProfileComponent implements OnInit {
 
   // Función para añadir los datos del resopnse a la variable
   fillData(Response: any) {
-    console.log('2');
-    console.log(Response);
     this.nickname = Response.name;
     this.email = Response.email;
 
