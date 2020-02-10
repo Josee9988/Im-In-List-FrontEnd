@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   doughnutChartLabels: string[];
   doughnutChartDataLists: Array<any>;
 
+
   user: IUser[];
   nickname: string;
   email: string;
@@ -31,28 +32,18 @@ export class ProfileComponent implements OnInit {
 
   // tslint:disable-next-line: no-shadowed-variable
   constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
-    this.nickname = 'Carlos Alfredo';
-    this.email = 'carlos98@gmail.com';
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
-    this.listasCreadas = 2;
-    this.listasParticipadas = 5;
-
-
-
   }
 
   getUser(id: number): void {
     // this.UserService.getUsers().subscribe(Response => console.log(Response));
     this.UserService.getUser(id).subscribe(Response => console.log(Response));
     // this.UserService.postUser(myuser).subscribe(Response => console.log(Response));
-
     // this.UserService.postLogin('jose@gmail.com', '1234').subscribe(Response => console.log(Response));
-
   }
 
 
   ngOnInit() {
-
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
 
@@ -62,10 +53,19 @@ export class ProfileComponent implements OnInit {
     ];
 
     // Recibimos el ID
-
     const id: number = Number(this.router.snapshot.paramMap.get('id'));
-    this.getUser(id);
 
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.UserService.getUser(id).subscribe(Response => this.fillData(Response));
+  }
+
+  // Función para añadir los datos del resopnse a la variable
+  fillData(Response: any) {
+    console.log(Response);
+    this.nickname = Response.nickname;
+    this.email = Response.email;
+    // this.listasCreadas = Response.listasCreadas.length;
+    // this.listasParticipadas = Response.listasParticipadas.length;
   }
 
 
