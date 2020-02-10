@@ -9,7 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { IUser } from '../models/IUsers.interface';
 
 import { environment } from './../../../environments/environment';
-import { ILoginUser } from '../models/ILogin-user.interface';
+import { IRegisterUser, ILoginUser } from '../models/ILogin-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,7 @@ export class UserService {
    * Summary: creates an user
    * @param user the user that will be created.
    */
-  postUser(user: IUser): Observable<IUser> {
+  postUser(user: ILoginUser): Observable<IUser> {
     return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('postUser')));
   }
