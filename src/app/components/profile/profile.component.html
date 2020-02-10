@@ -6,7 +6,12 @@
   </mat-card-header>
   <mat-card-content>
     <hr />
-    <div class="graficasListas">
+    <div class="graficasListas" *ngIf="!doughnutChartDataLists">
+      <mat-card class="cardNumbers">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card>
+    </div>
+    <div class="graficasListas" *ngIf="doughnutChartDataLists">
       <mat-card class="cardNumbers">
         <mat-card-title>Listas</mat-card-title>
         <hr />
@@ -38,4 +43,3 @@
     <button mat-raised-button color="warn" matTooltip="Cierra sesión" matTooltipPosition="right"
       class="actionsButton hvr-pop">Cerrar sesion</button>
   </div>
-</mat-card>
