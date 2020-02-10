@@ -46,7 +46,7 @@ export class ContactComponent extends Forms {
           '';
   }
 
-  submit(): void {
+  onSubmit(): void {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE EMAIL
       super.clearInputs();

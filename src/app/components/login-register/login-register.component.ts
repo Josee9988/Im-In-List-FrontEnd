@@ -61,7 +61,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
           '';
   }
 
-  submit(): void {
+  onSubmit(): void {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };

@@ -6,13 +6,14 @@ import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IListElement } from 'src/app/shared/models/IListElements.interface';
+import { Forms } from 'src/app/shared/classes/Forms.class';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends Forms implements OnInit {
   @Input() list: ILista;
   @Input() newElement: string;
 
@@ -28,10 +29,10 @@ export class ListComponent implements OnInit {
   windowHeight: number;
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+    super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
-
   }
 
   ngOnInit() {
@@ -142,20 +143,18 @@ export class ListComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.hasPassword) {
+      this.inputs = [this.titulo, this.descripcion, this.password];
+    } else {
+      this.inputs = [this.titulo, this.descripcion];
+    }
     this.list.titulo = this.titulo.value;
     this.list.descripcion = this.descripcion.value;
-    if (this.titulo.valid && this.descripcion.valid) { // titulo and description ok
-      if (this.hasPassword && this.password.valid) { // if it has a password and it's valid (OK)
-        console.log(this.list.elementos);
-
-      } else if (!this.hasPassword) { // if it has not a password (OK)
-        console.log(this.list.elementos);
-
-      } else { // has password but it is not valid
-        this.errorSnackbarDisplayerService.openSnackBar('La contraseña no es válida', SnackBarErrorType.error);
-      }
-    } else { // titulo and description not ok
-      this.errorSnackbarDisplayerService.openSnackBar('El título o descripción no son válidos', SnackBarErrorType.error);
+    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+      // TODO: SEND THE LIST
+      super.clearInputs();
+    } else {
+      this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
   }
 
