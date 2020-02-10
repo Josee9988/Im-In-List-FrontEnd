@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
   // tslint:disable-next-line: no-shadowed-variable
   constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
+    this.nickname = 'Test Nombre';
 
 
   }
@@ -56,11 +57,12 @@ export class ProfileComponent implements OnInit {
   fillData(Response: any) {
     console.log('2');
     console.log(Response);
-    this.nickname = Response.name;
+    //this.nickname = Response.name;
     this.email = Response.email;
 
-    this.listasCreadas = Response.listasCreadas.length;
-    this.listasParticipadas = Response.listasParticipantes.length;
+    // Parseamos las respuestas para así obtener la respuesta como Array
+    this.listasCreadas = JSON.parse(Response.listasCreadas).length;
+    this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
@@ -69,9 +71,6 @@ export class ProfileComponent implements OnInit {
     this.doughnutChartDataLists = [
       [this.listasCreadas, this.listasParticipadas],
     ];
-
-
-
 
   }
 
