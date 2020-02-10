@@ -146,10 +146,10 @@ export class ListComponent implements OnInit {
     this.list.descripcion = this.descripcion.value;
     if (this.titulo.valid && this.descripcion.valid) { // titulo and description ok
       if (this.hasPassword && this.password.valid) { // if it has a password and it's valid (OK)
-        console.log(this.list);
+        console.log(this.list.elementos);
 
       } else if (!this.hasPassword) { // if it has not a password (OK)
-        console.log(this.list);
+        console.log(this.list.elementos);
 
       } else { // has password but it is not valid
         this.errorSnackbarDisplayerService.openSnackBar('La contraseña no es válida', SnackBarErrorType.error);

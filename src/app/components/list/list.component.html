@@ -58,10 +58,10 @@
                     <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="element.master">
                       <div *ngFor="let childElement of element.subTasks | getSubChilds: list.elementos: childElement">
 
-                        <div *ngFor="let child of childElement" class="child-list">
+                        <div *ngFor="let child of childElement">
 
                           <!-- child element -->
-                          <div *ngIf="!child.master">
+                          <div *ngIf="!child.master" class="child-list">
 
                             <!-- Slave icon -->
                             <mat-icon class="icon-slave rotate-y" (click)="makeMaster(child.order)"
