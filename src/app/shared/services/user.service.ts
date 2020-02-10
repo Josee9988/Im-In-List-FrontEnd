@@ -22,7 +22,7 @@ import { ILoginUser } from '../models/ILogin-user.interface';
 export class UserService {
   private readonly USER_URL: string = environment.apiUrl + 'users';
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   private handleError: HandleError;

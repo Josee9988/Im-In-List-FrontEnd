@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthService {
   getAuthorizationToken() {
-    return localStorage.getItem('loginUserToken');
+    if (localStorage.getItem('loginUserToken')) {
+      return localStorage.getItem('loginUserToken');
+    }
+    return null;
   }
 }
