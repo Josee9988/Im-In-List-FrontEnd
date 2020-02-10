@@ -61,10 +61,11 @@ export class ProfileComponent implements OnInit {
 
   // Función para añadir los datos del resopnse a la variable
   fillData(Response: any) {
+    console.log(Response);
     this.nickname = Response.nickname;
     this.email = Response.email;
-    this.listasCreadas = Response.listasCreadas.length;
-    this.listasParticipadas = Response.listasParticipadas.length;
+    // this.listasCreadas = Response.listasCreadas.length;
+    // this.listasParticipadas = Response.listasParticipadas.length;
   }
 
 
