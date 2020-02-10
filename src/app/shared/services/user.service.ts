@@ -56,7 +56,7 @@ export class UserService {
    * Summary: creates an user
    * @param user the user that will be created.
    */
-  postUser(user: ILoginUser): Observable<IUser> {
+  postUser(user: IRegisterUser): Observable<IUser> {
     return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('postUser')));
   }

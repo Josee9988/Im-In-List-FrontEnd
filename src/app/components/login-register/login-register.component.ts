@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILoginRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
+import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
 import { UserService } from '../../shared/services/user.service';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class LoginRegisterComponent implements OnInit {
   token: string;
 
   // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserService: UserService, router: Router) {
+  constructor(private UserService: UserService, router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     this.router = router;
   }
 
@@ -73,10 +75,10 @@ export class LoginRegisterComponent implements OnInit {
   submit(): void {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
-        const registerUser: ILoginRegisterUser = { email: this.email.value, password: this.password.value };
+        const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
         this.UserService.postUser(registerUser).subscribe();
       } else { // LOGIN
-        const loginUser: ILoginRegisterUser = { email: this.email.value, password: this.password.value };
+        const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
         this.UserService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
       }
     }
@@ -96,6 +98,9 @@ export class LoginRegisterComponent implements OnInit {
       if (input.invalid) {
         areInputsValid = false;
       }
+    }
+    if (!areInputsValid) {
+      this.errorSnackbarDisplayerService.openSnackBar('Debes rellenar todos los campos', SnackBarErrorType.warning);
     }
     return areInputsValid;
   }

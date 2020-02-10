@@ -6,11 +6,13 @@
     "name": "Jose Gracia",
     "email": "jgracia9988@gmail.com"
   },
-  "maintainers": [{
-    "email": "jgracia9988@gmail.com",
-    "name": "Jose Gracia",
-    "url": "https://www.npmjs.com/~josee9988"
-  }],
+  "maintainers": [
+    {
+      "email": "jgracia9988@gmail.com",
+      "name": "Jose Gracia",
+      "url": "https://www.npmjs.com/~josee9988"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/Josee9988/Im-In-List-FrontEnd/issues",
     "email": "jgracia9988@gmail.com"
@@ -57,6 +59,7 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "angular": "^1.7.9",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
