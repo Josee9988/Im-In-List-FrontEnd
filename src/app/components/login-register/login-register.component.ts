@@ -5,6 +5,7 @@ import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.int
 import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { Forms } from 'src/app/shared/classes/Forms.class';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.scss'],
 })
-export class LoginRegisterComponent implements OnInit {
+export class LoginRegisterComponent extends Forms implements OnInit {
   private isRegister: boolean;
   isHidden: boolean;
   name: FormControl;
@@ -21,7 +22,9 @@ export class LoginRegisterComponent implements OnInit {
   inputs: Array<FormControl>;
   token: string;
 
-  constructor(private userService: UserService, private router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
+  constructor(private userService: UserService, private router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+    super();
+  }
 
   ngOnInit() {
     this.isHidden = true;
@@ -38,15 +41,6 @@ export class LoginRegisterComponent implements OnInit {
     }
   }
 
-  protected getProgressBarValue(): number {
-    let progress = 100;
-    for (const input of this.inputs) {
-      if (input.invalid) {
-        progress -= 100 / this.inputs.length;
-      }
-    }
-    return progress;
-  }
 
   protected getEmailErrorMessage(): string {
     return this.email.hasError('required') ? 'Debes introducir un email' :
@@ -69,7 +63,7 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.validateInputs()) { // IF THE INPUTS ARE VALID
+    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
         this.userService.postUser(registerUser).subscribe();
@@ -77,7 +71,9 @@ export class LoginRegisterComponent implements OnInit {
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
         this.userService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
       }
-      this.clearInputs();
+      super.clearInputs();
+    } else {
+      this.errorSnackbarDisplayerService.openSnackBar('Debes rellenar todos los campos', SnackBarErrorType.warning);
     }
   }
 
@@ -86,25 +82,6 @@ export class LoginRegisterComponent implements OnInit {
       localStorage.removeItem('loginUserToken');
       localStorage.setItem('loginUserToken', 'Bearer ' + token);
       this.router.navigate(['/profile']);
-    }
-  }
-
-  validateInputs(): boolean {
-    let areInputsValid = true;
-    for (const input of this.inputs) {
-      if (input.invalid) {
-        areInputsValid = false;
-      }
-    }
-    if (!areInputsValid) {
-      this.errorSnackbarDisplayerService.openSnackBar('Debes rellenar todos los campos', SnackBarErrorType.warning);
-    }
-    return areInputsValid;
-  }
-
-  clearInputs(): void {
-    for (const input of this.inputs) {
-      input.setValue(null);
     }
   }
 }
