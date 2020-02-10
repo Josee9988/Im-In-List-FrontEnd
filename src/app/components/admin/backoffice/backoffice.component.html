@@ -3,13 +3,13 @@
     <div>
       <p>Usuarios registrados</p>
       <hr />
-      <div class="graficasListas" *ngIf="!doughnutChartDataLists">
+      <div class="graficasListas" *ngIf="!doughnutChartRegisterUsers">
         <mat-card class="cardNumbers">
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </mat-card>
       </div>
       <!-- Grafico -->
-      <div>
+      <div *ngIf="doughnutChartRegisterUsers">
         <div>
           <div style="display: block">
             <canvas baseChart [data]="doughnutChartRegisterUsers" [labels]="doughnutChartLabels"
@@ -25,11 +25,6 @@
   <a href="/admin/adminUsers" class="graficasDatos">
     <div>Usuarios premium
       <hr />
-      <div class="graficasListas" *ngIf="!doughnutChartDataLists">
-        <mat-card class="cardNumbers">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </mat-card>
-      </div>
       <div class="graficasListas" *ngIf="!doughnutChartDataLists">
         <mat-card class="cardNumbers">
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>

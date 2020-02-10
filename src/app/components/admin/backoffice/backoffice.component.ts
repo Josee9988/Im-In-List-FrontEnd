@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
+import { ListaService } from './../../../shared/services/lista.service';
 
 
 @Component({
@@ -52,7 +53,7 @@ export class BackofficeComponent implements OnInit {
   doughnutChartCreatedLists: Array<any>;
 
 
-  constructor() {
+  constructor(private ListaService: ListaService) {
     this.registradosEnero = 15;
     this.registradosAgosto = 2;
     this.registradosSeptiembre = 12;

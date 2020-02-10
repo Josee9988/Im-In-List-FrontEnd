@@ -30,8 +30,9 @@ export class ProfileComponent implements OnInit {
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
-  // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
+
+
+  constructor(private userService: UserService, private router: ActivatedRoute) { // injected
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
   }
 
@@ -43,7 +44,7 @@ export class ProfileComponent implements OnInit {
     console.log(id);
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.UserService.getUser(id).subscribe(Response => this.fillData(Response));
+    this.userService.getUser(id).subscribe(Response => this.fillData(Response));
 
 
 
