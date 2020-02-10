@@ -1,10 +1,13 @@
 import { FormControl } from '@angular/forms';
+import { IForm } from '../models/IForms.interface';
 
-export class Forms {
+export abstract class Forms implements IForm {
+
     inputs: Array<FormControl>;
 
     constructor() { }
 
+    abstract onSubmit(): void;
 
     protected getProgressBarValue(): number {
         let progress = 100;
