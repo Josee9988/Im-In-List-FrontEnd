@@ -72,6 +72,11 @@ export class ListComponent implements OnInit {
         text: 'Melocotones',
         master: true,
         subTasks: []
+      }, {
+        order: 6,
+        text: 'Macarrones verdes',
+        master: true,
+        subTasks: []
       }]
     };
   }
@@ -102,7 +107,7 @@ export class ListComponent implements OnInit {
         for (let i = futureSlave.order - 2; i > 0; i--) {
           if (this.list.elementos[i].master) {
             this.list.elementos[i].subTasks.push(futureSlave.order);
-
+            break;
           }
 
 
@@ -120,10 +125,19 @@ export class ListComponent implements OnInit {
     }
   }
 
+
   makeMaster(order: number): void {
     const futureMaster = this.list.elementos.find(elemento => elemento.order === order);
     if (futureMaster) {
       futureMaster.master = true;
+      for (const element of this.list.elementos) {
+        if (element.subTasks.find(o => o === futureMaster.order)) {
+          const index = element.subTasks.indexOf(futureMaster.order);
+          if (index > -1) {
+            element.subTasks.splice(index, 1);
+          }
+        }
+      }
     }
   }
 
