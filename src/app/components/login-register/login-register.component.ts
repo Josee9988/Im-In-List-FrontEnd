@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, NgForm } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
 import { UserService } from '../../shared/services/user.service';
@@ -14,18 +14,14 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 })
 export class LoginRegisterComponent implements OnInit {
   private isRegister: boolean;
-  protected isHidden: boolean;
-  protected name: FormControl;
-  protected email: FormControl;
-  protected password: FormControl;
-  protected inputs: Array<FormControl>;
-  protected router: Router;
+  isHidden: boolean;
+  name: FormControl;
+  email: FormControl;
+  password: FormControl;
+  inputs: Array<FormControl>;
   token: string;
 
-  // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserService: UserService, router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
-    this.router = router;
-  }
+  constructor(private userService: UserService, private router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
 
   ngOnInit() {
     this.isHidden = true;
@@ -76,11 +72,12 @@ export class LoginRegisterComponent implements OnInit {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
-        this.UserService.postUser(registerUser).subscribe();
+        this.userService.postUser(registerUser).subscribe();
       } else { // LOGIN
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
-        this.UserService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
+        this.userService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
       }
+      this.clearInputs();
     }
   }
 
@@ -103,5 +100,11 @@ export class LoginRegisterComponent implements OnInit {
       this.errorSnackbarDisplayerService.openSnackBar('Debes rellenar todos los campos', SnackBarErrorType.warning);
     }
     return areInputsValid;
+  }
+
+  clearInputs(): void {
+    for (const input of this.inputs) {
+      input.setValue(null);
+    }
   }
 }
