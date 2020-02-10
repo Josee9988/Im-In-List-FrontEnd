@@ -19,7 +19,6 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   name: FormControl;
   email: FormControl;
   password: FormControl;
-  inputs: Array<FormControl>;
   token: string;
 
   constructor(private userService: UserService, private router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
@@ -73,7 +72,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
       }
       super.clearInputs();
     } else {
-      this.errorSnackbarDisplayerService.openSnackBar('Debes rellenar todos los campos', SnackBarErrorType.warning);
+      this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
   }
 

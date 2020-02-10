@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Forms } from 'src/app/shared/classes/Forms.class';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent extends Forms {
   hide: boolean;
   email: FormControl;
   asunto: FormControl;
   mensaje: FormControl;
-  inputs: Array<FormControl>;
 
-  constructor() {
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+    super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.asunto = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]);
@@ -21,18 +24,6 @@ export class ContactComponent implements OnInit {
     this.inputs = [this.email, this.asunto, this.mensaje];
   }
 
-  ngOnInit() {
-  }
-
-  getProgressBarValue(): number {
-    let progress = 100;
-    for (const input of this.inputs) {
-      if (input.invalid) {
-        progress -= 100 / this.inputs.length;
-      }
-    }
-    return progress;
-  }
 
   getEmailErrorMessage(): string {
     return this.email.hasError('required') ? 'Debes introducir un email' :
@@ -53,6 +44,15 @@ export class ContactComponent implements OnInit {
       this.mensaje.hasError('minlength') ? 'Debes de introducir un mensaje con al menos 10 carácteres.' :
         this.mensaje.hasError('maxLength') ? 'Debes de introducir un mensaje con menos de 255 carácteres.' :
           '';
+  }
+
+  submit(): void {
+    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+      // TODO: SEND THE EMAIL
+      super.clearInputs();
+    } else {
+      this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
+    }
   }
 
 
