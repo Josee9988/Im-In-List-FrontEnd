@@ -5,7 +5,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-
+import { IListElement } from 'src/app/shared/models/IListElements.interface';
 
 @Component({
   selector: 'app-list',
@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
 
   private hasPassword: boolean;
 
-  private windowHeight: number;
+  windowHeight: number;
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -47,21 +47,36 @@ export class ListComponent implements OnInit {
         order: 1,
         text: 'Lechugas',
         master: true,
+        subTasks: []
       },
       {
         order: 2,
         text: 'Tomates',
         master: true,
+        subTasks: [3, 4]
       },
       {
         order: 3,
         text: 'Plátanos',
         master: false,
+        subTasks: []
       },
       {
         order: 4,
         text: 'Duweis',
+        master: false,
+        subTasks: []
+      },
+      {
+        order: 5,
+        text: 'Melocotones',
         master: true,
+        subTasks: []
+      }, {
+        order: 6,
+        text: 'Macarrones verdes',
+        master: true,
+        subTasks: []
       }]
     };
   }
@@ -73,6 +88,7 @@ export class ListComponent implements OnInit {
         order: this.list.elementos.length + 1,
         text: this.newElement,
         master: true,
+        subTasks: []
       });
       this.newElement = '';
     }
@@ -84,16 +100,44 @@ export class ListComponent implements OnInit {
   }
 
   makeSlave(order: number): void {
-    const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
-    if (futureSlave) {
-      futureSlave.master = false;
+    if (order !== 1) {
+      const futureSlave: IListElement = this.list.elementos.find(elemento => elemento.order === order);
+      if (futureSlave) {
+        futureSlave.master = false;
+        for (let i = futureSlave.order - 2; i > 0; i--) {
+          if (this.list.elementos[i].master) {
+            this.list.elementos[i].subTasks.push(futureSlave.order);
+            break;
+          }
+
+
+        }
+
+        // remove all of his subtasks
+        futureSlave.subTasks.forEach(subTaskOrder => {
+          const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder);
+          slaveOfFutureSlave.master = true;
+          slaveOfFutureSlave.subTasks = [];
+        });
+      }
+    } else {
+      this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
     }
   }
+
 
   makeMaster(order: number): void {
     const futureMaster = this.list.elementos.find(elemento => elemento.order === order);
     if (futureMaster) {
       futureMaster.master = true;
+      for (const element of this.list.elementos) {
+        if (element.subTasks.find(o => o === futureMaster.order)) {
+          const index = element.subTasks.indexOf(futureMaster.order);
+          if (index > -1) {
+            element.subTasks.splice(index, 1);
+          }
+        }
+      }
     }
   }
 
@@ -102,10 +146,10 @@ export class ListComponent implements OnInit {
     this.list.descripcion = this.descripcion.value;
     if (this.titulo.valid && this.descripcion.valid) { // titulo and description ok
       if (this.hasPassword && this.password.valid) { // if it has a password and it's valid (OK)
-        console.log(this.list);
+        console.log(this.list.elementos);
 
       } else if (!this.hasPassword) { // if it has not a password (OK)
-        console.log(this.list);
+        console.log(this.list.elementos);
 
       } else { // has password but it is not valid
         this.errorSnackbarDisplayerService.openSnackBar('La contraseña no es válida', SnackBarErrorType.error);
