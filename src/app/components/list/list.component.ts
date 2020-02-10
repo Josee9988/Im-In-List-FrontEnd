@@ -101,7 +101,7 @@ export class ListComponent implements OnInit {
 
   makeSlave(order: number): void {
     if (order !== 1) {
-      const futureSlave: IListElement = this.list.elementos.find(elemento => elemento.order === order);
+      const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
       if (futureSlave) {
         futureSlave.master = false;
         for (let i = futureSlave.order - 2; i > 0; i--) {
