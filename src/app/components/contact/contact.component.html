@@ -9,6 +9,7 @@
         </mat-card-title>
         <mat-card-content>
           <mat-progress-bar mode="determinate" value="{{getProgressBarValue()}}"></mat-progress-bar>
+          <br>
           <form class="form-container">
 
 
@@ -44,7 +45,7 @@
 
 
             <!-- Submit button -->
-            <button class="submit-login-register hvr-pop" type="submit" matTooltip="Mánda un email"
+            <button class="submit-login-register hvr-pop" (click)="submit()" type="submit" matTooltip="Mánda un email"
               matTooltipPosition="below" mat-raised-button color="primary">Contactar</button>
           </form>
         </mat-card-content>
