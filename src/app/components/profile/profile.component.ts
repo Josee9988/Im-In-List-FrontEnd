@@ -33,9 +33,6 @@ export class ProfileComponent implements OnInit {
   // tslint:disable-next-line: no-shadowed-variable
   constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
-    this.nickname = 'Test Nombre';
-
-
   }
 
 
@@ -57,7 +54,7 @@ export class ProfileComponent implements OnInit {
   fillData(Response: any) {
     console.log('2');
     console.log(Response);
-    //this.nickname = Response.name;
+    this.nickname = Response.name;
     this.email = Response.email;
 
     // Parseamos las respuestas para así obtener la respuesta como Array
