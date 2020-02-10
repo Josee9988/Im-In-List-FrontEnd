@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
+import { AuthService } from './../../shared/services/auth.service';
 import { IUser } from '../../shared/models/IUsers.interface';
 
 @Component({
@@ -25,13 +26,14 @@ export class ProfileComponent implements OnInit {
   nickname: string;
   email: string;
   profilePicture: string;
+  token: any;
 
 
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
   // tslint:disable-next-line: no-shadowed-variable
-  constructor(private UserService: UserService, private router: ActivatedRoute) { // injected
+  constructor(private UserService: UserService, private AuthService: AuthService, private router: ActivatedRoute) { // injected
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
   }
 
@@ -43,11 +45,7 @@ export class ProfileComponent implements OnInit {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.UserService.getUser(id).subscribe(Response => this.fillData(Response));
 
-
-
-
   }
-
   // Función para añadir los datos del resopnse a la variable
   fillData(Response: any) {
     this.nickname = Response.name;
