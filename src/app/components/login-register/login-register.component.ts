@@ -6,7 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
-import { EventEmitter } from 'protractor';
+import { CommunicationService } from 'src/app/shared/services/component-calls/navbar-login.service';
 
 @Component({
   selector: 'app-login-register',
@@ -25,7 +25,11 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   password: FormControl;
   token: string;
 
-  constructor(private userService: UserService, private router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private errorSnackbarDisplayerService: SnackbarDisplayerService,
+    private navbarLoginService: CommunicationService) {
     super();
   }
 
@@ -45,6 +49,8 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   }
 
   onSubmit(): void {
+    this.navbarLoginService.next('Data from child');
+
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
