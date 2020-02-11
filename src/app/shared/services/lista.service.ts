@@ -33,14 +33,20 @@ export class ListaService {
   }
 
   /**
-   * Summary: gets all the listas from the API.
+   * Summary: gets all the listas from the API for Admin porpouses.
    */
   getListas(): Observable<ILista[]> {
     return this.http.get<ILista[]>(this.LISTA_URL + 'Admin')
       .pipe(tap(), catchError(this.handleError<ILista[]>('getListas', [])));
   }
 
-
+  /**
+   * Summary: gets all the listas of the user from the API
+   */
+  getListasUser(): Observable<ILista[]> {
+    return this.http.get<ILista[]>(this.LISTA_URL)
+      .pipe(tap(), catchError(this.handleError<ILista[]>('getListas', [])));
+  }
   /**
    * Summary: retreives one lista by an ID.
    * @param id id of the lista.
