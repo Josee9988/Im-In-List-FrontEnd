@@ -15,7 +15,7 @@
       <!-- nombre Column -->
       <ng-container matColumnDef="idCreador">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID usuario creador </th>
-        <td mat-cell *matCellDef="let element"> {{element.idCreador}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
       </ng-container>
 
       <!-- email Column -->
@@ -33,7 +33,7 @@
       <!-- listasCreadas Column -->
       <ng-container matColumnDef="elemento">
         <th mat-header-cell *matHeaderCellDef> Elementos </th>
-        <td mat-cell *matCellDef="let element"> {{element.elemento}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.elementos}} </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">

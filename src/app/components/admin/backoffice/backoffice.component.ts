@@ -109,8 +109,9 @@ export class BackofficeComponent implements OnInit {
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
-
   }
+
+
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
@@ -208,8 +209,6 @@ export class BackofficeComponent implements OnInit {
    * @param Response Is the response from the API (database)
    */
   fillDataListas(Response: any) {
-    console.log(Response);
-
     for (const lista of Response) {
       if (lista.created_at.includes('2020-01')) {
         this.listasEnero++;
