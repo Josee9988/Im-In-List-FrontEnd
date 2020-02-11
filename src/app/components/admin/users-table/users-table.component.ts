@@ -57,6 +57,11 @@ export class UsersTableComponent implements OnInit {
 
   }
 
+  /**
+   * Sumary: This function is called from button on HTML, which one will delete an user from database
+   * @param nombre Param received from HTML and used to show a confirm alert to user
+   * @param id Param received from HTML and used to indicade the server which user want to be delete
+   */
   OnDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
       this.userService.deleteUser(id).subscribe(Response => {
