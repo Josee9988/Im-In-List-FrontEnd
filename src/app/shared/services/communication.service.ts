@@ -4,11 +4,14 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class CommunicationService {
 
   constructor() { }
 
-  protected observable = new Subject<any>();
+  private observable: Subject<any> = new Subject<any>();
 
   public next(item: any) {
     this.observable.next(item);

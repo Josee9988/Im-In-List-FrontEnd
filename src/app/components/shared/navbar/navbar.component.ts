@@ -6,7 +6,7 @@ import { INavbarLinks } from './inavbar-links';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { CommunicationService } from 'src/app/shared/services/component-calls/communication.service';
+import { CommunicationService } from 'src/app/shared/services/communication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
     private navbarLoginService: CommunicationService) {
-    this.navbarLoginService.subscribe(options => console.log(options));
+    this.navbarLoginService.subscribe(() => this.declareNavbarElements());
   }
 
   ngOnInit() {
@@ -62,8 +62,8 @@ export class NavbarComponent implements OnInit {
   logout() {
     if (this.authService.deleteAuthorizationToken()) {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
+      this.declareNavbarElements();
     }
-
   }
 
 
