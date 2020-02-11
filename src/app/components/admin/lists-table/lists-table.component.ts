@@ -17,7 +17,7 @@ export class ListsTableComponent implements OnInit {
 
   items: any;
   displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'acciones'];
-  dataSource = new MatTableDataSource<IlistaDetails>();
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -53,15 +53,3 @@ export class ListsTableComponent implements OnInit {
 
   }
 }
-
-export interface IlistaDetails {
-  id: number;
-  idCreador: number;
-  titulo: string;
-  descripcion: string;
-  elemento: number;
-  acciones: string;
-}
-/*
-const dataLista: IlistaDetails[] = [];
-*/

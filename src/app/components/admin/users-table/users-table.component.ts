@@ -13,22 +13,45 @@ import { UserService } from './../../../shared/services/user.service';
   styleUrls: ['./users-table.component.scss'],
 
 })
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
 export class UsersTableComponent implements OnInit {
+  items: any;
   displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'listasCreadas', 'listasParticipante', 'acciones'];
   dataSource = new MatTableDataSource<IPeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  constructor(private userService: UserService) {
+    this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
+
+  }
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Sumary: This function receive a string and filter the results which one contains that string
+   * @param filterValue Is what user introduceson the input and filter the data
+   */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
+
+  /**
+   * Sumary: This function is used to fill data inside dataSource for show it on table
+   * @param Response is the data that has been received from database
+   */
+  fillDataUsers(Response: any) {
+    this.items = Response;
+    this.dataSource.data = this.items;
+
+  }
 }
 
 export interface IPeriodicElement {
