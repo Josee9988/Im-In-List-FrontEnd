@@ -8,6 +8,10 @@ import { Location } from '@angular/common';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss']
 })
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class NotFoundComponent implements OnInit {
   currentUrl: string;
 
@@ -17,6 +21,9 @@ export class NotFoundComponent implements OnInit {
     this.currentUrl = this.router.url;
   }
 
+  /**
+   * Redirects to the last URL used.
+   */
   goBack(): void {
     this.location.back();
   }

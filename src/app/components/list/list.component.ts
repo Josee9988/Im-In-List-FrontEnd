@@ -13,6 +13,10 @@ import { Forms } from 'src/app/shared/classes/Forms.class';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class ListComponent extends Forms implements OnInit {
   @Input() list: ILista;
   @Input() newElement: string;
@@ -82,7 +86,10 @@ export class ListComponent extends Forms implements OnInit {
     };
   }
 
-  addElement(): void {
+  /**
+   * Summary: receives an element and adds it to the element list.
+   */
+  onAddElement(): void {
     if (this.newElement) { // if the element exists
       this.newElement.trim();
       this.list.elementos.push({
@@ -96,11 +103,22 @@ export class ListComponent extends Forms implements OnInit {
     this.newElementInput.nativeElement.focus(); // add the focus again
   }
 
-  deleteElement(order: number): void {
+  /**
+   * Summary: receives an order number (id - like) of an element and deletes it.
+   *
+   * @param order the order number of the element that we want to delete.
+   */
+  onDeleteElement(order: number): void {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
   }
 
-  makeSlave(order: number): void {
+  /**
+   * Summary: receives an order number (id - like) of an master element and turns it
+   * into a slave element.
+   *
+   * @param order the order number of the element that we want to make slave.
+   */
+  onMakeSlave(order: number): void {
     if (order !== 1) {
       const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
       if (futureSlave) {
@@ -110,10 +128,7 @@ export class ListComponent extends Forms implements OnInit {
             this.list.elementos[i].subTasks.push(futureSlave.order);
             break;
           }
-
-
         }
-
         // remove all of his subtasks
         futureSlave.subTasks.forEach(subTaskOrder => {
           const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder);
@@ -126,8 +141,13 @@ export class ListComponent extends Forms implements OnInit {
     }
   }
 
-
-  makeMaster(order: number): void {
+  /**
+   * Summary: receives an order number (id - like) of an subelement/slave element and turns it
+   * into a master element.
+   *
+   * @param order the order number of the element that we want to make master.
+   */
+  onMakeMaster(order: number): void {
     const futureMaster: IListElement = this.list.elementos.find(elemento => elemento.order === order);
     if (futureMaster) {
       futureMaster.master = true;
@@ -153,20 +173,29 @@ export class ListComponent extends Forms implements OnInit {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE LIST
       super.clearInputs();
-    } else {
+    } else { // IF ANY INPUT IS NOT READY
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
   }
 
-
-  drop(event: CdkDragDrop<string[]>) {
+  /**
+   * Summary: receives a drag event and switches positions and reflects it in the main array.
+   *
+   * @param event the event received to switch two element positions.
+   */
+  onDrop(event: CdkDragDrop<string[]>): void {
     const aux = this.list.elementos[event.currentIndex].order;
     this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
-
   }
 
+  /**
+   * Summary: checks if the input has any error, and if that is the case it will return a string
+   * with the problem, if there is no error it will simply return an empty string.
+   *
+   * @return string of the first error found.
+   */
   getTituloErrorMessage(): string {
     return this.titulo.hasError('required') ? 'Debes introducir un titulo' :
       this.titulo.hasError('minlength') ? 'Debes de introducir un titulo con al menos 4 carácteres.' :
@@ -174,6 +203,12 @@ export class ListComponent extends Forms implements OnInit {
           '';
   }
 
+  /**
+   * Summary: checks if the input has any error, and if that is the case it will return a string
+   * with the problem, if there is no error it will simply return an empty string.
+   *
+   * @return string of the first error found.
+   */
   getDescripcionErrorMessage(): string {
     return this.descripcion.hasError('required') ? 'Debes introducir una descripción' :
       this.descripcion.hasError('minlength') ? 'Debes de introducir una descripción con al menos 4 carácteres.' :
@@ -181,11 +216,15 @@ export class ListComponent extends Forms implements OnInit {
           '';
   }
 
+  /**
+   * Summary: checks if the input has any error, and if that is the case it will return a string
+   * with the problem, if there is no error it will simply return an empty string.
+   *
+   * @return string of the first error found.
+   */
   getPasswordErrorMessage(): string {
     return this.password.hasError('required') ? 'Debes introducir una contraseña' :
       this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
         '';
   }
-
-
 }

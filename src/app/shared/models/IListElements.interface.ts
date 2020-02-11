@@ -8,4 +8,8 @@ export interface IListElement {
     subTasks: Array<number>;
 }
 
+/**
+ * An array of 'IListElement'
+ * @see IListElement
+ */
 export interface IListElements extends Array<IListElement> { }
