@@ -56,4 +56,10 @@ export class UsersTableComponent implements OnInit {
     this.dataSource.data = this.items;
 
   }
+
+  OnDelete() {
+    if (confirm('Are you sure to delete ' + name)) {
+      console.log('Implement delete functionality here');
+    }
+  }
 }
