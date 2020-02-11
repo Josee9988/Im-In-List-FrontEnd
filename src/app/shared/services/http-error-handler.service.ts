@@ -12,7 +12,9 @@ export type HandleError =
   <T> (operation?: string, result?: T) => (error: HttpErrorResponse) => Observable<T>;
 
 /** Handles HttpClient errors */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
-
+@Injectable({
+  providedIn: 'root',
+})
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
