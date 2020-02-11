@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { CommunicationService } from 'src/app/shared/services/communication.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,7 @@ import { CommunicationService } from 'src/app/shared/services/communication.serv
  */
 export class NavbarComponent implements OnInit {
   navbarLinks: Array<INavbarLinks>;
+  private userRol: undefined;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(
     '(max-width: 859.99px) and (orientation: portrait), ' +
@@ -29,7 +31,8 @@ export class NavbarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
-    private navbarLoginService: CommunicationService) {
+    private navbarLoginService: CommunicationService,
+    private userService: UserService) {
     this.navbarLoginService.subscribe(() => this.declareNavbarElements());
   }
 
@@ -51,6 +54,10 @@ export class NavbarComponent implements OnInit {
         { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 5 },
         { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true }];
     } else { // NOT LOGGED INT
+      this.userService.getDataUser().subscribe(Response => this.userRol = Response.user.role);
+
+      console.log(this.userRol);
+
       this.navbarLinks = [
         { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
         { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 2 },
