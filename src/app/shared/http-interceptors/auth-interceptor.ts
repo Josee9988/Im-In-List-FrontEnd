@@ -4,6 +4,10 @@ import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http'
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private auth: AuthService) { }

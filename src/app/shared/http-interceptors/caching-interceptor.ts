@@ -21,6 +21,10 @@ import { RequestCache } from '../services/request-cache.service';
  * pass request through to next()
  */
 @Injectable()
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class CachingInterceptor implements HttpInterceptor {
     constructor(private cache: RequestCache) { }
 

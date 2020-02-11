@@ -6,6 +6,10 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable()
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class EnsureHttpsInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // clone request and replace 'http://' with 'https://' at the same time

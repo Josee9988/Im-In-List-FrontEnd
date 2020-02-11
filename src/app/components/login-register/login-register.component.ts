@@ -49,7 +49,9 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
-        this.userService.postUser(registerUser).subscribe();
+        this.userService.postUser(registerUser).subscribe(
+          Response => this.errorSnackbarDisplayerService.openSnackBar(
+            `Gracias por registrarte ${Response.name}. ¡Bienvenido`, SnackBarErrorType.success));
       } else { // LOGIN
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
         this.userService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
@@ -70,7 +72,8 @@ export class LoginRegisterComponent extends Forms implements OnInit {
       localStorage.removeItem('loginUserToken');
       localStorage.setItem('loginUserToken', 'Bearer ' + token);
       this.router.navigate(['/profile']);
-      this.errorSnackbarDisplayerService.openSnackBar('Login satisfactorio', SnackBarErrorType.success);
+      this.errorSnackbarDisplayerService.openSnackBar(
+        'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo¡', SnackBarErrorType.success);
     }
   }
 
