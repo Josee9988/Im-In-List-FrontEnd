@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
@@ -6,7 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
-import { CommunicationService } from 'src/app/shared/services/component-calls/navbar-login.service';
+import { CommunicationService } from 'src/app/shared/services/component-calls/communication.service';
 
 @Component({
   selector: 'app-login-register',

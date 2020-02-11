@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -6,7 +6,7 @@ import { INavbarLinks } from './inavbar-links';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { CommunicationService } from 'src/app/shared/services/component-calls/navbar-login.service';
+import { CommunicationService } from 'src/app/shared/services/component-calls/communication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -31,7 +31,6 @@ export class NavbarComponent implements OnInit {
     private snackbarDisplayerService: SnackbarDisplayerService,
     private navbarLoginService: CommunicationService) {
     this.navbarLoginService.subscribe(options => console.log(options));
-
   }
 
   ngOnInit() {
