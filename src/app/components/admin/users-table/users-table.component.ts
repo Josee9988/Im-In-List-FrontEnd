@@ -7,9 +7,6 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IUser } from 'src/app/shared/models/IUsers.interface';
 
-/**
- * @title Table with pagination
- */
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
@@ -45,11 +42,8 @@ export class UsersTableComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-
   /**
    * Sumary: This function is used to fill data inside dataSource for show it on table
-   * @param Response is the data that has been received from database
    */
   fillDataUsers() {
     // Llamamos a la funcion que asignará todos los valores a sus variables

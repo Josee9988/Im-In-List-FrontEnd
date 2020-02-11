@@ -43,8 +43,8 @@
             mat-raised-button>
             <mat-icon>delete</mat-icon>
           </button>
-          <button class="btn-edit hvr-pop" type="button" matTooltip="Editar" matTooltipPosition="below"
-            mat-raised-button>
+          <button (click)="OnDelete(element.name,element.id)" class="btn-edit hvr-pop" type="button" matTooltip="Editar"
+            matTooltipPosition="below" mat-raised-button>
             <mat-icon>create</mat-icon>
           </button>
         </td>
