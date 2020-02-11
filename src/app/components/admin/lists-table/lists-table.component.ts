@@ -12,8 +12,9 @@ import { ListaService } from './../../../shared/services/lista.service';
 })
 export class ListsTableComponent implements OnInit {
 
+  items: any;
   displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'acciones'];
-  dataSource = new MatTableDataSource<IlistaDetails>(dataLista);
+  dataSource = new MatTableDataSource<Element>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -37,18 +38,12 @@ export class ListsTableComponent implements OnInit {
 
 
   fillDataLists(Response: any) {
-    for (const lista of Response) {
-      console.log(lista);
-      const dataLista: IlistaDetails[] = [
-        {
-          id: lista.id, idCreador: lista.id_user, titulo: lista.titulo, descripcion: 'Cena sabado',
-          elemento: 1, acciones: '<mat-icon > delete </mat-icon>',
-        },
-      ]
-    }
+    this.items = Response;
+    this.dataSource.data = this.items;
+
   }
 }
-
+/*
 export interface IlistaDetails {
   id: number;
   idCreador: number;
@@ -59,3 +54,4 @@ export interface IlistaDetails {
 }
 
 const dataLista: IlistaDetails[] = [];
+*/
