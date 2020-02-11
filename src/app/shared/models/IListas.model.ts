@@ -10,4 +10,6 @@ export interface ILista {
     contraseña?: string;
     descripcion: string;
     elementos: IListElements;
+    updated_at: Date;
+    created_at: Date;
 }
