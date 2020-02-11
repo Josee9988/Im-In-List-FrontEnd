@@ -33,7 +33,7 @@ export class HttpErrorHandler {
   handleError<T>(serviceName: string = '', operation: string = 'operation', result: T = {} as T) {
     return (error: HttpErrorResponse): Observable<T> => {
       const message = this.getMessage(error);
-
+      this.checkIfExpiredToken(error, message);
       this.errorSnackbarDisplayerService.openSnackBar(`ERROR: ${serviceName}, ${operation} failed: ${message}`, SnackBarErrorType.error);
 
       console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation}:`);
@@ -53,14 +53,22 @@ export class HttpErrorHandler {
    * @return string with the message of the error.
    */
   getMessage(error: HttpErrorResponse): string {
-    if (error.error instanceof ErrorEvent) {
-      return `Error: server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
-    } else if (error.error) {
-      return `Error: ${error.error}`;
+    if (error.status && error.error.message) {
+      return `Error: con código ${error.status} devuelve: ${error.error.message}`;
+    } else if (error.message && error.status) {
+      return `Error: con código ${error.status} devuelve: ${error.message}`;
     } else if (error.message) {
-      return `Error: ${error.message}`;
+      return `Error: ${JSON.stringify(error.message)}`;
     } else {
       return error.toString();
+    }
+  }
+
+  checkIfExpiredToken(error: HttpErrorResponse, message: string): void {
+    const msg = message.toLowerCase();
+    if ((error.status === 401 || error.error.status === 401) && msg.includes('expired') && msg.includes('token')) {
+      console.log('TOKE NEXPIRED');
+
     }
   }
 }
