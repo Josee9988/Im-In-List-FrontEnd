@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   nickname: string;
   email: string;
   profilePicture: string;
+  respuesta: any;
 
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
@@ -35,17 +36,13 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(private userService: UserService, private router: ActivatedRoute) { // injected
+
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
   }
 
 
   ngOnInit() {
-    // Recibimos el ID
-    const id: number = Number(this.router.snapshot.paramMap.get('id'));
-
-    // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.userService.getUser(id).subscribe(Response => this.fillData(Response));
-
+    this.userService.getDataUser().subscribe(Response => this.fillData(Response));
   }
 
   /**
@@ -53,22 +50,29 @@ export class ProfileComponent implements OnInit {
    * @param Response Is the response from the API (database)
    */
   fillData(Response: any) {
-    if (!Response.ok === undefined) {
-      debugger;
-      this.nickname = Response.name;
-      this.email = Response.email;
+    this.nickname = Response.user.name;
+    this.email = Response.user.email;
 
-      // Parseamos las respuestas para así obtener la respuesta como Array
-      this.listasCreadas = JSON.parse(Response.listasCreadas).length;
-      this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
-
-      // Clases donde se almacenerán los valores
-      this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
-
-      // Valores obtenidos de la base de datos para usuarios premium
-      this.doughnutChartDataLists = [
-        [this.listasCreadas, this.listasParticipadas],
-      ];
+    // Parseamos las respuestas para así obtener la respuesta como Array
+    if (Response.user.listasCreadas === null) {
+      this.listasCreadas = 0;
+    } else {
+      this.listasCreadas = JSON.parse(Response.user.listasCreadas).length;
     }
+
+    if (Response.user.listasParticipantes === null) {
+      this.listasParticipadas = 0;
+    } else {
+      this.listasParticipadas = JSON.parse(Response.user.listasParticipantes).length;
+    }
+
+    // Clases donde se almacenerán los valores
+    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
+
+    // Valores obtenidos de la base de datos para usuarios premium
+    this.doughnutChartDataLists = [
+      [this.listasCreadas, this.listasParticipadas],
+    ];
+    // }
   }
 }
