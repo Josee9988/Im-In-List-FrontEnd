@@ -1,8 +1,9 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartType } from 'chart.js';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
 import { IUser } from '../../shared/models/IUsers.interface';
+import { CommunicationService } from 'src/app/shared/services/communication.service';
 
 @Component({
   selector: 'app-profile',
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, private router: ActivatedRoute) { // injected
+  constructor(private userService: UserService, private router: Router, private logoutService: CommunicationService) { // injected
 
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
   }
@@ -73,6 +74,13 @@ export class ProfileComponent implements OnInit {
     this.doughnutChartDataLists = [
       [this.listasCreadas, this.listasParticipadas],
     ];
-    // }
+
+  }
+  /**
+   * Sumary: This function will close session and redirect home
+   */
+  onClose() {
+    this.logoutService.next(1);
+    this.router.navigate(['/home']);
   }
 }
