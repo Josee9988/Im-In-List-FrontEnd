@@ -36,7 +36,7 @@ export class ListaService {
    * Summary: gets all the listas from the API.
    */
   getListas(): Observable<ILista[]> {
-    return this.http.get<ILista[]>(this.LISTA_URL)
+    return this.http.get<ILista[]>(this.LISTA_URL + 'Admin')
       .pipe(tap(), catchError(this.handleError<ILista[]>('getListas', [])));
   }
 
