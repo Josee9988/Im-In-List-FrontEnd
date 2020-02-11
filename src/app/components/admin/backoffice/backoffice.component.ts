@@ -74,7 +74,7 @@ export class BackofficeComponent implements OnInit {
   ngOnInit() {
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.listaService.getListas().subscribe(Response => this.fillData(Response));
+    this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
 
 
   }
@@ -88,8 +88,18 @@ export class BackofficeComponent implements OnInit {
   }
 
 
-  fillData(Response: any) {
+  fillDataListas(Response: any) {
     console.log(Response);
+
+    for (const lista of Response) {
+      if (lista.includes('2020-20')) {
+
+      }
+    }
+
+
+
+
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
