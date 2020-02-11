@@ -135,6 +135,10 @@ export class ListComponent extends Forms implements OnInit {
           slaveOfFutureSlave.master = true;
           slaveOfFutureSlave.subTasks = [];
         });
+        // FORCE LIST REFRESH
+        const fake = this.list;
+        this.list = null;
+        setTimeout(() => this.list = fake);
       }
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
@@ -163,6 +167,8 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.list.elementos);
+
     if (this.hasPassword) {
       this.inputs = [this.titulo, this.descripcion, this.password];
     } else {

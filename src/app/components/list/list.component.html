@@ -29,7 +29,7 @@
             <mat-label>Tus elementos:</mat-label>
 
             <!-- Your elements -->
-            <div cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <div *ngIf="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
               <div *ngFor="let element of list.elementos; trackBy:list.elementos.order" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
@@ -39,8 +39,6 @@
                     <!-- Icon -->
                     <mat-icon class="icon-slave" matTooltip="Haz un subelemento" (click)="onMakeSlave(element.order)"
                       matTooltipPosition="left">double_arrow</mat-icon>
-
-
                     <!-- Form field -->
                     <mat-form-field appearance="outline">
                       <input type="text" name="element.text" [(ngModel)]="element.text"
@@ -55,29 +53,24 @@
 
                   <ng-container *ngIf="element.subTasks.length > 0 ">
                     <!-- idChild es cada ID de los subelementos de ese elemento -->
-                    <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="element.master">
-                      <div *ngFor="let childElement of element.subTasks | getSubChilds: list.elementos: childElement">
 
-                        <div *ngFor="let child of childElement">
-
-                          <!-- child element -->
-                          <div *ngIf="!child.master" class="child-list">
-
-                            <!-- Slave icon -->
-                            <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(child.order)"
-                              matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
-
-                            <!-- Subtask -->
-                            <mat-form-field appearance="outline">
-                              <input type="text" name="child.text" [(ngModel)]="child.text"
-                                [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
-                                autocomplete="off">
-                              <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                                (click)="deleteElement(child.order)">
-                                <mat-icon class="c-red">delete</mat-icon>
-                              </button>
-                            </mat-form-field>
-                          </div>
+                    <div *ngFor="let childElement of element.subTasks | getSubChilds: list.elementos: childElement">
+                      <div *ngFor="let child of childElement">
+                        <!-- child element -->
+                        <div class="child-list">
+                          <!-- Slave icon -->
+                          <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(child.order)"
+                            matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
+                          <!-- Subtask -->
+                          <mat-form-field appearance="outline">
+                            <input type="text" name="child.text" [(ngModel)]="child.text"
+                              [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
+                              autocomplete="off">
+                            <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
+                              (click)="deleteElement(child.order)">
+                              <mat-icon class="c-red">delete</mat-icon>
+                            </button>
+                          </mat-form-field>
                         </div>
                       </div>
                     </div>

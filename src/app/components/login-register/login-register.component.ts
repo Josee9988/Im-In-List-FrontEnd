@@ -29,7 +29,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     private userService: UserService,
     private router: Router,
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
-    private navbarLoginService: CommunicationService) {
+    private communicationService: CommunicationService) {
     super();
   }
 
@@ -75,7 +75,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
       this.router.navigate(['/profile']);
       this.errorSnackbarDisplayerService.openSnackBar(
         'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo!', SnackBarErrorType.success);
-      this.navbarLoginService.next(1);
+      this.communicationService.next(1);
     }
   }
 
