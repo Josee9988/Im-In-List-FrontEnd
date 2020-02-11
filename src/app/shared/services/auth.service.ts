@@ -30,12 +30,15 @@ export class AuthService {
 
   /**
    * Summary: removes the token from the localStorage.
+   *
+   * @return boolean; true if all ok, otherwise false.
    */
-  deleteAuthorizationToken(): void {
+  deleteAuthorizationToken(): boolean {
     if (this.hasToken) {
       localStorage.removeItem(this.storageName);
+      return true;
     }
-    return null;
+    return false;
   }
 
   /**

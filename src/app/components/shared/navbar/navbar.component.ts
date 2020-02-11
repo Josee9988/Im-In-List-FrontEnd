@@ -4,6 +4,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { INavbarLinks } from './inavbar-links';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -22,9 +24,14 @@ export class NavbarComponent implements OnInit {
     '(max-width: 959.99px) and (orientation: landscape)')
     .pipe(map(result => result.matches), shareReplay());
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) { }
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService,
+    private snackbarDisplayerService: SnackbarDisplayerService) { }
 
   ngOnInit() {
+    this.declareNavbarElements();
+  }
+
+  declareNavbarElements() {
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
       this.navbarLinks = [
         { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
@@ -32,7 +39,7 @@ export class NavbarComponent implements OnInit {
         { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
         { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
         { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 5 },
-        { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6 }];
+        { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true }];
     } else { // NOT LOGGED INT
       this.navbarLinks = [
         { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
@@ -43,7 +50,15 @@ export class NavbarComponent implements OnInit {
         { icon: 'how_to_reg', field: 'Registro', route: 'register', order: 6 },
       ];
     }
+  }
+
+
+  logout() {
+    if (this.authService.deleteAuthorizationToken()) {
+      this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
+    }
 
   }
+
 
 }
