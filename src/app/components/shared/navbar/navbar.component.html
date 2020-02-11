@@ -8,11 +8,20 @@
     </mat-toolbar>
     <mat-nav-list>
       <h2 matSubheader>Elementos de navegación</h2>
-      <li *ngFor="let item of navbarLinks">
-        <a mat-list-item routerLink="/{{ item.route }}" routerLinkActive="active" class="hvr-bounce-in">
+      <li *ngFor="let item of navbarLinks;trackBy:navbarLinks.order">
+
+        <!-- Logout -->
+        <a *ngIf="item.logout" (click)="logout()" mat-list-item class="hvr-bounce-in">
+          <mat-icon> {{item.icon}}</mat-icon>{{item.field}}
+        </a>
+
+        <!-- Not logout -->
+        <a *ngIf="!item.logout" mat-list-item routerLink="/{{ item.route }}" routerLinkActive="active"
+          class="hvr-bounce-in">
           <mat-icon>
             {{item.icon}}</mat-icon>{{item.field}}
         </a>
+
       </li>
     </mat-nav-list>
   </mat-sidenav>
