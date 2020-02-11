@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { UserService } from './../../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { IUser } from 'src/app/shared/models/IUsers.interface';
 
 /**
  * @title Table with pagination
@@ -19,7 +20,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
 export class UsersTableComponent implements OnInit {
-  items: any;
+  items: Array<IUser>;
   displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'listasCreadas', 'listasParticipante', 'acciones'];
   dataSource = new MatTableDataSource();
 
@@ -30,8 +31,7 @@ export class UsersTableComponent implements OnInit {
 
   }
   ngOnInit() {
-    // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
+    this.fillDataUsers();
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -51,18 +51,23 @@ export class UsersTableComponent implements OnInit {
    * Sumary: This function is used to fill data inside dataSource for show it on table
    * @param Response is the data that has been received from database
    */
-  fillDataUsers(Response: any) {
-    this.items = Response;
-
-    this.dataSource.data = this.items;
+  fillDataUsers() {
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
   }
 
   OnDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
-
-      this.userService.deleteUser(id).subscribe(Response => this.errorSnackbarDisplayerService.
-        openSnackBar(Response.message, SnackBarErrorType.success));
+      this.userService.deleteUser(id).subscribe(Response => {
+        this.errorSnackbarDisplayerService.
+          openSnackBar(Response.message, SnackBarErrorType.success);
+        this.dataSource.data = this.items.filter(user => user.id !== id);
+        console.log(this.items);
+      }
+      );
     }
   }
+
+
 }
