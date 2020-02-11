@@ -54,7 +54,7 @@
         </mat-card>
       </div>
       <!-- Grafico -->
-      <div *ngIf="!doughnutChartCreatedLists">
+      <div *ngIf="doughnutChartCreatedLists">
         <div>
           <div style="display: block">
             <canvas baseChart [data]="doughnutChartCreatedLists" [labels]="doughnutChartLabels"

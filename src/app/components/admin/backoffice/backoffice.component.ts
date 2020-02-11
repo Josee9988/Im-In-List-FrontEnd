@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ListaService } from './../../../shared/services/lista.service';
-
+import { UserService } from './../../../shared/services/user.service';
 
 @Component({
   selector: 'app-backoffice',
@@ -58,7 +58,7 @@ export class BackofficeComponent implements OnInit {
 
 
 
-  constructor(private listaService: ListaService) {
+  constructor(private listaService: ListaService, private userService: UserService) {
     this.registradosEnero = 15;
     this.registradosAgosto = 2;
     this.registradosSeptiembre = 12;
@@ -76,6 +76,8 @@ export class BackofficeComponent implements OnInit {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
 
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
 
   }
   // events
@@ -86,7 +88,9 @@ export class BackofficeComponent implements OnInit {
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
-  fillDataRegister(Response: any) {
+
+
+  fillDataUsers(Response: any) {
     // Valores obtenidos de la base de datos para usuarios registrados
     this.doughnutChartRegisterUsers = [
       [this.registradosEnero, this.registradosFebrero, this.registradosMarzo, this.registradosAbril,
@@ -94,19 +98,6 @@ export class BackofficeComponent implements OnInit {
       this.registradosSeptiembre, this.registradosOctubre, this.registradosNoviembre, this.registradosDiciembre],
     ];
 
-    // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-      'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-  }
-
-  fillDataPremium(Response: any) {
-    // Valores obtenidos de la base de datos para usuarios registrados
-    this.doughnutChartRegisterUsers = [
-      [this.registradosEnero, this.registradosFebrero, this.registradosMarzo, this.registradosAbril,
-      this.registradosMayo, this.registradosJunio, this.registradosJulio, this.registradosAgosto,
-      this.registradosSeptiembre, this.registradosOctubre, this.registradosNoviembre, this.registradosDiciembre],
-    ];
     // Valores obtenidos de la base de datos para usuarios premium
     this.doughnutChartPremiumUsers = [
       [this.premiumEnero, this.premiumFebrero, this.premiumMarzo, this.premiumAbril,
@@ -118,8 +109,6 @@ export class BackofficeComponent implements OnInit {
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
       'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-
 
   }
 
