@@ -64,7 +64,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
    * @param token the token to be saved.
    */
   saveToken(token: string): void {
-    if (token) {
+    if (token) { // IF TOKEN EXISTS
       localStorage.removeItem('loginUserToken');
       localStorage.setItem('loginUserToken', 'Bearer ' + token);
       this.router.navigate(['/profile']);
@@ -80,7 +80,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
    * @param Response the response from the api
    */
   registerMessage(Response: any): void {
-    if (Response.ok) { // all ok
+    if (Response.ok) { // If all ok
       this.errorSnackbarDisplayerService.openSnackBar(
         `Gracias por registrarte ${Response.name}. ¡Bienvenido`, SnackBarErrorType.success);
     }
