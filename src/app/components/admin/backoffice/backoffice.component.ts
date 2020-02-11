@@ -92,9 +92,32 @@ export class BackofficeComponent implements OnInit {
     console.log(Response);
 
     for (const lista of Response) {
-      if (lista.includes('2020-20')) {
-
+      if (lista.created_at.includes('2020-01')) {
+        this.listasEnero++;
+      } else if (lista.created_at.includes('2020-02')) {
+        this.listasFebrero++;
+      } else if (lista.created_at.includes('2020-03')) {
+        this.listasMarzo++;
+      } else if (lista.created_at.includes('2020-04')) {
+        this.listasAbril++;
+      } else if (lista.created_at.includes('2020-05')) {
+        this.listasMayo++;
+      } else if (lista.created_at.includes('2020-06')) {
+        this.listasJunio++;
+      } else if (lista.created_at.includes('2020-07')) {
+        this.listasJulio++;
+      } else if (lista.created_at.includes('2020-08')) {
+        this.listasAgosto++;
+      } else if (lista.created_at.includes('2020-09')) {
+        this.listasSeptiembre++;
+      } else if (lista.created_at.includes('2020-10')) {
+        this.listasOctubre++;
+      } else if (lista.created_at.includes('2020-11')) {
+        this.listasNoviembre++;
+      } else if (lista.created_at.includes('2020-12')) {
+        this.listasDiciembre++;
       }
+
     }
 
 
