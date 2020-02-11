@@ -42,14 +42,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    // Recibimos el ID
-    const id: number = Number(this.router.snapshot.paramMap.get('id'));
-
-    // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.userService.getUser(id).subscribe(Response => this.fillData(Response));
-
-    this.userService.getDataUser().subscribe(Response => console.log(Response));
-
+    this.userService.getDataUser().subscribe(Response => this.fillData(Response));
   }
 
   /**
@@ -57,21 +50,23 @@ export class ProfileComponent implements OnInit {
    * @param Response Is the response from the API (database)
    */
   fillData(Response: any) {
-    if (!Response.ok === undefined) {
-      this.nickname = Response.name;
-      this.email = Response.email;
+    console.log('Respuesta -->' + Response);
+    // if (!Response.ok === undefined) {
+    console.log('Nombre: ' + Response.user.name);
+    this.nickname = Response.user.name;
+    this.email = Response.user.email;
 
-      // Parseamos las respuestas para así obtener la respuesta como Array
-      this.listasCreadas = JSON.parse(Response.listasCreadas).length;
-      this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
+    // Parseamos las respuestas para así obtener la respuesta como Array
+    this.listasCreadas = JSON.parse(Response.listasCreadas).length;
+    this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
 
-      // Clases donde se almacenerán los valores
-      this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
+    // Clases donde se almacenerán los valores
+    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
 
-      // Valores obtenidos de la base de datos para usuarios premium
-      this.doughnutChartDataLists = [
-        [this.listasCreadas, this.listasParticipadas],
-      ];
-    }
+    // Valores obtenidos de la base de datos para usuarios premium
+    this.doughnutChartDataLists = [
+      [this.listasCreadas, this.listasParticipadas],
+    ];
+    // }
   }
 }

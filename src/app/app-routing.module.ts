@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'login', component: LoginRegisterComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: LoginRegisterComponent },
-  { path: 'profile/:id', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'newList', component: ListComponent },
