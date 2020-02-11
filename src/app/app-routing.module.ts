@@ -18,11 +18,13 @@ import { BackofficeComponent } from './components/admin/backoffice/backoffice.co
 import { UsersTableComponent } from './components/admin/users-table/users-table.component';
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginRegisterComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'register', component: LoginRegisterComponent },
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'pricing', component: PricingComponent },
@@ -46,4 +48,4 @@ export class AppRoutingModule { }
 export const routingComponents: Array<any> = [NavbarComponent, FooterComponent, NotFoundComponent,
   LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent,
-  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent];
+  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent, LogoutComponent];

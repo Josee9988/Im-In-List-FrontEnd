@@ -30,7 +30,7 @@
       </span>
 
       <span class="fill-space"></span>
-      <div *ngFor="let item of navbarLinks">
+      <div *ngFor="let item of navbarLinks;trackBy:navbarLinks.order">
         <button class="top-navbar-item" routerLink="/{{ item.route }}" routerLinkActive="active" mat-button
           class="hvr-bounce-in">
           <mat-icon>

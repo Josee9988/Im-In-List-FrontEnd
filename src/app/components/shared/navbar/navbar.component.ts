@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { INavbarLinks } from './inavbar-links';
 
 
@@ -26,13 +26,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.navbarLinks = [
-      { icon: 'person', field: 'Perfil', route: 'profile' },
-      { icon: 'attach_money', field: 'Precios', route: 'pricing' },
-      { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about' },
-      { icon: 'contact_mail', field: 'Contacta', route: 'contact' },
-      { icon: 'post_add', field: 'Nueva lista', route: 'newList' },
-      { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login' },
-      { icon: 'how_to_reg', field: 'Registro', route: 'register' }];
+      { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
+      { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
+      { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
+      { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
+      { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 5 },
+      { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login', order: 6 },
+      { icon: 'how_to_reg', field: 'Registro', route: 'register', order: 7 },
+      { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 8 }];
   }
 
 }
