@@ -13,6 +13,10 @@ import { Forms } from 'src/app/shared/classes/Forms.class';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class ListComponent extends Forms implements OnInit {
   @Input() list: ILista;
   @Input() newElement: string;

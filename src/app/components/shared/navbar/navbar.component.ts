@@ -10,6 +10,10 @@ import { INavbarLinks } from './inavbar-links';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class NavbarComponent implements OnInit {
   navbarLinks: Array<INavbarLinks>;
 

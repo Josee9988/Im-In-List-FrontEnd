@@ -13,6 +13,10 @@ import { Forms } from 'src/app/shared/classes/Forms.class';
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.scss'],
 })
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class LoginRegisterComponent extends Forms implements OnInit {
   private isRegister: boolean;
   isHidden: boolean;
@@ -41,26 +45,6 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   }
 
 
-  protected getEmailErrorMessage(): string {
-    return this.email.hasError('required') ? 'Debes introducir un email' :
-      this.email.hasError('email') ? 'Introduce un email válido' :
-        this.email.hasError('maxLength') ? 'Debes de introducir un email con menos de 255 carácteres.' :
-          '';
-  }
-
-  protected getPasswordErrorMessage(): string {
-    return this.password.hasError('required') ? 'Debes introducir una contraseña' :
-      this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
-        '';
-  }
-
-  protected getNameErrorMessage(): string {
-    return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
-      this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
-        this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
-          '';
-  }
-
   onSubmit(): void {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
@@ -76,11 +60,57 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     }
   }
 
+  /**
+   * Summary: receives the token and saves it to the localStorage.
+   *
+   * @param token the token to be saved.
+   */
   functionSaveToken(token: string): void {
     if (token) {
       localStorage.removeItem('loginUserToken');
       localStorage.setItem('loginUserToken', 'Bearer ' + token);
       this.router.navigate(['/profile']);
+      this.errorSnackbarDisplayerService.openSnackBar('Login satisfactorio', SnackBarErrorType.success);
     }
   }
+
+
+  /**
+   * Summary: checks if the input has any error, and if that is the case it will return a string
+   * with the problem, if there is no error it will simply return an empty string.
+   *
+   * @return string of the first error found.
+   */
+  getEmailErrorMessage(): string {
+    return this.email.hasError('required') ? 'Debes introducir un email' :
+      this.email.hasError('email') ? 'Introduce un email válido' :
+        this.email.hasError('maxLength') ? 'Debes de introducir un email con menos de 255 carácteres.' :
+          '';
+  }
+
+  /**
+   * Summary: checks if the input has any error, and if that is the case it will return a string
+   * with the problem, if there is no error it will simply return an empty string.
+   *
+   * @return string of the first error found.
+   */
+  getPasswordErrorMessage(): string {
+    return this.password.hasError('required') ? 'Debes introducir una contraseña' :
+      this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
+        '';
+  }
+
+  /**
+   * Summary: checks if the input has any error, and if that is the case it will return a string
+   * with the problem, if there is no error it will simply return an empty string.
+   *
+   * @return string of the first error found.
+   */
+  getNameErrorMessage(): string {
+    return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
+      this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
+        this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
+          '';
+  }
+
 }
