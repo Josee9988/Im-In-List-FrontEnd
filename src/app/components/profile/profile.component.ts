@@ -50,15 +50,21 @@ export class ProfileComponent implements OnInit {
    * @param Response Is the response from the API (database)
    */
   fillData(Response: any) {
-    console.log('Respuesta -->' + Response);
-    // if (!Response.ok === undefined) {
-    console.log('Nombre: ' + Response.user.name);
     this.nickname = Response.user.name;
     this.email = Response.user.email;
 
     // Parseamos las respuestas para así obtener la respuesta como Array
-    this.listasCreadas = JSON.parse(Response.listasCreadas).length;
-    this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
+    if (Response.user.listasCreadas === null) {
+      this.listasCreadas = 0;
+    } else {
+      this.listasCreadas = JSON.parse(Response.user.listasCreadas).length;
+    }
+
+    if (Response.user.listasParticipantes === null) {
+      this.listasParticipadas = 0;
+    } else {
+      this.listasParticipadas = JSON.parse(Response.user.listasParticipantes).length;
+    }
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
