@@ -94,4 +94,9 @@ export class UserService {
     return this.http.delete<IUser>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('deletedUser')));
   }
+
+  getDataUser(): Observable<any> {
+    return this.http.get<IUser[]>(environment.apiUrl + 'user')
+      .pipe(tap(), catchError(this.handleError<IUser[]>('detDataUser', [])));
+  }
 }

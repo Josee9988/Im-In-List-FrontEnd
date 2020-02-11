@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   nickname: string;
   email: string;
   profilePicture: string;
+  respuesta: any;
 
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(private userService: UserService, private router: ActivatedRoute) { // injected
+
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
   }
 
@@ -46,6 +48,8 @@ export class ProfileComponent implements OnInit {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.userService.getUser(id).subscribe(Response => this.fillData(Response));
 
+    this.userService.getDataUser().subscribe(Response => console.log(Response));
+
   }
 
   /**
@@ -54,7 +58,6 @@ export class ProfileComponent implements OnInit {
    */
   fillData(Response: any) {
     if (!Response.ok === undefined) {
-      debugger;
       this.nickname = Response.name;
       this.email = Response.email;
 
