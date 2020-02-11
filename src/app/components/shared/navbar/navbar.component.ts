@@ -24,7 +24,9 @@ export class NavbarComponent implements OnInit {
     '(max-width: 959.99px) and (orientation: landscape)')
     .pipe(map(result => result.matches), shareReplay());
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService,
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService) { }
 
   ngOnInit() {
