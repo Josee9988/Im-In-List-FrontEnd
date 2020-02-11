@@ -70,7 +70,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
       localStorage.setItem('loginUserToken', 'Bearer ' + token);
       this.router.navigate(['/profile']);
       this.errorSnackbarDisplayerService.openSnackBar(
-        'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo¡', SnackBarErrorType.success);
+        'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo!', SnackBarErrorType.success);
     }
   }
 
@@ -83,7 +83,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   registerMessage(Response: any): void {
     if (Response.ok) { // If all ok
       this.errorSnackbarDisplayerService.openSnackBar(
-        `Gracias por registrarte ${Response.name}. ¡Bienvenido`, SnackBarErrorType.success);
+        `Gracias por registrarte ${Response.name}. ¡Bienvenido!`, SnackBarErrorType.success);
     }
   }
 

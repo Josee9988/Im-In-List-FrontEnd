@@ -77,7 +77,7 @@ export class ListaService {
    * Summay: removes an lista from the database.
    * @param lista| number receives an lista object, or an id, and removes that object from the database.
    */
-  deleteLista(lista: ILista | number): Observable<ILista> {
+  deleteLista(lista: ILista | number): Observable<any> {
     const id = typeof lista === 'number' ? lista : lista.id;
     const url = `${this.LISTA_URL}/${id}`;
 
