@@ -17,6 +17,10 @@ export abstract class RequestCache {
 const maxAge = 30000; // maximum cache age (ms)
 
 @Injectable()
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class RequestCacheWithMap implements RequestCache {
 
   cache = new Map<string, RequestCacheEntry>();

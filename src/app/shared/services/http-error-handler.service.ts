@@ -12,6 +12,10 @@ export type HandleError =
 
 /** Handles HttpClient errors */
 @Injectable()
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class HttpErrorHandler {
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
 
@@ -40,6 +44,14 @@ export class HttpErrorHandler {
     };
   }
 
+  /**
+   * Summary: receives an error, and gets the main message to be shown  by the SnackbarDisplayerService.
+   *
+   * @see SnackbarDisplayerService.
+   *
+   * @param error the error found.
+   * @return string with the message of the error.
+   */
   getMessage(error: HttpErrorResponse): string {
     if (error.error instanceof ErrorEvent) {
       return `Error: server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;

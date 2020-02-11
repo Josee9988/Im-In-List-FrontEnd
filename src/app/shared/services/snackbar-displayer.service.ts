@@ -5,6 +5,10 @@ import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
+ */
 export class SnackbarDisplayerService {
 
   constructor(public snackBar: MatSnackBar, private zone: NgZone) { }
