@@ -60,8 +60,9 @@ export class UsersTableComponent implements OnInit {
 
   OnDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
-      this.userService.deleteUser(id).subscribe(Response => this.errorSnackbarDisplayerService.openSnackBar(
-        'Valores incorrectos', SnackBarErrorType.warning));
+
+      this.userService.deleteUser(id).subscribe(Response => this.errorSnackbarDisplayerService.
+        openSnackBar(Response.message, SnackBarErrorType.success));
     }
   }
 }

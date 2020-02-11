@@ -57,7 +57,7 @@ export class UserService {
    * @param user the user that will be created.
    */
   postUser(user: IRegisterUser): Observable<IUser> {
-    return this.http.post<IUser>(this.USER_URL, user, this.httpOptions).pipe(
+    return this.http.post<IUser>(environment.apiUrl + 'register', user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<IUser>('postUser')));
   }
 
@@ -87,7 +87,7 @@ export class UserService {
    * Summay: removes an user from the database.
    * @param user| number receives an user object, or an id, and removes that object from the database.
    */
-  deleteUser(user: IUser | number): Observable<IUser> {
+  deleteUser(user: IUser | number): Observable<any> {
     const id = typeof user === 'number' ? user : user.id;
     const url = `${this.USER_URL}/${id}`;
 
