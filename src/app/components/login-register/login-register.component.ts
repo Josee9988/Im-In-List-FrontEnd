@@ -7,7 +7,6 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 
-
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
@@ -44,17 +43,14 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     }
   }
 
-
   onSubmit(): void {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
-        this.userService.postUser(registerUser).subscribe(
-          Response => this.errorSnackbarDisplayerService.openSnackBar(
-            `Gracias por registrarte ${Response.name}. ¡Bienvenido`, SnackBarErrorType.success));
+        this.userService.postUser(registerUser).subscribe(Response => this.registerMessage(Response));
       } else { // LOGIN
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
-        this.userService.postLogin(loginUser).subscribe(Response => (this.functionSaveToken(Response.token)));
+        this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token)));
       }
       super.clearInputs();
     } else {
@@ -63,11 +59,11 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   }
 
   /**
-   * Summary: receives the token and saves it to the localStorage.
+   * Summary: receives the token and saves it to the localStorage if the token exists.
    *
    * @param token the token to be saved.
    */
-  functionSaveToken(token: string): void {
+  saveToken(token: string): void {
     if (token) {
       localStorage.removeItem('loginUserToken');
       localStorage.setItem('loginUserToken', 'Bearer ' + token);
@@ -77,6 +73,18 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     }
   }
 
+  /**
+   * Summary: receives the response from the api and checks if it is OK; if so it will
+   * show a snackbar message otherwise nothing.
+   *
+   * @param Response the response from the api
+   */
+  registerMessage(Response: any): void {
+    if (Response.ok) { // all ok
+      this.errorSnackbarDisplayerService.openSnackBar(
+        `Gracias por registrarte ${Response.name}. ¡Bienvenido`, SnackBarErrorType.success);
+    }
+  }
 
   /**
    * Summary: checks if the input has any error, and if that is the case it will return a string
@@ -115,5 +123,4 @@ export class LoginRegisterComponent extends Forms implements OnInit {
         this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
           '';
   }
-
 }
