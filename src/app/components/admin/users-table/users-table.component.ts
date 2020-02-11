@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from './../../../shared/services/user.service';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 
 /**
  * @title Table with pagination
@@ -24,8 +26,7 @@ export class UsersTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private userService: UserService) {
-    this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
+  constructor(private userService: UserService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
 
   }
   ngOnInit() {
@@ -57,9 +58,10 @@ export class UsersTableComponent implements OnInit {
 
   }
 
-  OnDelete(nombre) {
+  OnDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
-      console.log('Implement delete functionality here');
+      this.userService.deleteUser(id).subscribe(Response => this.errorSnackbarDisplayerService.openSnackBar(
+        'Valores incorrectos', SnackBarErrorType.warning));
     }
   }
 }
