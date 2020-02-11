@@ -53,22 +53,22 @@ export class ProfileComponent implements OnInit {
    * @param Response Is the response from the API (database)
    */
   fillData(Response: any) {
-    this.nickname = Response.name;
-    this.email = Response.email;
+    if (!Response.ok === undefined) {
+      debugger;
+      this.nickname = Response.name;
+      this.email = Response.email;
 
-    // Parseamos las respuestas para así obtener la respuesta como Array
-    this.listasCreadas = JSON.parse(Response.listasCreadas).length;
-    this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
+      // Parseamos las respuestas para así obtener la respuesta como Array
+      this.listasCreadas = JSON.parse(Response.listasCreadas).length;
+      this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
 
-    // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
+      // Clases donde se almacenerán los valores
+      this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
 
-    // Valores obtenidos de la base de datos para usuarios premium
-    this.doughnutChartDataLists = [
-      [this.listasCreadas, this.listasParticipadas],
-    ];
-
+      // Valores obtenidos de la base de datos para usuarios premium
+      this.doughnutChartDataLists = [
+        [this.listasCreadas, this.listasParticipadas],
+      ];
+    }
   }
-
-
 }
