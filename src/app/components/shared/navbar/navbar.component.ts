@@ -37,7 +37,11 @@ export class NavbarComponent implements OnInit {
     this.declareNavbarElements();
   }
 
-  declareNavbarElements() {
+  /**
+   * Summary: creates the navbarlinks to be shown at the navbar. It is also called
+   * when redeclaring the navbarlinks.
+   */
+  declareNavbarElements(): void {
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
       this.navbarLinks = [
         { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
@@ -58,8 +62,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-
-  logout() {
+  /**
+   * Summary: removes the authorization token, shows a message and redeclare the navbar elements.
+   */
+  logout(): void {
     if (this.authService.deleteAuthorizationToken()) {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
       this.declareNavbarElements();
