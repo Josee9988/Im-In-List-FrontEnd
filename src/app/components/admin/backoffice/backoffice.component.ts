@@ -53,7 +53,7 @@ export class BackofficeComponent implements OnInit {
   doughnutChartCreatedLists: Array<any>;
 
 
-  constructor(private ListaService: ListaService) {
+  constructor(private listaService: ListaService) {
     this.registradosEnero = 15;
     this.registradosAgosto = 2;
     this.registradosSeptiembre = 12;
@@ -70,6 +70,11 @@ export class BackofficeComponent implements OnInit {
   public doughnutChartType: ChartType = 'doughnut';
 
   ngOnInit() {
+
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.listaService.getListas().subscribe(Response => this.fillData(Response));
+
+
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
       'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -101,6 +106,10 @@ export class BackofficeComponent implements OnInit {
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+  fillData(Response: any) {
+    console.log(Response);
+    debugger;
   }
 
 }
