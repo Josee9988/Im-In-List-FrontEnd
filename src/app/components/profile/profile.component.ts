@@ -11,6 +11,9 @@ import { IUser } from '../../shared/models/IUsers.interface';
 })
 
 @Injectable()
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
 export class ProfileComponent implements OnInit {
   // Variables para el gráfico
   listasCreadas: number;
@@ -26,6 +29,8 @@ export class ProfileComponent implements OnInit {
   email: string;
   profilePicture: string;
 
+  // Tipo de grafico que se mostrará
+  public doughnutChartType: ChartType = 'doughnut';
 
 
 
@@ -38,36 +43,32 @@ export class ProfileComponent implements OnInit {
     // Recibimos el ID
     const id: number = Number(this.router.snapshot.paramMap.get('id'));
 
-    console.log(id);
-
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.userService.getUser(id).subscribe(Response => this.fillData(Response));
 
-
-
-
   }
 
-  // Función para añadir los datos del resopnse a la variable
+  /**
+   * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
+   * @param Response Is the response from the API (database)
+   */
   fillData(Response: any) {
-    console.log('2');
-    console.log(Response);
-    this.nickname = Response.name;
-    this.email = Response.email;
+    if (!Response.ok === undefined) {
+      debugger;
+      this.nickname = Response.name;
+      this.email = Response.email;
 
-    // Parseamos las respuestas para así obtener la respuesta como Array
-    this.listasCreadas = JSON.parse(Response.listasCreadas).length;
-    this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
+      // Parseamos las respuestas para así obtener la respuesta como Array
+      this.listasCreadas = JSON.parse(Response.listasCreadas).length;
+      this.listasParticipadas = JSON.parse(Response.listasParticipantes).length;
 
-    // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
+      // Clases donde se almacenerán los valores
+      this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
 
-    // Valores obtenidos de la base de datos para usuarios premium
-    this.doughnutChartDataLists = [
-      [this.listasCreadas, this.listasParticipadas],
-    ];
-
+      // Valores obtenidos de la base de datos para usuarios premium
+      this.doughnutChartDataLists = [
+        [this.listasCreadas, this.listasParticipadas],
+      ];
+    }
   }
-
-
 }
