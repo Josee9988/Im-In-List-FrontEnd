@@ -15,7 +15,7 @@
       <!-- nombre Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
       <!-- email Column -->
@@ -27,7 +27,7 @@
       <!-- rol Column -->
       <ng-container matColumnDef="rol">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
-        <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
       </ng-container>
 
       <!-- listasCreadas Column -->
@@ -39,7 +39,7 @@
       <!-- listasParticipantes Column -->
       <ng-container matColumnDef="listasParticipante">
         <th mat-header-cell *matHeaderCellDef> Listas participante </th>
-        <td mat-cell *matCellDef="let element"> {{element.listasParticipante}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.listasParticipantes}} </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">

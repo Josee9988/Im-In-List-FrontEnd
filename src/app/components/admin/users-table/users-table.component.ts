@@ -52,6 +52,7 @@ export class UsersTableComponent implements OnInit {
    */
   fillDataUsers(Response: any) {
     this.items = Response;
+
     this.dataSource.data = this.items;
 
   }
