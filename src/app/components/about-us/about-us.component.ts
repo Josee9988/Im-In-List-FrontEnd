@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss']
 })
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
 export class AboutUsComponent implements OnInit {
 
   constructor() { }
