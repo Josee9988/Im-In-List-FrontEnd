@@ -30,11 +30,19 @@
       </span>
 
       <span class="fill-space"></span>
-      <div *ngFor="let item of navbarLinks">
-        <button class="top-navbar-item" routerLink="/{{ item.route }}" routerLinkActive="active" mat-button
+      <div *ngFor="let item of navbarLinks;trackBy:navbarLinks.order">
+
+        <!-- If logout -->
+        <button *ngIf="item.logout === true" class="top-navbar-item" (click)="logout()" mat-button
           class="hvr-bounce-in">
           <mat-icon>
             {{item.icon}} </mat-icon>{{item.field}}
+        </button>
+
+        <!-- If not logout -->
+        <button *ngIf="!item.logout" class="top-navbar-item" routerLink="/{{ item.route }}" routerLinkActive="active"
+          mat-button class="hvr-bounce-in">
+          <mat-icon> {{item.icon}} </mat-icon>{{item.field}}
         </button>
       </div>
     </mat-toolbar>

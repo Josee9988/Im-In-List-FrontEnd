@@ -16,7 +16,9 @@ export abstract class RequestCache {
 
 const maxAge = 30000; // maximum cache age (ms)
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>

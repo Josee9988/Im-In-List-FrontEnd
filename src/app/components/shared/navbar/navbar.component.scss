@@ -5,6 +5,7 @@
 .minium-header-pads {
   padding-top: 1%;
   padding-bottom: 1%;
+  padding-right: 1.5%;
 }
 
 .mat-drawer-content {
@@ -69,6 +70,9 @@ img {
 
 .logo-header {
   cursor: pointer;
+}
+.mat-button {
+  padding: 0 6px;
 }
 
 @media (max-width: 882px) and (max-width: 991.99px) {

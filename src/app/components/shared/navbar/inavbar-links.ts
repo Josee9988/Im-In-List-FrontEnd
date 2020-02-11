@@ -15,4 +15,14 @@ export interface INavbarLinks {
      * Name of the route that references.
      */
     route: string;
+
+    /**
+     * Order in which the must appear (1 = first and so on0.)
+     */
+    order: number;
+
+    /**
+     * If it is not a route but it has to call a local function (logout).
+     */
+    logout?: boolean;
 }
