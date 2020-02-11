@@ -21,7 +21,7 @@ import { environment } from './../../../environments/environment';
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class ListaService {
-  private readonly LISTA_URL: string = environment.apiUrl + 'api/listas';
+  private readonly LISTA_URL: string = environment.apiUrl + 'listas';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
