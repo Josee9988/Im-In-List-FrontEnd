@@ -97,6 +97,6 @@ export class UserService {
 
   getDataUser(): Observable<any> {
     return this.http.get<IUser[]>(environment.apiUrl + 'user')
-      .pipe(tap(), catchError(this.handleError<IUser[]>('detDataUser', [])));
+      .pipe(tap(), catchError(this.handleError<IUser[]>('getDataUser', [])));
   }
 }

@@ -6,6 +6,7 @@ import { ListaService } from './../../../shared/services/lista.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { ILista } from 'src/app/shared/models/IListas.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lists-able',
@@ -18,6 +19,7 @@ import { ILista } from 'src/app/shared/models/IListas.model';
  */
 export class ListsTableComponent implements OnInit {
 
+  href: string;
   items: Array<ILista>;
   displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'acciones'];
   dataSource = new MatTableDataSource();
@@ -25,15 +27,18 @@ export class ListsTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private listaService: ListaService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(private listaService: ListaService, private errorSnackbarDisplayerService: SnackbarDisplayerService, private router: Router) {
 
   }
 
 
   ngOnInit() {
-    // Get data from database
-    this.fillDataLists();
-
+    if (this.router.url === '/admin/adminLists') {
+      // Get data from database
+      this.fillDataListsAdmin();
+    } else {
+      this.fillDataListsUser();
+    }
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -48,14 +53,22 @@ export class ListsTableComponent implements OnInit {
   }
 
   /**
-   * Sumary: This function is used to fill data inside dataSource for show it on table
+   * Sumary: This function is used to fill data of every list for adminsinside dataSource for show it on table
    */
-  fillDataLists() {
+  fillDataListsAdmin() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.listaService.getListas().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
   }
 
+  /**
+   * Sumary: This function is used to fill data of each user inside dataSource for show it on table
+   */
+  fillDataListsUser() {
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.listaService.getListasUser().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+
+  }
   /**
    * Sumary: This function is called from button on HTML, which one will delete an user from database
    * @param nombre Param received from HTML and used to show a confirm alert to user
