@@ -38,10 +38,8 @@ export class EditProfileComponent implements OnInit {
 
   checkPasswords(): boolean {
     if (this.password.value === this.confirmPassword.value) {
-      console.log('Coinciden!' + this.password.value + ' y ' + this.confirmPassword.value);
       return true;
     }
-    console.log('NO COINCIDEN!' + this.password.value + ' y ' + this.confirmPassword.value);
     return false;
   }
 

@@ -3,6 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ListaService } from './../../../shared/services/lista.service';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { ILista } from 'src/app/shared/models/IListas.model';
 
 @Component({
   selector: 'app-lists-able',
@@ -15,20 +18,20 @@ import { ListaService } from './../../../shared/services/lista.service';
  */
 export class ListsTableComponent implements OnInit {
 
-  items: any;
+  items: Array<ILista>;
   displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private listaService: ListaService) {
+  constructor(private listaService: ListaService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
 
   }
 
 
   ngOnInit() {
-    //Get data from database
+    // Get data from database
     this.fillDataLists();
 
 
@@ -60,11 +63,12 @@ export class ListsTableComponent implements OnInit {
    */
   OnDelete(titulo: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
-      this.listaService.deleteUser(id).subscribe(Response => {
-        this.errorSnackbarDisplayerService.
-          openSnackBar(Response.message, SnackBarErrorType.success);
-        this.dataSource.data = this.items.filter(user => user.id !== id);
-        console.log(this.items);
+      this.listaService.deleteLista(id).subscribe(Response => {
+        if (!Response.ok === undefined) {
+          this.errorSnackbarDisplayerService.
+            openSnackBar(Response.message, SnackBarErrorType.success);
+          this.dataSource.data = this.items.filter(user => user.id !== id);
+        }
       }
       );
     }
