@@ -19,4 +19,14 @@ export class AuthService {
     }
     return null;
   }
+
+  /**
+   * Summary: removes the token from the localStorage.
+   */
+  deleteAuthorizationToken(): void {
+    if (localStorage.getItem('loginUserToken')) {
+      localStorage.removeItem('loginUserToken');
+    }
+    return null;
+  }
 }

@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
+import { AuthService } from './auth.service';
 
 /** Type of the handleError function returned by HttpErrorHandler.createHandleError */
 export type HandleError =
@@ -17,7 +18,7 @@ export type HandleError =
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class HttpErrorHandler {
-  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private authService: AuthService) { }
 
   /** Create curried handleError function that already knows the service name */
   createHandleError = (serviceName: string = '') => <T>
@@ -33,7 +34,7 @@ export class HttpErrorHandler {
   handleError<T>(serviceName: string = '', operation: string = 'operation', result: T = {} as T) {
     return (error: HttpErrorResponse): Observable<T> => {
       const message = this.getMessage(error);
-
+      this.checkIfExpiredToken(error, message);
       this.errorSnackbarDisplayerService.openSnackBar(`ERROR: ${serviceName}, ${operation} failed: ${message}`, SnackBarErrorType.error);
 
       console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation}:`);
@@ -53,14 +54,31 @@ export class HttpErrorHandler {
    * @return string with the message of the error.
    */
   getMessage(error: HttpErrorResponse): string {
-    if (error.error instanceof ErrorEvent) {
-      return `Error: server returned code ${error.status} with body: ${JSON.stringify(error.error.message)}`;
-    } else if (error.error) {
-      return `Error: ${error.error}`;
+    if (error.status && error.error.message && error.statusText) {
+      return `Error: ${error.statusText} con código ${error.status} devuelve: ${error.error.message}`;
+    } else if (error.status && error.error.message) {
+      return `Error: con código ${error.status} devuelve: ${error.error.message}`;
+    } else if (error.message && error.status) {
+      return `Error: con código ${error.status} devuelve: ${error.message}`;
     } else if (error.message) {
-      return `Error: ${error.message}`;
+      return `Error: ${JSON.stringify(error.message)}`;
     } else {
       return error.toString();
+    }
+  }
+
+  /**
+   * Summary: checks if the error is saying that the token is expired. If so it will remove the token.
+   *
+   * @see getMessage
+   *
+   * @param error the error found.
+   * @param message the message of the error gathered in the 'getMessage' function.
+   */
+  checkIfExpiredToken(error: HttpErrorResponse, message: string): void {
+    const msg = message.toLowerCase();
+    if ((error.status === 401 || error.error.status === 401) && msg.includes('expired') && msg.includes('token')) {
+      this.authService.deleteAuthorizationToken();
     }
   }
 }
