@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
@@ -6,7 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
-import { EventEmitter } from 'protractor';
+import { CommunicationService } from 'src/app/shared/services/communication.service';
 
 @Component({
   selector: 'app-login-register',
@@ -25,7 +25,11 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   password: FormControl;
   token: string;
 
-  constructor(private userService: UserService, private router: Router, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private errorSnackbarDisplayerService: SnackbarDisplayerService,
+    private navbarLoginService: CommunicationService) {
     super();
   }
 
@@ -71,6 +75,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
       this.router.navigate(['/profile']);
       this.errorSnackbarDisplayerService.openSnackBar(
         'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo!', SnackBarErrorType.success);
+      this.navbarLoginService.next(1);
     }
   }
 

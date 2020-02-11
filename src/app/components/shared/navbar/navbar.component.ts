@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -6,6 +6,7 @@ import { INavbarLinks } from './inavbar-links';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { CommunicationService } from 'src/app/shared/services/communication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,13 +28,20 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
-    private snackbarDisplayerService: SnackbarDisplayerService) { }
+    private snackbarDisplayerService: SnackbarDisplayerService,
+    private navbarLoginService: CommunicationService) {
+    this.navbarLoginService.subscribe(() => this.declareNavbarElements());
+  }
 
   ngOnInit() {
     this.declareNavbarElements();
   }
 
-  declareNavbarElements() {
+  /**
+   * Summary: creates the navbarlinks to be shown at the navbar. It is also called
+   * when redeclaring the navbarlinks.
+   */
+  declareNavbarElements(): void {
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
       this.navbarLinks = [
         { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
@@ -54,12 +62,14 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-
-  logout() {
+  /**
+   * Summary: removes the authorization token, shows a message and redeclare the navbar elements.
+   */
+  logout(): void {
     if (this.authService.deleteAuthorizationToken()) {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
+      this.declareNavbarElements();
     }
-
   }
 
 
