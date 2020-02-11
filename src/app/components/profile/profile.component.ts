@@ -11,6 +11,9 @@ import { IUser } from '../../shared/models/IUsers.interface';
 })
 
 @Injectable()
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
 export class ProfileComponent implements OnInit {
   // Variables para el gráfico
   listasCreadas: number;
@@ -26,6 +29,8 @@ export class ProfileComponent implements OnInit {
   email: string;
   profilePicture: string;
 
+  // Tipo de grafico que se mostrará
+  public doughnutChartType: ChartType = 'doughnut';
 
 
 
@@ -38,20 +43,16 @@ export class ProfileComponent implements OnInit {
     // Recibimos el ID
     const id: number = Number(this.router.snapshot.paramMap.get('id'));
 
-    console.log(id);
-
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.userService.getUser(id).subscribe(Response => this.fillData(Response));
 
-
-
-
   }
 
-  // Función para añadir los datos del resopnse a la variable
+  /**
+   * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
+   * @param Response Is the response from the API (database)
+   */
   fillData(Response: any) {
-    console.log('2');
-    console.log(Response);
     this.nickname = Response.name;
     this.email = Response.email;
 

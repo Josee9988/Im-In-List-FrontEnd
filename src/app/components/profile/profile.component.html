@@ -11,11 +11,11 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </mat-card>
     </div>
-    <div class="graficasListas" *ngIf="doughnutChartDataLists">
+    <div class="graficasListas">
       <mat-card class="cardNumbers">
         <mat-card-title>Listas</mat-card-title>
         <hr />
-        <a href="#" class="graficasDatos">
+        <a href="#" class="graficasDatos" *ngIf="doughnutChartDataLists">
           <div>
             <!-- Grafico -->
             <div style="display: block">
