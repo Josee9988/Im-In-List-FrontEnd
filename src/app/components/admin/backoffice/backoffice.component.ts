@@ -52,6 +52,11 @@ export class BackofficeComponent implements OnInit {
   doughnutChartPremiumUsers: Array<any>;
   doughnutChartCreatedLists: Array<any>;
 
+  // Tipo de grafico que se mostrará
+  public doughnutChartType: ChartType = 'doughnut';
+
+
+
 
   constructor(private listaService: ListaService) {
     this.registradosEnero = 15;
@@ -66,14 +71,25 @@ export class BackofficeComponent implements OnInit {
   }
 
 
-
-  public doughnutChartType: ChartType = 'doughnut';
-
   ngOnInit() {
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.listaService.getListas().subscribe(Response => this.fillData(Response));
 
+
+  }
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+
+  fillData(Response: any) {
+    console.log(Response);
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
@@ -98,18 +114,6 @@ export class BackofficeComponent implements OnInit {
       this.listasMayo, this.listasJunio, this.listasJulio, this.listasAgosto,
       this.listasSeptiembre, this.listasOctubre, this.listasNoviembre, this.listasDiciembre],
     ];
-  }
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-  fillData(Response: any) {
-    console.log(Response);
-    debugger;
   }
 
 }

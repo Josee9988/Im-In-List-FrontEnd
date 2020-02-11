@@ -27,9 +27,6 @@ export class ProfileComponent implements OnInit {
   profilePicture: string;
 
 
-  // Tipo de grafico que se mostrará
-  public doughnutChartType: ChartType = 'doughnut';
-
 
 
   constructor(private userService: UserService, private router: ActivatedRoute) { // injected
