@@ -59,15 +59,7 @@ export class BackofficeComponent implements OnInit {
 
 
   constructor(private listaService: ListaService, private userService: UserService) {
-    this.registradosEnero = 15;
-    this.registradosAgosto = 2;
-    this.registradosSeptiembre = 12;
-    this.premiumEnero = 154;
-    this.premiumFebrero = 13;
-    this.premiumOctubre = 54;
-    this.listasMayo = 1;
-    this.listasOctubre = 2;
-    this.listasDiciembre = 1;
+
   }
 
 
@@ -91,6 +83,62 @@ export class BackofficeComponent implements OnInit {
 
 
   fillDataUsers(Response: any) {
+
+    for (const user of Response) {
+      if (user.role === '1') {
+        if (user.created_at.includes('2020-01')) {
+          this.registradosEnero++;
+        } else if (user.created_at.includes('2020-02')) {
+          this.registradosFebrero++;
+        } else if (user.created_at.includes('2020-03')) {
+          this.registradosMarzo++;
+        } else if (user.created_at.includes('2020-04')) {
+          this.registradosAbril++;
+        } else if (user.created_at.includes('2020-05')) {
+          this.registradosMayo++;
+        } else if (user.created_at.includes('2020-06')) {
+          this.registradosJunio++;
+        } else if (user.created_at.includes('2020-07')) {
+          this.registradosJulio++;
+        } else if (user.created_at.includes('2020-08')) {
+          this.registradosAgosto++;
+        } else if (user.created_at.includes('2020-09')) {
+          this.registradosSeptiembre++;
+        } else if (user.created_at.includes('2020-10')) {
+          this.registradosOctubre++;
+        } else if (user.created_at.includes('2020-11')) {
+          this.registradosNoviembre++;
+        } else if (user.created_at.includes('2020-12')) {
+          this.registradosDiciembre++;
+        }
+      } else if (user.role === '2') {
+        if (user.created_at.includes('2020-01')) {
+          this.premiumEnero++;
+        } else if (user.created_at.includes('2020-02')) {
+          this.premiumFebrero++;
+        } else if (user.created_at.includes('2020-03')) {
+          this.premiumMarzo++;
+        } else if (user.created_at.includes('2020-04')) {
+          this.premiumAbril++;
+        } else if (user.created_at.includes('2020-05')) {
+          this.premiumMayo++;
+        } else if (user.created_at.includes('2020-06')) {
+          this.premiumJunio++;
+        } else if (user.created_at.includes('2020-07')) {
+          this.premiumJulio++;
+        } else if (user.created_at.includes('2020-08')) {
+          this.premiumAgosto++;
+        } else if (user.created_at.includes('2020-09')) {
+          this.premiumSeptiembre++;
+        } else if (user.created_at.includes('2020-10')) {
+          this.premiumOctubre++;
+        } else if (user.created_at.includes('2020-11')) {
+          this.premiumNoviembre++;
+        } else if (user.created_at.includes('2020-12')) {
+          this.premiumDiciembre++;
+        }
+      }
+    }
     // Valores obtenidos de la base de datos para usuarios registrados
     this.doughnutChartRegisterUsers = [
       [this.registradosEnero, this.registradosFebrero, this.registradosMarzo, this.registradosAbril,
