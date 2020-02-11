@@ -9,6 +9,10 @@ import { UserService } from './../../../shared/services/user.service';
   styleUrls: ['./backoffice.component.scss']
 })
 
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
+
 export class BackofficeComponent implements OnInit {
   registradosEnero: number;
   registradosFebrero: number;
@@ -117,6 +121,10 @@ export class BackofficeComponent implements OnInit {
   }
 
 
+  /**
+   * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
+   * @param Response Is the response from the API (database)
+   */
   fillDataUsers(Response: any) {
 
     for (const user of Response) {
@@ -195,6 +203,10 @@ export class BackofficeComponent implements OnInit {
 
   }
 
+  /**
+   * Sumary: Get the data passed by param and assign it to the consts for show when the lists have beencreated
+   * @param Response Is the response from the API (database)
+   */
   fillDataListas(Response: any) {
     console.log(Response);
 
