@@ -40,6 +40,6 @@
       listas que participo</button>
     <button routerLink="/editProfile" mat-raised-button color="accent" matTooltip="Editar tu perfil"
       matTooltipPosition="right" class="actionsButton hvr-pop">Editar perfil</button>
-    <button mat-raised-button color="warn" matTooltip="Cierra sesión" matTooltipPosition="right"
+    <button (click)="onClose()" mat-raised-button color="warn" matTooltip="Cierra sesión" matTooltipPosition="right"
       class="actionsButton hvr-pop">Cerrar sesion</button>
   </div>
