@@ -57,8 +57,8 @@ export class UsersTableComponent implements OnInit {
 
   }
 
-  OnDelete() {
-    if (confirm('Are you sure to delete ' + name)) {
+  OnDelete(nombre) {
+    if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
       console.log('Implement delete functionality here');
     }
   }
