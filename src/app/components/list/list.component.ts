@@ -109,7 +109,19 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to delete.
    */
   onDeleteElement(order: number): void {
+    const master: IListElement = this.list.elementos.find(elemento => elemento.order === order);
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
+    // delete all of his slaves
+    master.subTasks.forEach(slaveOrder => {
+      this.list.elementos = this.list.elementos.filter(element => element.order !== slaveOrder);
+    });
+
+    let counter = 0;
+    this.list.elementos.forEach(element => {
+      element.order = counter;
+      counter++;
+    });
+
   }
 
   /**
@@ -119,7 +131,7 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to make slave.
    */
   onMakeSlave(order: number): void {
-    if (order !== 0) {
+    if (this.list.elementos[0].order !== order) {
       const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
       if (futureSlave) {
         futureSlave.master = false;
@@ -182,6 +194,9 @@ export class ListComponent extends Forms implements OnInit {
     }
   }
 
+  /**
+   * Summary: resets the list, so the angular view gets refreshed.
+   */
   forceRefresh(): void {
     const fake = this.list;
     this.list = null;
