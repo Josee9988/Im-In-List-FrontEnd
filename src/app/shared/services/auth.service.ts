@@ -28,6 +28,19 @@ export class AuthService {
     return null;
   }
 
+
+  /**
+   * Summary: saves the token received from the array
+   *
+   * @param token the token WITHOUT any prefixes like 'Bearer'. (the raw token).
+   */
+  saveAuthorizationToken(token: string): void {
+    if (this.checkGivenToken(token)) {
+      localStorage.removeItem(this.storageName);
+      localStorage.setItem(this.storageName, 'Bearer ' + token);
+    }
+  }
+
   /**
    * Summary: removes the token from the localStorage.
    *
@@ -48,10 +61,21 @@ export class AuthService {
    */
   hasToken(): boolean {
     const lStorageItem: string = localStorage.getItem(this.storageName);
-    if (lStorageItem !== null && typeof lStorageItem === 'string' && lStorageItem.length > 300) {
+    return this.checkGivenToken(lStorageItem);
+  }
+
+
+  /**
+   * Summary: receives a token and checks if it seems correct, if so it will return true,
+   * if not false.
+   *
+   * @param token the token received that will be validated.
+   * @return boolean, true if the token seems correct otherwise false.
+   */
+  checkGivenToken(token: string): boolean {
+    if (token !== null && typeof token === 'string' && token.length > 250) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 }

@@ -7,6 +7,7 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { CommunicationService } from 'src/app/shared/services/communication.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login-register',
@@ -29,7 +30,8 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     private userService: UserService,
     private router: Router,
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
-    private communicationService: CommunicationService) {
+    private communicationService: CommunicationService,
+    private authService: AuthService) {
     super();
   }
 
@@ -52,10 +54,10 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
-        this.userService.postUser(registerUser).subscribe(Response => this.registerMessage(Response));
+        this.userService.postUser(registerUser).subscribe(Response => this.saveToken(Response.token, false));
       } else { // LOGIN
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
-        this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token)));
+        this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token, true)));
       }
       super.clearInputs();
     } else {
@@ -64,31 +66,24 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   }
 
   /**
-   * Summary: receives the token and saves it to the localStorage if the token exists.
+   * Summary: receives the token and saves it to the localStorage if the token exists,
+   * then it navigates to the profile, sends a snackbar message and refreshes the navbar component.
    *
-   * @param token the token to be saved.
+   * @param token the token that comes from the API.
+   * @param isLogin if the petition comes from the login(true) of from the register(false).
    */
-  saveToken(token: string): void {
-    if (token) { // IF TOKEN EXISTS
-      localStorage.removeItem('loginUserToken');
-      localStorage.setItem('loginUserToken', 'Bearer ' + token);
+  saveToken(token: string, isLogin: boolean): void {
+    if (this.authService.checkGivenToken(token)) { // IF THE TOKEN EXISTS AND SEEMS VALID
+      this.authService.saveAuthorizationToken(token);
       this.router.navigate(['/profile']);
-      this.errorSnackbarDisplayerService.openSnackBar(
-        'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo!', SnackBarErrorType.success);
-      this.communicationService.next(1);
-    }
-  }
-
-  /**
-   * Summary: receives the response from the api and checks if it is OK; if so it will
-   * show a snackbar message otherwise nothing.
-   *
-   * @param Response the response from the api
-   */
-  registerMessage(Response: any): void {
-    if (Response.ok) { // If all ok
-      this.errorSnackbarDisplayerService.openSnackBar(
-        `Gracias por registrarte ${Response.name}. ¡Bienvenido!`, SnackBarErrorType.success);
+      if (isLogin) { // if comes from LOGIN
+        this.errorSnackbarDisplayerService.openSnackBar(
+          'Login realizado de manera satisfactoria. ¡Bienvenido de nuevo!', SnackBarErrorType.success);
+      } else {// if comes from REGISTER
+        this.errorSnackbarDisplayerService.openSnackBar(
+          `Gracias por registrarte ${Response.name}. ¡Bienvenido!`, SnackBarErrorType.success);
+      }
+      this.communicationService.next(1); // refresh navbar data
     }
   }
 
