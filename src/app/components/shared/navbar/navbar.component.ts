@@ -20,7 +20,6 @@ import { UserService } from 'src/app/shared/services/user.service';
  */
 export class NavbarComponent implements OnInit {
   navbarLinks: Array<INavbarLinks>;
-  private userRol: number;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(
     '(max-width: 859.99px) and (orientation: portrait), ' +
@@ -36,12 +35,7 @@ export class NavbarComponent implements OnInit {
     this.navbarLoginService.subscribe(() => this.declareNavbarElements());
   }
 
-  async ngOnInit() {
-    this.navbarLinks = [
-      { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
-      { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 2 },
-      { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 3 },
-      { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 4 }];
+  ngOnInit() {
     this.declareNavbarElements();
   }
 
@@ -50,38 +44,31 @@ export class NavbarComponent implements OnInit {
    * when redeclaring the navbarlinks.
    */
   declareNavbarElements() {
+    // default links
+    this.navbarLinks = [
+      { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
+      { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
+      { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
+      { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 6 }];
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
       const self = this;
       this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) { // ADMIN
-          self.navbarLinks = [
-            { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
+          self.navbarLinks.push(// add the missing ones in the right order
             { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
-            { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
-            { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
-            { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 5 },
-            { icon: 'how_to_reg', field: 'Admin', route: 'admin', order: 6 },
-            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 7, logout: true }];
+            { icon: 'how_to_reg', field: 'Admin', route: 'admin', order: 7 },
+            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 8, logout: true });
         } else if (Response.user.role > 0) { // LOGGED IN AS USERS
-          self.navbarLinks = [
-            { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
+          self.navbarLinks.push( // add the missing ones in the right order
             { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
-            { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
-            { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
-            { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 5 },
-            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true },
-          ];
+            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true });
         }
       });
     } else { // NOT LOGGED IN
-      this.navbarLinks = [
-        { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
-        { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 2 },
-        { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 3 },
-        { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 4 },
-        { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login', order: 5 },
-        { icon: 'person_add', field: 'Registro', route: 'register', order: 6 },
-      ];
+      this.navbarLinks.push(
+        { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login', order: 7 },
+        { icon: 'person_add', field: 'Registro', route: 'register', order: 8 }
+      );
     }
   }
 
