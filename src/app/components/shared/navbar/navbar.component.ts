@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { CommunicationService } from 'src/app/shared/services/communication.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +30,8 @@ export class NavbarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
-    private navbarLoginService: CommunicationService) {
+    private navbarLoginService: CommunicationService,
+    private userService: UserService) {
     this.navbarLoginService.subscribe(() => this.declareNavbarElements());
   }
 
@@ -41,24 +43,32 @@ export class NavbarComponent implements OnInit {
    * Summary: creates the navbarlinks to be shown at the navbar. It is also called
    * when redeclaring the navbarlinks.
    */
-  declareNavbarElements(): void {
+  declareNavbarElements() {
+    // default links
+    this.navbarLinks = [
+      { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
+      { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
+      { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
+      { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 6 }];
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
-      this.navbarLinks = [
-        { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
-        { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
-        { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
-        { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
-        { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 5 },
-        { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true }];
-    } else { // NOT LOGGED INT
-      this.navbarLinks = [
-        { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
-        { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 2 },
-        { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 3 },
-        { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 4 },
-        { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login', order: 5 },
-        { icon: 'how_to_reg', field: 'Registro', route: 'register', order: 6 },
-      ];
+      const self = this;
+      this.userService.getDataUser().subscribe(Response => {
+        if (Response.user.role === 0) { // ADMIN
+          self.navbarLinks.push(// add the missing ones in the right order
+            { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
+            { icon: 'how_to_reg', field: 'Admin', route: 'admin', order: 7 },
+            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 8, logout: true });
+        } else if (Response.user.role > 0) { // LOGGED IN AS USERS
+          self.navbarLinks.push( // add the missing ones in the right order
+            { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
+            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true });
+        }
+      });
+    } else { // NOT LOGGED IN
+      this.navbarLinks.push(
+        { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login', order: 7 },
+        { icon: 'person_add', field: 'Registro', route: 'register', order: 8 }
+      );
     }
   }
 
@@ -70,6 +80,12 @@ export class NavbarComponent implements OnInit {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
       this.declareNavbarElements();
     }
+  }
+
+  async getRol(): Promise<any> {
+    this.userService.getDataUser().subscribe(Response => {
+      return Response.user.role;
+    });
   }
 
 
