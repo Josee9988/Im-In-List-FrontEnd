@@ -12,18 +12,18 @@ a:link {
   text-align: center;
   background-color: #ebebeb;
   width: 30%;
-  height: 60%;
+
   margin-left: 2.3%;
 }
 
-@media (min-width: 420px) and (max-width: 1020px) {
+@media (max-width: 1020px) {
   .graficas {
     display: inline-grid;
   }
   .graficasDatos {
     height: 130%;
     width: 80%;
-    margin-bottom: 5%;
+    margin-bottom: 10px;
     margin-left: 10%;
   }
 }
@@ -36,5 +36,6 @@ a:link {
 }
 .mat-raised-button:hover {
   color: black;
+  -webkit-transition: 3;
   transition: 3;
 }
