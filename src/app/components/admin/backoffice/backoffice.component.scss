@@ -29,6 +29,12 @@ a:link {
 }
 
 .mat-raised-button {
+  margin-top: 5px;
+  margin-left: 2px;
   box-shadow: none !important;
   color: #cccccc;
+}
+.mat-raised-button:hover {
+  color: black;
+  transition: 3;
 }
