@@ -21,6 +21,7 @@ import { UsersTableComponent } from './components/admin/users-table/users-table.
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { NotAllowComponent } from './components/not-allow/not-allow.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', }, // no route specified (go to home)
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'showLists', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'showParticipated', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'notAllow', component: NotAllowComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
@@ -50,4 +52,4 @@ export class AppRoutingModule { }
 export const routingComponents: Array<any> = [NavbarComponent, FooterComponent, NotFoundComponent,
   LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent,
-  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent, LogoutComponent];
+  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent, LogoutComponent, NotAllowComponent];

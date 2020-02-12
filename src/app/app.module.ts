@@ -74,6 +74,7 @@ import { GetSubChildsPipe } from './components/list/get-sub-childs.pipe';
     AppComponent,
     routingComponents,
     GetSubChildsPipe,
+
   ],
   imports: [
     BrowserModule,
