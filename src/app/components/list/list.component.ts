@@ -135,10 +135,7 @@ export class ListComponent extends Forms implements OnInit {
           slaveOfFutureSlave.master = true;
           slaveOfFutureSlave.subTasks = [];
         });
-        // FORCE LIST REFRESH
-        const fake = this.list;
-        this.list = null;
-        setTimeout(() => this.list = fake);
+        this.forceRefresh(); // FORCE LIST REFRESH
       }
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
@@ -163,6 +160,7 @@ export class ListComponent extends Forms implements OnInit {
           }
         }
       }
+      this.forceRefresh(); // FORCE LIST REFRESH
     }
   }
 
@@ -182,6 +180,12 @@ export class ListComponent extends Forms implements OnInit {
     } else { // IF ANY INPUT IS NOT READY
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
+  }
+
+  forceRefresh(): void {
+    const fake = this.list;
+    this.list = null;
+    setTimeout(() => this.list = fake);
   }
 
   /**
