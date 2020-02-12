@@ -49,36 +49,36 @@ export class ListComponent extends Forms implements OnInit {
       titulo: '',
       descripcion: '',
       elementos: [{
-        order: 1,
+        order: 0,
         text: 'Lechugas',
         master: true,
         subTasks: []
       },
       {
-        order: 2,
+        order: 1,
         text: 'Tomates',
         master: true,
-        subTasks: [3, 4]
+        subTasks: [2, 3]
       },
       {
-        order: 3,
+        order: 2,
         text: 'Plátanos',
         master: false,
         subTasks: []
       },
       {
-        order: 4,
+        order: 3,
         text: 'Duweis',
         master: false,
         subTasks: []
       },
       {
-        order: 5,
+        order: 4,
         text: 'Melocotones',
         master: true,
         subTasks: []
       }, {
-        order: 6,
+        order: 5,
         text: 'Macarrones verdes',
         master: true,
         subTasks: []
@@ -119,22 +119,22 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to make slave.
    */
   onMakeSlave(order: number): void {
-    if (order !== 1) {
+    if (order !== 0) {
       const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
       if (futureSlave) {
         futureSlave.master = false;
-        for (let i = futureSlave.order - 2; i > 0; i--) {
+        for (let i = futureSlave.order; i >= 0; i--) { // asign the master of the futureSlave
           if (this.list.elementos[i].master) {
             this.list.elementos[i].subTasks.push(futureSlave.order);
             break;
           }
         }
-        // remove all of his subtasks
+        // foreach every subtask, and make them master (they are freed from the master)
         futureSlave.subTasks.forEach(subTaskOrder => {
           const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder);
           slaveOfFutureSlave.master = true;
-          slaveOfFutureSlave.subTasks = [];
         });
+        futureSlave.subTasks = []; // remove the subtasks of the future slave
         this.forceRefresh(); // FORCE LIST REFRESH
       }
     } else {
