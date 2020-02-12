@@ -117,9 +117,10 @@ export class ListComponent extends Forms implements OnInit {
         this.list.elementos = this.list.elementos.filter(element => element.order !== slaveOrder);
       });
     } else { // slave
-      this.list.elementos.forEach(element => {
-        element.subTasks.filter(subTask => subTask !== order);
-      });
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < this.list.elementos.length; i++) { // remove the subtask from the master
+        this.list.elementos[i].subTasks = this.list.elementos[i].subTasks.filter(subTask => subTask !== order);
+      }
     }
 
     let counter = 0;
