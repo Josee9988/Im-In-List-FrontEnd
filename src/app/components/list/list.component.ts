@@ -142,7 +142,7 @@ export class ListComponent extends Forms implements OnInit {
       if (futureSlave) {
         futureSlave.master = false;
         for (let i = futureSlave.order; i >= 0; i--) { // asign the master of the futureSlave
-          if (this.list.elementos[i].master) {
+          if (typeof this.list.elementos[i] !== 'undefined' && this.list.elementos[i].master) {
             this.list.elementos[i].subTasks.push(futureSlave.order);
             break;
           }
