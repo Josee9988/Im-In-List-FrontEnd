@@ -23,7 +23,12 @@ a:link {
   .graficasDatos {
     height: 130%;
     width: 80%;
-    margin-top: 1%;
+    margin-bottom: 5%;
     margin-left: 10%;
   }
+}
+
+.mat-raised-button {
+  box-shadow: none !important;
+  color: #cccccc;
 }
