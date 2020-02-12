@@ -112,9 +112,15 @@ export class ListComponent extends Forms implements OnInit {
     const master: IListElement = this.list.elementos.find(elemento => elemento.order === order);
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
     // delete all of his slaves
-    master.subTasks.forEach(slaveOrder => {
-      this.list.elementos = this.list.elementos.filter(element => element.order !== slaveOrder);
-    });
+    if (master.master) {
+      master.subTasks.forEach(slaveOrder => {
+        this.list.elementos = this.list.elementos.filter(element => element.order !== slaveOrder);
+      });
+    } else { // slave
+      this.list.elementos.forEach(element => {
+        element.subTasks.filter(subTask => subTask !== order);
+      });
+    }
 
     let counter = 0;
     this.list.elementos.forEach(element => {
@@ -213,6 +219,10 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
+
+    for (let i = 0; i < this.list.elementos.length; i++) {
+      this.list.elementos[i].order = i;
+    }
   }
 
   /**
