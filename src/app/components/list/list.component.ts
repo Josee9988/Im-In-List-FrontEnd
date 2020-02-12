@@ -122,13 +122,6 @@ export class ListComponent extends Forms implements OnInit {
         this.list.elementos[i].subTasks = this.list.elementos[i].subTasks.filter(subTask => subTask !== order);
       }
     }
-
-    let counter = 0;
-    this.list.elementos.forEach(element => {
-      element.order = counter;
-      counter++;
-    });
-
   }
 
   /**
