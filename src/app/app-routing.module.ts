@@ -24,21 +24,21 @@ import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', }, // no route specified (go to home)
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, },
   { path: 'login', component: LoginRegisterComponent },
-  { path: 'logout', component: LogoutComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'register', component: LoginRegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'pricing', component: PricingComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'newList', component: ListComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'admin', component: BackofficeComponent },
-  { path: 'admin/adminUsers', component: UsersTableComponent },
-  { path: 'admin/adminLists', component: ListsTableComponent },
-  { path: 'showLists', component: ListsTableComponent },
-  { path: 'showParticipated', component: ListsTableComponent },
-  { path: 'editProfile', component: EditProfileComponent },
+  { path: 'admin', component: BackofficeComponent, canActivate: [AuthGuard] },
+  { path: 'admin/adminUsers', component: UsersTableComponent, canActivate: [AuthGuard] },
+  { path: 'admin/adminLists', component: ListsTableComponent, canActivate: [AuthGuard] },
+  { path: 'showLists', component: ListsTableComponent, canActivate: [AuthGuard] },
+  { path: 'showParticipated', component: ListsTableComponent, canActivate: [AuthGuard] },
+  { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
