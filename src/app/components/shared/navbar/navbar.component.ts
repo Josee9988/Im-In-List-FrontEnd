@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
    * Summary: creates the navbarlinks to be shown at the navbar. It is also called
    * when redeclaring the navbarlinks.
    */
-  declareNavbarElements() {
+  declareNavbarElements(): void {
     // default links
     this.navbarLinks = [
       { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
