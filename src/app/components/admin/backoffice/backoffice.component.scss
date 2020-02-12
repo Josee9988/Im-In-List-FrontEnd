@@ -1,6 +1,5 @@
 .graficas {
   margin-top: 5%;
-  display: -webkit-inline-box;
   display: inline-flex;
   width: 100%;
 }
@@ -14,4 +13,16 @@ a:link {
   width: 30%;
   height: 60%;
   margin-left: 2.3%;
+}
+
+@media (min-width: 420px) and (max-width: 1020px) {
+  .graficas {
+    display: inline-grid;
+  }
+  .graficasDatos {
+    height: 130%;
+    width: 80%;
+    margin-top: 1%;
+    margin-left: 10%;
+  }
 }
