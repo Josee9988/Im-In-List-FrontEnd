@@ -15,7 +15,7 @@
         </mat-card>
       </div>
       <mat-card>
-        <mat-card-content class="elements-list" [ngStyle]="{'height.px': windowHeight}">
+        <mat-card-content>
           <mat-icon>subtitles</mat-icon>
           <!-- Subtitle -->
           <mat-form-field>
@@ -24,12 +24,12 @@
             <mat-error *ngIf="titulo.invalid">{{getDescripcionErrorMessage()}}</mat-error>
           </mat-form-field>
           <div class="form-container">
-            <div class="spacer"></div>
-            <hr>
             <mat-label>Tus elementos:</mat-label>
+            <div class="spacer border-b"></div>
 
             <!-- Your elements -->
-            <div *ngIf="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <div class="elements-list" [ngStyle]="{'height.px': windowHeight}" *ngIf="list" cdkDropList
+              (cdkDropListDropped)="onDrop($event)">
               <div *ngFor="let element of list.elementos; trackBy:list.elementos.order" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
@@ -78,7 +78,8 @@
                 </ng-container>
               </div>
             </div>
-
+            <div class="spacer border-t"></div>
+            <div class="spacer"></div>
             <!-- Add new -->
             <mat-form-field appearance="outline">
               <mat-label>Nuevo elemento</mat-label>

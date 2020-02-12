@@ -40,7 +40,7 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   ngOnInit() {
-    this.windowHeight = window.innerHeight / 1.75;
+    this.windowHeight = window.innerHeight / 2.5;
 
     // mock list
     this.list = {
