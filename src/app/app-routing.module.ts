@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 
 /**
@@ -22,8 +23,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
-  { path: 'home', component: HomeComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home', }, // no route specified (go to home)
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginRegisterComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: LoginRegisterComponent },
