@@ -52,3 +52,17 @@ td.mat-cell:last-of-type {
   -webkit-transition: 3;
   transition: 3;
 }
+.mat-column-elemento {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  -webkit-box-flex: 0 !important;
+  flex: 0 0 28% !important;
+  width: 28% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}

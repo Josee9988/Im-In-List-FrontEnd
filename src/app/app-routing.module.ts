@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'showParticipated', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'notAllow', component: NotAllowComponent },
-  { path: 'editLista/:url', component: ListComponent },
+  { path: 'editList/:url', component: ListComponent },
   { path: 'editProfile/:id', component: EditProfileComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];

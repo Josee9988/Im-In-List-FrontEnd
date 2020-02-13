@@ -87,8 +87,8 @@ export class ListsTableComponent implements OnInit {
     }
   }
 
-  onEdit(id: number) {
-
+  onEdit(URL: string) {
+    this.router.navigate(['/editList/' + URL]);
   }
 
 }
