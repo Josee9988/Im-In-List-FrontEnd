@@ -18,7 +18,7 @@ import { IUser } from 'src/app/shared/models/IUsers.interface';
  */
 export class UsersTableComponent implements OnInit {
   items: Array<IUser>;
-  displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'listasCreadas', 'listasParticipante', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
