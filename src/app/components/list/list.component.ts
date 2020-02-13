@@ -100,10 +100,17 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
   }
 
+  /**
+   * Summary: receives an order number (id - like) of its parent element and removes
+   * the slave (subtaks) searching by its name (text).
+   *
+   * @param order order of the parent we do -1 because we want to refeer to the list.elementos position.
+   * @param text the text of the slave element to be removed.
+   */
   onDeleteSlave(order: number, text: string): void {
-    this.list.elementos[order - 1].subTasks = this.list.elementos[order - 1].subTasks.filter(e => e.name !== text);
+    this.list.elementos[order - 1].subTasks =
+      this.list.elementos[order - 1].subTasks.filter(slave => slave.name !== text);
   }
-
 
   /**
    * Summary: receives an order number (id - like) of an master element and turns it
@@ -125,11 +132,10 @@ export class ListComponent extends Forms implements OnInit {
         }
         // foreach every subtask, and make them master (they are freed from the master)
         futureSlave.subTasks.forEach(subTaskOrder => {
-          this.newElement = subTaskOrder.name;
-          this.onAddElement();
+          this.onAddElement(subTaskOrder.name);
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
-        this.refreshOrder();
+        this.refreshOrder(); // refresh the order
       }
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
@@ -142,10 +148,11 @@ export class ListComponent extends Forms implements OnInit {
    * into a master element.
    *
    * @param order the order number of the element that we want to make master.
+   * @param text the text of the future master element.
    */
   onMakeMaster(order: number, text: string): void {
     this.onDeleteSlave(order + 1, text);
-    this.addElement(text);
+    this.onAddElement(text);
     this.refreshOrder();
   }
 
@@ -180,6 +187,10 @@ export class ListComponent extends Forms implements OnInit {
     this.refreshOrder();
   }
 
+  /**
+   * Refreshes the order of the elements. Every order property will pertain at its own
+   * array position.
+   */
   private refreshOrder() {
     let counter = 0;
     for (const element of this.list.elementos) {
@@ -188,8 +199,6 @@ export class ListComponent extends Forms implements OnInit {
         counter++;
       }
     }
-
-
   }
 
   /**
