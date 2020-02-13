@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class CommunicationService {
+export class RefreshNavbarCommunication {
 
   /**
    * Observable element.

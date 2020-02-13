@@ -6,7 +6,7 @@ import { INavbarLinks } from './inavbar-links';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { CommunicationService } from 'src/app/shared/services/communication.service';
+import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -30,9 +30,9 @@ export class NavbarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
-    private navbarLoginService: CommunicationService,
+    private refreshNavbarCommunication: RefreshNavbarCommunication,
     private userService: UserService) {
-    this.navbarLoginService.subscribe(() => this.declareNavbarElements());
+    this.refreshNavbarCommunication.subscribe(() => this.declareNavbarElements());
   }
 
   ngOnInit() {
