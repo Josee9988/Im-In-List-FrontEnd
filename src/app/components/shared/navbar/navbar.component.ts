@@ -81,15 +81,7 @@ export class NavbarComponent implements OnInit {
     if (this.authService.deleteAuthorizationToken()) {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
       this.declareNavbarElements();
-      this.router.navigate(['/home']);
+      window.location.href = '/home';
     }
   }
-
-  async getRol(): Promise<any> {
-    this.userService.getDataUser().subscribe(Response => {
-      return Response.user.role;
-    });
-  }
-
-
 }
