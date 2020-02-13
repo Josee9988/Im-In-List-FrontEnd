@@ -17,17 +17,29 @@ export class AdminGuard implements CanActivate {
 
   }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  async canActivate(): Promise<boolean> {
+
+    this.checkAdmin().then((A) => {
+      return true;
+    })
+      .catch((error) => {
+        alert(error);
+      });
 
 
+
+    alert('Voy a devolver ->' + true);
+    return true;
+  }
+
+  async checkAdmin() {
     if (this.authService.hasToken()) {
       this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role !== 0) {
           this.router.navigate(['/notAllow']);
           return false;
         } else {
+          alert('Es admin');
           return true;
         }
       });
@@ -35,5 +47,6 @@ export class AdminGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     }
+
   }
 }
