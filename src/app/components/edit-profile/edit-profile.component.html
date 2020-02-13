@@ -9,7 +9,8 @@
     <hr />
 
     <!-- Slider edit name -->
-    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editName" [ngModelOptions]="{standalone: true}">
+    <mat-slide-toggle class="toggleStyle" color="accent" (click)="closeToggleInputs(1)" [(ngModel)]="editName"
+      [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar nombre
     </mat-slide-toggle>
 
@@ -29,7 +30,8 @@
 
 
     <!-- Slider edit email -->
-    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editEmail" [ngModelOptions]="{standalone: true}">
+    <mat-slide-toggle class="toggleStyle" color="accent" (click)="closeToggleInputs(2)" [(ngModel)]="editEmail"
+      [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar email
     </mat-slide-toggle>
 
@@ -50,7 +52,7 @@
     <hr />
 
     <!-- Slider edit password -->
-    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPassword"
+    <mat-slide-toggle class="toggleStyle" color="accent" (click)="closeToggleInputs(3)" [(ngModel)]="editPassword"
       [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar contraseña
     </mat-slide-toggle>
@@ -72,7 +74,7 @@
       <!-- Password field -->
       <mat-form-field appearance="outline">
         <mat-label>Nueva contraseña</mat-label>
-        <input name="password" type="password" [formControl]="password" matInput
+        <input name="password" type="password" [formControl]="password" (click)="closeToggleInputs(4)" matInput
           placeholder="Introduce tu nueva contraseña" [type]="hide ? 'password' : 'text'"
           autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
