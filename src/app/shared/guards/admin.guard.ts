@@ -35,7 +35,6 @@ export class AdminGuard implements CanActivate {
           this.router.navigate(['/notAllow']);
           return false;
         } else {
-          alert('Es admin');
           return true;
         }
       });
