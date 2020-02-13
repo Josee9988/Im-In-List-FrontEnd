@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://iminlist.back.staging.grupo04.ddaw.sie/api/',
+  apiUrl: 'http://iminlist.back.staging.grupo04.ddaw.site/api/',
 };
