@@ -56,7 +56,7 @@ export class UsersTableComponent implements OnInit {
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
-  OnDelete(nombre: string, id: number) {
+  onDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
       this.userService.deleteUser(id).subscribe(Response => {
         if (!Response.ok === undefined) {
@@ -67,6 +67,10 @@ export class UsersTableComponent implements OnInit {
       }
       );
     }
+  }
+
+  onEdit(id: number) {
+
   }
 
 
