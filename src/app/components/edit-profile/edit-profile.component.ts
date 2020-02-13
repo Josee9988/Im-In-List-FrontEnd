@@ -49,16 +49,15 @@ export class EditProfileComponent extends Forms {
     }
   }
 
-
   /**
-   * Sumary: This function check which inputs are active
+   * Sumary: This function check which toggle is activated and choose the correct inputs
    */
   checkInputs(): void {
-    if (this.editName === true) {
+    if (this.editName) {
       this.inputs = [this.name];
-    } else if (this.editEmail === true) {
+    } else if (this.editEmail) {
       this.inputs = [this.email];
-    } else if (this.editPassword === true) {
+    } else if (this.editPassword) {
       this.inputs = [this.oldPassword, this.password, this.confirmPassword];
     }
   }
@@ -92,8 +91,6 @@ export class EditProfileComponent extends Forms {
       default:
         break;
     }
-
-
   }
 
   /**
