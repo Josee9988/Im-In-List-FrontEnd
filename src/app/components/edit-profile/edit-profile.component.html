@@ -23,8 +23,8 @@
         <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
       </mat-form-field>
       <!-- Submit button -->
-      <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
-        mat-raised-button color="primary">Guardar cambios</button>
+      <button class="submit-login-register" (click)="onSubmit()" type="submit" matTooltip="Guardar cambios"
+        matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
     </form>
 
     <hr />

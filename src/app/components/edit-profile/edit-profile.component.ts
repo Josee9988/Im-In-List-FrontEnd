@@ -3,13 +3,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Forms } from './../../shared/classes/Forms.class';
 import { UserService } from './../../shared/services/user.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
-export class EditProfileComponent extends Forms {
+export class EditProfileComponent extends Forms implements OnInit {
   editName: boolean;
   editEmail: boolean;
   editPassword: boolean;
@@ -24,11 +24,12 @@ export class EditProfileComponent extends Forms {
   files: File[];
   groupPassword: FormGroup;
 
+  usuarioEditar: any;
   nombreUsuario: string;
   emailUsuario: string;
 
 
-  constructor(private userService: UserService, private location: Location) {
+  constructor(private userService: UserService, private location: Location, private route: ActivatedRoute) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
@@ -44,16 +45,29 @@ export class EditProfileComponent extends Forms {
       confirmPassword: new FormControl('')
     });
 
-    this.userService.getUser(2).subscribe(Response => {
-      this.nombreUsuario = Response.name;
-      this.emailUsuario = Response.email;
-    });
+
+  }
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (Number(id) !== 0) {
+      this.userService.getUser(Number(id)).subscribe(Response => {
+        this.usuarioEditar = Response;
+        this.nombreUsuario = Response.name;
+        this.emailUsuario = Response.email;
+      });
+    }
   }
 
   onSubmit(): void {
     this.checkInputs();
     if (super.validateInputs()) {
+      this.usuarioEditar.name = this.name.value;
+      console.log('El usuario a editar es: ' + this.usuarioEditar);
+      this.userService.putUser(this.usuarioEditar);
+
       super.clearInputs();
+
     } else {
 
     }
