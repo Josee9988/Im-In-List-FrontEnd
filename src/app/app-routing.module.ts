@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
 
 
 /**
@@ -34,9 +35,9 @@ const routes: Routes = [
   { path: 'about', component: AboutUsComponent },
   { path: 'newList', component: ListComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'admin', component: BackofficeComponent, canActivate: [AuthGuard] },
-  { path: 'admin/adminUsers', component: UsersTableComponent, canActivate: [AuthGuard] },
-  { path: 'admin/adminLists', component: ListsTableComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: BackofficeComponent, canActivate: [AdminGuard] },
+  { path: 'admin/adminUsers', component: UsersTableComponent, canActivate: [AdminGuard] },
+  { path: 'admin/adminLists', component: ListsTableComponent, canActivate: [AdminGuard] },
   { path: 'showLists', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'showParticipated', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
