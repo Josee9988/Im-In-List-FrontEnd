@@ -77,8 +77,9 @@ export class UserService {
    * @param user the user that will be modified.
    */
   putUser(user: IUser): Observable<any> {
-    return this.http.put(this.USER_URL, user, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<any>('updatedUser')));
+
+    return this.http.get<IUser[]>(environment.apiUrl + 'users/' + user.id)
+      .pipe(tap(), catchError(this.handleError<IUser[]>('getUser', [])));
   }
 
 
