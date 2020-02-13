@@ -127,8 +127,7 @@ export class ListComponent extends Forms implements OnInit {
             break;
           }
         }
-        // foreach every subtask, and make them master (they are freed from the master)
-        futureSlave.subTasks.forEach(subTaskOrder => {
+        futureSlave.subTasks.forEach(subTaskOrder => {// foreach every subtask, and make them master (they are freed from the master)
           this.addElement(subTaskOrder.name);
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
@@ -188,7 +187,7 @@ export class ListComponent extends Forms implements OnInit {
    * Refreshes the order of the elements. Every order property will pertain at its own
    * array position.
    */
-  private refreshOrder() {
+  private refreshOrder(): void {
     let counter = 0;
     for (const element of this.list.elementos) {
       if (element) {
@@ -204,7 +203,7 @@ export class ListComponent extends Forms implements OnInit {
    *
    * @param newElement the text to be added.
    */
-  private addElement(newElement: string) {
+  private addElement(newElement: string): void {
     let isRepeated = false;
     // check for repeated elements as master
     if (this.list.elementos.find(element => element.text === newElement)) {
@@ -218,17 +217,16 @@ export class ListComponent extends Forms implements OnInit {
         }
       });
     }
-
-    if (isRepeated) {
+    if (!isRepeated) { // element not repeated (ok)
+      this.list.elementos.push({
+        order: this.list.elementos.length + 1,
+        text: newElement.trim(),
+        master: true,
+        subTasks: []
+      });
+    } else { // if the element was repeated, dont add it
       this.errorSnackbarDisplayerService.openSnackBar(`El elemento ${newElement} ya existe.`, SnackBarErrorType.warning);
     }
-
-    this.list.elementos.push({
-      order: this.list.elementos.length + 1,
-      text: newElement.trim(),
-      master: true,
-      subTasks: []
-    });
   }
 
   /**
