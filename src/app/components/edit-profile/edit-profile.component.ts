@@ -1,25 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-
+import { Forms } from './../../shared/classes/Forms.class';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent extends Forms {
+  editName: boolean;
+  editEmail: boolean;
+  editPassword: boolean;
+  editPicture: boolean;
+
   hide: boolean;
   name: FormControl;
   email: FormControl;
   oldPassword: FormControl;
   password: FormControl;
   confirmPassword: FormControl;
-  inputs: Array<FormControl>;
   files: File[];
   groupPassword: FormGroup;
 
   constructor(private location: Location) {
+    super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.oldPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
@@ -28,12 +33,50 @@ export class EditProfileComponent implements OnInit {
     this.files = [];
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
-    this.inputs = [this.email, this.password, this.name];
 
     this.groupPassword = new FormGroup({
       password: new FormControl(''),
       confirmPassword: new FormControl('')
     });
+  }
+
+  onSubmit(): void {
+    this.checkInputs();
+    if (super.validateInputs()) {
+      super.clearInputs();
+    } else {
+
+    }
+  }
+
+
+  /**
+   * Sumary: This function check which inputs are active
+   */
+  checkInputs(): void {
+    if (this.editName === true) {
+      this.inputs = [this.name];
+    } else if (this.editEmail === true) {
+
+    }
+  }
+
+  /**
+   * Sumary: This function turn off other inputs opened
+   * @param id It's the input that has been opened
+   */
+  closeToggleInputs(id: number): void {
+    switch (id) {
+      case 1:
+        this.editEmail = undefined;
+        this.edit
+        break;
+
+      default:
+        break;
+    }
+
+
   }
 
   checkPasswords(): boolean {
@@ -42,11 +85,6 @@ export class EditProfileComponent implements OnInit {
     }
     return false;
   }
-
-  ngOnInit() {
-  }
-
-
 
   getEmailErrorMessage(): string {
     return this.email.hasError('required') ? 'Debes introducir un email' :
