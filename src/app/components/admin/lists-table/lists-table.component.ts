@@ -74,7 +74,7 @@ export class ListsTableComponent implements OnInit {
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
-  OnDelete(titulo: string, id: number) {
+  onDelete(titulo: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
       this.listaService.deleteLista(id).subscribe(Response => {
         if (!Response.ok === undefined) {
@@ -85,6 +85,10 @@ export class ListsTableComponent implements OnInit {
       }
       );
     }
+  }
+
+  onEdit(id: number) {
+
   }
 
 }
