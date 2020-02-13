@@ -94,18 +94,19 @@ export class ListComponent extends Forms implements OnInit {
    */
   onDeleteElementMaster(order: number): void {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
+    this.refreshOrder();
   }
 
   /**
    * Summary: receives an order number (id - like) of its parent element and removes
    * the slave (subtaks) searching by its name (text).
    *
-   * @param order order of the parent we do -1 because we want to refeer to the list.elementos position.
+   * @param order order of the parent. the order refeers to the list.elementos position.
    * @param text the text of the slave element to be removed.
    */
   onDeleteSlave(order: number, text: string): void {
-    this.list.elementos[order - 1].subTasks =
-      this.list.elementos[order - 1].subTasks.filter(slave => slave.name !== text);
+    this.list.elementos[order].subTasks =
+      this.list.elementos[order].subTasks.filter(slave => slave.name !== text);
   }
 
   /**
