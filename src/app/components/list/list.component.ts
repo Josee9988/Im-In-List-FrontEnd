@@ -92,6 +92,7 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   private addElement(newText: string) {
+    debugger;
     this.list.elementos.push({
       order: this.list.elementos.length + 1,
       text: newText,
@@ -110,7 +111,7 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   onDeleteSlave(order: number, text: string): void {
-    this.list.elementos[order].subTasks = this.list.elementos[order].subTasks.filter(e => e.name !== text);
+    this.list.elementos[order - 1].subTasks = this.list.elementos[order - 1].subTasks.filter(e => e.name !== text);
   }
 
 
@@ -128,6 +129,7 @@ export class ListComponent extends Forms implements OnInit {
         for (let i = futureSlave.order; i >= 0; i--) { // asign the master of the futureSlave
           if (typeof this.list.elementos[i] !== 'undefined' && this.list.elementos[i].master) {
             this.list.elementos[i].subTasks.push({ name: futureSlave.text });
+            this.onDeleteElementMaster(futureSlave.order);
             break;
           }
         }
@@ -138,10 +140,13 @@ export class ListComponent extends Forms implements OnInit {
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
         this.forceRefresh(); // FORCE LIST REFRESH
+        this.refreshOrder();
+
       }
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
     }
+
   }
 
   /**
@@ -151,12 +156,13 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to make master.
    */
   onMakeMaster(order: number, text: string): void {
-    const futureMaster: IListElement = this.list.elementos.find(elemento => elemento.order === order - 1);
-    if (futureMaster) {
-      this.onDeleteSlave(order, text);
-      this.addElement(text);
-    }
+
+    this.onDeleteSlave(order + 1, text);
+    this.addElement(text);
+    this.refreshOrder();
     this.forceRefresh(); // FORCE LIST REFRESH
+
+
   }
 
   onSubmit(): void {
@@ -181,9 +187,9 @@ export class ListComponent extends Forms implements OnInit {
    * Summary: resets the list, so the angular view gets refreshed.
    */
   forceRefresh(): void {
-    const fake = this.list;
-    this.list = null;
-    setTimeout(() => this.list = fake);
+    /* const fake = this.list;
+     this.list = null;
+     setTimeout(() => this.list = fake);*/
   }
 
   /**
@@ -196,33 +202,21 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
-    let orderCounter = 0;
-    for (let i = 0; i < this.list.elementos.length; i++) {
-      this.list.elementos[i].order = orderCounter;
-      orderCounter++;
+    this.refreshOrder();
 
-      if (this.list.elementos[i].subTasks.length > 0) { // if it has subtasks
-        for (let j = 0; j < this.list.elementos[i].subTasks.length; j++) {
-          this.list.elementos[i].subTasks[j] = orderCounter + j;
+  }
 
-        }
+  private refreshOrder() {
+    let counter = 0;
+    for (const element of this.list.elementos) {
+      if (element) {
+        element.order = counter;
+        // TODO: change order of subelements
+        counter++;
       }
     }
 
-    const movedSubTaks = this.list.elementos[event.currentIndex].subTasks.length;
-    if (movedSubTaks > 0) {
-      moveItemInArray(this.list.elementos, event.previousIndex, movedSubTaks + 1);
-    }
 
-
-    let counter = 0;
-    this.list.elementos.forEach(element => {
-      element.order = counter;
-      // TODO: change order of subelements
-      counter++;
-    });
-
-    console.log(this.list.elementos);
   }
 
   /**
