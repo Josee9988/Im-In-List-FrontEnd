@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Forms } from './../../shared/classes/Forms.class';
+import { UserService } from './../../shared/services/user.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -23,7 +24,11 @@ export class EditProfileComponent extends Forms {
   files: File[];
   groupPassword: FormGroup;
 
-  constructor(private location: Location) {
+  nombreUsuario: string;
+  emailUsuario: string;
+
+
+  constructor(private userService: UserService, private location: Location) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
@@ -37,6 +42,11 @@ export class EditProfileComponent extends Forms {
     this.groupPassword = new FormGroup({
       password: new FormControl(''),
       confirmPassword: new FormControl('')
+    });
+
+    this.userService.getUser(2).subscribe(Response => {
+      this.nombreUsuario = Response.name;
+      this.emailUsuario = Response.email;
     });
   }
 

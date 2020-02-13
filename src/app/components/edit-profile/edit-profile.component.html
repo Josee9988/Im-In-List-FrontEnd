@@ -18,7 +18,8 @@
       <!-- Name field -->
       <mat-form-field appearance="outline">
         <mat-label>Nombre</mat-label>
-        <input type="name" [formControl]="name" matInput placehold="ej: Carlos Alfredo" autocomplete="on">
+        <input type="name" [formControl]="name" matInput placehold="ej: Carlos Alfredo" autocomplete="on"
+          value="{{nombreUsuario}}">
         <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
       </mat-form-field>
       <!-- Submit button -->
@@ -39,7 +40,8 @@
       <!-- Email field -->
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" autocomplete="on">
+        <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" value={{emailUsuario}}
+          autocomplete="on">
         <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
         <mat-hint>Introduce tu email</mat-hint>
         <div class="spacer"></div>
