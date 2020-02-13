@@ -54,7 +54,7 @@
                   <ng-container *ngIf="element.subTasks.length > 0 ">
                     <!-- idChild es cada ID de los subelementos de ese elemento -->
 
-                    <div *ngFor="let child of element.subTasks">
+                    <div *ngFor="let child of element.subTasks; let i = index">
                       <!-- child element -->
                       <div class="child-list">
                         <!-- Slave icon -->
@@ -62,10 +62,11 @@
                           matTooltipPosition="left">keyboard_return</mat-icon>
                         <!-- Subtask -->
                         <mat-form-field appearance="outline">
-                          <input type="text" name="child" [(ngModel)]="child" [ngModelOptions]="{standalone: true}"
-                            matInput placeholder="Tu elemento aquí" autocomplete="off">
+                          <input type="text" name="child.name" [(ngModel)]="child.name"
+                            [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
+                            autocomplete="off">
                           <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                            (click)="onDeleteSlave(child)">
+                            (click)="onDeleteSlave(element.order, child.name)">
                             <mat-icon class="c-red">delete</mat-icon>
                           </button>
                         </mat-form-field>

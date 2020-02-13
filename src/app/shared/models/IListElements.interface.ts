@@ -5,7 +5,7 @@ export interface IListElement {
     order: number;
     text: string;
     master: boolean;
-    subTasks: Array<string>;
+    subTasks: any;
 }
 
 /**

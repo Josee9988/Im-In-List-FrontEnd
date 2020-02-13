@@ -58,7 +58,7 @@ export class ListComponent extends Forms implements OnInit {
         order: 1,
         text: 'Tomates',
         master: true,
-        subTasks: ['SubTomates1', 'SubTomates2']
+        subTasks: [{ name: 'SubTomates1' }, { name: 'SubTomates2' }]
       },
       {
         order: 2,
@@ -100,10 +100,8 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
   }
 
-  onDeleteSlave(text: string): void {
-    this.list.elementos.forEach(element => {
-      element.subTasks.splice(element.subTasks.indexOf(text), 1);
-    });
+  onDeleteSlave(order: number, text: string): void {
+    this.list.elementos[order].subTasks = this.list.elementos[order].subTasks.filter(e => e.name !== text);
   }
 
 
