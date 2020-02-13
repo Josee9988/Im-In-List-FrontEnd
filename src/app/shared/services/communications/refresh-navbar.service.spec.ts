@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommunicationService } from './communication.service';
+import { RefreshNavbarCommunication } from './refresh-navbar.service';
 
 describe('NavbarLoginService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CommunicationService = TestBed.get(CommunicationService);
+    const service: RefreshNavbarCommunication = TestBed.get(RefreshNavbarCommunication);
     expect(service).toBeTruthy();
   });
 });
