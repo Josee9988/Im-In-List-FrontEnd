@@ -13,7 +13,6 @@ import { AuthService } from './../services/auth.service';
  */
 export class AdminGuard implements CanActivate {
 
-  self = this;
   constructor(private userService: UserService, private authService: AuthService, private router: Router) {
 
   }
@@ -29,7 +28,6 @@ export class AdminGuard implements CanActivate {
           this.router.navigate(['/notAllow']);
           return false;
         } else {
-
           return true;
         }
       });
