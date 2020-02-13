@@ -147,7 +147,7 @@ export class ListComponent extends Forms implements OnInit {
    * @param text the text of the future master element.
    */
   onMakeMaster(order: number, text: string): void {
-    this.onDeleteSlave(order + 1, text);
+    this.onDeleteSlave(order, text);
     this.addElement(text);
     this.refreshOrder();
   }
