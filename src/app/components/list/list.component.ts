@@ -7,6 +7,8 @@ import { SnackbarDisplayerService } from '../../shared/services/snackbar-display
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IListElement } from 'src/app/shared/models/IListElements.interface';
 import { Forms } from 'src/app/shared/classes/Forms.class';
+import { ListaService } from 'src/app/shared/services/lista.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -31,7 +33,7 @@ export class ListComponent extends Forms implements OnInit {
 
   windowHeight: number;
 
-  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private listaService: ListaService, private router: Router) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -39,37 +41,11 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   ngOnInit() {
-    this.windowHeight = window.innerHeight / 2.5;
-
-    // mock list
+    this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
     this.list = {
-      id: 1,
-      idUsuarioCreador: 5,
       titulo: '',
       descripcion: '',
-      elementos: [{
-        order: 0,
-        text: 'Lechugas',
-        master: true,
-        subTasks: []
-      },
-      {
-        order: 1,
-        text: 'Tomates',
-        master: true,
-        subTasks: [{ name: 'SubTomates1' }, { name: 'SubTomates2' }]
-      },
-      {
-        order: 2,
-        text: 'Melocotones',
-        master: true,
-        subTasks: []
-      }, {
-        order: 3,
-        text: 'Macarrones verdes',
-        master: true,
-        subTasks: [{ name: 'FlamaMóvilesVerdes' }]
-      }]
+      elementos: []
     };
   }
 
@@ -153,20 +129,25 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.list.elementos);
-
-    if (this.hasPassword) {
-      this.inputs = [this.titulo, this.descripcion, this.password];
+    if (this.list.elementos.length > 0) {
+      if (this.hasPassword) {
+        this.inputs = [this.titulo, this.descripcion, this.password];
+      } else {
+        this.inputs = [this.titulo, this.descripcion];
+      }
+      this.list.titulo = this.titulo.value;
+      this.list.descripcion = this.descripcion.value;
+      if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+        this.listaService.postLista(this.list).subscribe(() => {
+          this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.warning);
+          super.clearInputs();
+          this.router.navigate(['/newList']);
+        });
+      } else { // IF ANY INPUT IS NOT READY
+        this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
+      }
     } else {
-      this.inputs = [this.titulo, this.descripcion];
-    }
-    this.list.titulo = this.titulo.value;
-    this.list.descripcion = this.descripcion.value;
-    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
-      // TODO: SEND THE LIST
-      super.clearInputs();
-    } else { // IF ANY INPUT IS NOT READY
-      this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
+      this.errorSnackbarDisplayerService.openSnackBar('Añade al menos un elemento a la lista', SnackBarErrorType.warning);
     }
   }
 

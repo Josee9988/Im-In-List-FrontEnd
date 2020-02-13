@@ -5,7 +5,7 @@ import { IListElement } from './IListElements.interface';
  */
 export interface ILista {
     id?: number;
-    idUsuarioCreador: number;
+    idUsuarioCreador?: number;
     titulo: string;
     contraseña?: string;
     descripcion: string;
