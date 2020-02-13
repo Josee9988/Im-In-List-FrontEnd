@@ -81,11 +81,11 @@
             <!-- Add new -->
             <mat-form-field appearance="outline">
               <mat-label>Nuevo elemento</mat-label>
-              <input type="text" matInput [(ngModel)]="newElement" #newElementInput name="newElementInput"
+              <input type="text" matInput #newElement #newElementInput name="newElementInput"
                 placeholder="Tu elemento aquí" autocomplete="off">
               <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
               <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'"
-                (click)="onAddElement()">
+                (click)="onAddElement(newElement)">
                 <mat-icon>library_add</mat-icon>
               </button>
             </mat-form-field>

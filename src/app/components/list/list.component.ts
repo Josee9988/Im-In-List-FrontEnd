@@ -19,7 +19,6 @@ import { Forms } from 'src/app/shared/classes/Forms.class';
  */
 export class ListComponent extends Forms implements OnInit {
   @Input() list: ILista;
-  @Input() newElement: string;
 
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
@@ -75,30 +74,21 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   /**
-   * Summary: receives an element and adds it to the element list.
+   * Summary: receives an input element and adds its value to the element list being master and
+   * without any subtasks.
    */
-  onAddElement(): void {
-    if (this.newElement) { // if the element exists
-      this.newElement.trim();
+  onAddElement(newElement): void {
+    if (newElement.value) { // if the element exists
+      newElement.value.trim();
       this.list.elementos.push({
         order: this.list.elementos.length + 1,
-        text: this.newElement,
+        text: newElement.value,
         master: true,
         subTasks: []
       });
-      this.newElement = '';
+      newElement.value = '';
     }
     this.newElementInput.nativeElement.focus(); // add the focus again
-  }
-
-  private addElement(newText: string) {
-    debugger;
-    this.list.elementos.push({
-      order: this.list.elementos.length + 1,
-      text: newText,
-      master: true,
-      subTasks: []
-    });
   }
 
   /**
@@ -139,9 +129,7 @@ export class ListComponent extends Forms implements OnInit {
           this.onAddElement();
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
-        this.forceRefresh(); // FORCE LIST REFRESH
         this.refreshOrder();
-
       }
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
@@ -156,13 +144,9 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to make master.
    */
   onMakeMaster(order: number, text: string): void {
-
     this.onDeleteSlave(order + 1, text);
     this.addElement(text);
     this.refreshOrder();
-    this.forceRefresh(); // FORCE LIST REFRESH
-
-
   }
 
   onSubmit(): void {
@@ -184,15 +168,6 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   /**
-   * Summary: resets the list, so the angular view gets refreshed.
-   */
-  forceRefresh(): void {
-    /* const fake = this.list;
-     this.list = null;
-     setTimeout(() => this.list = fake);*/
-  }
-
-  /**
    * Summary: receives a drag event and switches positions and reflects it in the main array.
    *
    * @param event the event received to switch two element positions.
@@ -203,7 +178,6 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
     this.refreshOrder();
-
   }
 
   private refreshOrder() {
@@ -211,7 +185,6 @@ export class ListComponent extends Forms implements OnInit {
     for (const element of this.list.elementos) {
       if (element) {
         element.order = counter;
-        // TODO: change order of subelements
         counter++;
       }
     }
