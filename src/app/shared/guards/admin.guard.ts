@@ -19,16 +19,12 @@ export class AdminGuard implements CanActivate {
 
   async canActivate(): Promise<boolean> {
 
-    this.checkAdmin().then((A) => {
+    this.checkAdmin().then(() => {
       return true;
     })
-      .catch((error) => {
-        alert(error);
+      .catch(() => {
       });
 
-
-
-    alert('Voy a devolver ->' + true);
     return true;
   }
 
