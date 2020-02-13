@@ -95,6 +95,9 @@ export class UserService {
       tap(), catchError(this.handleError<IUser>('deletedUser')));
   }
 
+  /**
+   * Sumary: Server answer with all the information about the user logged
+   */
   getDataUser(): Observable<any> {
     return this.http.get<IUser[]>(environment.apiUrl + 'user')
       .pipe(tap(), catchError(this.handleError<IUser[]>('getDataUser', [])));
