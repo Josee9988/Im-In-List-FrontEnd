@@ -7,7 +7,6 @@ import { Injectable } from '@angular/core';
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class AuthService {
-
   /**
    * The name of the local storage item that will be saving the token.
    */

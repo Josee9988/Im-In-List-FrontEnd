@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
+
 
 /**
  * Components
@@ -19,24 +22,26 @@ import { UsersTableComponent } from './components/admin/users-table/users-table.
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { NotAllowComponent } from './components/not-allow/not-allow.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' }, // no route specified (go to home)
-  { path: 'home', component: HomeComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home', }, // no route specified (go to home)
+  { path: 'home', component: HomeComponent, },
   { path: 'login', component: LoginRegisterComponent },
-  { path: 'logout', component: LogoutComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'register', component: LoginRegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'pricing', component: PricingComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'newList', component: ListComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'admin', component: BackofficeComponent },
-  { path: 'admin/adminUsers', component: UsersTableComponent },
-  { path: 'admin/adminLists', component: ListsTableComponent },
-  { path: 'showLists', component: ListsTableComponent },
-  { path: 'showParticipated', component: ListsTableComponent },
-  { path: 'editProfile', component: EditProfileComponent },
+  { path: 'admin', component: BackofficeComponent, canActivate: [AdminGuard] },
+  { path: 'admin/adminUsers', component: UsersTableComponent, canActivate: [AdminGuard] },
+  { path: 'admin/adminLists', component: ListsTableComponent, canActivate: [AdminGuard] },
+  { path: 'showLists', component: ListsTableComponent, canActivate: [AuthGuard] },
+  { path: 'showParticipated', component: ListsTableComponent, canActivate: [AuthGuard] },
+  { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'notAllow', component: NotAllowComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 
@@ -48,4 +53,4 @@ export class AppRoutingModule { }
 export const routingComponents: Array<any> = [NavbarComponent, FooterComponent, NotFoundComponent,
   LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent,
-  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent, LogoutComponent];
+  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent, LogoutComponent, NotAllowComponent];
