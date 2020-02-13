@@ -69,9 +69,24 @@ export class EditProfileComponent extends Forms {
     switch (id) {
       case 1:
         this.editEmail = undefined;
-        this.edit
+        this.editPassword = undefined;
+        this.editPicture = undefined;
         break;
-
+      case 2:
+        this.editName = undefined;
+        this.editPassword = undefined;
+        this.editPicture = undefined;
+        break;
+      case 3:
+        this.editName = undefined;
+        this.editEmail = undefined;
+        this.editPicture = undefined;
+        break;
+      case 4:
+        this.editName = undefined;
+        this.editEmail = undefined;
+        this.editPassword = undefined;
+        break;
       default:
         break;
     }
@@ -123,12 +138,10 @@ export class EditProfileComponent extends Forms {
 
 
   onSelect(event) {
-    console.log(event);
     this.files.push(...event.addedFiles);
   }
 
   onRemove(event) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 
