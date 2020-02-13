@@ -6,6 +6,7 @@ import { UserService } from './../../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IUser } from 'src/app/shared/models/IUsers.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-table',
@@ -24,7 +25,7 @@ export class UsersTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private userService: UserService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(private router: Router, private userService: UserService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
 
   }
   ngOnInit() {
@@ -69,8 +70,12 @@ export class UsersTableComponent implements OnInit {
     }
   }
 
+  /**
+   * Sumary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
+   * @param id is the ID of the user that want to be edited
+   */
   onEdit(id: number) {
-
+    this.router.navigate(['/editProfile/' + id]);
   }
 
 
