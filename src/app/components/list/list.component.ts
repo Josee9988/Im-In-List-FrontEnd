@@ -124,8 +124,8 @@ export class ListComponent extends Forms implements OnInit {
         }
         // foreach every subtask, and make them master (they are freed from the master)
         futureSlave.subTasks.forEach(subTaskOrder => {
-          const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder.name);
-          slaveOfFutureSlave.master = true;
+          this.newElement = subTaskOrder.name;
+          this.onAddElement();
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
         this.forceRefresh(); // FORCE LIST REFRESH
