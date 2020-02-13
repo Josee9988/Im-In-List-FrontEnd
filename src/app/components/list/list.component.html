@@ -58,8 +58,8 @@
                       <!-- child element -->
                       <div class="child-list">
                         <!-- Slave icon -->
-                        <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(child)" matTooltip="Haz un elemento"
-                          matTooltipPosition="left">keyboard_return</mat-icon>
+                        <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(element.order, child.name)"
+                          matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
                         <!-- Subtask -->
                         <mat-form-field appearance="outline">
                           <input type="text" name="child.name" [(ngModel)]="child.name"

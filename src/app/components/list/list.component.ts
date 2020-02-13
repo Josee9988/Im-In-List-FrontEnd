@@ -91,6 +91,15 @@ export class ListComponent extends Forms implements OnInit {
     this.newElementInput.nativeElement.focus(); // add the focus again
   }
 
+  private addElement(newText: string) {
+    this.list.elementos.push({
+      order: this.list.elementos.length + 1,
+      text: newText,
+      master: true,
+      subTasks: []
+    });
+  }
+
   /**
    * Summary: receives an order number (id - like) of an element and deletes it.
    *
@@ -141,20 +150,13 @@ export class ListComponent extends Forms implements OnInit {
    *
    * @param order the order number of the element that we want to make master.
    */
-  onMakeMaster(order: number): void {
-    const futureMaster: IListElement = this.list.elementos.find(elemento => elemento.order === order);
+  onMakeMaster(order: number, text: string): void {
+    const futureMaster: IListElement = this.list.elementos.find(elemento => elemento.order === order - 1);
     if (futureMaster) {
-      futureMaster.master = true;
-      for (const element of this.list.elementos) {
-        if (element.subTasks.find(o => o === futureMaster.order)) {
-          const index = element.subTasks.indexOf(futureMaster.order);
-          if (index > -1) {
-            element.subTasks.splice(index, 1);
-          }
-        }
-      }
-      this.forceRefresh(); // FORCE LIST REFRESH
+      this.onDeleteSlave(order, text);
+      this.addElement(text);
     }
+    this.forceRefresh(); // FORCE LIST REFRESH
   }
 
   onSubmit(): void {
