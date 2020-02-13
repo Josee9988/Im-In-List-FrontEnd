@@ -199,15 +199,33 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   /**
-   * Summary: adds an element to the element.list being master and without any subtasks.
+   * Summary: adds an element to the element.list being master and without any subtasks,
+   * but first checks if that element doesn't exist as master or slave.
    *
    * @param newElement the text to be added.
    */
   private addElement(newElement: string) {
-    newElement.trim();
+    let isRepeated = false;
+    // check for repeated elements as master
+    if (this.list.elementos.find(element => element.text === newElement)) {
+      isRepeated = true;
+    }
+    if (!isRepeated) { // if still wasn't found any ocurrence...
+      // check for repeated elements as slave
+      this.list.elementos.forEach(element => {
+        if (element.subTasks.find(subTask => subTask.name === newElement)) {
+          isRepeated = true;
+        }
+      });
+    }
+
+    if (isRepeated) {
+      this.errorSnackbarDisplayerService.openSnackBar(`El elemento ${newElement} ya existe.`, SnackBarErrorType.warning);
+    }
+
     this.list.elementos.push({
       order: this.list.elementos.length + 1,
-      text: newElement,
+      text: newElement.trim(),
       master: true,
       subTasks: []
     });
