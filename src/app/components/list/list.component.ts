@@ -58,30 +58,18 @@ export class ListComponent extends Forms implements OnInit {
         order: 1,
         text: 'Tomates',
         master: true,
-        subTasks: [2, 3]
+        subTasks: ['SubTomates1', 'SubTomates2']
       },
       {
         order: 2,
-        text: 'Plátanos',
-        master: false,
-        subTasks: []
-      },
-      {
-        order: 3,
-        text: 'Duweis',
-        master: false,
-        subTasks: []
-      },
-      {
-        order: 4,
         text: 'Melocotones',
         master: true,
         subTasks: []
       }, {
-        order: 5,
+        order: 3,
         text: 'Macarrones verdes',
         master: true,
-        subTasks: []
+        subTasks: ['FlamaMóvilesVerdes']
       }]
     };
   }
@@ -108,29 +96,16 @@ export class ListComponent extends Forms implements OnInit {
    *
    * @param order the order number of the element that we want to delete.
    */
-  onDeleteElement(order: number): void {
-    const master: IListElement = this.list.elementos.find(elemento => elemento.order === order);
+  onDeleteElementMaster(order: number): void {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
-    // delete all of his slaves
-    if (master.master) {
-      master.subTasks.forEach(slaveOrder => {
-        this.list.elementos = this.list.elementos.filter(element => element.order !== slaveOrder);
-      });
-    } else { // slave
-      // tslint:disable-next-line: prefer-for-of
-      for (let i = 0; i < this.list.elementos.length; i++) { // remove the subtask from the master
-        this.list.elementos[i].subTasks = this.list.elementos[i].subTasks.filter(subTask => subTask !== order);
-      }
-    }
-
-    let counter = 0;
-    this.list.elementos.forEach(element => {
-      element.order = counter;
-      // TODO: change order of subelements
-      counter++;
-    });
-
   }
+
+  onDeleteSlave(text: string): void {
+    this.list.elementos.forEach(element => {
+      element.subTasks.splice(element.subTasks.indexOf(text), 1);
+    });
+  }
+
 
   /**
    * Summary: receives an order number (id - like) of an master element and turns it
