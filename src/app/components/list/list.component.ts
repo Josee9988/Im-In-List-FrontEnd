@@ -69,7 +69,7 @@ export class ListComponent extends Forms implements OnInit {
         order: 3,
         text: 'Macarrones verdes',
         master: true,
-        subTasks: ['FlamaMóvilesVerdes']
+        subTasks: [{ name: 'FlamaMóvilesVerdes' }]
       }]
     };
   }
@@ -118,13 +118,13 @@ export class ListComponent extends Forms implements OnInit {
         futureSlave.master = false;
         for (let i = futureSlave.order; i >= 0; i--) { // asign the master of the futureSlave
           if (typeof this.list.elementos[i] !== 'undefined' && this.list.elementos[i].master) {
-            this.list.elementos[i].subTasks.push(futureSlave.order);
+            this.list.elementos[i].subTasks.push({ name: futureSlave.text });
             break;
           }
         }
         // foreach every subtask, and make them master (they are freed from the master)
         futureSlave.subTasks.forEach(subTaskOrder => {
-          const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder);
+          const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder.name);
           slaveOfFutureSlave.master = true;
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
