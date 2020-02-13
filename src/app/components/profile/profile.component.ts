@@ -42,29 +42,34 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userService.getDataUser().subscribe(Response => this.fillData(Response));
+    this.fillData();
   }
 
   /**
    * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
    * @param Response Is the response from the API (database)
    */
-  fillData(Response: any) {
-    this.nickname = Response.user.name;
-    this.email = Response.user.email;
+  fillData() {
+    this.userService.getDataUser().subscribe(Response => {
+      this.nickname = Response.user.name;
+      this.email = Response.user.email;
+    });
 
-    // Parseamos las respuestas para así obtener la respuesta como Array
-    if (Response.user.listasCreadas === null) {
-      this.listasCreadas = 0;
-    } else {
-      this.listasCreadas = JSON.parse(Response.user.listasCreadas).length;
-    }
+    this.userService.getCreadas().subscribe(Response => {
+      if (Response.listasCreadas !== 0) {
+        this.listasCreadas = Response;
+      } else {
+        this.listasCreadas = 0;
+      }
+    });
 
-    if (Response.user.listasParticipantes === null) {
-      this.listasParticipadas = 0;
-    } else {
-      this.listasParticipadas = JSON.parse(Response.user.listasParticipantes).length;
-    }
+    this.userService.getParticipadas().subscribe(Response => {
+      if (Response.listasParticipadas !== 0) {
+        this.listasParticipadas = Response;
+      } else {
+        this.listasParticipadas = 2;
+      }
+    });
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
