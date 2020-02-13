@@ -6,7 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
-import { CommunicationService } from 'src/app/shared/services/communication.service';
+import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     private userService: UserService,
     private router: Router,
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
-    private communicationService: CommunicationService,
+    private refreshNavbarCommunication: RefreshNavbarCommunication,
     private authService: AuthService) {
     super();
   }
@@ -83,7 +83,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
         this.errorSnackbarDisplayerService.openSnackBar(
           `Gracias por registrarte ${Response.name}. ¡Bienvenido!`, SnackBarErrorType.success);
       }
-      this.communicationService.next(1); // refresh navbar data
+      this.refreshNavbarCommunication.next(1); // refresh navbar data
     }
   }
 

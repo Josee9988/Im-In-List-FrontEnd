@@ -3,7 +3,7 @@ import { ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
 import { IUser } from '../../shared/models/IUsers.interface';
-import { CommunicationService } from 'src/app/shared/services/communication.service';
+import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
   doughnutChartLabels: string[];
   doughnutChartDataLists: Array<any>;
 
-
   user: IUser[];
   nickname: string;
   email: string;
@@ -34,10 +33,10 @@ export class ProfileComponent implements OnInit {
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
-
-
-  constructor(private userService: UserService, private router: Router, private logoutService: CommunicationService) { // injected
-
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private refreshNavbarCommunication: RefreshNavbarCommunication) {
     this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
   }
 
@@ -80,7 +79,7 @@ export class ProfileComponent implements OnInit {
    * Sumary: This function will close session and redirect home
    */
   onClose() {
-    this.logoutService.next(1);
+    this.refreshNavbarCommunication.next(1);
     this.router.navigate(['/home']);
   }
 }
