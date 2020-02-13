@@ -92,7 +92,8 @@
                 <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
                 <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'"
                   (click)="onAddElement(newElement)" (keydown.Tab)="onAddElement(newElement)">
-                  <mat-icon matTooltip="Añade a la lista: '{{newElement.value}}'" matTooltipPosition="above">library_add
+                  <mat-icon class="bg-green" matTooltip="Añade a la lista: '{{newElement.value}}'"
+                    matTooltipPosition="above">library_add
                   </mat-icon>
                 </button>
               </mat-form-field>
@@ -101,6 +102,8 @@
           </div>
         </mat-card-content>
 
+        <mat-label>¡Añade una contraseña para que sólo tú y tus amigos la podáis editar!</mat-label>
+        <div class="spacer"></div>
         <!-- Slider has password -->
         <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
           [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
@@ -120,7 +123,7 @@
 
         <!-- Submit button -->
         <button (click)="onSubmit()" class="submit-login-register hvr-pop" type="submit" matTooltip="Crea tu lista"
-          matTooltipPosition="below" mat-raised-button color="primary">Crear lista</button>
+          matTooltipPosition="below" mat-raised-button color="primary">Crea tu lista</button>
       </mat-card>
     </div>
   </div>
