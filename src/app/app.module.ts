@@ -71,7 +71,6 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
   declarations: [
     AppComponent,
     routingComponents,
-    GetSubChildsPipe,
   ],
   imports: [
     BrowserModule,
