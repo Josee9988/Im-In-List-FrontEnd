@@ -221,10 +221,33 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
-
+    let orderCounter = 0;
     for (let i = 0; i < this.list.elementos.length; i++) {
-      this.list.elementos[i].order = i;
+      this.list.elementos[i].order = orderCounter;
+      orderCounter++;
+
+      if (this.list.elementos[i].subTasks.length > 0) { // if it has subtasks
+        for (let j = 0; j < this.list.elementos[i].subTasks.length; j++) {
+          this.list.elementos[i].subTasks[j] = orderCounter + j;
+
+        }
+      }
     }
+
+    const movedSubTaks = this.list.elementos[event.currentIndex].subTasks.length;
+    if (movedSubTaks > 0) {
+      moveItemInArray(this.list.elementos, event.previousIndex, movedSubTaks + 1);
+    }
+
+
+    let counter = 0;
+    this.list.elementos.forEach(element => {
+      element.order = counter;
+      // TODO: change order of subelements
+      counter++;
+    });
+
+    console.log(this.list.elementos);
   }
 
   /**
