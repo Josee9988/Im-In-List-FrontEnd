@@ -1,4 +1,4 @@
-import { IListElements } from './IListElements.interface';
+import { IListElement } from './IListElements.interface';
 
 /**
  * The lista interface that will be used with the API calls.
@@ -9,7 +9,7 @@ export interface ILista {
     titulo: string;
     contraseña?: string;
     descripcion: string;
-    elementos: IListElements;
+    elementos: Array<IListElement>;
     updated_at?: Date;
     created_at?: Date;
 }

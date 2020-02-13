@@ -74,18 +74,14 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   /**
-   * Summary: receives an input element and adds its value to the element list being master and
+   * Summary: called by the html. receives an input element and adds its value to the element list being master and
    * without any subtasks.
+   *
+   * @param newElement an HTML input element to be added
    */
-  onAddElement(newElement): void {
+  onAddElement(newElement: HTMLInputElement): void {
     if (newElement.value) { // if the element exists
-      newElement.value.trim();
-      this.list.elementos.push({
-        order: this.list.elementos.length + 1,
-        text: newElement.value,
-        master: true,
-        subTasks: []
-      });
+      this.addElement(newElement.value);
       newElement.value = '';
     }
     this.newElementInput.nativeElement.focus(); // add the focus again
@@ -132,7 +128,7 @@ export class ListComponent extends Forms implements OnInit {
         }
         // foreach every subtask, and make them master (they are freed from the master)
         futureSlave.subTasks.forEach(subTaskOrder => {
-          this.onAddElement(subTaskOrder.name);
+          this.addElement(subTaskOrder.name);
         });
         futureSlave.subTasks = []; // remove the subtasks of the future slave
         this.refreshOrder(); // refresh the order
@@ -152,7 +148,7 @@ export class ListComponent extends Forms implements OnInit {
    */
   onMakeMaster(order: number, text: string): void {
     this.onDeleteSlave(order + 1, text);
-    this.onAddElement(text);
+    this.addElement(text);
     this.refreshOrder();
   }
 
@@ -199,6 +195,21 @@ export class ListComponent extends Forms implements OnInit {
         counter++;
       }
     }
+  }
+
+  /**
+   * Summary: adds an element to the element.list being master and without any subtasks.
+   *
+   * @param newElement the text to be added.
+   */
+  private addElement(newElement: string) {
+    newElement.trim();
+    this.list.elementos.push({
+      order: this.list.elementos.length + 1,
+      text: newElement,
+      master: true,
+      subTasks: []
+    });
   }
 
   /**
