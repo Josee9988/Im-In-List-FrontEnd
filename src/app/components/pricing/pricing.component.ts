@@ -37,8 +37,8 @@ export class PricingComponent implements AfterViewChecked {
       },
       onAuthorize: (data, actions) => {
         return actions.payment.execute().then((payment) => {
-          // Do something when payment is successful.
           console.log(payment);
+          // TODO: send the data to the api https://stackoverflow.com/questions/46719613/how-to-verify-paypal-express-checkout-details-on-the-server
           this.snackbarDisplayer.openSnackBar('Pago realizado correctamente', SnackBarErrorType.success);
         });
       }
