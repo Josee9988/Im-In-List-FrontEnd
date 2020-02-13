@@ -16,39 +16,52 @@
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
-      <!-- nombre Column -->
+      <!-- ID Creador Column -->
       <ng-container matColumnDef="idCreador">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID usuario creador </th>
         <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
       </ng-container>
 
-      <!-- email Column -->
+      <!-- titulo Column -->
       <ng-container matColumnDef="titulo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Título </th>
         <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
       </ng-container>
 
-      <!-- rol Column -->
+      <!-- Descripcion Column -->
       <ng-container matColumnDef="descripcion">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
         <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
       </ng-container>
 
-      <!-- listasCreadas Column -->
+      <!-- Elementos Column -->
       <ng-container matColumnDef="elemento">
         <th mat-header-cell *matHeaderCellDef> Elementos </th>
         <td mat-cell *matCellDef="let element"> {{element.elementos}} </td>
       </ng-container>
 
+      <!-- Participantes Column -->
+      <ng-container matColumnDef="participantes">
+        <th mat-header-cell *matHeaderCellDef> Participantes </th>
+        <td mat-cell *matCellDef="let element"> {{element.participantes}} </td>
+      </ng-container>
+
+      <!-- URL Column -->
+      <ng-container matColumnDef="URL">
+        <th mat-header-cell *matHeaderCellDef> URL </th>
+        <td mat-cell *matCellDef="let element"> {{element.URL}} </td>
+      </ng-container>
+
+
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element">
-          <button (click)="OnDelete(element.titulo,element.id)" class="btn-delete hvr-pop" type="button"
+          <button (click)="onDelete(element.titulo,element.id)" class="btn-delete hvr-pop" type="button"
             matTooltip="Eliminar" matTooltipPosition="below" mat-raised-button>
             <mat-icon>delete</mat-icon>
           </button>
-          <button class="btn-edit hvr-pop" type="button" matTooltip="Editar" matTooltipPosition="below"
-            mat-raised-button>
+          <button (click)="onEdit(element.id)" class="btn-edit hvr-pop" type="button" matTooltip="Editar"
+            matTooltipPosition="below" mat-raised-button>
             <mat-icon>create</mat-icon>
           </button>
         </td>

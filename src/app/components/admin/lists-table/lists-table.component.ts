@@ -21,7 +21,7 @@ export class ListsTableComponent implements OnInit {
 
   href: string;
   items: Array<ILista>;
-  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'acciones'];
+  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'URL', 'participantes', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -74,7 +74,7 @@ export class ListsTableComponent implements OnInit {
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
-  OnDelete(titulo: string, id: number) {
+  onDelete(titulo: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
       this.listaService.deleteLista(id).subscribe(Response => {
         if (!Response.ok === undefined) {
@@ -85,6 +85,10 @@ export class ListsTableComponent implements OnInit {
       }
       );
     }
+  }
+
+  onEdit(id: number) {
+
   }
 
 }
