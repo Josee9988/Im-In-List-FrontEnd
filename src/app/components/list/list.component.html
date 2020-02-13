@@ -1,5 +1,5 @@
-<form (ngSubmit)="onSubmit()" novalidate style="vertical-align:top;">
-  <div class="login-register-bg">
+<div novalidate>
+  <div class="login-register-bg" style="vertical-align:top;">
     <div class="login-register-container">
       <div class="list-title">
         <mat-card>
@@ -37,15 +37,16 @@
                 <ng-container *ngIf="element.master">
                   <div class="element-drag">
                     <!-- Icon -->
-                    <mat-icon class="icon-slave" matTooltip="Haz un subelemento" (click)="onMakeSlave(element.order)"
-                      matTooltipPosition="left">double_arrow</mat-icon>
+                    <mat-icon class="icon-slave" matTooltip="Haz un subelemento a '{{element.text}}'"
+                      (click)="onMakeSlave(element.order)" matTooltipPosition="left">double_arrow</mat-icon>
                     <!-- Form field -->
                     <mat-form-field appearance="outline">
                       <input type="text" name="element.text" [(ngModel)]="element.text"
                         [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
                         autocomplete="off">
                       <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                        (click)="onDeleteElementMaster(element.order)">
+                        (click)="onDeleteElementMaster(element.order)" matTooltip="Elimina a: '{{element.text}}'"
+                        matTooltipPosition="left">
                         <mat-icon class="c-red">delete</mat-icon>
                       </button>
                     </mat-form-field>
@@ -59,7 +60,8 @@
                       <div class="child-list">
                         <!-- Slave icon -->
                         <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(element.order, child.name)"
-                          matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
+                          matTooltip="Haz un elemento principal a '{{child.name}}'" matTooltipPosition="left">
+                          keyboard_return</mat-icon>
                         <!-- Subtask -->
                         <mat-form-field appearance="outline">
                           <input type="text" name="child.name" [(ngModel)]="child.name"
@@ -78,21 +80,30 @@
             </div>
             <div class="spacer border-t"></div>
             <div class="spacer"></div>
-            <!-- Add new -->
-            <mat-form-field appearance="outline">
-              <mat-label>Nuevo elemento</mat-label>
-              <input type="text" matInput #newElement #newElementInput name="newElementInput"
-                placeholder="Tu elemento aquí" autocomplete="off">
-              <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
-              <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'"
-                (click)="onAddElement(newElement)">
-                <mat-icon>library_add</mat-icon>
-              </button>
-            </mat-form-field>
+
+            <form>
+              <!-- Add new -->
+              <mat-icon>fiber_new</mat-icon>
+              <mat-label>Crea un nuevo elemento</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-label>Nuevo elemento</mat-label>
+                <input type="text" matInput #newElement #newElementInput name="newElementInput"
+                  placeholder="Tu elemento aquí" autocomplete="off">
+                <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
+                <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'"
+                  (click)="onAddElement(newElement)" (keydown.Tab)="onAddElement(newElement)">
+                  <mat-icon class="bg-green" matTooltip="Añade a la lista: '{{newElement.value}}'"
+                    matTooltipPosition="above">library_add
+                  </mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
             <div class="spacer"></div>
           </div>
         </mat-card-content>
 
+        <mat-label>¡Añade una contraseña para que sólo tú y tus amigos la podáis editar!</mat-label>
+        <div class="spacer"></div>
         <!-- Slider has password -->
         <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
           [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
@@ -111,9 +122,9 @@
         </mat-form-field>
 
         <!-- Submit button -->
-        <button class="submit-login-register hvr-pop" type="submit" matTooltip="Crea tu lista"
-          matTooltipPosition="below" mat-raised-button color="primary">Crear</button>
+        <button (click)="onSubmit()" class="submit-login-register hvr-pop" type="submit" matTooltip="Crea tu lista"
+          matTooltipPosition="below" mat-raised-button color="primary">Crea tu lista</button>
       </mat-card>
     </div>
   </div>
-</form>
+</div>
