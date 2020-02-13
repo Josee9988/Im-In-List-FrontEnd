@@ -8,9 +8,7 @@
 }
 
 .login-register-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  display: contents;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 85%;
@@ -116,4 +114,12 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1),
     -webkit-transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.border-b {
+  border-bottom: 1px solid #6b6767;
+}
+
+.border-t {
+  border-top: 1px solid #6b6767;
 }

@@ -19,7 +19,6 @@ import { Forms } from 'src/app/shared/classes/Forms.class';
  */
 export class ListComponent extends Forms implements OnInit {
   @Input() list: ILista;
-  @Input() newElement: string;
 
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
@@ -40,7 +39,7 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   ngOnInit() {
-    this.windowHeight = window.innerHeight / 1.75;
+    this.windowHeight = window.innerHeight / 2.5;
 
     // mock list
     this.list = {
@@ -49,56 +48,41 @@ export class ListComponent extends Forms implements OnInit {
       titulo: '',
       descripcion: '',
       elementos: [{
-        order: 1,
+        order: 0,
         text: 'Lechugas',
         master: true,
         subTasks: []
       },
       {
-        order: 2,
+        order: 1,
         text: 'Tomates',
         master: true,
-        subTasks: [3, 4]
+        subTasks: [{ name: 'SubTomates1' }, { name: 'SubTomates2' }]
       },
       {
-        order: 3,
-        text: 'Plátanos',
-        master: false,
-        subTasks: []
-      },
-      {
-        order: 4,
-        text: 'Duweis',
-        master: false,
-        subTasks: []
-      },
-      {
-        order: 5,
+        order: 2,
         text: 'Melocotones',
         master: true,
         subTasks: []
       }, {
-        order: 6,
+        order: 3,
         text: 'Macarrones verdes',
         master: true,
-        subTasks: []
+        subTasks: [{ name: 'FlamaMóvilesVerdes' }]
       }]
     };
   }
 
   /**
-   * Summary: receives an element and adds it to the element list.
+   * Summary: called by the html. receives an input element and adds its value to the element list being master and
+   * without any subtasks.
+   *
+   * @param newElement an HTML input element to be added
    */
-  onAddElement(): void {
-    if (this.newElement) { // if the element exists
-      this.newElement.trim();
-      this.list.elementos.push({
-        order: this.list.elementos.length + 1,
-        text: this.newElement,
-        master: true,
-        subTasks: []
-      });
-      this.newElement = '';
+  onAddElement(newElement: HTMLInputElement): void {
+    if (newElement.value) { // if the element exists
+      this.addElement(newElement.value);
+      newElement.value = '';
     }
     this.newElementInput.nativeElement.focus(); // add the focus again
   }
@@ -108,8 +92,21 @@ export class ListComponent extends Forms implements OnInit {
    *
    * @param order the order number of the element that we want to delete.
    */
-  onDeleteElement(order: number): void {
+  onDeleteElementMaster(order: number): void {
     this.list.elementos = this.list.elementos.filter(element => element.order !== order);
+    this.refreshOrder();
+  }
+
+  /**
+   * Summary: receives an order number (id - like) of its parent element and removes
+   * the slave (subtaks) searching by its name (text).
+   *
+   * @param order order of the parent. the order refeers to the list.elementos position.
+   * @param text the text of the slave element to be removed.
+   */
+  onDeleteSlave(order: number, text: string): void {
+    this.list.elementos[order].subTasks =
+      this.list.elementos[order].subTasks.filter(slave => slave.name !== text);
   }
 
   /**
@@ -119,30 +116,27 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to make slave.
    */
   onMakeSlave(order: number): void {
-    if (order !== 1) {
+    if (this.list.elementos[0].order !== order) {
       const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
       if (futureSlave) {
         futureSlave.master = false;
-        for (let i = futureSlave.order - 2; i > 0; i--) {
-          if (this.list.elementos[i].master) {
-            this.list.elementos[i].subTasks.push(futureSlave.order);
+        for (let i = futureSlave.order; i >= 0; i--) { // asign the master of the futureSlave
+          if (typeof this.list.elementos[i] !== 'undefined' && this.list.elementos[i].master) {
+            this.list.elementos[i].subTasks.push({ name: futureSlave.text });
+            this.onDeleteElementMaster(futureSlave.order);
             break;
           }
         }
-        // remove all of his subtasks
-        futureSlave.subTasks.forEach(subTaskOrder => {
-          const slaveOfFutureSlave = this.list.elementos.find(elemento => elemento.order === subTaskOrder);
-          slaveOfFutureSlave.master = true;
-          slaveOfFutureSlave.subTasks = [];
+        futureSlave.subTasks.forEach(subTaskOrder => {// foreach every subtask, and make them master (they are freed from the master)
+          this.addElement(subTaskOrder.name);
         });
-        // FORCE LIST REFRESH
-        const fake = this.list;
-        this.list = null;
-        setTimeout(() => this.list = fake);
+        futureSlave.subTasks = []; // remove the subtasks of the future slave
+        this.refreshOrder(); // refresh the order
       }
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
     }
+
   }
 
   /**
@@ -150,20 +144,12 @@ export class ListComponent extends Forms implements OnInit {
    * into a master element.
    *
    * @param order the order number of the element that we want to make master.
+   * @param text the text of the future master element.
    */
-  onMakeMaster(order: number): void {
-    const futureMaster: IListElement = this.list.elementos.find(elemento => elemento.order === order);
-    if (futureMaster) {
-      futureMaster.master = true;
-      for (const element of this.list.elementos) {
-        if (element.subTasks.find(o => o === futureMaster.order)) {
-          const index = element.subTasks.indexOf(futureMaster.order);
-          if (index > -1) {
-            element.subTasks.splice(index, 1);
-          }
-        }
-      }
-    }
+  onMakeMaster(order: number, text: string): void {
+    this.onDeleteSlave(order + 1, text);
+    this.addElement(text);
+    this.refreshOrder();
   }
 
   onSubmit(): void {
@@ -194,6 +180,53 @@ export class ListComponent extends Forms implements OnInit {
     this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
     this.list.elementos[event.previousIndex].order = aux;
     moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
+    this.refreshOrder();
+  }
+
+  /**
+   * Refreshes the order of the elements. Every order property will pertain at its own
+   * array position.
+   */
+  private refreshOrder(): void {
+    let counter = 0;
+    for (const element of this.list.elementos) {
+      if (element) {
+        element.order = counter;
+        counter++;
+      }
+    }
+  }
+
+  /**
+   * Summary: adds an element to the element.list being master and without any subtasks,
+   * but first checks if that element doesn't exist as master or slave.
+   *
+   * @param newElement the text to be added.
+   */
+  private addElement(newElement: string): void {
+    let isRepeated = false;
+    // check for repeated elements as master
+    if (this.list.elementos.find(element => element.text === newElement)) {
+      isRepeated = true;
+    }
+    if (!isRepeated) { // if still wasn't found any ocurrence...
+      // check for repeated elements as slave
+      this.list.elementos.forEach(element => {
+        if (element.subTasks.find(subTask => subTask.name === newElement)) {
+          isRepeated = true;
+        }
+      });
+    }
+    if (!isRepeated) { // element not repeated (ok)
+      this.list.elementos.push({
+        order: this.list.elementos.length + 1,
+        text: newElement.trim(),
+        master: true,
+        subTasks: []
+      });
+    } else { // if the element was repeated, dont add it
+      this.errorSnackbarDisplayerService.openSnackBar(`El elemento ${newElement} ya existe.`, SnackBarErrorType.warning);
+    }
   }
 
   /**

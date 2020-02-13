@@ -15,7 +15,7 @@
         </mat-card>
       </div>
       <mat-card>
-        <mat-card-content class="elements-list" [ngStyle]="{'height.px': windowHeight}">
+        <mat-card-content>
           <mat-icon>subtitles</mat-icon>
           <!-- Subtitle -->
           <mat-form-field>
@@ -24,12 +24,12 @@
             <mat-error *ngIf="titulo.invalid">{{getDescripcionErrorMessage()}}</mat-error>
           </mat-form-field>
           <div class="form-container">
-            <div class="spacer"></div>
-            <hr>
             <mat-label>Tus elementos:</mat-label>
+            <div class="spacer border-b"></div>
 
             <!-- Your elements -->
-            <div *ngIf="list" cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <div class="elements-list" [ngStyle]="{'height.px': windowHeight}" *ngIf="list" cdkDropList
+              (cdkDropListDropped)="onDrop($event)">
               <div *ngFor="let element of list.elementos; trackBy:list.elementos.order" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
@@ -45,7 +45,7 @@
                         [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
                         autocomplete="off">
                       <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                        (click)="onDeleteElement(element.order)">
+                        (click)="onDeleteElementMaster(element.order)">
                         <mat-icon class="c-red">delete</mat-icon>
                       </button>
                     </mat-form-field>
@@ -54,39 +54,38 @@
                   <ng-container *ngIf="element.subTasks.length > 0 ">
                     <!-- idChild es cada ID de los subelementos de ese elemento -->
 
-                    <div *ngFor="let childElement of element.subTasks | getSubChilds: list.elementos: childElement">
-                      <div *ngFor="let child of childElement">
-                        <!-- child element -->
-                        <div class="child-list">
-                          <!-- Slave icon -->
-                          <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(child.order)"
-                            matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
-                          <!-- Subtask -->
-                          <mat-form-field appearance="outline">
-                            <input type="text" name="child.text" [(ngModel)]="child.text"
-                              [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
-                              autocomplete="off">
-                            <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
-                              (click)="deleteElement(child.order)">
-                              <mat-icon class="c-red">delete</mat-icon>
-                            </button>
-                          </mat-form-field>
-                        </div>
+                    <div *ngFor="let child of element.subTasks; let i = index">
+                      <!-- child element -->
+                      <div class="child-list">
+                        <!-- Slave icon -->
+                        <mat-icon class="icon-slave rotate-y" (click)="onMakeMaster(element.order, child.name)"
+                          matTooltip="Haz un elemento" matTooltipPosition="left">keyboard_return</mat-icon>
+                        <!-- Subtask -->
+                        <mat-form-field appearance="outline">
+                          <input type="text" name="child.name" [(ngModel)]="child.name"
+                            [ngModelOptions]="{standalone: true}" matInput placeholder="Tu elemento aquí"
+                            autocomplete="off">
+                          <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Delete element'"
+                            (click)="onDeleteSlave(element.order, child.name)">
+                            <mat-icon class="c-red">delete</mat-icon>
+                          </button>
+                        </mat-form-field>
                       </div>
                     </div>
                   </ng-container>
                 </ng-container>
               </div>
             </div>
-
+            <div class="spacer border-t"></div>
+            <div class="spacer"></div>
             <!-- Add new -->
             <mat-form-field appearance="outline">
               <mat-label>Nuevo elemento</mat-label>
-              <input type="text" matInput [(ngModel)]="newElement" #newElementInput name="newElementInput"
+              <input type="text" matInput #newElement #newElementInput name="newElementInput"
                 placeholder="Tu elemento aquí" autocomplete="off">
               <mat-hint>Introduce un nuevo elemento a tu lista</mat-hint>
               <button type="button" mat-icon-button matSuffix [attr.aria-label]="'Add element'"
-                (click)="onAddElement()">
+                (click)="onAddElement(newElement)">
                 <mat-icon>library_add</mat-icon>
               </button>
             </mat-form-field>
