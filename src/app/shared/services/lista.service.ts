@@ -92,13 +92,15 @@ export class ListaService {
   }
 
   /**
-   * Summay: removes an lista from the database.
-   * @param lista| number receives an lista object, or an id, and removes that object from the database.
+   * Summay: removes an lista from the database if user is rol 0 (Admin).
+   * @param URLlist is the URL of the list that want to be deleted
    */
-  deleteListaAdmin(lista: ILista | number): Observable<any> {
-    const id = typeof lista === 'number' ? lista : lista.id;
-    const url = `${this.LISTA_URL}/${id}`;
+  deleteListaAdmin(URLlist: string): Observable<any> {
+    alert('Estás en el listaService!');
 
+    const url = environment.apiUrl + 'listasAdmin/' + URLlist;
+    alert('La URL es -->' + url);
+    console.log('La url es -->' + url);
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteLista')));
   }
