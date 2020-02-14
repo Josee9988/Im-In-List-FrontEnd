@@ -45,7 +45,7 @@ export class ListComponent extends Forms implements OnInit {
     this.list = {
       titulo: '',
       descripcion: '',
-      elementos: []
+      elementos: [],
     };
   }
 

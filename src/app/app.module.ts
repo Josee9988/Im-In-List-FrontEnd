@@ -58,6 +58,8 @@ import { ChartsModule } from 'ng2-charts';
 // Modulo drop
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+
 
 export const imports = [BrowserModule,
   BrowserAnimationsModule,
@@ -106,7 +108,8 @@ export const imports = [BrowserModule,
   ReactiveFormsModule,
   HttpClientModule,
   NgxDropzoneModule,
-  DragDropModule];
+  DragDropModule,
+  NgxQRCodeModule];
 
 /**
  * Components

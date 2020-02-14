@@ -12,5 +12,5 @@ export interface ILista {
     elementos: Array<IListElement>;
     updated_at?: Date;
     created_at?: Date;
-    url: string;
+    url?: string;
 }
