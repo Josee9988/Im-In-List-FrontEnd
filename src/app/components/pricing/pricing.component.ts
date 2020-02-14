@@ -1,6 +1,8 @@
-import { Component, AfterViewChecked } from '@angular/core';
+import { Component, AfterViewChecked, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 declare let paypal: any;
 
 @Component({
@@ -8,16 +10,19 @@ declare let paypal: any;
   templateUrl: './pricing.component.html',
   styleUrls: ['./pricing.component.scss']
 })
-export class PricingComponent implements AfterViewChecked {
-
+export class PricingComponent implements AfterViewChecked, OnInit {
   addScript: boolean;
   paypalLoad: boolean;
   finalAmount: number;
   paypalConfig: any;
+  canBePremium: boolean;
 
-  constructor(private snackbarDisplayer: SnackbarDisplayerService) {
+  @ViewChild('paypalBtn', { static: false }) paypalBtn: ElementRef;
+
+  constructor(private snackbarDisplayer: SnackbarDisplayerService, private authService: AuthService, private userService: UserService) {
     this.addScript = false;
     this.paypalLoad = true;
+    this.canBePremium = true;
 
     this.paypalConfig = {
       env: 'sandbox',
@@ -38,16 +43,13 @@ export class PricingComponent implements AfterViewChecked {
       onAuthorize: (data, actions) => {
         return actions.payment.execute().then((payment) => {
           console.log(payment);
-          // TODO: send the data to the api https://stackoverflow.com/questions/46719613/how-to-verify-paypal-express-checkout-details-on-the-server
+          // TODO: send the data to the api
+          // (https://stackoverflow.com/questions/46719613/how-to-verify-paypal-express-checkout-details-on-the-server)
           this.snackbarDisplayer.openSnackBar('Pago realizado correctamente', SnackBarErrorType.success);
         });
       }
     };
-
   }
-
-
-
 
 
   ngAfterViewChecked(): void {
@@ -61,14 +63,37 @@ export class PricingComponent implements AfterViewChecked {
     }
   }
 
-  addPaypalScript() {
-    this.addScript = true;
-    return new Promise((resolve, reject) => {
-      const scripttagElement = document.createElement('script');
-      scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
-      scripttagElement.onload = resolve;
-      document.body.appendChild(scripttagElement);
-    });
+  ngOnInit(): void {
+    if (this.authService.hasToken()) { // si sí tiene el token
+      this.userService.getDataUser().subscribe(Response => {
+        // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón
+        if (typeof Response.user.role !== 'undefined' && Response.user.role === 2) { // if it can NOT buy premium
+          this.canBePremium = false;
+          console.log('i cant buy');
+
+        }
+      });
+    } else {
+      this.snackbarDisplayer.openSnackBar('Si no inicias sesión no podrás hacerte premium!', SnackBarErrorType.informational);
+    }
   }
 
+  /**
+   * Summary: function that is invoked after the view is checked and after we add
+   * the PayPal source code for making the calls.
+   *
+   * @return Promise with the resolved object.
+   */
+  addPaypalScript(): Promise<any> {
+    this.addScript = true;
+    return new Promise((resolve, reject) => {
+      if (document.getElementById('paypalsrctag') ? true : false) { // if true the script is not already loaded
+        const scripttagElement = document.createElement('script');
+        scripttagElement.id = 'paypalsrctag';
+        scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
+        scripttagElement.onload = resolve;
+        document.body.appendChild(scripttagElement);
+      }
+    });
+  }
 }
