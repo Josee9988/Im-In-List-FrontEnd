@@ -138,8 +138,10 @@ export class ListComponent extends Forms implements OnInit {
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
-        this.listaService.postLista(this.list).subscribe(() => {
-          this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.warning);
+        this.listaService.postLista(this.list).subscribe((Response) => {
+          this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+          console.log(Response);
+          this.list = { titulo: '', descripcion: '', elementos: [] };
           super.clearInputs();
           this.router.navigate(['/newList']);
         });
