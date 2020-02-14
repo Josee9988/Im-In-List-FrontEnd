@@ -80,15 +80,17 @@ export class ListsTableComponent implements OnInit {
 
       this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
-          alert('Eres admin, voy a eliminar');
-          this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => { debugger; alert(Respuesta) });
-          this.errorSnackbarDisplayerService.
-            openSnackBar(Response.message, SnackBarErrorType.success);
-          this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+          this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
+            if (Respuesta.message === 'Lista eliminada correctamente') {
+              this.errorSnackbarDisplayerService.
+                openSnackBar(Response.message, SnackBarErrorType.success);
+              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+            }
+          });
+
         } else {
-          console.log(Response);
-          debugger;
-          alert('No eres admin');
+
+
         }
       });
 

@@ -63,7 +63,6 @@ export class EditProfileComponent extends Forms implements OnInit {
     this.checkInputs();
     if (super.validateInputs()) {
       this.usuarioEditar.name = this.name.value;
-      console.log('El usuario a editar es: ' + this.usuarioEditar);
       this.userService.putUser(this.usuarioEditar);
 
       super.clearInputs();

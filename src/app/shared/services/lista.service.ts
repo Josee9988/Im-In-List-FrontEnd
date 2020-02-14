@@ -96,11 +96,8 @@ export class ListaService {
    * @param URLlist is the URL of the list that want to be deleted
    */
   deleteListaAdmin(URLlist: string): Observable<any> {
-    alert('Estás en el listaService!');
-
     const url = environment.apiUrl + 'listasAdmin/' + URLlist;
-    alert('La URL es -->' + url);
-    console.log('La url es -->' + url);
+
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteLista')));
   }
