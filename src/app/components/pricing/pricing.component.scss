@@ -153,6 +153,7 @@ $main-color: #3f51b5;
 
 button {
   background-color: $main-color !important;
+  color: $icon-color !important;
 
   &:hover {
     background-color: darken($main-color, 10%) !important;
