@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotAllowedComponent } from './not-allowed.component';
+import { imports } from './../../app.module';
 
 describe('NotAllowedComponent', () => {
   let component: NotAllowedComponent;
@@ -8,6 +9,7 @@ describe('NotAllowedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [imports],
       declarations: [NotAllowedComponent]
     })
       .compileComponents();
