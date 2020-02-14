@@ -44,12 +44,11 @@ export class UserService {
    * Summary: retreives one user by an ID.
    * @param id id of the user.
    */
-  getUser(id: number): Observable<IUser> {
-    const url = `${this.USER_URL}/?id=${id}`;
-    return this.http.get<IUser[]>(url)
-      .pipe(map(user => user[0]), // returns a {0|1} element array
-        tap(), catchError(this.handleError<IUser>(`getUser id=${id}`)));
+  getUser(id: number): any {
+    return this.http.get<IUser[]>(environment.apiUrl + 'users/' + id)
+      .pipe(tap(), catchError(this.handleError<IUser[]>('getUser', [])));
   }
+
 
 
   /**
@@ -78,8 +77,9 @@ export class UserService {
    * @param user the user that will be modified.
    */
   putUser(user: IUser): Observable<any> {
-    return this.http.put(this.USER_URL, user, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<any>('updatedUser')));
+
+    return this.http.get<IUser[]>(environment.apiUrl + 'users/' + user.id)
+      .pipe(tap(), catchError(this.handleError<IUser[]>('getUser', [])));
   }
 
 

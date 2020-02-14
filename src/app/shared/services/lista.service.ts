@@ -90,4 +90,17 @@ export class ListaService {
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteLista')));
   }
+
+  /**
+   * Summay: removes an lista from the database if user is rol 0 (Admin).
+   * @param URLlist is the URL of the list that want to be deleted
+   */
+  deleteListaAdmin(URLlist: string): Observable<any> {
+    const url = environment.apiUrl + 'listasAdmin/' + URLlist;
+
+    return this.http.delete<ILista>(url, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<ILista>('deleteLista')));
+  }
+
+
 }

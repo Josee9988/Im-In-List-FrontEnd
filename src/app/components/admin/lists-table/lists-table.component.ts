@@ -7,6 +7,7 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { ILista } from 'src/app/shared/models/IListas.model';
 import { Router } from '@angular/router';
+import { UserService } from './../../../shared/services/user.service';
 
 @Component({
   selector: 'app-lists-able',
@@ -21,13 +22,13 @@ export class ListsTableComponent implements OnInit {
 
   href: string;
   items: Array<ILista>;
-  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'URL', 'participantes', 'acciones'];
+  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'participantes', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private listaService: ListaService, private errorSnackbarDisplayerService: SnackbarDisplayerService, private router: Router) {
+  constructor(private listaService: ListaService, private errorSnackbarDisplayerService: SnackbarDisplayerService, private router: Router, private userService: UserService) {
 
   }
 
@@ -70,20 +71,29 @@ export class ListsTableComponent implements OnInit {
 
   }
   /**
-   * Sumary: This function is called from button on HTML, which one will delete an user from database
+   * Sumary: This function is called from button on HTML, which one will delete a list from database
    * @param nombre Param received from HTML and used to show a confirm alert to user
-   * @param id Param received from HTML and used to indicade the server which user want to be delete
+   * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
-  onDelete(titulo: string, id: number) {
+  onDelete(titulo: string, URLlist: string) {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
-      this.listaService.deleteLista(id).subscribe(Response => {
-        if (!Response.ok === undefined) {
-          this.errorSnackbarDisplayerService.
-            openSnackBar(Response.message, SnackBarErrorType.success);
-          this.dataSource.data = this.items.filter(user => user.id !== id);
+
+      this.userService.getDataUser().subscribe(Response => {
+        if (Response.user.role === 0) {
+          this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
+            if (Respuesta.message === 'Lista eliminada correctamente') {
+              this.errorSnackbarDisplayerService.
+                openSnackBar(Response.message, SnackBarErrorType.success);
+              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+            }
+          });
+
+        } else {
+
+
         }
-      }
-      );
+      });
+
     }
   }
 

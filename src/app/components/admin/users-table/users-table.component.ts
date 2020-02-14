@@ -6,6 +6,7 @@ import { UserService } from './../../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IUser } from 'src/app/shared/models/IUsers.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-table',
@@ -18,13 +19,13 @@ import { IUser } from 'src/app/shared/models/IUsers.interface';
  */
 export class UsersTableComponent implements OnInit {
   items: Array<IUser>;
-  displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'listasCreadas', 'listasParticipante', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private userService: UserService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(private router: Router, private userService: UserService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
 
   }
   ngOnInit() {
@@ -56,7 +57,7 @@ export class UsersTableComponent implements OnInit {
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
-  OnDelete(nombre: string, id: number) {
+  onDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
       this.userService.deleteUser(id).subscribe(Response => {
         if (!Response.ok === undefined) {
@@ -67,6 +68,14 @@ export class UsersTableComponent implements OnInit {
       }
       );
     }
+  }
+
+  /**
+   * Sumary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
+   * @param id is the ID of the user that want to be edited
+   */
+  onEdit(id: number) {
+    this.router.navigate(['/editProfile/' + id]);
   }
 
 
