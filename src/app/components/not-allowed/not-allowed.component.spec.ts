@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotAllowComponent } from './not-allow.component';
+import { NotAllowedComponent } from './not-allowed.component';
 
-describe('NotAllowComponent', () => {
-  let component: NotAllowComponent;
-  let fixture: ComponentFixture<NotAllowComponent>;
+describe('NotAllowedComponent', () => {
+  let component: NotAllowedComponent;
+  let fixture: ComponentFixture<NotAllowedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotAllowComponent ]
+      declarations: [NotAllowedComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NotAllowComponent);
+    fixture = TestBed.createComponent(NotAllowedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

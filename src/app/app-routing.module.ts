@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
 
-
 /**
  * Components
  */
@@ -22,8 +21,11 @@ import { UsersTableComponent } from './components/admin/users-table/users-table.
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { NotAllowComponent } from './components/not-allow/not-allow.component';
+import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
 
+/**
+ * all routes of which the application is composed by.
+ */
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', }, // no route specified (go to home)
   { path: 'home', component: HomeComponent, },
@@ -41,7 +43,7 @@ const routes: Routes = [
   { path: 'showLists', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'showParticipated', component: ListsTableComponent, canActivate: [AuthGuard] },
   { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
-  { path: 'notAllow', component: NotAllowComponent },
+  { path: 'notAllowed', component: NotAllowedComponent },
   { path: 'editList/:url', component: ListComponent },
   { path: 'editProfile/:id', component: EditProfileComponent },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
@@ -52,7 +54,12 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents: Array<any> = [NavbarComponent, FooterComponent, NotFoundComponent,
-  LoginRegisterComponent, ProfileComponent,
-  HomeComponent, PricingComponent, AboutUsComponent,
-  ListComponent, ContactComponent, BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent, LogoutComponent, NotAllowComponent];
+
+/**
+ * Array of all the component classes that will be used by the angular router.
+ */
+export const routingComponents: Array<any> = [
+  NavbarComponent, FooterComponent, NotFoundComponent, LoginRegisterComponent, ProfileComponent,
+  HomeComponent, PricingComponent, AboutUsComponent, ListComponent, ContactComponent,
+  BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent,
+  LogoutComponent, NotAllowedComponent];
