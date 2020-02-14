@@ -32,7 +32,7 @@ export class AdminGuard implements CanActivate {
     if (this.authService.hasToken()) {
       this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role !== 0) {
-          this.router.navigate(['/notAllow']);
+          this.router.navigate(['/notAllowed']);
           return false;
         } else {
           return true;
