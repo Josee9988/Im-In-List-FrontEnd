@@ -58,9 +58,12 @@
         <span class="price">1,99 <b>€</b></span>
       </div>
       <div class="back">
-        <button #paypalBtn mat-raised-button matTooltip="Obten todas las ventajas de I'm in list"
+        <button ng-show="canBePremium" #paypalBtn mat-raised-button matTooltip="Obten todas las ventajas de I'm in list"
           matTooltipPosition="above" color="primary" id="paypal-checkout-btn" class="actionsButton">Hazte
           premium</button>
+        <button routerLink="/login" mat-raised-button *ngIf="!canBePremium" [disabled]="true"
+          matTooltip="No puedes obtener el premium sin iniciar sesión con una cuenta normal" matTooltipPosition="above"
+          color="primary" class="actionsButton">Inicia sesión para comprar</button>
       </div>
     </div>
   </div>

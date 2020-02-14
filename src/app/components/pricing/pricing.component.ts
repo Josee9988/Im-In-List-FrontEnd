@@ -22,7 +22,6 @@ export class PricingComponent implements AfterViewChecked, OnInit {
   constructor(private snackbarDisplayer: SnackbarDisplayerService, private authService: AuthService, private userService: UserService) {
     this.addScript = false;
     this.paypalLoad = true;
-    this.canBePremium = true;
 
     this.paypalConfig = {
       env: 'sandbox',
@@ -66,11 +65,11 @@ export class PricingComponent implements AfterViewChecked, OnInit {
   ngOnInit(): void {
     if (this.authService.hasToken()) { // si sí tiene el token
       this.userService.getDataUser().subscribe(Response => {
-        // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón
-        if (typeof Response.user.role !== 'undefined' && Response.user.role === 2) { // if it can NOT buy premium
+        // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón (if it can NOT buy premium)
+        if (typeof Response.user.role !== 'undefined' && (Response.user.role === 2 || Response.user.role === 0)) {
           this.canBePremium = false;
-          console.log('i cant buy');
-
+        } else {
+          this.canBePremium = true;
         }
       });
     } else {
@@ -86,13 +85,16 @@ export class PricingComponent implements AfterViewChecked, OnInit {
    */
   addPaypalScript(): Promise<any> {
     this.addScript = true;
-    return new Promise((resolve, reject) => {
-      if (document.getElementById('paypalsrctag') ? true : false) { // if true the script is not already loaded
+    return new Promise((resolve) => {
+
+      if (!document.getElementById('paypalsrctag') ? true : false) { // if false the script is not already loaded and it will do it
         const scripttagElement = document.createElement('script');
         scripttagElement.id = 'paypalsrctag';
         scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
         scripttagElement.onload = resolve;
         document.body.appendChild(scripttagElement);
+        console.log('added');
+
       }
     });
   }
