@@ -22,7 +22,7 @@ export class ListsTableComponent implements OnInit {
 
   href: string;
   items: Array<ILista>;
-  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'URL', 'participantes', 'acciones'];
+  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'participantes', 'acciones'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
