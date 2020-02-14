@@ -68,6 +68,7 @@ export class PricingComponent implements AfterViewChecked, OnInit {
         // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón (if it can NOT buy premium)
         if (typeof Response.user.role !== 'undefined' && (Response.user.role === 2 || Response.user.role === 0)) {
           this.canBePremium = false;
+          this.paypalBtn.nativeElement.style.display = 'none';
         } else {
           this.canBePremium = true;
         }
