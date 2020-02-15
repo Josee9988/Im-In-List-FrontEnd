@@ -150,7 +150,7 @@ export class ListComponent extends Forms implements OnInit {
           this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
           this.list = { titulo: '', descripcion: '', elementos: [] };
           super.clearInputs();
-          // this.router.navigate(['/newList']);
+          // this.router.navigate(['/list']);
         });
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);

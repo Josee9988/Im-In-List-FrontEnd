@@ -1,6 +1,11 @@
-<h1 mat-dialog-title>Favorite Animal</h1>
+<h1 mat-dialog-title>¡Comparte tu lista!</h1>
 <div mat-dialog-content>
-  My favorite animal is:
+  Envía esta url a tus amigos:
+  <br>
   <ngx-qrcode qrc-element-type="url" [qrc-value]="url"></ngx-qrcode>
-
+</div>
+<div mat-dialog-content>
+  O descarga este código QR y que lo escaneen!:
+  <br>
+  <a href="{{url}}">{{url}}</a>
 </div>
