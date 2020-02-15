@@ -45,7 +45,7 @@ const routes: Routes = [
   { path: 'editProfile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'notAllowed', component: NotAllowedComponent },
   { path: 'editList/:url', component: ListComponent },
-  { path: 'editProfile/:id', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'editProfile/:id', component: EditProfileComponent, canActivate: [AdminGuard] },
   { path: '**', component: NotFoundComponent } // fallback route (not found - 404)
 ];
 

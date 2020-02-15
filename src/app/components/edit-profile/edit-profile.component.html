@@ -143,13 +143,11 @@
         <mat-form-field appearance="outline">
           <mat-label>Rol</mat-label>
           <mat-select name="singleSelect" ng-model="data.singleSelect">
-            <option value="option-1">Rol 0 (Administrador)</option>
+            <mat-option *ngFor="let option of optionsRole" [value]="option.value">
+              {{option.viewValue}}
+            </mat-option>
           </mat-select>
 
-
-
-          <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" value={{emailUsuario}}
-            autocomplete="on">
           <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
           <mat-hint>Introduce el rol del usuario </mat-hint>
           <div class="spacer"></div>

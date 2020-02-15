@@ -30,6 +30,7 @@ export class EditProfileComponent extends Forms implements OnInit {
   confirmPassword: FormControl;
   files: File[];
   groupPassword: FormGroup;
+  optionsRole: any;
 
   usuarioEditar: any;
   nombreUsuario: string;
@@ -48,6 +49,11 @@ export class EditProfileComponent extends Forms implements OnInit {
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.files = [];
+    this.optionsRole = [
+      { value: 'steak-0', viewValue: 'Steak' },
+      { value: 'pizza-1', viewValue: 'Pizza' },
+      { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
 
