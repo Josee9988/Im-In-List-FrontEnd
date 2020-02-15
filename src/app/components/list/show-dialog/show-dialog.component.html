@@ -1,11 +1,26 @@
-<h1 mat-dialog-title>¡Comparte tu lista!</h1>
-<div mat-dialog-content>
-  Envía esta url a tus amigos:
-  <br>
-  <ngx-qrcode qrc-element-type="url" [qrc-value]="url"></ngx-qrcode>
-</div>
-<div mat-dialog-content>
-  O descarga este código QR y que lo escaneen!:
-  <br>
-  <a href="{{url}}">{{url}}</a>
+<div id="qrDialog">
+
+  <!-- Title -->
+  <h1 mat-dialog-title>¡Comparte tu lista!</h1>
+  <hr>
+
+  <!-- URL -->
+  <div mat-dialog-content>
+    Envía esta url a tus amigos:
+    <br>
+    <a href="{{url}}">{{url}}</a>
+    <!-- Copy to clipboard -->
+    <button (click)="copyUrl()" class="btn-info" type="button" matTooltip="Copiar URL" matTooltipPosition="right"
+      mat-raised-button>
+        <svg xmlns="http://www.w3.org/2000/svg"width="24"height="24"viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+    </button>
+  </div>
+
+  <!-- QR -->
+  <hr>
+  <div mat-dialog-content>
+    O escanea este código QR!:
+    <ngx-qrcode qrc-element-type="url" [qrc-value]="url"></ngx-qrcode>
+    <br>
+  </div>
 </div>
