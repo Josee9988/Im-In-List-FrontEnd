@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 import { Forms } from './../../shared/classes/Forms.class';
 import { UserService } from './../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -29,7 +32,11 @@ export class EditProfileComponent extends Forms implements OnInit {
   emailUsuario: string;
 
 
-  constructor(private userService: UserService, private location: Location, private route: ActivatedRoute) {
+  constructor(
+    private userService: UserService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private errorSnackbarDisplayerService: SnackbarDisplayerService, ) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
@@ -62,9 +69,16 @@ export class EditProfileComponent extends Forms implements OnInit {
   onSubmit(): void {
     this.checkInputs();
     if (super.validateInputs()) {
-      this.usuarioEditar.name = this.name.value;
+      if (this.editName) {
+        this.sendModificatinos(1);
+      } else if (this.editEmail) {
+        this.sendModificatinos(2);
+      } else if (this.editPassword) {
+        this.inputs = [this.oldPassword, this.password, this.confirmPassword];
+      }
+
       console.log(this.usuarioEditar);
-      this.userService.putUser(this.usuarioEditar).subscribe(Response => console.log(Response));
+
       super.clearInputs();
 
     } else {
@@ -72,6 +86,27 @@ export class EditProfileComponent extends Forms implements OnInit {
     }
   }
 
+  sendModificatinos(opcion: number): void {
+    switch (opcion) {
+      case 1:
+        this.usuarioEditar.name = this.name.value;
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Nombre modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+        });
+        break;
+      case 2:
+        this.usuarioEditar.email = this.email.value;
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+        });
+        break;
+      default:
+        break;
+    }
+
+  }
   /**
    * Sumary: This function check which toggle is activated and choose the correct inputs
    */
