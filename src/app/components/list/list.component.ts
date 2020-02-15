@@ -5,10 +5,11 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { IListElement } from 'src/app/shared/models/IListElements.interface';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { ListaService } from 'src/app/shared/services/lista.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 
 @Component({
   selector: 'app-list',
@@ -33,7 +34,11 @@ export class ListComponent extends Forms implements OnInit {
 
   windowHeight: number;
 
-  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private listaService: ListaService, private router: Router) {
+  constructor(
+    private errorSnackbarDisplayerService: SnackbarDisplayerService,
+    private listaService: ListaService,
+    private router: Router,
+    public dialog: MatDialog) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -45,7 +50,7 @@ export class ListComponent extends Forms implements OnInit {
     this.list = {
       titulo: '',
       descripcion: '',
-      elementos: []
+      elementos: [],
     };
   }
 
@@ -139,11 +144,13 @@ export class ListComponent extends Forms implements OnInit {
       this.list.descripcion = this.descripcion.value;
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
         this.listaService.postLista(this.list).subscribe((Response) => {
+          if (typeof Response.lista.url !== 'undefined') {
+            this.openDialog(Response.lista.url);
+          }
           this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-          console.log(Response);
           this.list = { titulo: '', descripcion: '', elementos: [] };
           super.clearInputs();
-          this.router.navigate(['/newList']);
+          // this.router.navigate(['/list']);
         });
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
@@ -211,6 +218,16 @@ export class ListComponent extends Forms implements OnInit {
       this.errorSnackbarDisplayerService.openSnackBar(`El elemento ${newElement} ya existe.`, SnackBarErrorType.warning);
     }
   }
+
+
+  openDialog(url: string) {
+    this.dialog.open(ShowDialogComponent, {
+      data: {
+        url
+      }
+    });
+  }
+
 
   /**
    * Summary: checks if the input has any error, and if that is the case it will return a string

@@ -63,8 +63,8 @@ export class ListaService {
    * Summary: creates an lista
    * @param lista the lista that will be created.
    */
-  postLista(lista: ILista): Observable<ILista> {
-    return this.http.post<ILista>(this.LISTA_URL, lista, this.httpOptions).pipe(
+  postLista(lista: ILista): Observable<any> {
+    return this.http.post<ILista>(`${environment.apiUrl}list`, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('postLista')));
   }
 

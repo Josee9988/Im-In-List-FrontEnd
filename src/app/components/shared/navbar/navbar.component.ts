@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
   declareNavbarElements(): void {
     // default links
     this.navbarLinks = [
-      { icon: 'post_add', field: 'Nueva lista', route: 'newList', order: 1 },
+      { icon: 'post_add', field: 'Nueva lista', route: 'list', order: 1 },
       { icon: 'attach_money', field: 'Precios', route: 'pricing', order: 3 },
       { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
       { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 6 }];
