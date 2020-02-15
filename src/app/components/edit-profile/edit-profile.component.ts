@@ -20,6 +20,7 @@ export class EditProfileComponent extends Forms implements OnInit {
   editEmail: boolean;
   editPassword: boolean;
   editPicture: boolean;
+  adminAuth: boolean;
 
   hide: boolean;
   name: FormControl;
@@ -61,6 +62,7 @@ export class EditProfileComponent extends Forms implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (Number(id) !== 0) {
+      this.adminAuth = true;
       this.userService.getUser(Number(id)).subscribe(Response => {
         if (Response) {
           this.usuarioEditar = Response;

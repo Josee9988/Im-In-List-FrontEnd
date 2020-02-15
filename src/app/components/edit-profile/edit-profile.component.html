@@ -130,14 +130,35 @@
         matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
     </form>
 
-    <hr />
-
-    <!-- Slider edit picture -->
-    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editRole" [ngModelOptions]="{standalone: true}">
-      <mat-icon>create</mat-icon> Modificar rol de perfil
-    </mat-slide-toggle>
 
 
+    <!-- Slider edit role -->
+    <div *ngIf="adminAuth">
+      <hr />
+      <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editRole" [ngModelOptions]="{standalone: true}">
+        <mat-icon>create</mat-icon> Modificar rol
+      </mat-slide-toggle>
+      <form class="form-container" *ngIf="editRole">
+        <!-- Role field -->
+        <mat-form-field appearance="outline">
+          <mat-label>Rol</mat-label>
+          <mat-select name="singleSelect" ng-model="data.singleSelect">
+            <option value="option-1">Rol 0 (Administrador)</option>
+          </mat-select>
+
+
+
+          <input type="email" [formControl]="email" matInput placeholder="ej: ejemplo@mail.com" value={{emailUsuario}}
+            autocomplete="on">
+          <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+          <mat-hint>Introduce el rol del usuario </mat-hint>
+          <div class="spacer"></div>
+        </mat-form-field>
+        <!-- Submit button -->
+        <button class="submit-login-register" (click)="onSubmit()" type="submit" matTooltip="Guardar cambios"
+          matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
+      </form>
+    </div>
     <hr />
   </mat-card-content>
   <div class="actions">
