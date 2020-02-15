@@ -12,6 +12,9 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
 export class EditProfileComponent extends Forms implements OnInit {
   editName: boolean;
   editEmail: boolean;
@@ -59,13 +62,19 @@ export class EditProfileComponent extends Forms implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Number(id) !== 0) {
       this.userService.getUser(Number(id)).subscribe(Response => {
-        this.usuarioEditar = Response;
-        this.nombreUsuario = Response.name;
-        this.emailUsuario = Response.email;
+        if (Response) {
+          this.usuarioEditar = Response;
+          this.nombreUsuario = Response.name;
+          this.emailUsuario = Response.email;
+        } else {
+          alert('Este usuario no existe');
+        }
       });
     }
   }
-
+  /**
+   * Sumary: Function from SUPER that check the inputs available and validate them. Once validated, redirect to PUT method
+   */
   onSubmit(): void {
     this.checkInputs();
     if (super.validateInputs()) {
@@ -85,9 +94,12 @@ export class EditProfileComponent extends Forms implements OnInit {
 
     }
   }
-
-  sendModificatinos(opcion: number): void {
-    switch (opcion) {
+  /**
+   * Sumary: This function gets a code and send the put http pettition to update the user
+   * @param option Is the option depending which inputs have been edited
+   */
+  sendModificatinos(option: number): void {
+    switch (option) {
       case 1:
         this.usuarioEditar.name = this.name.value;
         this.userService.putUser(this.usuarioEditar).subscribe(Response => {
