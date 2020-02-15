@@ -59,6 +59,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { ShowDialogComponent } from './components/list/show-dialog/show-dialog.component';
 
 
 export const imports = [BrowserModule,
@@ -121,6 +122,7 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
   declarations: [
     AppComponent,
     routingComponents,
+    ShowDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -132,6 +134,7 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     { provide: RequestCache, useClass: RequestCacheWithMap },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ShowDialogComponent]
 })
 export class AppModule { }
