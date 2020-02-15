@@ -131,6 +131,14 @@
     </form>
 
     <hr />
+
+    <!-- Slider edit picture -->
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editRole" [ngModelOptions]="{standalone: true}">
+      <mat-icon>create</mat-icon> Modificar rol de perfil
+    </mat-slide-toggle>
+
+
+    <hr />
   </mat-card-content>
   <div class="actions">
     <button (click)="goBack()" mat-raised-button color="warn" matTooltip="Descarcart cambios "
