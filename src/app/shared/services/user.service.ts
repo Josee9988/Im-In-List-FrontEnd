@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { IUser } from '../models/IUsers.interface';
 
@@ -72,12 +72,18 @@ export class UserService {
   }
 
 
+
+
+
+
+
+
   /**
    * Summary: modifys an existing user.
    * @param user the user that will be modified.
    */
   putUser(user: IUser): Observable<any> {
-    return this.http.put(this.USER_URL, user, this.httpOptions).pipe(
+    return this.http.put(this.USER_URL + '/' + user.id, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('putLista')));
   }
 

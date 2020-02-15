@@ -63,8 +63,8 @@ export class EditProfileComponent extends Forms implements OnInit {
     this.checkInputs();
     if (super.validateInputs()) {
       this.usuarioEditar.name = this.name.value;
-      this.userService.putUser(this.usuarioEditar);
-
+      console.log(this.usuarioEditar);
+      this.userService.putUser(this.usuarioEditar).subscribe(Response => console.log(Response));
       super.clearInputs();
 
     } else {
