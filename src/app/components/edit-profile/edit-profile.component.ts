@@ -131,6 +131,7 @@ export class EditProfileComponent extends Forms implements OnInit {
         this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
           console.log(Response);
+          this.editRole = undefined;
         });
         break;
       default:
