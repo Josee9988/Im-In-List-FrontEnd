@@ -77,17 +77,6 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    if (document.getElementById('paypalsrctag') ? true : false) {
-      const srcTag = document.getElementById('paypalsrctag');
-      if (srcTag.parentNode) {
-        srcTag.parentNode.removeChild(srcTag);
-      } else {
-        srcTag.remove();
-      }
-    }
-  }
-
   /**
    * Summary: function that is invoked after the view is checked and after we add
    * the PayPal source code for making the calls.
@@ -107,5 +96,16 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
         document.body.appendChild(wrapingPaypalDiv);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (document.getElementById('paypalDivWraper') ? true : false) {
+      const srcTag = document.getElementById('paypalDivWraper');
+      if (srcTag.parentNode) {
+        srcTag.parentNode.removeChild(srcTag);
+      } else {
+        srcTag.remove();
+      }
+    }
   }
 }
