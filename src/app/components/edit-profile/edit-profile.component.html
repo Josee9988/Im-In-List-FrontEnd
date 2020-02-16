@@ -143,7 +143,7 @@
         <!-- Role field -->
         <mat-form-field appearance="outline">
           <mat-label>Rol</mat-label>
-          <mat-select [(value)]="rolUsuario" placeholder="Mode">
+          <mat-select [formControl]="role" [(value)]="rolUsuario" placeholder="Mode">
             <mat-option value=0>Rol 0 (Administrador)</mat-option>
             <mat-option value=1>Rol 1 (Registrado)</mat-option>
             <mat-option value=2>Rol 2 (Premium)</mat-option>

@@ -84,18 +84,17 @@ export class EditProfileComponent extends Forms implements OnInit {
    * Sumary: Function from SUPER that check the inputs available and validate them. Once validated, redirect to PUT method
    */
   onSubmit(): void {
-    console.log('Estás onSubmit');
     this.checkInputs();
-
     if (super.validateInputs()) {
       if (this.editName) {
         this.sendModifications(1);
       } else if (this.editEmail) {
         this.sendModifications(2);
       } else if (this.editPassword) {
-        this.inputs = [this.oldPassword, this.password, this.confirmPassword];
+        //
+      } else if (this.editPicture) {
+
       } else if (this.editRole) {
-        console.log('Se van a llamar a la funcion sendModifications');
         this.sendModifications(5);
       }
 
@@ -129,7 +128,10 @@ export class EditProfileComponent extends Forms implements OnInit {
         break;
       case 5:
         this.usuarioEditar.role = this.role.value;
-        console.log(this.usuarioEditar);
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+        });
         break;
       default:
         break;
@@ -140,7 +142,6 @@ export class EditProfileComponent extends Forms implements OnInit {
    * Sumary: This function check which toggle is activated and choose the correct inputs
    */
   checkInputs(): void {
-    console.log('Estás en checkInputs');
     if (this.editName) {
       this.inputs = [this.name];
     } else if (this.editEmail) {
@@ -148,7 +149,6 @@ export class EditProfileComponent extends Forms implements OnInit {
     } else if (this.editPassword) {
       this.inputs = [this.oldPassword, this.password, this.confirmPassword];
     } else if (this.editRole) {
-      console.log('Detecta que el activado es editRole');
       this.inputs = [this.role];
     }
   }
