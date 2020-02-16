@@ -58,6 +58,7 @@ export class ListComponent extends Forms implements OnInit {
           titulo: '',
           descripcion: '',
           items: JSON.parse(JSON.parse(Response.elementos)),
+          url: givenUrl,
         };
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
@@ -162,15 +163,26 @@ export class ListComponent extends Forms implements OnInit {
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
-        this.listaService.postLista(this.list).subscribe((Response) => {
-          if (typeof Response.lista.url !== 'undefined') {
-            this.openDialog(Response.lista.url);
-          }
-          this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-          this.list = { titulo: '', descripcion: '', items: [] };
-          super.clearInputs();
-          // this.router.navigate(['/list']);
-        });
+        if (this.isEditing) { // EDITING
+          this.listaService.putLista(this.list).subscribe((Response) => {
+            if (typeof Response.lista.url !== 'undefined') {
+              this.openDialog(Response.lista.url);
+            }
+            this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+            this.list = { titulo: '', descripcion: '', items: [] };
+            super.clearInputs();
+          });
+        } else { // CREATING
+          this.listaService.postLista(this.list).subscribe((Response) => {
+            if (typeof Response.lista.url !== 'undefined') {
+              this.openDialog(Response.lista.url);
+            }
+            this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+            this.list = { titulo: '', descripcion: '', items: [] };
+            super.clearInputs();
+            // this.router.navigate(['/list']);
+          });
+        }
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
       }

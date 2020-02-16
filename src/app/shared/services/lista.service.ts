@@ -74,7 +74,7 @@ export class ListaService {
    * @param lista the lista that will be modified.
    */
   putLista(lista: ILista): Observable<any> {
-    return this.http.put(this.LISTA_URL, lista, this.httpOptions).pipe(
+    return this.http.put(`${this.LISTA_URL}/${lista.url}`, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('putLista')));
   }
 
