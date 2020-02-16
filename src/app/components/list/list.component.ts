@@ -7,9 +7,10 @@ import { SnackbarDisplayerService } from '../../shared/services/snackbar-display
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { ListaService } from 'src/app/shared/services/lista.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-list',
@@ -30,7 +31,6 @@ export class ListComponent extends Forms implements OnInit {
   private descripcion: FormControl;
   private password: FormControl;
 
-
   private isEditing: boolean;
   private hasPassword: boolean;
 
@@ -40,7 +40,8 @@ export class ListComponent extends Forms implements OnInit {
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private listaService: ListaService,
     private route: ActivatedRoute,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private authService: AuthService) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -62,7 +63,6 @@ export class ListComponent extends Forms implements OnInit {
         };
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
-
       });
     } else {
       this.list = {
@@ -164,24 +164,52 @@ export class ListComponent extends Forms implements OnInit {
       this.list.elementos = JSON.stringify(this.list.items);
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
-          this.listaService.putLista(this.list).subscribe((Response) => {
-            if (typeof Response.lista.url !== 'undefined') {
-              this.openDialog(Response.lista.url);
-            }
-            this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-            this.list = { titulo: '', descripcion: '', items: [] };
-            super.clearInputs();
-          });
+
+          if (this.authService.hasToken()) { // IS LOGGED IN
+            this.listaService.putListaRegistered(this.list).subscribe((Response) => {
+              if (typeof Response.lista.url !== 'undefined') {
+                this.openDialog(Response.lista.url);
+              }
+              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+              this.list = { titulo: '', descripcion: '', items: [] };
+              super.clearInputs();
+            });
+          } else { // NOT LOGGED IN
+            this.listaService.putLista(this.list).subscribe((Response) => {
+              if (typeof Response.lista !== 'undefined') {
+                this.openDialog(Response.lista.url);
+              }
+              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+              this.list = { titulo: '', descripcion: '', items: [] };
+              super.clearInputs();
+            });
+          }
+
         } else { // CREATING
-          this.listaService.postLista(this.list).subscribe((Response) => {
-            if (typeof Response.lista.url !== 'undefined') {
-              this.openDialog(Response.lista.url);
-            }
-            this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-            this.list = { titulo: '', descripcion: '', items: [] };
-            super.clearInputs();
-            // this.router.navigate(['/list']);
-          });
+          this.list.url = this.list.titulo;
+          if (this.authService.hasToken()) { // IS LOGGED IN
+            this.listaService.postListaRegistered(this.list).subscribe((Response) => {
+              if (typeof Response.lista !== 'undefined') {
+                this.openDialog(Response.lista.url);
+
+                this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+                this.list = { titulo: '', descripcion: '', items: [] };
+                super.clearInputs();
+              }
+            });
+
+          } else { // NOT LOGGED IN
+            this.listaService.postLista(this.list).subscribe((Response) => {
+              if (typeof Response.lista.url !== 'undefined') {
+                this.openDialog(Response.lista.url);
+              }
+              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+              this.list = { titulo: '', descripcion: '', items: [] };
+              super.clearInputs();
+              // this.router.navigate(['/list']);
+            });
+          }
+
         }
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);

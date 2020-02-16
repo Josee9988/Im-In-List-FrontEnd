@@ -60,7 +60,7 @@ export class ListaService {
 
 
   /**
-   * Summary: creates an lista
+   * Summary: creates an lista for non registered users.
    * @param lista the lista that will be created.
    */
   postLista(lista: ILista): Observable<any> {
@@ -70,10 +70,30 @@ export class ListaService {
 
 
   /**
+   * Summary: creates an lista, for registered users.
+   * @param lista the lista that will be created.
+   */
+  postListaRegistered(lista: ILista): Observable<any> {
+    return this.http.post<ILista>(this.LISTA_URL, lista, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<ILista>('postLista')));
+  }
+
+
+  /**
    * Summary: modifys an existing lista.
    * @param lista the lista that will be modified.
    */
   putLista(lista: ILista): Observable<any> {
+    return this.http.put(`${this.LIST_URL}/${lista.url}`, lista, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<any>('putLista')));
+  }
+
+
+  /**
+   * Summary: modifys an existing lista., for registered users.
+   * @param lista the lista that will be modified.
+   */
+  putListaRegistered(lista: ILista): Observable<any> {
     return this.http.put(`${this.LISTA_URL}/${lista.url}`, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('putLista')));
   }
