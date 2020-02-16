@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from './../../../../environments/environment';
+import { Router } from '@angular/router';
 
 interface IDialogUrl {
   url: string;
@@ -16,16 +17,19 @@ interface IDialogUrl {
  */
 export class ShowDialogComponent implements OnInit {
   private readonly SITE_URL: string = environment.siteURl;
-  public url: string;
+  private url: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogUrl, private dialogRef: MatDialogRef<ShowDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: IDialogUrl,
+    private dialogRef: MatDialogRef<ShowDialogComponent>,
+    private router: Router) {
     this.url = `${this.SITE_URL}list/${data.url}`;
   }
 
   ngOnInit(): void {
     // close dialog event
     this.dialogRef.backdropClick().subscribe(() => {
-      console.log('close me ');
+      this.router.navigate([`list/${this.data.url}`]);
     });
   }
 
