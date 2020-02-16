@@ -7,9 +7,10 @@ import { SnackbarDisplayerService } from '../../shared/services/snackbar-display
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { ListaService } from 'src/app/shared/services/lista.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-list',
@@ -30,6 +31,7 @@ export class ListComponent extends Forms implements OnInit {
   private descripcion: FormControl;
   private password: FormControl;
 
+  private isEditing: boolean;
   private hasPassword: boolean;
 
   windowHeight: number;
@@ -37,21 +39,38 @@ export class ListComponent extends Forms implements OnInit {
   constructor(
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private listaService: ListaService,
-    private router: Router,
-    public dialog: MatDialog) {
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private authService: AuthService) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.isEditing = false;
   }
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
-    this.list = {
-      titulo: '',
-      descripcion: '',
-      elementos: [],
-    };
+    const givenUrl = this.route.snapshot.paramMap.get('url');
+    if (givenUrl) {
+      this.isEditing = true;
+      this.listaService.getLista(givenUrl).subscribe((Response) => {
+        this.list = {
+          titulo: '',
+          descripcion: '',
+          items: JSON.parse(JSON.parse(Response.elementos)),
+          url: givenUrl,
+        };
+        this.titulo.setValue(Response.titulo);
+        this.descripcion.setValue(Response.descripcion);
+      });
+    } else {
+      this.list = {
+        titulo: '',
+        descripcion: '',
+        items: [],
+      };
+    }
   }
 
   /**
@@ -74,7 +93,7 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to delete.
    */
   onDeleteElementMaster(order: number): void {
-    this.list.elementos = this.list.elementos.filter(element => element.order !== order);
+    this.list.items = this.list.items.filter(element => element.order !== order);
     this.refreshOrder();
   }
 
@@ -82,12 +101,12 @@ export class ListComponent extends Forms implements OnInit {
    * Summary: receives an order number (id - like) of its parent element and removes
    * the slave (subtaks) searching by its name (text).
    *
-   * @param order order of the parent. the order refeers to the list.elementos position.
+   * @param order order of the parent. the order refeers to the list.items position.
    * @param text the text of the slave element to be removed.
    */
   onDeleteSlave(order: number, text: string): void {
-    this.list.elementos[order].subTasks =
-      this.list.elementos[order].subTasks.filter(slave => slave.name !== text);
+    this.list.items[order].subTasks =
+      this.list.items[order].subTasks.filter(slave => slave.name !== text);
   }
 
   /**
@@ -97,13 +116,13 @@ export class ListComponent extends Forms implements OnInit {
    * @param order the order number of the element that we want to make slave.
    */
   onMakeSlave(order: number): void {
-    if (this.list.elementos[0].order !== order) {
-      const futureSlave = this.list.elementos.find(elemento => elemento.order === order);
+    if (this.list.items[0].order !== order) {
+      const futureSlave = this.list.items.find(elemento => elemento.order === order);
       if (futureSlave) {
         futureSlave.master = false;
         for (let i = futureSlave.order; i >= 0; i--) { // asign the master of the futureSlave
-          if (typeof this.list.elementos[i] !== 'undefined' && this.list.elementos[i].master) {
-            this.list.elementos[i].subTasks.push({ name: futureSlave.text });
+          if (typeof this.list.items[i] !== 'undefined' && this.list.items[i].master) {
+            this.list.items[i].subTasks.push({ name: futureSlave.text });
             this.onDeleteElementMaster(futureSlave.order);
             break;
           }
@@ -134,7 +153,7 @@ export class ListComponent extends Forms implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.list.elementos.length > 0) {
+    if (this.list.items.length > 0) {
       if (this.hasPassword) {
         this.inputs = [this.titulo, this.descripcion, this.password];
       } else {
@@ -142,16 +161,48 @@ export class ListComponent extends Forms implements OnInit {
       }
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
+      this.list.elementos = JSON.stringify(this.list.items);
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
-        this.listaService.postLista(this.list).subscribe((Response) => {
-          if (typeof Response.lista.url !== 'undefined') {
-            this.openDialog(Response.lista.url);
+        if (this.isEditing) { // EDITING
+          this.list.url = null;
+
+          if (this.authService.hasToken()) { // IS LOGGED IN
+            this.listaService.putListaRegistered(this.list).subscribe((Response) => {
+              if (typeof Response.lista !== 'undefined') {
+                this.openDialog(Response.lista.url);
+              }
+              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+            });
+          } else { // NOT LOGGED IN
+            this.listaService.putLista(this.list).subscribe((Response) => {
+              if (typeof Response.lista !== 'undefined') {
+                this.openDialog(Response.lista.url);
+              }
+              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+            });
           }
-          this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-          this.list = { titulo: '', descripcion: '', elementos: [] };
-          super.clearInputs();
-          // this.router.navigate(['/list']);
-        });
+
+        } else { // CREATING
+          this.list.url = this.list.titulo;
+          if (this.authService.hasToken()) { // IS LOGGED IN
+            this.listaService.postListaRegistered(this.list).subscribe((Response) => {
+              if (typeof Response.lista !== 'undefined') {
+                this.openDialog(Response.lista.url);
+
+                this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+              }
+            });
+
+          } else { // NOT LOGGED IN
+            this.listaService.postLista(this.list).subscribe((Response) => {
+              if (typeof Response.lista.url !== 'undefined') {
+                this.openDialog(Response.lista.url);
+              }
+              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+            });
+          }
+
+        }
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
       }
@@ -166,10 +217,10 @@ export class ListComponent extends Forms implements OnInit {
    * @param event the event received to switch two element positions.
    */
   onDrop(event: CdkDragDrop<string[]>): void {
-    const aux = this.list.elementos[event.currentIndex].order;
-    this.list.elementos[event.currentIndex].order = this.list.elementos[event.previousIndex].order;
-    this.list.elementos[event.previousIndex].order = aux;
-    moveItemInArray(this.list.elementos, event.previousIndex, event.currentIndex);
+    const aux = this.list.items[event.currentIndex].order;
+    this.list.items[event.currentIndex].order = this.list.items[event.previousIndex].order;
+    this.list.items[event.previousIndex].order = aux;
+    moveItemInArray(this.list.items, event.previousIndex, event.currentIndex);
     this.refreshOrder();
   }
 
@@ -179,7 +230,7 @@ export class ListComponent extends Forms implements OnInit {
    */
   private refreshOrder(): void {
     let counter = 0;
-    for (const element of this.list.elementos) {
+    for (const element of this.list.items) {
       if (element) {
         element.order = counter;
         counter++;
@@ -196,20 +247,20 @@ export class ListComponent extends Forms implements OnInit {
   private addElement(newElement: string): void {
     let isRepeated = false;
     // check for repeated elements as master
-    if (this.list.elementos.find(element => element.text === newElement)) {
+    if (this.list.items.find(element => element.text === newElement)) {
       isRepeated = true;
     }
     if (!isRepeated) { // if still wasn't found any ocurrence...
       // check for repeated elements as slave
-      this.list.elementos.forEach(element => {
+      this.list.items.forEach(element => {
         if (element.subTasks.find(subTask => subTask.name === newElement)) {
           isRepeated = true;
         }
       });
     }
     if (!isRepeated) { // element not repeated (ok)
-      this.list.elementos.push({
-        order: this.list.elementos.length + 1,
+      this.list.items.push({
+        order: this.list.items.length + 1,
         text: newElement.trim(),
         master: true,
         subTasks: []

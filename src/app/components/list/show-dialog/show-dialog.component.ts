@@ -1,10 +1,8 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from './../../../../environments/environment';
-
-interface IDialogUrl {
-  url: string;
-}
+import { Router } from '@angular/router';
+import { IDialogUrl } from './IDialogUrl.interface';
 
 @Component({
   selector: 'app-show-dialog',
@@ -14,12 +12,22 @@ interface IDialogUrl {
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ShowDialogComponent {
+export class ShowDialogComponent implements OnInit {
   private readonly SITE_URL: string = environment.siteURl;
-  public url: string;
+  private url: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogUrl) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: IDialogUrl,
+    private dialogRef: MatDialogRef<ShowDialogComponent>,
+    private router: Router) {
     this.url = `${this.SITE_URL}list/${data.url}`;
+  }
+
+  ngOnInit(): void {
+    // close dialog event. then it will redirect to the list
+    this.dialogRef.backdropClick().subscribe(() => {
+      this.router.navigate([`list/${this.data.url}`]);
+    });
   }
 
   /**
