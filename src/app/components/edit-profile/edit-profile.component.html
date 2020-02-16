@@ -76,7 +76,7 @@
       <!-- Password field -->
       <mat-form-field appearance="outline">
         <mat-label>Nueva contraseña</mat-label>
-        <input name="password" type="password" [formControl]="password" (click)="closeToggleInputs(4)" matInput
+        <input name="password" type="password" [formControl]="password" matInput
           placeholder="Introduce tu nueva contraseña" [type]="hide ? 'password' : 'text'"
           autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -109,7 +109,7 @@
     <hr />
 
     <!-- Slider edit picture -->
-    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPicture"
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPicture" (click)="closeToggleInputs(4)"
       [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar imagen de perfil
     </mat-slide-toggle>
@@ -135,7 +135,8 @@
     <!-- Slider edit role -->
     <div *ngIf="adminAuth">
       <hr />
-      <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editRole" [ngModelOptions]="{standalone: true}">
+      <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editRole" (click)="closeToggleInputs(5)"
+        [ngModelOptions]="{standalone: true}">
         <mat-icon>create</mat-icon> Modificar rol
       </mat-slide-toggle>
       <form class="form-container" *ngIf="editRole">

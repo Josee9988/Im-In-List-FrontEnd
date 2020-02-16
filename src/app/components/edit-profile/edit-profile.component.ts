@@ -21,6 +21,7 @@ export class EditProfileComponent extends Forms implements OnInit {
   editPassword: boolean;
   editPicture: boolean;
   adminAuth: boolean;
+  editRole: boolean;
 
   hide: boolean;
   name: FormControl;
@@ -30,7 +31,7 @@ export class EditProfileComponent extends Forms implements OnInit {
   confirmPassword: FormControl;
   files: File[];
   groupPassword: FormGroup;
-  optionsRole: any;
+  role: FormControl;
 
   usuarioEditar: any;
   nombreUsuario: string;
@@ -48,6 +49,7 @@ export class EditProfileComponent extends Forms implements OnInit {
     this.oldPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.role = new FormControl('', [Validators.required]);
 
     this.files = [];
 
@@ -82,7 +84,9 @@ export class EditProfileComponent extends Forms implements OnInit {
    * Sumary: Function from SUPER that check the inputs available and validate them. Once validated, redirect to PUT method
    */
   onSubmit(): void {
+    console.log('Estás onSubmit');
     this.checkInputs();
+
     if (super.validateInputs()) {
       if (this.editName) {
         this.sendModifications(1);
@@ -90,7 +94,8 @@ export class EditProfileComponent extends Forms implements OnInit {
         this.sendModifications(2);
       } else if (this.editPassword) {
         this.inputs = [this.oldPassword, this.password, this.confirmPassword];
-      } else if (this.optionsRole) {
+      } else if (this.editRole) {
+        console.log('Se van a llamar a la funcion sendModifications');
         this.sendModifications(5);
       }
 
@@ -123,7 +128,7 @@ export class EditProfileComponent extends Forms implements OnInit {
         });
         break;
       case 5:
-        //this.usuarioEditar.role = this.role.value;
+        this.usuarioEditar.role = this.role.value;
         console.log(this.usuarioEditar);
         break;
       default:
@@ -135,12 +140,16 @@ export class EditProfileComponent extends Forms implements OnInit {
    * Sumary: This function check which toggle is activated and choose the correct inputs
    */
   checkInputs(): void {
+    console.log('Estás en checkInputs');
     if (this.editName) {
       this.inputs = [this.name];
     } else if (this.editEmail) {
       this.inputs = [this.email];
     } else if (this.editPassword) {
       this.inputs = [this.oldPassword, this.password, this.confirmPassword];
+    } else if (this.editRole) {
+      console.log('Detecta que el activado es editRole');
+      this.inputs = [this.role];
     }
   }
 
@@ -154,21 +163,31 @@ export class EditProfileComponent extends Forms implements OnInit {
         this.editEmail = undefined;
         this.editPassword = undefined;
         this.editPicture = undefined;
+        this.editRole = undefined;
         break;
       case 2:
         this.editName = undefined;
         this.editPassword = undefined;
         this.editPicture = undefined;
+        this.editRole = undefined;
         break;
       case 3:
         this.editName = undefined;
         this.editEmail = undefined;
         this.editPicture = undefined;
+        this.editRole = undefined;
         break;
       case 4:
         this.editName = undefined;
         this.editEmail = undefined;
         this.editPassword = undefined;
+        this.editRole = undefined;
+        break;
+      case 5:
+        this.editName = undefined;
+        this.editEmail = undefined;
+        this.editPassword = undefined;
+        this.editPicture = undefined;
         break;
       default:
         break;
