@@ -97,11 +97,14 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
   addPaypalScript(): Promise<any> {
     this.addScript = true;
     return new Promise((resolve) => {
-      if (!document.getElementById('xo-pptm') ? true : false) { // if false the script is not already loaded and it will do it
+      if (!document.getElementById('paypalDivWraper') ? true : false) { // if false the script is not already loaded and it will do it
         const scripttagElement = document.createElement('script');
         scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
         scripttagElement.onload = resolve;
-        document.body.appendChild(scripttagElement);
+        const wrapingPaypalDiv = document.createElement('div');
+        wrapingPaypalDiv.id = 'paypalDivWraper';
+        wrapingPaypalDiv.appendChild(scripttagElement);
+        document.body.appendChild(wrapingPaypalDiv);
       }
     });
   }
