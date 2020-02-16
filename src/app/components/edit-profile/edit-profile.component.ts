@@ -35,7 +35,7 @@ export class EditProfileComponent extends Forms implements OnInit {
   usuarioEditar: any;
   nombreUsuario: string;
   emailUsuario: string;
-
+  rolUsuario: number;
 
   constructor(
     private userService: UserService,
@@ -48,12 +48,9 @@ export class EditProfileComponent extends Forms implements OnInit {
     this.oldPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
+
     this.files = [];
-    this.optionsRole = [
-      { value: 'steak-0', viewValue: 'Steak' },
-      { value: 'pizza-1', viewValue: 'Pizza' },
-      { value: 'tacos-2', viewValue: 'Tacos' }
-    ];
+
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
 
@@ -74,6 +71,7 @@ export class EditProfileComponent extends Forms implements OnInit {
           this.usuarioEditar = Response;
           this.nombreUsuario = Response.name;
           this.emailUsuario = Response.email;
+          this.rolUsuario = Response.role;
         } else {
           alert('Este usuario no existe');
         }
@@ -87,11 +85,13 @@ export class EditProfileComponent extends Forms implements OnInit {
     this.checkInputs();
     if (super.validateInputs()) {
       if (this.editName) {
-        this.sendModificatinos(1);
+        this.sendModifications(1);
       } else if (this.editEmail) {
-        this.sendModificatinos(2);
+        this.sendModifications(2);
       } else if (this.editPassword) {
         this.inputs = [this.oldPassword, this.password, this.confirmPassword];
+      } else if (this.optionsRole) {
+        this.sendModifications(5);
       }
 
       console.log(this.usuarioEditar);
@@ -106,7 +106,7 @@ export class EditProfileComponent extends Forms implements OnInit {
    * Sumary: This function gets a code and send the put http pettition to update the user
    * @param option Is the option depending which inputs have been edited
    */
-  sendModificatinos(option: number): void {
+  sendModifications(option: number): void {
     switch (option) {
       case 1:
         this.usuarioEditar.name = this.name.value;
@@ -121,6 +121,10 @@ export class EditProfileComponent extends Forms implements OnInit {
           this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
           console.log(Response);
         });
+        break;
+      case 5:
+        //this.usuarioEditar.role = this.role.value;
+        console.log(this.usuarioEditar);
         break;
       default:
         break;

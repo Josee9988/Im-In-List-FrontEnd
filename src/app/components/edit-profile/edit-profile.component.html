@@ -142,13 +142,11 @@
         <!-- Role field -->
         <mat-form-field appearance="outline">
           <mat-label>Rol</mat-label>
-          <mat-select name="singleSelect" ng-model="data.singleSelect">
-            <mat-option *ngFor="let option of optionsRole" [value]="option.value">
-              {{option.viewValue}}
-            </mat-option>
+          <mat-select [(value)]="rolUsuario" placeholder="Mode">
+            <mat-option value=0>Rol 0 (Administrador)</mat-option>
+            <mat-option value=1>Rol 1 (Registrado)</mat-option>
+            <mat-option value=2>Rol 2 (Premium)</mat-option>
           </mat-select>
-
-          <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
           <mat-hint>Introduce el rol del usuario </mat-hint>
           <div class="spacer"></div>
         </mat-form-field>
