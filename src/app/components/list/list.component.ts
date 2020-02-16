@@ -7,7 +7,7 @@ import { SnackbarDisplayerService } from '../../shared/services/snackbar-display
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { ListaService } from 'src/app/shared/services/lista.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 
@@ -30,6 +30,8 @@ export class ListComponent extends Forms implements OnInit {
   private descripcion: FormControl;
   private password: FormControl;
 
+
+  private isEditing: boolean;
   private hasPassword: boolean;
 
   windowHeight: number;
@@ -37,21 +39,36 @@ export class ListComponent extends Forms implements OnInit {
   constructor(
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private listaService: ListaService,
-    private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.isEditing = false;
   }
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
-    this.list = {
-      titulo: '',
-      descripcion: '',
-      elementos: [],
-    };
+    const givenUrl = this.route.snapshot.paramMap.get('url');
+    if (typeof givenUrl !== 'undefined') {
+      this.isEditing = true;
+      this.listaService.getLista(givenUrl).subscribe((Response) => {
+        debugger;
+        this.list = {
+          titulo: Response.titulo,
+          descripcion: Response.descripcion,
+          elementos: JSON.parse(JSON.parse(Response.elementos)),
+        };
+
+      });
+    } else {
+      this.list = {
+        titulo: '',
+        descripcion: '',
+        elementos: [],
+      };
+    }
   }
 
   /**

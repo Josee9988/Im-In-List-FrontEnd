@@ -36,6 +36,7 @@ const routes: Routes = [
   { path: 'pricing', component: PricingComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'list', component: ListComponent },
+  { path: 'list/:url', component: ListComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'admin', component: BackofficeComponent, canActivate: [AdminGuard] },
   { path: 'admin/adminUsers', component: UsersTableComponent, canActivate: [AdminGuard] },

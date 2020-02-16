@@ -22,6 +22,7 @@ import { environment } from './../../../environments/environment';
  */
 export class ListaService {
   private readonly LISTA_URL: string = environment.apiUrl + 'listas';
+  private readonly LIST_URL: string = environment.apiUrl + 'list';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -49,13 +50,12 @@ export class ListaService {
   }
   /**
    * Summary: retreives one lista by an ID.
-   * @param id id of the lista.
+   * @param url id of the lista.
    */
-  getLista(id: number): Observable<ILista> {
-    const url = `${this.LISTA_URL}/?id=${id}`;
-    return this.http.get<ILista[]>(url)
-      .pipe(map(lista => lista[0]), // returns a {0|1} element array
-        tap(), catchError(this.handleError<ILista>(`getLista id=${id}`)));
+  getLista(url: string): Observable<ILista> {
+    const getUrl = `${this.LIST_URL}/${url}`;
+    return this.http.get<any>(getUrl)
+      .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));
   }
 
 
@@ -64,7 +64,7 @@ export class ListaService {
    * @param lista the lista that will be created.
    */
   postLista(lista: ILista): Observable<any> {
-    return this.http.post<ILista>(`${environment.apiUrl}list`, lista, this.httpOptions).pipe(
+    return this.http.post<ILista>(this.LIST_URL, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('postLista')));
   }
 
