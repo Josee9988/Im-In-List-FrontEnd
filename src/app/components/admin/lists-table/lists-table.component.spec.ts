@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListsTableComponent } from './lists-table.component';
+import { imports } from './../../../app.module';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('ListsTableComponent', () => {
   let component: ListsTableComponent;
@@ -8,9 +11,10 @@ describe('ListsTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListsTableComponent ]
+      imports: [imports, RouterTestingModule],
+      declarations: [ListsTableComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

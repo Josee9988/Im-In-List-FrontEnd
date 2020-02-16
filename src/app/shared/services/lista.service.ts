@@ -21,7 +21,8 @@ import { environment } from './../../../environments/environment';
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class ListaService {
-  private readonly LISTA_URL: string = environment.apiUrl + 'listas';
+  private readonly LISTAS_URL: string = environment.apiUrl + 'listas';
+  private readonly LIST_URL: string = environment.apiUrl + 'list';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -36,7 +37,7 @@ export class ListaService {
    * Summary: gets all the listas from the API for Admin porpouses.
    */
   getListas(): Observable<ILista[]> {
-    return this.http.get<ILista[]>(this.LISTA_URL + 'Admin')
+    return this.http.get<ILista[]>(this.LISTAS_URL + 'Admin')
       .pipe(tap(), catchError(this.handleError<ILista[]>('getListas', [])));
   }
 
@@ -44,27 +45,36 @@ export class ListaService {
    * Summary: gets all the listas of the user from the API
    */
   getListasUser(): Observable<ILista[]> {
-    return this.http.get<ILista[]>(this.LISTA_URL)
+    return this.http.get<ILista[]>(this.LISTAS_URL)
       .pipe(tap(), catchError(this.handleError<ILista[]>('getListas', [])));
   }
   /**
    * Summary: retreives one lista by an ID.
-   * @param id id of the lista.
+   * @param url id of the lista.
    */
-  getLista(id: number): Observable<ILista> {
-    const url = `${this.LISTA_URL}/?id=${id}`;
-    return this.http.get<ILista[]>(url)
-      .pipe(map(lista => lista[0]), // returns a {0|1} element array
-        tap(), catchError(this.handleError<ILista>(`getLista id=${id}`)));
+  getLista(url: string): Observable<ILista> {
+    const getUrl = `${this.LIST_URL}/${url}`;
+    return this.http.get<any>(getUrl)
+      .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));
   }
 
 
   /**
-   * Summary: creates an lista
+   * Summary: creates an lista for non registered users.
    * @param lista the lista that will be created.
    */
-  postLista(lista: ILista): Observable<ILista> {
-    return this.http.post<ILista>(this.LISTA_URL, lista, this.httpOptions).pipe(
+  postLista(lista: ILista): Observable<any> {
+    return this.http.post<ILista>(this.LIST_URL, lista, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<ILista>('postLista')));
+  }
+
+
+  /**
+   * Summary: creates an lista, for registered users.
+   * @param lista the lista that will be created.
+   */
+  postListaRegistered(lista: ILista): Observable<any> {
+    return this.http.post<ILista>(this.LISTAS_URL, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('postLista')));
   }
 
@@ -74,7 +84,17 @@ export class ListaService {
    * @param lista the lista that will be modified.
    */
   putLista(lista: ILista): Observable<any> {
-    return this.http.put(this.LISTA_URL, lista, this.httpOptions).pipe(
+    return this.http.put(`${this.LIST_URL}/${lista.url}`, lista, this.httpOptions).pipe(
+      tap(), catchError(this.handleError<any>('putLista')));
+  }
+
+
+  /**
+   * Summary: modifys an existing lista., for registered users.
+   * @param lista the lista that will be modified.
+   */
+  putListaRegistered(lista: ILista): Observable<any> {
+    return this.http.put(`${this.LISTAS_URL}/${lista.url}`, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('putLista')));
   }
 
@@ -85,7 +105,7 @@ export class ListaService {
    */
   deleteLista(lista: ILista | number): Observable<any> {
     const id = typeof lista === 'number' ? lista : lista.id;
-    const url = `${this.LISTA_URL}/${id}`;
+    const url = `${this.LISTAS_URL}/${id}`;
 
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteLista')));

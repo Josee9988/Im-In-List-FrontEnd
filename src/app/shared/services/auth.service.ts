@@ -10,9 +10,11 @@ export class AuthService {
   /**
    * The name of the local storage item that will be saving the token.
    */
-  private storageName: string;
+  private readonly storageName: string = 'loginUserToken';
 
-  constructor() { this.storageName = 'loginUserToken'; }
+  private readonly storagePaypalName: string = '__paypal_storage__';
+
+  constructor() { }
 
   /**
    * Gets the authorization token from the local storage, if so it will return the token,
@@ -51,6 +53,13 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Summary: removes the paypal token from the localStorage.
+   */
+  deletePaypalToken(): void {
+    localStorage.removeItem(this.storagePaypalName);
   }
 
   /**

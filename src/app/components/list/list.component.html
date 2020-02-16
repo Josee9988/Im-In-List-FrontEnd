@@ -1,4 +1,4 @@
-<div novalidate>
+<div>
   <div class="login-register-bg" style="vertical-align:top;">
     <div class="login-register-container">
       <div class="list-title">
@@ -24,13 +24,13 @@
             <mat-error *ngIf="titulo.invalid">{{getDescripcionErrorMessage()}}</mat-error>
           </mat-form-field>
           <div class="form-container">
-            <mat-label>Tus elementos:</mat-label>
+            <mat-label>Tus items:</mat-label>
             <div class="spacer border-b"></div>
 
             <!-- Your elements -->
             <div class="elements-list" [ngStyle]="{'height.px': windowHeight}" *ngIf="list" cdkDropList
               (cdkDropListDropped)="onDrop($event)">
-              <div *ngFor="let element of list.elementos; trackBy:list.elementos.order" cdkDrag>
+              <div *ngFor="let element of list.items; trackBy:list.items.order" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
                 <!-- Element master -->
@@ -53,7 +53,7 @@
                   </div>
 
                   <ng-container *ngIf="element.subTasks.length > 0 ">
-                    <!-- idChild es cada ID de los subelementos de ese elemento -->
+                    <!-- idChild es cada ID de los subitems de ese elemento -->
 
                     <div *ngFor="let child of element.subTasks; let i = index">
                       <!-- child element -->

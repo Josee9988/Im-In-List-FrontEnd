@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersTableComponent } from './users-table.component';
+import { imports } from './../../../app.module';
 
 describe('UsersTableComponent', () => {
   let component: UsersTableComponent;
@@ -8,9 +9,10 @@ describe('UsersTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersTableComponent ]
+      imports: [imports],
+      declarations: [UsersTableComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
