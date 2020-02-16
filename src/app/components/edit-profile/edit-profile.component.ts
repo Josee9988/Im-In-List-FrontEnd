@@ -77,9 +77,7 @@ export class EditProfileComponent extends Forms implements OnInit {
         }
       });
     } else {
-      console.log('Se está buscando la información...');
       this.userService.getDataUser().subscribe(Response => {
-        console.log(Response);
         if (Response) {
           this.usuarioEditar = Response.user;
           this.nombreUsuario = Response.user.name;
