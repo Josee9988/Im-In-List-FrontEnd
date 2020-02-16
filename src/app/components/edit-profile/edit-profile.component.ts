@@ -4,16 +4,24 @@ import { Location } from '@angular/common';
 import { Forms } from './../../shared/classes/Forms.class';
 import { UserService } from './../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
+import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
+/**
+ * @author Borja Pérez Mullor <multibalcoy@gmail.com>
+ */
 export class EditProfileComponent extends Forms implements OnInit {
   editName: boolean;
   editEmail: boolean;
   editPassword: boolean;
   editPicture: boolean;
+  adminAuth: boolean;
+  editRole: boolean;
 
   hide: boolean;
   name: FormControl;
@@ -23,20 +31,28 @@ export class EditProfileComponent extends Forms implements OnInit {
   confirmPassword: FormControl;
   files: File[];
   groupPassword: FormGroup;
+  role: FormControl;
 
   usuarioEditar: any;
   nombreUsuario: string;
   emailUsuario: string;
+  rolUsuario: number;
 
-
-  constructor(private userService: UserService, private location: Location, private route: ActivatedRoute) {
+  constructor(
+    private userService: UserService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private errorSnackbarDisplayerService: SnackbarDisplayerService, ) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.oldPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.role = new FormControl('', [Validators.required]);
+
     this.files = [];
+
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
 
@@ -51,19 +67,45 @@ export class EditProfileComponent extends Forms implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (Number(id) !== 0) {
+      this.adminAuth = true;
       this.userService.getUser(Number(id)).subscribe(Response => {
-        this.usuarioEditar = Response;
-        this.nombreUsuario = Response.name;
-        this.emailUsuario = Response.email;
+        if (Response) {
+          this.usuarioEditar = Response;
+          this.nombreUsuario = Response.name;
+          this.emailUsuario = Response.email;
+          this.rolUsuario = Response.role;
+        }
+      });
+    } else {
+      this.userService.getDataUser().subscribe(Response => {
+        if (Response) {
+          this.usuarioEditar = Response.user;
+          this.nombreUsuario = Response.user.name;
+          this.emailUsuario = Response.user.email;
+          this.rolUsuario = Response.user.role;
+        }
       });
     }
   }
-
+  /**
+   * Sumary: Function from SUPER that check the inputs available and validate them. Once validated, redirect to PUT method
+   */
   onSubmit(): void {
     this.checkInputs();
     if (super.validateInputs()) {
-      this.usuarioEditar.name = this.name.value;
-      this.userService.putUser(this.usuarioEditar);
+      if (this.editName) {
+        this.sendModifications(1);
+      } else if (this.editEmail) {
+        this.sendModifications(2);
+      } else if (this.editPassword) {
+        //
+      } else if (this.editPicture) {
+
+      } else if (this.editRole) {
+        this.sendModifications(5);
+      }
+
+      console.log(this.usuarioEditar);
 
       super.clearInputs();
 
@@ -71,7 +113,39 @@ export class EditProfileComponent extends Forms implements OnInit {
 
     }
   }
+  /**
+   * Sumary: This function gets a code and send the put http pettition to update the user
+   * @param option Is the option depending which inputs have been edited
+   */
+  sendModifications(option: number): void {
+    switch (option) {
+      case 1:
+        this.usuarioEditar.name = this.name.value;
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Nombre modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+        });
+        break;
+      case 2:
+        this.usuarioEditar.email = this.email.value;
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+        });
+        break;
+      case 5:
+        this.usuarioEditar.role = this.role.value;
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+          this.editRole = undefined;
+        });
+        break;
+      default:
+        break;
+    }
 
+  }
   /**
    * Sumary: This function check which toggle is activated and choose the correct inputs
    */
@@ -82,6 +156,8 @@ export class EditProfileComponent extends Forms implements OnInit {
       this.inputs = [this.email];
     } else if (this.editPassword) {
       this.inputs = [this.oldPassword, this.password, this.confirmPassword];
+    } else if (this.editRole) {
+      this.inputs = [this.role];
     }
   }
 
@@ -95,21 +171,31 @@ export class EditProfileComponent extends Forms implements OnInit {
         this.editEmail = undefined;
         this.editPassword = undefined;
         this.editPicture = undefined;
+        this.editRole = undefined;
         break;
       case 2:
         this.editName = undefined;
         this.editPassword = undefined;
         this.editPicture = undefined;
+        this.editRole = undefined;
         break;
       case 3:
         this.editName = undefined;
         this.editEmail = undefined;
         this.editPicture = undefined;
+        this.editRole = undefined;
         break;
       case 4:
         this.editName = undefined;
         this.editEmail = undefined;
         this.editPassword = undefined;
+        this.editRole = undefined;
+        break;
+      case 5:
+        this.editName = undefined;
+        this.editEmail = undefined;
+        this.editPassword = undefined;
+        this.editPicture = undefined;
         break;
       default:
         break;

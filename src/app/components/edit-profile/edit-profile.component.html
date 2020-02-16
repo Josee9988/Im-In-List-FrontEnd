@@ -47,8 +47,8 @@
         <div class="spacer"></div>
       </mat-form-field>
       <!-- Submit button -->
-      <button class="submit-login-register" type="submit" matTooltip="Guardar cambios" matTooltipPosition="below"
-        mat-raised-button color="primary">Guardar cambios</button>
+      <button class="submit-login-register" (click)="onSubmit()" type="submit" matTooltip="Guardar cambios"
+        matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
     </form>
 
     <hr />
@@ -76,7 +76,7 @@
       <!-- Password field -->
       <mat-form-field appearance="outline">
         <mat-label>Nueva contraseña</mat-label>
-        <input name="password" type="password" [formControl]="password" (click)="closeToggleInputs(4)" matInput
+        <input name="password" type="password" [formControl]="password" matInput
           placeholder="Introduce tu nueva contraseña" [type]="hide ? 'password' : 'text'"
           autocomplete="current-password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -102,14 +102,14 @@
         </mat-error>
       </mat-form-field>
       <!-- Submit button -->
-      <button class="submit-login-register hvr-pop" type="submit" matTooltip="Guardar cambios"
+      <button class="submit-login-register hvr-pop" (click)="onSubmit()" type="submit" matTooltip="Guardar cambios"
         matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
     </form>
 
     <hr />
 
     <!-- Slider edit picture -->
-    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPicture"
+    <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editPicture" (click)="closeToggleInputs(4)"
       [ngModelOptions]="{standalone: true}">
       <mat-icon>create</mat-icon> Modificar imagen de perfil
     </mat-slide-toggle>
@@ -130,6 +130,32 @@
         matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
     </form>
 
+
+
+    <!-- Slider edit role -->
+    <div *ngIf="adminAuth">
+      <hr />
+      <mat-slide-toggle class="toggleStyle" color="accent" [(ngModel)]="editRole" (click)="closeToggleInputs(5)"
+        [ngModelOptions]="{standalone: true}">
+        <mat-icon>create</mat-icon> Modificar rol
+      </mat-slide-toggle>
+      <form class="form-container" *ngIf="editRole">
+        <!-- Role field -->
+        <mat-form-field appearance="outline">
+          <mat-label>Rol</mat-label>
+          <mat-select [formControl]="role" [(value)]="rolUsuario" placeholder="Mode">
+            <mat-option value=0>Rol 0 (Administrador)</mat-option>
+            <mat-option value=1>Rol 1 (Registrado)</mat-option>
+            <mat-option value=2>Rol 2 (Premium)</mat-option>
+          </mat-select>
+          <mat-hint>Introduce el rol del usuario </mat-hint>
+          <div class="spacer"></div>
+        </mat-form-field>
+        <!-- Submit button -->
+        <button class="submit-login-register" (click)="onSubmit()" type="submit" matTooltip="Guardar cambios"
+          matTooltipPosition="below" mat-raised-button color="primary">Guardar cambios</button>
+      </form>
+    </div>
     <hr />
   </mat-card-content>
   <div class="actions">

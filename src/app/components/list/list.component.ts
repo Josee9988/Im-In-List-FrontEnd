@@ -51,6 +51,7 @@ export class ListComponent extends Forms implements OnInit {
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
+
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
@@ -71,6 +72,7 @@ export class ListComponent extends Forms implements OnInit {
         items: [],
       };
     }
+
   }
 
   /**
@@ -163,6 +165,7 @@ export class ListComponent extends Forms implements OnInit {
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+
         if (this.isEditing) { // EDITING
           this.list.url = null;
 
@@ -203,6 +206,7 @@ export class ListComponent extends Forms implements OnInit {
           }
 
         }
+
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
       }
