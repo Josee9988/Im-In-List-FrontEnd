@@ -167,12 +167,10 @@ export class ListComponent extends Forms implements OnInit {
 
           if (this.authService.hasToken()) { // IS LOGGED IN
             this.listaService.putListaRegistered(this.list).subscribe((Response) => {
-              if (typeof Response.lista.url !== 'undefined') {
+              if (typeof Response.lista !== 'undefined') {
                 this.openDialog(Response.lista.url);
               }
               this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-              this.list = { titulo: '', descripcion: '', items: [] };
-              super.clearInputs();
             });
           } else { // NOT LOGGED IN
             this.listaService.putLista(this.list).subscribe((Response) => {
@@ -180,8 +178,6 @@ export class ListComponent extends Forms implements OnInit {
                 this.openDialog(Response.lista.url);
               }
               this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-              this.list = { titulo: '', descripcion: '', items: [] };
-              super.clearInputs();
             });
           }
 
@@ -193,8 +189,6 @@ export class ListComponent extends Forms implements OnInit {
                 this.openDialog(Response.lista.url);
 
                 this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-                this.list = { titulo: '', descripcion: '', items: [] };
-                super.clearInputs();
               }
             });
 
@@ -204,9 +198,6 @@ export class ListComponent extends Forms implements OnInit {
                 this.openDialog(Response.lista.url);
               }
               this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-              this.list = { titulo: '', descripcion: '', items: [] };
-              super.clearInputs();
-              // this.router.navigate(['/list']);
             });
           }
 
