@@ -55,15 +55,22 @@ export class NavbarComponent implements OnInit {
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
       const self = this;
       this.userService.getDataUser().subscribe(Response => {
-        if (Response.user.role === 0) { // ADMIN
-          self.navbarLinks.push(// add the missing ones in the right order
-            { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
-            { icon: 'how_to_reg', field: 'Admin', route: 'admin', order: 7 },
-            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 8, logout: true });
-        } else if (Response.user.role > 0) { // LOGGED IN AS USERS
-          self.navbarLinks.push( // add the missing ones in the right order
-            { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
-            { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true });
+        if (Response.user) {
+          if (Response.user.role === 0) { // ADMIN
+            self.navbarLinks.push(// add the missing ones in the right order
+              { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
+              { icon: 'how_to_reg', field: 'Admin', route: 'admin', order: 7 },
+              { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 8, logout: true });
+          } else if (Response.user.role > 0) { // LOGGED IN AS USERS
+            self.navbarLinks.push( // add the missing ones in the right order
+              { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
+              { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true });
+          }
+        } else {
+          this.navbarLinks.push(
+            { icon: 'fingerprint', field: 'Inicio de sesión', route: 'login', order: 7 },
+            { icon: 'person_add', field: 'Registro', route: 'register', order: 8 }
+          );
         }
       });
     } else { // NOT LOGGED IN
