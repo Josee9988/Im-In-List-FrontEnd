@@ -9,7 +9,8 @@ export interface ILista {
     titulo: string;
     contraseña?: string;
     descripcion: string;
-    elementos: Array<IListElement>;
+    elementos?: string;
+    items: Array<IListElement>;
     updated_at?: Date;
     created_at?: Date;
     url?: string;
