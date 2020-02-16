@@ -74,8 +74,17 @@ export class EditProfileComponent extends Forms implements OnInit {
           this.nombreUsuario = Response.name;
           this.emailUsuario = Response.email;
           this.rolUsuario = Response.role;
-        } else {
-          alert('Este usuario no existe');
+        }
+      });
+    } else {
+      console.log('Se está buscando la información...');
+      this.userService.getDataUser().subscribe(Response => {
+        console.log(Response);
+        if (Response) {
+          this.usuarioEditar = Response.user;
+          this.nombreUsuario = Response.user.name;
+          this.emailUsuario = Response.user.email;
+          this.rolUsuario = Response.user.role;
         }
       });
     }
