@@ -2,10 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
-
-interface IDialogUrl {
-  url: string;
-}
+import { IDialogUrl } from './IDialogUrl.interface';
 
 @Component({
   selector: 'app-show-dialog',
@@ -27,7 +24,7 @@ export class ShowDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // close dialog event
+    // close dialog event. then it will redirect to the list
     this.dialogRef.backdropClick().subscribe(() => {
       this.router.navigate([`list/${this.data.url}`]);
     });
