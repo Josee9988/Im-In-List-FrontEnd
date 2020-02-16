@@ -54,7 +54,7 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
     if (this.authService.hasToken()) { // si sí tiene el token
       this.userService.getDataUser().subscribe(Response => {
         // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón (if it can NOT buy premium)
-        if (typeof Response.user.role !== 'undefined' && (Response.user.role === 2 || Response.user.role === 0)) {
+        if (typeof Response.user !== 'undefined' && (Response.user.role === 2 || Response.user.role === 0)) {
           this.canBePremium = false;
           this.paypalBtn.nativeElement.style.display = 'none';
         } else {
@@ -97,9 +97,8 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
   addPaypalScript(): Promise<any> {
     this.addScript = true;
     return new Promise((resolve) => {
-      if (!document.getElementById('paypalsrctag') ? true : false) { // if false the script is not already loaded and it will do it
+      if (!document.getElementById('xo-pptm') ? true : false) { // if false the script is not already loaded and it will do it
         const scripttagElement = document.createElement('script');
-        scripttagElement.id = 'paypalsrctag';
         scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
         scripttagElement.onload = resolve;
         document.body.appendChild(scripttagElement);
