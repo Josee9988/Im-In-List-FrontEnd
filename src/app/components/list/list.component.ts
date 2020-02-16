@@ -164,6 +164,7 @@ export class ListComponent extends Forms implements OnInit {
       this.list.elementos = JSON.stringify(this.list.items);
       if (super.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
+          this.list.url = null;
 
           if (this.authService.hasToken()) { // IS LOGGED IN
             this.listaService.putListaRegistered(this.list).subscribe((Response) => {

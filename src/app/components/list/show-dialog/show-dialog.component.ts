@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from './../../../../environments/environment';
 
 interface IDialogUrl {
@@ -14,12 +14,19 @@ interface IDialogUrl {
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ShowDialogComponent {
+export class ShowDialogComponent implements OnInit {
   private readonly SITE_URL: string = environment.siteURl;
   public url: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogUrl) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogUrl, private dialogRef: MatDialogRef<ShowDialogComponent>) {
     this.url = `${this.SITE_URL}list/${data.url}`;
+  }
+
+  ngOnInit(): void {
+    // close dialog event
+    this.dialogRef.backdropClick().subscribe(() => {
+      console.log('close me ');
+    });
   }
 
   /**
