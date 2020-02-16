@@ -8,7 +8,6 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -32,8 +31,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
     private refreshNavbarCommunication: RefreshNavbarCommunication,
-    private userService: UserService,
-    private router: Router) {
+    private userService: UserService) {
     this.refreshNavbarCommunication.subscribe(() => this.declareNavbarElements());
   }
 
@@ -53,16 +51,15 @@ export class NavbarComponent implements OnInit {
       { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
       { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 6 }];
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
-      const self = this;
       this.userService.getDataUser().subscribe(Response => {
         if (Response.user) {
           if (Response.user.role === 0) { // ADMIN
-            self.navbarLinks.push(// add the missing ones in the right order
+            this.navbarLinks.push(// add the missing ones in the right order
               { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
               { icon: 'how_to_reg', field: 'Admin', route: 'admin', order: 7 },
               { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 8, logout: true });
           } else if (Response.user.role > 0) { // LOGGED IN AS USERS
-            self.navbarLinks.push( // add the missing ones in the right order
+            this.navbarLinks.push( // add the missing ones in the right order
               { icon: 'person', field: 'Perfil', route: 'profile', order: 2 },
               { icon: 'exit_to_app', field: 'Salir', route: 'logout', order: 6, logout: true });
           }
