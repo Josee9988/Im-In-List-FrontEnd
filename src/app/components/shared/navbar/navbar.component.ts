@@ -79,6 +79,7 @@ export class NavbarComponent implements OnInit {
    */
   logout(): void {
     if (this.authService.deleteAuthorizationToken()) {
+      this.authService.deletePaypalToken();
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
       this.declareNavbarElements();
       window.location.href = '/home';
