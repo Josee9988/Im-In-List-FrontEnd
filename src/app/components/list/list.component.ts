@@ -51,6 +51,7 @@ export class ListComponent extends Captcha implements OnInit {
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
+
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
@@ -71,6 +72,7 @@ export class ListComponent extends Captcha implements OnInit {
         items: [],
       };
     }
+
   }
 
   /**
@@ -203,6 +205,7 @@ export class ListComponent extends Captcha implements OnInit {
           }
 
         }
+
       } else { // IF ANY INPUT IS NOT READY
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
       }
