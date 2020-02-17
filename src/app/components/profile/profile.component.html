@@ -16,31 +16,11 @@
         <mat-card-title>Listas</mat-card-title>
         <hr />
         <a href="#" class="graficasDatos">
-          <div>
-            <!-- Grafico -->
-            <div style="display: block">
-              <canvas baseChart [data]="doughnutChartDataLists" [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType">
-              </canvas>
-            </div>
-          </div>
-          <!-- Grafico -->
-          <hr />
+          <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel"
+            [options]="options" [name]="name" [bottomLabel]="bottomLabel"></rg-gauge-chart>
         </a>
       </mat-card>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
     <hr />
   </mat-card-content>
   <div class="actions">

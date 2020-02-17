@@ -20,24 +20,34 @@ export class ProfileComponent implements OnInit {
   listasCreadas: number;
   listasParticipadas: number;
 
-  // Titulo variables y datos guardados
-  doughnutChartLabels: string[];
-  doughnutChartDataLists: Array<any>;
-
   user: IUser[];
   nickname: string;
   email: string;
   profilePicture: string;
   respuesta: any;
 
-  // Tipo de grafico que se mostrará
-  public doughnutChartType: ChartType = 'doughnut';
+  // Grafica Perfil
+  public canvasWidth = 300;
+  public needleValue = 65;
+  public centralLabel = '';
+  public name = 'Gauge chart';
+  public bottomLabel = '65';
+  public options = {
+    hasNeedle: true,
+    needleColor: 'gray',
+    needleUpdateSpeed: 1000,
+    arcColors: ['rgb(44, 151, 222)', 'lightgray'],
+    arcDelimiters: [30],
+    rangeLabel: ['0', '100'],
+    needleStartValue: 50,
+  };
+  // Grafica Perfil
 
   constructor(
     private userService: UserService,
     private router: Router,
     private refreshNavbarCommunication: RefreshNavbarCommunication) {
-    this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
+    this.profilePicture = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   }
 
 
