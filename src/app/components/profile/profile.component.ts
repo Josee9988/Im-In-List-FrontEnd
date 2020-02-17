@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
+import { ListaService } from './../../shared/services/lista.service';
 import { IUser } from '../../shared/models/IUsers.interface';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 
@@ -16,33 +17,53 @@ import { RefreshNavbarCommunication } from 'src/app/shared/services/communicatio
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
 export class ProfileComponent implements OnInit {
-  // Variables para el gráfico
-  listasCreadas: number;
-  listasParticipadas: number;
-
-  // Titulo variables y datos guardados
-  doughnutChartLabels: string[];
-  doughnutChartDataLists: Array<any>;
-
   user: IUser[];
   nickname: string;
   email: string;
   profilePicture: string;
   respuesta: any;
 
-  // Tipo de grafico que se mostrará
-  public doughnutChartType: ChartType = 'doughnut';
+  // Grafica Perfil
+  lengthSet: number;
+  cantidadListasCreadas: string;
+  cantidadListasExistentes: string;
+  public canvasWidth = 350;
+  public needleValue = '';
+  public centralLabel = '';
+  public bottomLabel = '';
+  public options = {
+    hasNeedle: true,
+    needleColor: 'black',
+    needleUpdateSpeed: 1000,
+    arcColors: ['#a7cc00', '#6655'],
+    arcDelimiters: [],
+    rangeLabel: [],
+    needleStartValue: 0,
+  };
+  // Grafica Perfil
 
   constructor(
     private userService: UserService,
+    private listaService: ListaService,
     private router: Router,
     private refreshNavbarCommunication: RefreshNavbarCommunication) {
-    this.profilePicture = 'https://material.angular.io/assets/img/examples/shiba1.jpg';
+
   }
 
 
   ngOnInit() {
     this.fillData();
+
+    this.listaService.getListasUser().subscribe(Response => {
+      this.lengthSet = Response.length * 10;
+      this.needleValue = this.lengthSet.toString();
+      this.bottomLabel = Response.length.toString();
+    });
+    this.listaService.getListas().subscribe(Response => {
+      const sizeBar = (this.lengthSet * 10) / Response.length;
+      this.options.arcDelimiters = [sizeBar];
+      this.options.rangeLabel = ['0', Response.length.toString()];
+    });
   }
 
   /**
@@ -54,30 +75,6 @@ export class ProfileComponent implements OnInit {
       this.nickname = Response.user.name;
       this.email = Response.user.email;
     });
-
-    this.userService.getCreadas().subscribe(Response => {
-      if (Response.listasCreadas !== 0) {
-        this.listasCreadas = Response;
-      } else {
-        this.listasCreadas = 0;
-      }
-    });
-
-    this.userService.getParticipadas().subscribe(Response => {
-      if (Response.listasParticipadas !== 0) {
-        this.listasParticipadas = Response;
-      } else {
-        this.listasParticipadas = 2;
-      }
-    });
-
-    // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Listas creadas', 'Listas participante'];
-
-    // Valores obtenidos de la base de datos para usuarios premium
-    this.doughnutChartDataLists = [
-      [this.listasCreadas, this.listasParticipadas],
-    ];
 
   }
   /**

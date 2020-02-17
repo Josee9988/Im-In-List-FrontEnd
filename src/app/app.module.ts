@@ -60,6 +60,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ShowDialogComponent } from './components/list/show-dialog/show-dialog.component';
+// Modulo Gauge Graph
+import { GaugeChartModule } from 'angular-gauge-chart';
+
 import { RecaptchaModule, RecaptchaV3Module, RecaptchaSettings, RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 export const imports = [BrowserModule,
@@ -111,8 +114,9 @@ export const imports = [BrowserModule,
   NgxDropzoneModule,
   DragDropModule,
   NgxQRCodeModule,
-  RecaptchaModule,
-];
+  GaugeChartModule,
+  RecaptchaModule];
+
 
 /**
  * Components
