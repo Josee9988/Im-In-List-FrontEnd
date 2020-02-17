@@ -30,7 +30,7 @@
             <!-- Your elements -->
             <div class="elements-list" [ngStyle]="{'height.px': windowHeight}" *ngIf="list" cdkDropList
               (cdkDropListDropped)="onDrop($event)">
-              <div *ngFor="let element of list.items; trackBy:list.items" cdkDrag>
+              <div *ngFor="let element of list.items" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
                 <!-- Element master -->
