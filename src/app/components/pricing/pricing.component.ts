@@ -16,6 +16,7 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
   finalAmount: number;
   paypalConfig: any;
   canBePremium: boolean;
+  private observableInit: any;
 
   @ViewChild('paypalBtn', { static: false }) paypalBtn: ElementRef;
 
@@ -52,7 +53,7 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.authService.hasToken()) { // si sí tiene el token
-      this.userService.getDataUser().subscribe(Response => {
+      this.observableInit = this.userService.getDataUser().subscribe(Response => {
         // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón (if it can NOT buy premium)
         if (Response.user && Response.user.role !== 1) { // CAN'T BUY
           this.canBePremium = false;
@@ -99,6 +100,9 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.observableInit) {
+      this.observableInit.unsubscribe();
+    }
     if (document.getElementById('paypalDivWraper') ? true : false) {
       const srcTag = document.getElementById('paypalDivWraper');
       if (srcTag.parentNode) {
