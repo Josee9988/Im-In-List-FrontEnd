@@ -38,7 +38,8 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   emailUsuario: string;
   rolUsuario: number;
 
-  observableModification: any;
+  private observableModification: any;
+  private observableInit: any;
 
   constructor(
     private userService: UserService,
@@ -70,7 +71,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     if (Number(id) !== 0) {
       this.adminAuth = true;
-      this.userService.getUser(Number(id)).subscribe(Response => {
+      this.observableInit = this.userService.getUser(Number(id)).subscribe(Response => {
         if (Response) {
           this.usuarioEditar = Response;
           this.nombreUsuario = Response.name;
@@ -79,7 +80,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.userService.getDataUser().subscribe(Response => {
+      this.observableInit = this.userService.getDataUser().subscribe(Response => {
         if (Response) {
           this.usuarioEditar = Response.user;
           this.nombreUsuario = Response.user.name;
@@ -286,6 +287,9 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.observableModification) {
       this.observableModification.unsubscribe();
+    }
+    if (this.observableInit) {
+      this.observableInit.unsubscribe();
     }
   }
 }
