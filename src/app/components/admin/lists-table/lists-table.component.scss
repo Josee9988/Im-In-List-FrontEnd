@@ -38,6 +38,17 @@ table {
   border-color: #bd2130;
 }
 
+.btn-show {
+  background-color: #0099ff;
+  border-color: #0099ff;
+  color: #fff;
+}
+
+.btn-show:hover {
+  background-color: #0099ff;
+  border-color: #0099ff;
+}
+
 td.mat-cell:last-of-type {
   padding: 0 !important;
 }
