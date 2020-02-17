@@ -38,10 +38,10 @@ export class HttpErrorHandler {
       const message = this.getMessage(error);
       this.checkIfExpiredToken(error, message);
       this.errorSnackbarDisplayerService.openSnackBar(`ERROR: ${serviceName}, ${operation} failed: ${message}`, SnackBarErrorType.error);
-
-      console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation}:`);
-      console.error(error); // show full error to the console
-
+      if (error.status !== 401) {
+        console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation}:`);
+        console.error(error); // show full error to the console
+      }
       // Let the app keep running by returning a safe result.
       return of(result);
     };
