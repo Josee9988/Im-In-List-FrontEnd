@@ -6,19 +6,12 @@
   </mat-card-header>
   <mat-card-content>
     <hr />
-    <div class="graficasListas" *ngIf="!doughnutChartDataLists">
+    <div class="graficasListas">
       <mat-card class="cardNumbers">
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      </mat-card>
-    </div>
-    <div class="graficasListas" *ngIf="doughnutChartDataLists">
-      <mat-card class="cardNumbers">
-        <mat-card-title>Listas</mat-card-title>
+        <mat-card-title>Listas creadas</mat-card-title>
         <hr />
-        <a href="#" class="graficasDatos">
-          <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel"
-            [options]="options" [name]="name" [bottomLabel]="bottomLabel"></rg-gauge-chart>
-        </a>
+        <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel"
+          [options]="options" [bottomLabel]="bottomLabel"></rg-gauge-chart>
       </mat-card>
     </div>
     <hr />
@@ -26,10 +19,6 @@
   <div class="actions">
     <button routerLink="/showLists" mat-raised-button color="primary" matTooltip="Ver tus listas creadas"
       matTooltipPosition="right" class="actionsButton hvr-pop">Ver listas creadas </button>
-    <button routerLink="/showParticipated" mat-raised-button color="accent"
-      matTooltip="Ver las listas en las que eres participante" matTooltipPosition="right"
-      class="actionsButton hvr-pop">Ver
-      listas que participo</button>
     <button routerLink="/editProfile" mat-raised-button color="accent" matTooltip="Editar tu perfil"
       matTooltipPosition="right" class="actionsButton hvr-pop">Editar perfil</button>
     <button (click)="onClose()" mat-raised-button color="warn" matTooltip="Cierra sesión" matTooltipPosition="right"

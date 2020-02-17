@@ -7,7 +7,7 @@
 }
 
 .headerImage {
-  background-image: url("https://manabinoticias.com/wp-content/uploads/2019/11/JORGITO-GUAYACO-678x381.jpg");
+  background-image: url("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png");
   background-size: cover;
 }
 .actionsButton {
@@ -42,14 +42,10 @@ mat-card-title {
 a:link {
   text-decoration: none;
 }
-.graficasDatos {
-  align-content: center;
-  text-align: center;
-  background-color: #ebebeb;
-  width: 30%;
-  margin-left: 2.3%;
-}
 
+.gauge-chart {
+  margin-left: 50%;
+}
 .loader {
   align-content: center;
   text-align: center;
