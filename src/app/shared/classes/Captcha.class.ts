@@ -2,7 +2,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from './Forms.class';
 
 export abstract class Captcha extends Forms {
-    protected captcha: FormControl;
+    public captcha: FormControl;
 
     constructor() {
         super();
@@ -15,7 +15,7 @@ export abstract class Captcha extends Forms {
      *
      * @param captchaResponse token given from the captcha.
      */
-    protected onAssignCaptcha(captchaResponse: string): void {
+    public onAssignCaptcha(captchaResponse: string): void {
         this.captcha.setValue(captchaResponse);
     }
 
@@ -25,7 +25,7 @@ export abstract class Captcha extends Forms {
      *
      * @return string of the first error found.
      */
-    protected getCaptchaErrorMessage(): string {
+    public getCaptchaErrorMessage(): string {
         return this.captcha.hasError('required') ? 'Debes hacer clic en la casilla de verificación' :
             '';
     }
