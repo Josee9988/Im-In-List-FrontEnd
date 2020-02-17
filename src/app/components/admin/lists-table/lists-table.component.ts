@@ -58,7 +58,7 @@ export class ListsTableComponent implements OnInit {
    */
   fillDataListsAdmin() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.listaService.getListas().subscribe(Response => { console.log(Response); this.items = Response; this.dataSource.data = this.items; });
+    this.listaService.getListas().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
   }
 
@@ -97,8 +97,9 @@ export class ListsTableComponent implements OnInit {
     }
   }
 
-  onEdit(URL: string) {
-    this.router.navigate(['/editList/' + URL]);
+  onEdit(URLrecibida: string) {
+    alert('La ruta es -->' + URLrecibida);
+    this.router.navigate(['/editList/' + URLrecibida]);
   }
 
 }
