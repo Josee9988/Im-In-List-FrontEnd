@@ -54,10 +54,10 @@ export class PricingComponent implements AfterViewChecked, OnInit, OnDestroy {
     if (this.authService.hasToken()) { // si sí tiene el token
       this.userService.getDataUser().subscribe(Response => {
         // si tiene un rol ( la petición ha sido OK) y es admin o es un usuario premium, deshabilitamos el botón (if it can NOT buy premium)
-        if (typeof Response.user !== 'undefined' && (Response.user.role === 2 || Response.user.role === 0)) {
+        if (Response && Response.user.role !== 1) { // CAN'T BUY
           this.canBePremium = false;
           this.paypalBtn.nativeElement.style.display = 'none';
-        } else {
+        } else { // CAN BUY
           this.canBePremium = true;
         }
       });
