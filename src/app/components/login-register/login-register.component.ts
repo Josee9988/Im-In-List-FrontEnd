@@ -19,7 +19,7 @@ import { Captcha } from 'src/app/shared/classes/Captcha.class';
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class LoginRegisterComponent extends Captcha implements OnInit {
-  private isRegister: boolean;
+  public isRegister: boolean;
   isHidden: boolean;
   name: FormControl;
   email: FormControl;

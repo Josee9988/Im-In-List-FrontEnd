@@ -27,12 +27,13 @@ export class ListComponent extends Captcha implements OnInit {
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  private titulo: FormControl;
-  private descripcion: FormControl;
-  private password: FormControl;
+  public titulo: FormControl;
+  public descripcion: FormControl;
+  public password: FormControl;
 
+  public isHidden: boolean;
+  public hasPassword: boolean;
   private isEditing: boolean;
-  private hasPassword: boolean;
 
   windowHeight: number;
 
