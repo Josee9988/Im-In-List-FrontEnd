@@ -52,3 +52,10 @@ td.mat-cell:last-of-type {
   -webkit-transition: 3;
   transition: 3;
 }
+.mat-row:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f3f3f3;
+}
