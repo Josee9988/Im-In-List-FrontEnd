@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -18,8 +18,9 @@ import { UserService } from 'src/app/shared/services/user.service';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   navbarLinks: Array<INavbarLinks>;
+  private observableGetData: any;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(
     '(max-width: 859.99px) and (orientation: portrait), ' +
@@ -51,7 +52,7 @@ export class NavbarComponent implements OnInit {
       { icon: 'contact_mail', field: 'Contacta', route: 'contact', order: 4 },
       { icon: 'supervised_user_circle', field: 'Sobre nosotros', route: 'about', order: 6 }];
     if (this.authService.hasToken()) { // THE USER IS LOGGED IN
-      this.userService.getDataUser().subscribe(Response => {
+      this.observableGetData = this.userService.getDataUser().subscribe(Response => {
         if (Response.user) {
           if (Response.user.role === 0) { // ADMIN
             this.navbarLinks.push(// add the missing ones in the right order
@@ -87,6 +88,12 @@ export class NavbarComponent implements OnInit {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
       this.declareNavbarElements();
       window.location.href = '/home';
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.observableGetData) {
+      this.observableGetData.unsubscribe();
     }
   }
 }
