@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
@@ -18,13 +18,14 @@ import { Captcha } from 'src/app/shared/classes/Captcha.class';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class LoginRegisterComponent extends Captcha implements OnInit {
+export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy {
   public isRegister: boolean;
   isHidden: boolean;
   name: FormControl;
   email: FormControl;
   password: FormControl;
   token: string;
+  private observableSubmit: any;
 
   constructor(
     private userService: UserService,
@@ -54,10 +55,10 @@ export class LoginRegisterComponent extends Captcha implements OnInit {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
-        this.userService.postUser(registerUser).subscribe(Response => this.saveToken(Response.token, false));
+        this.observableSubmit = this.userService.postUser(registerUser).subscribe(Response => this.saveToken(Response.token, false));
       } else { // LOGIN
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
-        this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token, true)));
+        this.observableSubmit = this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token, true)));
       }
 
     } else {
@@ -123,5 +124,11 @@ export class LoginRegisterComponent extends Captcha implements OnInit {
       this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
         this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
           '';
+  }
+
+  ngOnDestroy() {
+    if (this.observableSubmit) {
+      this.observableSubmit.unsubscribe();
+    }
   }
 }
