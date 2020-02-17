@@ -98,7 +98,7 @@ export class EditProfileComponent extends Forms implements OnInit {
       } else if (this.editEmail) {
         this.sendModifications(2);
       } else if (this.editPassword) {
-        //
+
       } else if (this.editPicture) {
 
       } else if (this.editRole) {
@@ -107,7 +107,6 @@ export class EditProfileComponent extends Forms implements OnInit {
 
       console.log(this.usuarioEditar);
 
-      this.clearInputs();
 
     } else {
 

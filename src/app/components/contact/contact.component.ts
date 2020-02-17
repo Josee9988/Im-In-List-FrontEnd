@@ -32,7 +32,7 @@ export class ContactComponent extends Captcha {
   onSubmit(): void {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE EMAIL
-      this.clearInputs();
+
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }

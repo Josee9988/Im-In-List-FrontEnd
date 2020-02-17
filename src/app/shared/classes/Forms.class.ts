@@ -46,12 +46,4 @@ export abstract class Forms implements IForm {
         return areInputsValid;
     }
 
-    /**
-     * Summary: Sets the value of all the inputs to null (clears all the input values).
-     */
-    public clearInputs(): void {
-        for (const input of this.inputs) {
-            input.setValue(null);
-        }
-    }
 }
