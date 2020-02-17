@@ -5,12 +5,12 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { Forms } from 'src/app/shared/classes/Forms.class';
 import { ListaService } from 'src/app/shared/services/lista.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Captcha } from 'src/app/shared/classes/Captcha.class';
 
 @Component({
   selector: 'app-list',
@@ -21,7 +21,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ListComponent extends Forms implements OnInit {
+export class ListComponent extends Captcha implements OnInit {
   @Input() list: ILista;
 
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
@@ -155,14 +155,14 @@ export class ListComponent extends Forms implements OnInit {
   onSubmit(): void {
     if (this.list.items.length > 0) {
       if (this.hasPassword) {
-        this.inputs = [this.titulo, this.descripcion, this.password];
+        this.inputs = [this.titulo, this.descripcion, this.password, this.captcha];
       } else {
-        this.inputs = [this.titulo, this.descripcion];
+        this.inputs = [this.titulo, this.descripcion, this.captcha];
       }
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
-      if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+      if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
           this.list.url = null;
 

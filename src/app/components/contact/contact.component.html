@@ -43,6 +43,13 @@
               <div class="spacer"></div>
             </mat-form-field>
 
+            <!-- Captcha -->
+            <mat-label>Verificación humana</mat-label>
+            <re-captcha name="captcha" (resolved)="onAssignCaptcha($event)"
+              siteKey="6Ld6lNkUAAAAAK9t3WfGx3qHOETXLGze-4dWLAib"></re-captcha>
+            <mat-error *ngIf="captcha.invalid">{{getCaptchaErrorMessage()}}</mat-error>
+            <mat-hint>Selecciona la casilla</mat-hint>
+            <div class="spacer"></div>
 
             <!-- Submit button -->
             <button class="submit-login-register hvr-pop" (click)="onSubmit()" type="submit" matTooltip="Mánda un email"

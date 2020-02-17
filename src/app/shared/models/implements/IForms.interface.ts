@@ -1,6 +1,5 @@
 /**
- * Interface used in the Forms abstract class. All of the child classes that
- * extend from Forms will have to implement an onSubmit function.
+ * Interface used in the forms that contain a captcha element.
  */
 export interface IForm {
     /**
