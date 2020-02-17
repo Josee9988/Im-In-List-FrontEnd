@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { IForm } from '../models/IForms.interface';
+import { IForm } from '../models/implements/IForms.interface';
 
 export abstract class Forms implements IForm {
 

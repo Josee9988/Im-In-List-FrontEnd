@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { ICaptcha } from 'src/app/shared/models/implements/ICaptcha.interface';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +14,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ContactComponent extends Forms {
+export class ContactComponent extends Forms implements ICaptcha {
   hide: boolean;
   email: FormControl;
   asunto: FormControl;
@@ -39,12 +40,7 @@ export class ContactComponent extends Forms {
     }
   }
 
-  /**
-   * Summary: receives the captcha event (the token) and assigns it to the formcontrol created.
-   *
-   * @param captchaResponse The token of the response
-   */
-  assignCaptcha(captchaResponse: string) {
+  onAssignCaptcha(captchaResponse: string) {
     this.captcha.setValue(captchaResponse);
   }
 

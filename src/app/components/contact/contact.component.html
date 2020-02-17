@@ -44,7 +44,7 @@
             </mat-form-field>
 
             <mat-label>Verificación humana</mat-label>
-            <re-captcha name="captcha" (resolved)="assignCaptcha($event)"
+            <re-captcha name="captcha" (resolved)="onAssignCaptcha($event)"
               siteKey="6Ld6lNkUAAAAAK9t3WfGx3qHOETXLGze-4dWLAib"></re-captcha>
             <mat-error *ngIf="captcha.invalid">{{getCaptchaErrorMessage()}}</mat-error>
             <mat-hint>Selecciona la casilla</mat-hint>
