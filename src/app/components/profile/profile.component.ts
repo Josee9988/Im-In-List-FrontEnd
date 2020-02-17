@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   respuesta: any;
 
   // Grafica Perfil
+  lengthSet: number;
   cantidadListasCreadas: string;
   cantidadListasExistentes: string;
   public canvasWidth = 300;
@@ -53,17 +54,14 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.fillData();
     this.listaService.getListasUser().subscribe(Response => {
-      const lengthSet = Response.length * 10;
-      alert('La longitud es de' + lengthSet);
-      this.needleValue = lengthSet.toString();
+      this.lengthSet = Response.length * 10;
+      this.needleValue = this.lengthSet.toString();
       this.bottomLabel = Response.length.toString();
     });
     this.listaService.getListas().subscribe(Response => {
-      this.options.arcDelimiters = [Response.length.toString()];
+      const sizeBar = (this.lengthSet * 10) / Response.length;
+      this.options.arcDelimiters = [sizeBar];
       this.options.rangeLabel = ['0', Response.length.toString()];
-      console.log(Response);
-      debugger;
-
     });
   }
 
