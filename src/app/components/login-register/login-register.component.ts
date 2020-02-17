@@ -46,7 +46,7 @@ export class LoginRegisterComponent extends Captcha implements OnInit {
       this.inputs = [this.email, this.password, this.name, this.captcha];
     } else { // si es un formulario de login
       this.isRegister = false;
-      this.inputs = [this.email, this.password, this.captcha];
+      this.inputs = [this.email, this.password];
     }
   }
 
