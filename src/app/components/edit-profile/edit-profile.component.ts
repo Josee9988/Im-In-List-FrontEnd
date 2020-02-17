@@ -136,15 +136,18 @@ export class EditProfileComponent extends Forms implements OnInit {
         this.usuarioEditar.oldPassword = this.oldPassword.value;
         this.usuarioEditar.password = this.password.value;
         this.userService.putUser(this.usuarioEditar).subscribe(Response => {
-          this.errorSnackbarDisplayerService.openSnackBar('Password modificado correctamente!', SnackBarErrorType.success);
-          console.log(Response);
+          if (!Response.message) {
+            this.errorSnackbarDisplayerService.openSnackBar('La contraseña anterior no es correcta.', SnackBarErrorType.error);
+          } else {
+            this.errorSnackbarDisplayerService.openSnackBar('Password modificado correctamente!', SnackBarErrorType.success);
+            this.editPassword = undefined;
+          }
         });
         break;
       case 5:
         this.usuarioEditar.role = this.role.value;
         this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
-          console.log(Response);
           this.editRole = undefined;
         });
         break;

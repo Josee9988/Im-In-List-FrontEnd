@@ -98,7 +98,6 @@ export class ListsTableComponent implements OnInit {
   }
 
   onEdit(URLrecibida: string) {
-    alert('La ruta es -->' + URLrecibida);
     this.router.navigate(['/editList/' + URLrecibida]);
   }
 
