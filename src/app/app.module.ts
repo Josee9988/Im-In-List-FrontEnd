@@ -112,7 +112,6 @@ export const imports = [BrowserModule,
   DragDropModule,
   NgxQRCodeModule,
   RecaptchaModule,
-  RecaptchaV3Module
 ];
 
 /**
@@ -136,8 +135,6 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     httpInterceptorProviders,
     { provide: RequestCache, useClass: RequestCacheWithMap },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcIkNkUAAAAAGDgyVJa9UF_bVmeNWhw-D6LjQFq' },
-
   ],
   bootstrap: [AppComponent],
   entryComponents: [ShowDialogComponent]

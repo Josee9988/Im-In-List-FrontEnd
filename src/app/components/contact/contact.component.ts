@@ -3,8 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
-
 
 @Component({
   selector: 'app-contact',
@@ -20,30 +18,34 @@ export class ContactComponent extends Forms {
   email: FormControl;
   asunto: FormControl;
   mensaje: FormControl;
+  captcha: FormControl;
 
-  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private recaptchaV3Service: ReCaptchaV3Service, ) {
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.asunto = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]);
     this.mensaje = new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(516)]);
-    this.inputs = [this.email, this.asunto, this.mensaje];
+    this.captcha = new FormControl('', [Validators.required]);
+    this.inputs = [this.email, this.asunto, this.mensaje, this.captcha];
   }
 
   onSubmit(): void {
-    this.recaptchaV3Service.execute('importantAction')
-      .subscribe((token) => console.log(token));
-    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+    if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE EMAIL
-      super.clearInputs();
+      this.clearInputs();
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
   }
 
-  resolved(captchaResponse: any) {
-    console.log(captchaResponse);
-
+  /**
+   * Summary: receives the captcha event (the token) and assigns it to the formcontrol created.
+   *
+   * @param captchaResponse The token of the response
+   */
+  assignCaptcha(captchaResponse: string) {
+    this.captcha.setValue(captchaResponse);
   }
 
   /**
@@ -70,6 +72,13 @@ export class ContactComponent extends Forms {
       this.asunto.hasError('minlength') ? 'Debes de introducir un asunto con al menos 6 carácteres.' :
         this.asunto.hasError('maxLength') ? 'Debes de introducir un asunto con menos de 80 carácteres.' :
           '';
+  }
+
+
+
+  getCaptchaErrorMessage(): string {
+    return this.asunto.hasError('required') ? 'Debes hacer clic en la casilla' :
+      '';
   }
 
   /**
