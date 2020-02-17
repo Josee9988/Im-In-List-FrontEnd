@@ -14,7 +14,7 @@ import { IDialogUrl } from './IDialogUrl.interface';
  */
 export class ShowDialogComponent implements OnInit {
   private readonly SITE_URL: string = environment.siteURl;
-  private url: string;
+  public url: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: IDialogUrl,
