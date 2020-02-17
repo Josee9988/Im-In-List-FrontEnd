@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ListaService } from './../../../shared/services/lista.service';
 import { UserService } from './../../../shared/services/user.service';
@@ -13,7 +13,7 @@ import { UserService } from './../../../shared/services/user.service';
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
 
-export class BackofficeComponent implements OnInit {
+export class BackofficeComponent implements OnInit, OnDestroy {
   registradosEnero: number;
   registradosFebrero: number;
   registradosMarzo: number;
@@ -50,6 +50,10 @@ export class BackofficeComponent implements OnInit {
   listasOctubre: number;
   listasNoviembre: number;
   listasDiciembre: number;
+
+  private observableGetlista: any;
+  private observableGetUser: any;
+
 
   doughnutChartLabels: string[];
   doughnutChartRegisterUsers: Array<any>;
@@ -105,10 +109,10 @@ export class BackofficeComponent implements OnInit {
   ngOnInit() {
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
+    this.observableGetlista = this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
+    this.observableGetUser = this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
   }
 
 
@@ -249,6 +253,15 @@ export class BackofficeComponent implements OnInit {
       this.listasMayo, this.listasJunio, this.listasJulio, this.listasAgosto,
       this.listasSeptiembre, this.listasOctubre, this.listasNoviembre, this.listasDiciembre],
     ];
+  }
+
+  ngOnDestroy() {
+    if (this.observableGetlista) {
+      this.observableGetlista.unsubscribe();
+    }
+    if (this.observableGetUser) {
+      this.observableGetUser.unsubscribe();
+    }
   }
 
 }

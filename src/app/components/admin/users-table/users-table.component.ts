@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -17,10 +17,13 @@ import { Router } from '@angular/router';
 /**
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
-export class UsersTableComponent implements OnInit {
+export class UsersTableComponent implements OnInit, OnDestroy {
   items: Array<IUser>;
   displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'acciones'];
   dataSource = new MatTableDataSource();
+
+  private observableFill: any;
+  private observableDelete: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -48,7 +51,7 @@ export class UsersTableComponent implements OnInit {
    */
   fillDataUsers() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+    this.observableFill = this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
   }
 
@@ -59,7 +62,7 @@ export class UsersTableComponent implements OnInit {
    */
   onDelete(nombre: string, id: number) {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
-      this.userService.deleteUser(id).subscribe(Response => {
+      this.observableDelete = this.userService.deleteUser(id).subscribe(Response => {
         if (Response.message === 'usuario eliminada correctamente') {
           this.errorSnackbarDisplayerService.
             openSnackBar(Response.message, SnackBarErrorType.success);
@@ -78,5 +81,12 @@ export class UsersTableComponent implements OnInit {
     this.router.navigate(['/editProfile/' + id]);
   }
 
-
+  ngOnDestroy() {
+    if (this.observableFill) {
+      this.observableFill.unsubscribe();
+    }
+    if (this.observableDelete) {
+      this.observableDelete.unsubscribe();
+    }
+  }
 }

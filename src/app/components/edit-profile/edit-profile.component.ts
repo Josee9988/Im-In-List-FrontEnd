@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Forms } from './../../shared/classes/Forms.class';
@@ -15,7 +15,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 /**
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
-export class EditProfileComponent extends Forms implements OnInit {
+export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   editName: boolean;
   editEmail: boolean;
   editPassword: boolean;
@@ -37,6 +37,9 @@ export class EditProfileComponent extends Forms implements OnInit {
   nombreUsuario: string;
   emailUsuario: string;
   rolUsuario: number;
+
+  private observableModification: any;
+  private observableInit: any;
 
   constructor(
     private userService: UserService,
@@ -68,7 +71,7 @@ export class EditProfileComponent extends Forms implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (Number(id) !== 0) {
       this.adminAuth = true;
-      this.userService.getUser(Number(id)).subscribe(Response => {
+      this.observableInit = this.userService.getUser(Number(id)).subscribe(Response => {
         if (Response) {
           this.usuarioEditar = Response;
           this.nombreUsuario = Response.name;
@@ -77,7 +80,7 @@ export class EditProfileComponent extends Forms implements OnInit {
         }
       });
     } else {
-      this.userService.getDataUser().subscribe(Response => {
+      this.observableInit = this.userService.getDataUser().subscribe(Response => {
         if (Response) {
           this.usuarioEditar = Response.user;
           this.nombreUsuario = Response.user.name;
@@ -120,14 +123,14 @@ export class EditProfileComponent extends Forms implements OnInit {
     switch (option) {
       case 1:
         this.usuarioEditar.name = this.name.value;
-        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+        this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Nombre modificado correctamente!', SnackBarErrorType.success);
           console.log(Response);
         });
         break;
       case 2:
         this.usuarioEditar.email = this.email.value;
-        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+        this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
           console.log(Response);
         });
@@ -146,7 +149,7 @@ export class EditProfileComponent extends Forms implements OnInit {
         break;
       case 5:
         this.usuarioEditar.role = this.role.value;
-        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+        this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
           this.editRole = undefined;
         });
@@ -290,5 +293,14 @@ export class EditProfileComponent extends Forms implements OnInit {
    */
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    if (this.observableModification) {
+      this.observableModification.unsubscribe();
+    }
+    if (this.observableInit) {
+      this.observableInit.unsubscribe();
+    }
   }
 }

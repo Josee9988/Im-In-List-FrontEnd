@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
@@ -16,12 +16,15 @@ import { RefreshNavbarCommunication } from 'src/app/shared/services/communicatio
 /**
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   user: IUser[];
   nickname: string;
   email: string;
   profilePicture: string;
   respuesta: any;
+  private observableListas: any;
+  private observableLista: any;
+  private observableFill: any;
 
   // Grafica Perfil
   lengthSet: number;
@@ -54,12 +57,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.fillData();
 
-    this.listaService.getListasUser().subscribe(Response => {
+    this.observableListas = this.listaService.getListasUser().subscribe(Response => {
       this.lengthSet = Response.length * 10;
       this.needleValue = this.lengthSet.toString();
       this.bottomLabel = Response.length.toString();
     });
-    this.listaService.getListas().subscribe(Response => {
+    this.observableLista = this.listaService.getListas().subscribe(Response => {
       const sizeBar = (this.lengthSet * 10) / Response.length;
       this.options.arcDelimiters = [sizeBar];
       this.options.rangeLabel = ['0', Response.length.toString()];
@@ -71,7 +74,7 @@ export class ProfileComponent implements OnInit {
    * @param Response Is the response from the API (database)
    */
   fillData() {
-    this.userService.getDataUser().subscribe(Response => {
+    this.observableFill = this.userService.getDataUser().subscribe(Response => {
       this.nickname = Response.user.name;
       this.email = Response.user.email;
     });
@@ -83,5 +86,17 @@ export class ProfileComponent implements OnInit {
   onClose() {
     this.refreshNavbarCommunication.next(1);
     this.router.navigate(['/home']);
+  }
+
+  ngOnDestroy() {
+    if (this.observableListas) {
+      this.observableListas.unsubscribe();
+    }
+    if (this.observableLista) {
+      this.observableLista.unsubscribe();
+    }
+    if (this.observableFill) {
+      this.observableFill.unsubscribe();
+    }
   }
 }

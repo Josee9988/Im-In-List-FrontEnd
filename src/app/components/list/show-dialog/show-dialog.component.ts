@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
@@ -12,9 +12,10 @@ import { IDialogUrl } from './IDialogUrl.interface';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ShowDialogComponent implements OnInit {
+export class ShowDialogComponent implements OnInit, OnDestroy {
   private readonly SITE_URL: string = environment.siteURl;
   public url: string;
+  private observableInit: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: IDialogUrl,
@@ -25,7 +26,7 @@ export class ShowDialogComponent implements OnInit {
 
   ngOnInit(): void {
     // close dialog event. then it will redirect to the list
-    this.dialogRef.backdropClick().subscribe(() => {
+    this.observableInit = this.dialogRef.backdropClick().subscribe(() => {
       this.router.navigate([`list/${this.data.url}`]);
     });
   }
@@ -45,5 +46,11 @@ export class ShowDialogComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  ngOnDestroy() {
+    if (this.observableInit) {
+      this.observableInit.unsubscribe();
+    }
   }
 }

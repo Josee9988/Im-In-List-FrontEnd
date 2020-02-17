@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ILista } from '../../shared/models/IListas.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -21,7 +21,7 @@ import { Captcha } from 'src/app/shared/classes/Captcha.class';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ListComponent extends Captcha implements OnInit {
+export class ListComponent extends Captcha implements OnInit, OnDestroy {
   @Input() list: ILista;
 
   @ViewChild('newElementInput', { static: false }) newElementInput: ElementRef;
@@ -30,6 +30,9 @@ export class ListComponent extends Captcha implements OnInit {
   public titulo: FormControl;
   public descripcion: FormControl;
   public password: FormControl;
+
+  private observableGetLista: any;
+  private observableSubmit: any;
 
   public isHidden: boolean;
   public hasPassword: boolean;
@@ -56,7 +59,7 @@ export class ListComponent extends Captcha implements OnInit {
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
-      this.listaService.getLista(givenUrl).subscribe((Response) => {
+      this.observableGetLista = this.listaService.getLista(givenUrl).subscribe((Response) => {
         this.list = {
           titulo: '',
           descripcion: '',
@@ -170,14 +173,14 @@ export class ListComponent extends Captcha implements OnInit {
           this.list.url = null;
 
           if (this.authService.hasToken()) { // IS LOGGED IN
-            this.listaService.putListaRegistered(this.list).subscribe((Response) => {
+            this.observableSubmit = this.listaService.putListaRegistered(this.list).subscribe((Response) => {
               if (typeof Response.lista !== 'undefined') {
                 this.openDialog(Response.lista.url);
               }
               this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
             });
           } else { // NOT LOGGED IN
-            this.listaService.putLista(this.list).subscribe((Response) => {
+            this.observableSubmit = this.listaService.putLista(this.list).subscribe((Response) => {
               if (typeof Response.lista !== 'undefined') {
                 this.openDialog(Response.lista.url);
               }
@@ -188,7 +191,7 @@ export class ListComponent extends Captcha implements OnInit {
         } else { // CREATING
           this.list.url = this.list.titulo;
           if (this.authService.hasToken()) { // IS LOGGED IN
-            this.listaService.postListaRegistered(this.list).subscribe((Response) => {
+            this.observableSubmit = this.listaService.postListaRegistered(this.list).subscribe((Response) => {
               if (typeof Response.lista !== 'undefined') {
                 this.openDialog(Response.lista.url);
 
@@ -197,7 +200,7 @@ export class ListComponent extends Captcha implements OnInit {
             });
 
           } else { // NOT LOGGED IN
-            this.listaService.postLista(this.list).subscribe((Response) => {
+            this.observableSubmit = this.listaService.postLista(this.list).subscribe((Response) => {
               if (typeof Response.lista.url !== 'undefined') {
                 this.openDialog(Response.lista.url);
               }
@@ -320,5 +323,14 @@ export class ListComponent extends Captcha implements OnInit {
     return this.password.hasError('required') ? 'Debes introducir una contraseña' :
       this.password.hasError('minlength') ? 'Debes de introducir una contraseña con al menos 4 carácteres.' :
         '';
+  }
+
+  ngOnDestroy(): void {
+    if (this.observableGetLista) {
+      this.observableGetLista.unsubscribe();
+    }
+    if (this.observableSubmit) {
+      this.observableSubmit.unsubscribe();
+    }
   }
 }

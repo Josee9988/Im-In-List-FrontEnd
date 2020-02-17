@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -18,12 +18,17 @@ import { UserService } from './../../../shared/services/user.service';
 /**
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
-export class ListsTableComponent implements OnInit {
+export class ListsTableComponent implements OnInit, OnDestroy {
 
   href: string;
   items: Array<ILista>;
   displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'participantes', 'acciones'];
   dataSource = new MatTableDataSource();
+
+  private observableFillAdmin: any;
+  private observableFillUser: any;
+  private observableDelete: any;
+  private observableDeleteAdmin: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -58,7 +63,7 @@ export class ListsTableComponent implements OnInit {
    */
   fillDataListsAdmin() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.listaService.getListas().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+    this.observableFillAdmin = this.listaService.getListas().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
   }
 
@@ -67,7 +72,7 @@ export class ListsTableComponent implements OnInit {
    */
   fillDataListsUser() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.listaService.getListasUser().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+    this.observableFillUser = this.listaService.getListasUser().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
   }
   /**
@@ -78,9 +83,9 @@ export class ListsTableComponent implements OnInit {
   onDelete(titulo: string, URLlist: string) {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
 
-      this.userService.getDataUser().subscribe(Response => {
+      this.observableDelete = this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
-          this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
+          this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
             if (Respuesta.message === 'Lista eliminada correctamente') {
               this.errorSnackbarDisplayerService.
                 openSnackBar(Response.message, SnackBarErrorType.success);
@@ -99,6 +104,22 @@ export class ListsTableComponent implements OnInit {
 
   onEdit(URLrecibida: string) {
     this.router.navigate(['/editList/' + URLrecibida]);
+  }
+
+  ngOnDestroy() {
+    if (this.observableFillAdmin) {
+      this.observableFillAdmin.unsubscribe();
+    }
+    if (this.observableFillUser) {
+      this.observableFillUser.unsubscribe();
+    }
+    if (this.observableDelete) {
+      this.observableDelete.unsubscribe();
+    }
+    if (this.observableDeleteAdmin) {
+      this.observableDeleteAdmin.unsubscribe();
+    }
+
   }
 
 }
