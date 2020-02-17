@@ -48,6 +48,13 @@
             <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
           </mat-form-field>
 
+          <!-- Captcha -->
+          <mat-label>Verificación humana</mat-label>
+          <re-captcha name="captcha" (resolved)="onAssignCaptcha($event)"
+            siteKey="6Ld6lNkUAAAAAK9t3WfGx3qHOETXLGze-4dWLAib"></re-captcha>
+          <mat-error *ngIf="captcha.invalid">{{getCaptchaErrorMessage()}}</mat-error>
+          <mat-hint>Selecciona la casilla</mat-hint>
+
           <!-- Submit button -->
           <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
           <ng-template #isLoginBlockBtn>

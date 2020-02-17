@@ -26,7 +26,6 @@ export class ContactComponent extends Captcha {
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.asunto = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]);
     this.mensaje = new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(516)]);
-    this.captcha = new FormControl('', [Validators.required]);
     this.inputs = [this.email, this.asunto, this.mensaje, this.captcha];
   }
 

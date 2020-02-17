@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Forms } from './Forms.class';
 
 export abstract class Captcha extends Forms {
@@ -6,8 +6,8 @@ export abstract class Captcha extends Forms {
 
     constructor() {
         super();
+        this.captcha = new FormControl('', [Validators.required]);
     }
-
 
     /**
      * Summary: function that is invoked from the captcha button. It receives
@@ -29,5 +29,4 @@ export abstract class Captcha extends Forms {
         return this.captcha.hasError('required') ? 'Debes hacer clic en la casilla de verificación' :
             '';
     }
-
 }
