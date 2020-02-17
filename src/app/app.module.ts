@@ -60,6 +60,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ShowDialogComponent } from './components/list/show-dialog/show-dialog.component';
+// Modulo Gauge Graph
+import { GaugeChartModule } from 'angular-gauge-chart';
 
 
 export const imports = [BrowserModule,
@@ -110,7 +112,8 @@ export const imports = [BrowserModule,
   HttpClientModule,
   NgxDropzoneModule,
   DragDropModule,
-  NgxQRCodeModule];
+  NgxQRCodeModule,
+  GaugeChartModule];
 
 /**
  * Components
