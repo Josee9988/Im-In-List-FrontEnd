@@ -98,7 +98,7 @@ export class EditProfileComponent extends Forms implements OnInit {
       } else if (this.editEmail) {
         this.sendModifications(2);
       } else if (this.editPassword) {
-        //
+        this.sendModifications(3);
       } else if (this.editPicture) {
 
       } else if (this.editRole) {
@@ -107,7 +107,6 @@ export class EditProfileComponent extends Forms implements OnInit {
 
       console.log(this.usuarioEditar);
 
-      this.clearInputs();
 
     } else {
 
@@ -130,6 +129,14 @@ export class EditProfileComponent extends Forms implements OnInit {
         this.usuarioEditar.email = this.email.value;
         this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
+          console.log(Response);
+        });
+        break;
+      case 3:
+        this.usuarioEditar.oldPassword = this.oldPassword.value;
+        this.usuarioEditar.password = this.password.value;
+        this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          this.errorSnackbarDisplayerService.openSnackBar('Password modificado correctamente!', SnackBarErrorType.success);
           console.log(Response);
         });
         break;
