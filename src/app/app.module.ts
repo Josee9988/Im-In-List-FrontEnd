@@ -60,7 +60,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ShowDialogComponent } from './components/list/show-dialog/show-dialog.component';
-
+import { RecaptchaModule, RecaptchaV3Module, RecaptchaSettings, RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 export const imports = [BrowserModule,
   BrowserAnimationsModule,
@@ -110,7 +110,10 @@ export const imports = [BrowserModule,
   HttpClientModule,
   NgxDropzoneModule,
   DragDropModule,
-  NgxQRCodeModule];
+  NgxQRCodeModule,
+  RecaptchaModule,
+  RecaptchaV3Module
+];
 
 /**
  * Components
@@ -133,6 +136,8 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     httpInterceptorProviders,
     { provide: RequestCache, useClass: RequestCacheWithMap },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcIkNkUAAAAAGDgyVJa9UF_bVmeNWhw-D6LjQFq' },
+
   ],
   bootstrap: [AppComponent],
   entryComponents: [ShowDialogComponent]

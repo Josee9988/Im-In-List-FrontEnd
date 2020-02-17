@@ -3,6 +3,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
+
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +21,7 @@ export class ContactComponent extends Forms {
   asunto: FormControl;
   mensaje: FormControl;
 
-  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private recaptchaV3Service: ReCaptchaV3Service, ) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
@@ -29,12 +31,19 @@ export class ContactComponent extends Forms {
   }
 
   onSubmit(): void {
+    this.recaptchaV3Service.execute('importantAction')
+      .subscribe((token) => console.log(token));
     if (super.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE EMAIL
       super.clearInputs();
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
+  }
+
+  resolved(captchaResponse: any) {
+    console.log(captchaResponse);
+
   }
 
   /**

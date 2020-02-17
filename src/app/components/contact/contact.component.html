@@ -43,6 +43,8 @@
               <div class="spacer"></div>
             </mat-form-field>
 
+            <re-captcha (resolved)="resolved($event)" siteKey="6LcIkNkUAAAAAGDgyVJa9UF_bVmeNWhw-D6LjQFq"></re-captcha>
+
 
             <!-- Submit button -->
             <button class="submit-login-register hvr-pop" (click)="onSubmit()" type="submit" matTooltip="Mánda un email"
