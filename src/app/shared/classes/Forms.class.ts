@@ -7,7 +7,7 @@ export abstract class Forms implements IForm {
      * Array of 'FormControl' inputs, that will be evaluated and checked if they are valid or not,
      * also this inputs array is used to display the progress bar valie
      */
-    protected inputs: Array<FormControl>;
+    public inputs: Array<FormControl>;
 
     constructor() { }
 
@@ -19,7 +19,7 @@ export abstract class Forms implements IForm {
      *
      * @return number between 100 and 0, depending of the number of valid inputs found.
      */
-    protected getProgressBarValue(): number {
+    public getProgressBarValue(): number {
         let progress = 100;
         for (const input of this.inputs) {
             if (input.invalid) {
@@ -36,7 +36,7 @@ export abstract class Forms implements IForm {
      *
      * @return true if all the inputs are true, if any input is not valid it will return false.
      */
-    protected validateInputs(): boolean {
+    public validateInputs(): boolean {
         let areInputsValid = true;
         for (const input of this.inputs) {
             if (input.invalid) {
@@ -46,12 +46,4 @@ export abstract class Forms implements IForm {
         return areInputsValid;
     }
 
-    /**
-     * Summary: Sets the value of all the inputs to null (clears all the input values).
-     */
-    protected clearInputs(): void {
-        for (const input of this.inputs) {
-            input.setValue(null);
-        }
-    }
 }

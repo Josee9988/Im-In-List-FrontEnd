@@ -19,7 +19,7 @@ import { Captcha } from 'src/app/shared/classes/Captcha.class';
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class LoginRegisterComponent extends Captcha implements OnInit {
-  private isRegister: boolean;
+  public isRegister: boolean;
   isHidden: boolean;
   name: FormControl;
   email: FormControl;
@@ -59,7 +59,7 @@ export class LoginRegisterComponent extends Captcha implements OnInit {
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
         this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token, true)));
       }
-      this.clearInputs();
+
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }

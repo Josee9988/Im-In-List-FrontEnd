@@ -30,7 +30,7 @@
             <!-- Your elements -->
             <div class="elements-list" [ngStyle]="{'height.px': windowHeight}" *ngIf="list" cdkDropList
               (cdkDropListDropped)="onDrop($event)">
-              <div *ngFor="let element of list.items; trackBy:list.items.order" cdkDrag>
+              <div *ngFor="let element of list.items; trackBy:list.items" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
 
                 <!-- Element master -->
@@ -112,10 +112,10 @@
         <mat-form-field appearance="outline" *ngIf="hasPassword">
           <mat-label>Contraseña</mat-label>
           <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
-            [type]="hide ? 'password' : 'text'" autocomplete="current-password">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            [type]="isHidden ? 'password' : 'text'" autocomplete="current-password">
+          <button mat-icon-button matSuffix (click)="isHidden = !isHidden" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="isHidden">
+            <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-hint>Introduce tu contraseña</mat-hint>
           <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
