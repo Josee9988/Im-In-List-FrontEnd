@@ -116,16 +116,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   }
 
 
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-
-  }
-
-
   /**
    * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
    * @param Response Is the response from the API (database)
@@ -239,7 +229,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       } else if (lista.created_at.includes('2020-12')) {
         this.listasDiciembre++;
       }
-
     }
 
     // Clases donde se almacenerán los valores
