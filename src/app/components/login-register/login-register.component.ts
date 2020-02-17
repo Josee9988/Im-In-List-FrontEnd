@@ -5,9 +5,9 @@ import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.int
 import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { Forms } from 'src/app/shared/classes/Forms.class';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Captcha } from 'src/app/shared/classes/Captcha.class';
 
 @Component({
   selector: 'app-login-register',
@@ -18,7 +18,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class LoginRegisterComponent extends Forms implements OnInit {
+export class LoginRegisterComponent extends Captcha implements OnInit {
   private isRegister: boolean;
   isHidden: boolean;
   name: FormControl;
@@ -43,7 +43,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
     if (this.router.url.includes('register')) { // si es un formulario de registro
       this.isRegister = true;
       this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
-      this.inputs = [this.email, this.password, this.name];
+      this.inputs = [this.email, this.password, this.name, this.captcha];
     } else { // si es un formulario de login
       this.isRegister = false;
       this.inputs = [this.email, this.password];
@@ -51,7 +51,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   }
 
   onSubmit(): void {
-    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+    if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
         this.userService.postUser(registerUser).subscribe(Response => this.saveToken(Response.token, false));
@@ -59,7 +59,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
         this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token, true)));
       }
-      super.clearInputs();
+      this.clearInputs();
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }

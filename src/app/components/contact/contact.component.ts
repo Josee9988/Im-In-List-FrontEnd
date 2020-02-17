@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
+import { Captcha } from 'src/app/shared/classes/Captcha.class';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +14,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ContactComponent extends Forms {
+export class ContactComponent extends Captcha {
   hide: boolean;
   email: FormControl;
   asunto: FormControl;
@@ -25,13 +26,13 @@ export class ContactComponent extends Forms {
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.asunto = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]);
     this.mensaje = new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(516)]);
-    this.inputs = [this.email, this.asunto, this.mensaje];
+    this.inputs = [this.email, this.asunto, this.mensaje, this.captcha];
   }
 
   onSubmit(): void {
-    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+    if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE EMAIL
-      super.clearInputs();
+      this.clearInputs();
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }

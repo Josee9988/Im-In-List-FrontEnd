@@ -63,6 +63,7 @@ import { ShowDialogComponent } from './components/list/show-dialog/show-dialog.c
 // Modulo Gauge Graph
 import { GaugeChartModule } from 'angular-gauge-chart';
 
+import { RecaptchaModule, RecaptchaV3Module, RecaptchaSettings, RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 
 export const imports = [BrowserModule,
   BrowserAnimationsModule,
@@ -113,7 +114,9 @@ export const imports = [BrowserModule,
   NgxDropzoneModule,
   DragDropModule,
   NgxQRCodeModule,
-  GaugeChartModule];
+  GaugeChartModule,
+  RecaptchaModule];
+
 
 /**
  * Components

@@ -92,7 +92,7 @@ export class EditProfileComponent extends Forms implements OnInit {
    */
   onSubmit(): void {
     this.checkInputs();
-    if (super.validateInputs()) {
+    if (this.validateInputs()) {
       if (this.editName) {
         this.sendModifications(1);
       } else if (this.editEmail) {
@@ -107,7 +107,7 @@ export class EditProfileComponent extends Forms implements OnInit {
 
       console.log(this.usuarioEditar);
 
-      super.clearInputs();
+      this.clearInputs();
 
     } else {
 

@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { IForm } from '../models/IForms.interface';
+import { IForm } from '../models/implements/IForms.interface';
 
 export abstract class Forms implements IForm {
 
@@ -7,7 +7,7 @@ export abstract class Forms implements IForm {
      * Array of 'FormControl' inputs, that will be evaluated and checked if they are valid or not,
      * also this inputs array is used to display the progress bar valie
      */
-    inputs: Array<FormControl>;
+    protected inputs: Array<FormControl>;
 
     constructor() { }
 
