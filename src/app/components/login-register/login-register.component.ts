@@ -51,7 +51,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
   }
 
   onSubmit(): void {
-    if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+    if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
         this.userService.postUser(registerUser).subscribe(Response => this.saveToken(Response.token, false));
@@ -59,7 +59,7 @@ export class LoginRegisterComponent extends Forms implements OnInit {
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
         this.userService.postLogin(loginUser).subscribe(Response => (this.saveToken(Response.token, true)));
       }
-      super.clearInputs();
+      this.clearInputs();
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }

@@ -162,7 +162,7 @@ export class ListComponent extends Forms implements OnInit {
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
-      if (super.validateInputs()) { // IF THE INPUTS ARE VALID
+      if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
           this.list.url = null;
 
