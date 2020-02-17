@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { ICaptcha } from 'src/app/shared/models/implements/ICaptcha.interface';
+import { Captcha } from 'src/app/shared/classes/Captcha.class';
 
 @Component({
   selector: 'app-contact',
@@ -14,12 +14,11 @@ import { ICaptcha } from 'src/app/shared/models/implements/ICaptcha.interface';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ContactComponent extends Forms implements ICaptcha {
+export class ContactComponent extends Captcha {
   hide: boolean;
   email: FormControl;
   asunto: FormControl;
   mensaje: FormControl;
-  captcha: FormControl;
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
     super();
@@ -38,10 +37,6 @@ export class ContactComponent extends Forms implements ICaptcha {
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
-  }
-
-  onAssignCaptcha(captchaResponse: string) {
-    this.captcha.setValue(captchaResponse);
   }
 
   /**
@@ -68,13 +63,6 @@ export class ContactComponent extends Forms implements ICaptcha {
       this.asunto.hasError('minlength') ? 'Debes de introducir un asunto con al menos 6 carácteres.' :
         this.asunto.hasError('maxLength') ? 'Debes de introducir un asunto con menos de 80 carácteres.' :
           '';
-  }
-
-
-
-  getCaptchaErrorMessage(): string {
-    return this.asunto.hasError('required') ? 'Debes hacer clic en la casilla' :
-      '';
   }
 
   /**

@@ -7,7 +7,7 @@ export abstract class Forms implements IForm {
      * Array of 'FormControl' inputs, that will be evaluated and checked if they are valid or not,
      * also this inputs array is used to display the progress bar valie
      */
-    inputs: Array<FormControl>;
+    protected inputs: Array<FormControl>;
 
     constructor() { }
 
