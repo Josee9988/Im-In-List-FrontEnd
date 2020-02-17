@@ -6,14 +6,18 @@
   </mat-card-header>
   <mat-card-content>
     <hr />
-    <div class="graficasListas">
-      <mat-card class="cardNumbers">
-        <mat-card-title>Listas creadas</mat-card-title>
-        <hr />
-        <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel"
-          [options]="options" [bottomLabel]="bottomLabel" bottomLabelFont=20></rg-gauge-chart>
-      </mat-card>
-    </div>
+    <mat-card class="cardNumbers">
+      <mat-card-title>Listas creadas</mat-card-title>
+      <hr />
+      <div class="contentGauge">
+        <div class="gaugeAlign">
+          <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel"
+            [options]="options" [bottomLabel]="bottomLabel" bottomLabelFont=20></rg-gauge-chart>
+        </div>
+      </div>
+
+    </mat-card>
+
     <hr />
   </mat-card-content>
   <div class="actions">

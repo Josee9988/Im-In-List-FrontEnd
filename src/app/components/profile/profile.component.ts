@@ -27,15 +27,15 @@ export class ProfileComponent implements OnInit {
   lengthSet: number;
   cantidadListasCreadas: string;
   cantidadListasExistentes: string;
-  public canvasWidth = 300;
+  public canvasWidth = 350;
   public needleValue = '';
   public centralLabel = '';
   public bottomLabel = '';
   public options = {
     hasNeedle: true,
-    needleColor: '#673ab7',
+    needleColor: 'black',
     needleUpdateSpeed: 1000,
-    arcColors: ['#673ab7', '#6655'],
+    arcColors: ['#a7cc00', '#6655'],
     arcDelimiters: [],
     rangeLabel: [],
     needleStartValue: 0,
@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.fillData();
+
     this.listaService.getListasUser().subscribe(Response => {
       this.lengthSet = Response.length * 10;
       this.needleValue = this.lengthSet.toString();

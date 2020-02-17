@@ -14,9 +14,12 @@
   width: 100%;
   margin-top: 10px;
 }
-.graficasListas {
-  display: -webkit-box;
-  display: flex;
+.gaugeAlign {
+  width: 60%;
+  margin-left: 30%;
+}
+.contentGauge {
+  width: 100%;
 }
 .cardNumbers {
   width: 80%;
@@ -34,6 +37,7 @@ mat-card-title {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
+
 .graficas {
   display: -webkit-inline-box;
   display: inline-flex;
@@ -43,9 +47,6 @@ a:link {
   text-decoration: none;
 }
 
-.gauge-chart {
-  margin-left: 50% !important;
-}
 .loader {
   align-content: center;
   text-align: center;
