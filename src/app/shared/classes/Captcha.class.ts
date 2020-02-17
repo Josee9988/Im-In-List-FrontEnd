@@ -9,6 +9,12 @@ export abstract class Captcha extends Forms {
     }
 
 
+    /**
+     * Summary: function that is invoked from the captcha button. It receives
+     * the token as adds it to the captcha.value FormControl.
+     *
+     * @param captchaResponse token given from the captcha.
+     */
     protected onAssignCaptcha(captchaResponse: string): void {
         this.captcha.setValue(captchaResponse);
     }
