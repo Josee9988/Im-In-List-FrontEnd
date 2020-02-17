@@ -8,7 +8,7 @@
     </mat-toolbar>
     <mat-nav-list>
       <h2 matSubheader>Elementos de navegación</h2>
-      <li *ngFor="let item of navbarLinks;trackBy:navbarLinks.order">
+      <li *ngFor="let item of navbarLinks;trackBy:navbarLinks">
 
         <!-- Logout -->
         <a *ngIf="item.logout" (click)="logout()" mat-list-item class="hvr-bounce-in">
@@ -39,7 +39,7 @@
       </span>
 
       <span class="fill-space"></span>
-      <div *ngFor="let item of navbarLinks;trackBy:navbarLinks.order">
+      <div *ngFor="let item of navbarLinks;trackBy:navbarLinks">
 
         <!-- If logout -->
         <button *ngIf="item.logout === true" class="top-navbar-item" (click)="logout()" mat-button
