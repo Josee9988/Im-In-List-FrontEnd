@@ -38,6 +38,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   public hasPassword: boolean;
   private isEditing: boolean;
 
+  private isLocked: boolean;
   windowHeight: number;
 
   constructor(
@@ -59,16 +60,21 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
-      this.observableGetLista = this.listaService.getLista(givenUrl).subscribe((Response) => {
-        this.list = {
-          titulo: '',
-          descripcion: '',
-          items: JSON.parse(JSON.parse(Response.elementos)),
-          url: givenUrl,
-          captcha: ''
-        };
-        this.titulo.setValue(Response.titulo);
-        this.descripcion.setValue(Response.descripcion);
+      this.observableGetLista = this.listaService.getLista(givenUrl).subscribe(Response => {
+        if (Response.message === 'Error, indique la contraseña de la lista') {
+          console.log('La lista está protegida');
+          this.isLocked = true;
+        } else {
+          this.list = {
+            titulo: '',
+            descripcion: '',
+            items: JSON.parse(JSON.parse(Response.elementos)),
+            url: givenUrl,
+            captcha: '',
+          };
+          this.titulo.setValue(Response.titulo);
+          this.descripcion.setValue(Response.descripcion);
+        }
       });
     } else {
       this.list = {
@@ -171,6 +177,8 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
+      this.list.passwordLista = this.password.value;
+
       if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
           this.list.url = null;
@@ -288,6 +296,31 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       }
     });
   }
+
+  onPasswordSubmit() {
+    const givenUrl = this.route.snapshot.paramMap.get('url');
+    const listPassword = '' + givenUrl + '/' + this.password.value;
+
+    this.listaService.getListaPassword(listPassword).subscribe(Response => {
+      if (Response.message === 'Error, indique la contraseña de la lista') {
+        this.errorSnackbarDisplayerService.openSnackBar('La contraseña es incorrecta', SnackBarErrorType.error);
+      } else {
+        this.isLocked = false;
+
+        this.list = {
+          titulo: '',
+          descripcion: '',
+          items: JSON.parse(JSON.parse(Response.elementos)),
+          url: givenUrl,
+          captcha: '',
+        };
+        this.titulo.setValue(Response.titulo);
+        this.descripcion.setValue(Response.descripcion);
+      }
+    });
+  }
+
+
 
 
   /**
