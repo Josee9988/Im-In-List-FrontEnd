@@ -82,9 +82,11 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     });
 
   }
+
   /**
    * Sumary: This function is called from button on HTML, which one will delete a list from database. Depending on role
    * will call one function for listaService or other
+   *
    * @param titulo Param received from HTML and used to show a confirm alert to user
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
@@ -111,8 +113,10 @@ export class ListsTableComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   /**
-   * Sumary: This function redirect to the page that edit lists
+   * Summary: This function redirect to the page that edit lists.
+   *
    * @param URLrecibida Receives this param as a list we want to edit
    */
   onEdit(URLrecibida: string): void {

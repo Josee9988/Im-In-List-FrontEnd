@@ -10,20 +10,42 @@ body {
   fill: #f95959;
   margin: 60px 40%;
   text-align: left;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  -webkit-transform: rotate(0);
   transform: rotate(0);
+  -webkit-transform-origin: 80% 30%;
   transform-origin: 80% 30%;
+  -webkit-animation: wiggle 0.2s infinite;
   animation: wiggle 0.2s infinite;
+}
+
+@-webkit-keyframes wiggle {
+  0% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+  }
+  50% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+  }
 }
 
 @keyframes wiggle {
   0% {
+    -webkit-transform: rotate(5deg);
     transform: rotate(5deg);
   }
   50% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
+    -webkit-transform: rotate(5deg);
     transform: rotate(5deg);
   }
 }

@@ -8,6 +8,4 @@ import { Component } from '@angular/core';
 /**
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
-export class AboutUsComponent {
-  constructor() { }
-}
+export class AboutUsComponent { }

@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private router: Router,
     private refreshNavbarCommunication: RefreshNavbarCommunication) {
-
   }
 
 
@@ -34,7 +33,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
+   * Summary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
    * @param Response Is the response from the API (database)
    */
   fillData(): void {
@@ -42,10 +41,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.nickname = Response.user.name;
       this.email = Response.user.email;
     });
-
   }
+
   /**
-   * Sumary: This function will close session and redirect home
+   * Summary: This function will close session and redirect home
    */
   onClose(): void {
     this.refreshNavbarCommunication.next(1);

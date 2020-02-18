@@ -53,10 +53,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.role = new FormControl('', [Validators.required]);
-
     this.files = [];
-
-
     this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
 
     this.groupPassword = new FormGroup({
@@ -90,8 +87,9 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       });
     }
   }
+
   /**
-   * Sumary: Function from SUPER that check the inputs available and validate them. Once validated, redirect to PUT method
+   * Summary: Function from SUPER that check the inputs available and validate them. Once validated, redirect to PUT method
    */
   onSubmit(): void {
     this.checkInputs();
@@ -109,8 +107,10 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       }
     }
   }
+
   /**
-   * Sumary: This function gets a code and send the put http pettition to update the user
+   * Summary: This function gets a code and send the put http pettition to update the user
+   *
    * @param option Is the option depending which inputs have been edited
    */
   sendModifications(option: number): void {
@@ -156,10 +156,10 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       default:
         break;
     }
-
   }
+
   /**
-   * Sumary: This function check which toggle is activated and choose the correct inputs
+   * Summary: This function check which toggle is activated and choose the correct inputs
    */
   checkInputs(): void {
     if (this.editName) {
@@ -174,7 +174,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function turn off other inputs opened
+   * Summary: This function turn off other inputs opened
    * @param id It's the input that has been opened
    */
   closeToggleInputs(id: number): void {
