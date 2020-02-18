@@ -56,14 +56,14 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * Sumary: This function receive a string and filter the results which one contains that string
    * @param filterValue Is what user introduceson the input and filter the data
    */
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /**
    * Sumary: This function is used to fill data of every list for adminsinside dataSource for show it on table
    */
-  fillDataListsAdmin() {
+  fillDataListsAdmin(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableFillAdmin = this.listaService.getListas().subscribe(Response => {
       this.items = Response;
@@ -74,7 +74,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   /**
    * Sumary: This function is used to fill data of each user inside dataSource for show it on table
    */
-  fillDataListsUser() {
+  fillDataListsUser(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableFillUser = this.listaService.getListasUser().subscribe(Response => {
       this.items = Response;
@@ -88,7 +88,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * @param titulo Param received from HTML and used to show a confirm alert to user
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
-  onDelete(titulo: string, URLlist: string) {
+  onDelete(titulo: string, URLlist: string): void {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
       this.observableDelete = this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
@@ -111,8 +111,11 @@ export class ListsTableComponent implements OnInit, OnDestroy {
       });
     }
   }
-
-  onEdit(URLrecibida: string) {
+  /**
+   * Sumary: This function redirect to the page that edit lists
+   * @param URLrecibida Receives this param as a list we want to edit
+   */
+  onEdit(URLrecibida: string): void {
     this.router.navigate(['/editList/' + URLrecibida]);
   }
 

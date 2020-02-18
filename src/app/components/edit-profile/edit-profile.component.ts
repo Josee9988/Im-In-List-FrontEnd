@@ -142,7 +142,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
         });
         break;
       case 4:
-        //Future case to upload pictures
+        // Future case to upload pictures
         break;
       case 5:
         this.usuarioEditar.role = this.role.value;
@@ -275,7 +275,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
    * Sumary: This function push the picture that user have choosed to the array of files
    * @param picture Is the picture that user add
    */
-  onSelect(picture: any) {
+  onSelect(picture: any): void {
     this.files.push(...picture.addedFiles);
   }
 
@@ -283,7 +283,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
    * Sumary: This function remove the picture that user have choosed to the array of files
    * @param picture Is the picture that user decide to remove
    */
-  onRemove(picture: any) {
+  onRemove(picture: any): void {
     this.files.splice(this.files.indexOf(picture), 1);
   }
 

@@ -44,14 +44,14 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    * Sumary: This function receive a string and filter the results which one contains that string
    * @param filterValue Is what user introduceson the input and filter the data
    */
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /**
    * Sumary: This function is used to fill data inside dataSource for show it on table
    */
-  fillDataUsers() {
+  fillDataUsers(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableFill = this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
 
@@ -62,7 +62,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
-  onDelete(nombre: string, id: number) {
+  onDelete(nombre: string, id: number): void {
     if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
       this.observableDelete = this.userService.deleteUser(id).subscribe(Response => {
         if (Response.message === 'usuario eliminada correctamente') {
@@ -79,7 +79,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    * Sumary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
    * @param id is the ID of the user that want to be edited
    */
-  onEdit(id: number) {
+  onEdit(id: number): void {
     this.router.navigate(['/editProfile/' + id]);
   }
 
