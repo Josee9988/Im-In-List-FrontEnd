@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
+import { ISendMail } from './ISendMail.interface';
 
 @Component({
   selector: 'app-contact',
@@ -32,6 +32,8 @@ export class ContactComponent extends Captcha {
   onSubmit(): void {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       // TODO: SEND THE EMAIL
+      const sendMail: ISendMail = { email: this.email.value, asunto: this.asunto.value, mensaje: this.mensaje.value };
+
 
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
