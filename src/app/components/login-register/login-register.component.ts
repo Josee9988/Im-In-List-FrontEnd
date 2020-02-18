@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILoginUser, IRegisterUser } from 'src/app/shared/models/ILogin-user.interface';
+import { ILoginUser } from 'src/app/shared/models/ILogin-user.interface';
+import { IRegisterUser } from 'src/app/shared/models/IRegister-user.interface';
 import { UserService } from '../../shared/services/user.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';

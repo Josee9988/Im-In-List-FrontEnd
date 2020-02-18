@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
-
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
 import { IUser } from '../models/IUsers.interface';
-
 import { environment } from './../../../environments/environment';
-import { IRegisterUser, ILoginUser } from '../models/ILogin-user.interface';
+import { ILoginUser } from '../models/ILogin-user.interface';
+import { IRegisterUser } from 'src/app/shared/models/IRegister-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +19,8 @@ import { IRegisterUser, ILoginUser } from '../models/ILogin-user.interface';
  */
 export class UserService {
   private readonly USER_URL: string = environment.apiUrl + 'users';
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+
 
   private handleError: HandleError;
 
@@ -39,7 +36,6 @@ export class UserService {
       .pipe(tap(), catchError(this.handleError<IUser[]>('getUsers', [])));
   }
 
-
   /**
    * Summary: retreives one user by an ID.
    * @param id id of the user.
@@ -48,8 +44,6 @@ export class UserService {
     return this.http.get<IUser[]>(environment.apiUrl + 'users/' + id)
       .pipe(tap(), catchError(this.handleError<IUser[]>('getUser', [])));
   }
-
-
 
   /**
    * Summary: creates an user
@@ -71,13 +65,6 @@ export class UserService {
       tap(), catchError(this.handleError<any>('postLogin')));
   }
 
-
-
-
-
-
-
-
   /**
    * Summary: modifys an existing user.
    * @param user the user that will be modified.
@@ -86,7 +73,6 @@ export class UserService {
     return this.http.put(this.USER_URL + '/' + user.id, user, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('putLista')));
   }
-
 
   /**
    * Summay: removes an user from the database.

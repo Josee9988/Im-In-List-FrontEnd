@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { catchError, tap } from 'rxjs/operators';
 import { ILista } from '../models/IListas.model';
-
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
-
 import { environment } from './../../../environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +18,8 @@ import { environment } from './../../../environments/environment';
 export class ListaService {
   private readonly LISTAS_URL: string = environment.apiUrl + 'listas';
   private readonly LIST_URL: string = environment.apiUrl + 'list';
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+
 
   private handleError: HandleError;
 
@@ -48,6 +42,7 @@ export class ListaService {
     return this.http.get<ILista[]>(this.LISTAS_URL)
       .pipe(tap(), catchError(this.handleError<ILista[]>('getListas', [])));
   }
+
   /**
    * Summary: retreives one lista by an ID.
    * @param url id of the lista.
@@ -58,7 +53,6 @@ export class ListaService {
       .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));
   }
 
-
   /**
    * Summary: creates an lista for non registered users.
    * @param lista the lista that will be created.
@@ -68,7 +62,6 @@ export class ListaService {
       tap(), catchError(this.handleError<ILista>('postLista')));
   }
 
-
   /**
    * Summary: creates an lista, for registered users.
    * @param lista the lista that will be created.
@@ -77,7 +70,6 @@ export class ListaService {
     return this.http.post<ILista>(this.LISTAS_URL, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('postLista')));
   }
-
 
   /**
    * Summary: modifys an existing lista.
@@ -97,7 +89,6 @@ export class ListaService {
     return this.http.put(`${this.LISTAS_URL}/${lista.url}`, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<any>('putLista')));
   }
-
 
   /**
    * Summay: removes an lista from the database for normal users.
@@ -120,6 +111,4 @@ export class ListaService {
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteListaAdmin')));
   }
-
-
 }
