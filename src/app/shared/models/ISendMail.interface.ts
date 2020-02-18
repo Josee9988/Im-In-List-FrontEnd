@@ -5,4 +5,5 @@ export interface ISendMail {
     email: string;
     asunto: string;
     mensaje: string;
+    captcha: string;
 }

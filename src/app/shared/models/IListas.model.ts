@@ -14,4 +14,5 @@ export interface ILista {
     updated_at?: Date;
     created_at?: Date;
     url?: string;
+    captcha: string;
 }
