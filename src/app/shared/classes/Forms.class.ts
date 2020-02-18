@@ -2,7 +2,6 @@ import { FormControl } from '@angular/forms';
 import { IForm } from '../models/implements/IForms.interface';
 
 export abstract class Forms implements IForm {
-
     /**
      * Array of 'FormControl' inputs, that will be evaluated and checked if they are valid or not,
      * also this inputs array is used to display the progress bar valie
@@ -29,7 +28,6 @@ export abstract class Forms implements IForm {
         return progress;
     }
 
-
     /**
      * Summary: validateInputs checks if all the inputs are valid, if that is the case it will
      * return true, otherwise false.
@@ -45,5 +43,4 @@ export abstract class Forms implements IForm {
         }
         return areInputsValid;
     }
-
 }
