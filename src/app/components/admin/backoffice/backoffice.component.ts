@@ -14,6 +14,7 @@ import { UserService } from './../../../shared/services/user.service';
  */
 
 export class BackofficeComponent implements OnInit, OnDestroy {
+  currentYear: number;
   registradosEnero: number;
   registradosFebrero: number;
   registradosMarzo: number;
@@ -100,6 +101,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
     this.listasOctubre = 0;
     this.listasNoviembre = 0;
     this.listasDiciembre = 0;
+    this.currentYear = new Date().getFullYear();
   }
 
   ngOnInit() {
@@ -108,6 +110,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableGetUser = this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
+
   }
 
   /**
