@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './../../shared/services/user.service';
-import { IUser } from '../../shared/models/IUsers.interface';
+import { UserService } from '../../../shared/services/user.service';
+import { IUser } from '../../../shared/models/IUsers.interface';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 
 @Component({

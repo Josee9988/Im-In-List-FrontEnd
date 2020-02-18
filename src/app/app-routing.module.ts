@@ -10,7 +10,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -19,8 +19,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { BackofficeComponent } from './components/admin/backoffice/backoffice.component';
 import { UsersTableComponent } from './components/admin/users-table/users-table.component';
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
-import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
+import { LogoutComponent } from './components/user/logout/logout.component';
 import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
 
 /**
