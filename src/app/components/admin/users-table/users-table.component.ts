@@ -28,12 +28,14 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private router: Router, private userService: UserService, private errorSnackbarDisplayerService: SnackbarDisplayerService) {
-
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private errorSnackbarDisplayerService: SnackbarDisplayerService) {
   }
+
   ngOnInit() {
     this.fillDataUsers();
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

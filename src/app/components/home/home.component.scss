@@ -67,13 +67,19 @@ a {
     margin-top: 70%;
   }
 }
-@media (min-width: 451px) and (max-width: 720px) {
+@media (min-width: 451px) and (max-width: 860px) {
   .zonaBoton {
     margin-top: 40%;
   }
 }
 
-@media (min-width: 720px) and (max-width: 1920px) {
+@media (min-width: 860px) and (max-width: 1220px) {
+  .zonaBoton {
+    margin-top: 20%;
+  }
+}
+
+@media (min-width: 1220) and (max-width: 1920px) {
   .zonaBoton {
     margin-top: 10%;
   }

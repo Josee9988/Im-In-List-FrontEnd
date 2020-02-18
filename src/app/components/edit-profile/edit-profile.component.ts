@@ -103,16 +103,10 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       } else if (this.editPassword) {
         this.sendModifications(3);
       } else if (this.editPicture) {
-
+        // Future check to upload pictures
       } else if (this.editRole) {
         this.sendModifications(5);
       }
-
-      console.log(this.usuarioEditar);
-
-
-    } else {
-
     }
   }
   /**
@@ -125,14 +119,14 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
         this.usuarioEditar.name = this.name.value;
         this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
           this.errorSnackbarDisplayerService.openSnackBar('Nombre modificado correctamente!', SnackBarErrorType.success);
-          console.log(Response);
         });
         break;
       case 2:
         this.usuarioEditar.email = this.email.value;
         this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
-          this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
-          console.log(Response);
+          if (Response) {
+            this.errorSnackbarDisplayerService.openSnackBar('Email modificado correctamente!', SnackBarErrorType.success);
+          }
         });
         break;
       case 3:
@@ -147,11 +141,16 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
           }
         });
         break;
+      case 4:
+        //Future case to upload pictures
+        break;
       case 5:
         this.usuarioEditar.role = this.role.value;
         this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
-          this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
-          this.editRole = undefined;
+          if (Response) {
+            this.errorSnackbarDisplayerService.openSnackBar('Rol modificado correctamente!', SnackBarErrorType.success);
+            this.editRole = undefined;
+          }
         });
         break;
       default:
