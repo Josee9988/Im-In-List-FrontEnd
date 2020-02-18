@@ -63,6 +63,7 @@ export class ListaService {
    * @param url is the string of the url with password
    */
   getListaPassword(url: string): Observable<any> {
+    alert('La url recibida es:' + url);
     const getUrl = `${this.LISTAS_URL}/${url}`;
     return this.http.get<any>(getUrl)
       .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));

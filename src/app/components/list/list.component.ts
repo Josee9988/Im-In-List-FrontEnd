@@ -297,8 +297,18 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
    * Sumary: This function will check if the list have password
    */
   isLocked() {
-    this.listaService.
+    //this.listaService.getListaPassword('url');
     return true;
+  }
+
+  onPasswordSubmit() {
+    const givenUrl = this.route.snapshot.paramMap.get('url');
+    const listPassword = '' + givenUrl + '/' + this.password.value;
+
+    alert('La ruta es :  ' + listPassword);
+    this.listaService.getListaPassword(this.password.value).subscribe(Response => {
+      console.log(Response);
+    });
   }
 
 

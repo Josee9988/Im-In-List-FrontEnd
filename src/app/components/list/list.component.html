@@ -11,6 +11,11 @@
           <mat-hint>Introduce la contraseña</mat-hint>
           <div class="spacer"></div>
         </mat-form-field>
+        <button class="submit-login-register hvr-pop" (click)="onPasswordSubmit()" type="submit"
+          matTooltip="Guardar cambios" matTooltipPosition="below" mat-raised-button color="primary">Introducir
+          contraseña <mat-icon>lock_open
+          </mat-icon>
+        </button>
       </form>
     </mat-card-content>
   </mat-card>
