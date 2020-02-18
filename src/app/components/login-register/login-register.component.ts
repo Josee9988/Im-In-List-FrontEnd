@@ -59,7 +59,9 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
   onSubmit(): void {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
-        const registerUser: IRegisterUser = { name: this.name.value, email: this.email.value, password: this.password.value };
+        const registerUser: IRegisterUser =
+          // tslint:disable-next-line: one-line
+          { name: this.name.value, email: this.email.value, password: this.password.value, captcha: this.captcha.value };
         this.observableSubmit = this.userService.postUser(registerUser).subscribe(Response => this.saveToken(Response.token, false));
       } else { // LOGIN
         const loginUser: ILoginUser = { email: this.email.value, password: this.password.value };
