@@ -58,6 +58,16 @@ export class ListaService {
       .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));
   }
 
+  /**
+   * Sumary: In case that the list is protected, will send the password that user inputed for checking if is true
+   * @param url is the string of the url with password
+   */
+  getListaPassword(url: string): Observable<any> {
+    const getUrl = `${this.LISTAS_URL}/${url}`;
+    return this.http.get<any>(getUrl)
+      .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));
+  }
+
 
   /**
    * Summary: creates an lista for non registered users.

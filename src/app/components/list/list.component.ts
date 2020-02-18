@@ -60,8 +60,9 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     if (givenUrl) {
       this.isEditing = true;
       this.observableGetLista = this.listaService.getLista(givenUrl).subscribe(Response => {
-        if (Response.message === "Error, indique la contraseña de la lista") {
-          alert("Hola");
+        if (Response.message === 'Error, indique la contraseña de la lista') {
+          console.log('La lista está protegida');
+          this.isLocked();
         } else {
           this.list = {
             titulo: '',
@@ -296,7 +297,8 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
    * Sumary: This function will check if the list have password
    */
   isLocked() {
-    return false;
+    this.listaService.
+    return true;
   }
 
 
