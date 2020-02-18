@@ -1,8 +1,6 @@
 import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
-import { ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
-import { ListaService } from './../../shared/services/lista.service';
 import { IUser } from '../../shared/models/IUsers.interface';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 
@@ -22,32 +20,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   email: string;
   profilePicture: string;
   respuesta: any;
-  private observableListas: any;
-  private observableLista: any;
   private observableFill: any;
-
-  // Grafica Perfil
-  lengthSet: number;
-  cantidadListasCreadas: string;
-  cantidadListasExistentes: string;
-  public canvasWidth = 350;
-  public needleValue = '';
-  public centralLabel = '';
-  public bottomLabel = '';
-  public options = {
-    hasNeedle: true,
-    needleColor: 'black',
-    needleUpdateSpeed: 1000,
-    arcColors: ['#a7cc00', '#6655'],
-    arcDelimiters: [],
-    rangeLabel: [],
-    needleStartValue: 0,
-  };
-  // Grafica Perfil
 
   constructor(
     private userService: UserService,
-    private listaService: ListaService,
     private router: Router,
     private refreshNavbarCommunication: RefreshNavbarCommunication) {
 
@@ -56,17 +32,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fillData();
-
-    this.observableListas = this.listaService.getListasUser().subscribe(Response => {
-      this.lengthSet = Response.length * 10;
-      this.needleValue = this.lengthSet.toString();
-      this.bottomLabel = Response.length.toString();
-    });
-    this.observableLista = this.listaService.getListas().subscribe(Response => {
-      const sizeBar = (this.lengthSet * 10) / Response.length;
-      this.options.arcDelimiters = [sizeBar];
-      this.options.rangeLabel = ['0', Response.length.toString()];
-    });
   }
 
   /**
@@ -89,12 +54,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.observableListas) {
-      this.observableListas.unsubscribe();
-    }
-    if (this.observableLista) {
-      this.observableLista.unsubscribe();
-    }
     if (this.observableFill) {
       this.observableFill.unsubscribe();
     }

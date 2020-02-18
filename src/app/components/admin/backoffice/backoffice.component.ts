@@ -63,9 +63,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
-
-
-
   constructor(private listaService: ListaService, private userService: UserService) {
     this.registradosEnero = 0;
     this.registradosFebrero = 0;
@@ -105,9 +102,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
     this.listasDiciembre = 0;
   }
 
-
   ngOnInit() {
-
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableGetlista = this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
 
@@ -115,23 +110,11 @@ export class BackofficeComponent implements OnInit, OnDestroy {
     this.observableGetUser = this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
   }
 
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-
-  }
-
-
   /**
    * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
    * @param Response Is the response from the API (database)
    */
   fillDataUsers(Response: any) {
-
     for (const user of Response) {
       if (user.role === 1) {
         if (user.created_at.includes('2020-01')) {
@@ -201,7 +184,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       this.premiumSeptiembre, this.premiumOctubre, this.premiumNoviembre, this.premiumDiciembre],
     ];
 
-
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
       'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -239,7 +221,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       } else if (lista.created_at.includes('2020-12')) {
         this.listasDiciembre++;
       }
-
     }
 
     // Clases donde se almacenerán los valores
@@ -263,5 +244,4 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       this.observableGetUser.unsubscribe();
     }
   }
-
 }

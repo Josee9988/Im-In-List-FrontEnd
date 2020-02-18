@@ -1,77 +1,77 @@
-<button class="backButton hvr-hang" mat-raised-button routerLink="/home" matTooltip="Volver a Inicio"
-  matTooltipPosition="above">
-  <mat-icon>arrow_back_ios</mat-icon>
-</button>
-<div class="graficas">
+  <button class="backButton hvr-hang" mat-raised-button routerLink="/home" matTooltip="Volver a Inicio"
+    matTooltipPosition="above">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+  <div class="graficas">
 
-  <a href="/admin/adminUsers" class="graficasDatos">
-    <div>
-      <p>Usuarios registrados</p>
-      <hr />
-      <div class="graficasListas" *ngIf="!doughnutChartRegisterUsers">
-        <mat-card class="cardNumbers">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </mat-card>
-      </div>
-      <!-- Grafico -->
-      <div *ngIf="doughnutChartRegisterUsers">
-        <div>
-          <div style="display: block">
-            <canvas baseChart [data]="doughnutChartRegisterUsers" [labels]="doughnutChartLabels"
-              [chartType]="doughnutChartType">
-            </canvas>
+    <a href="/admin/adminUsers" class="graficasDatos">
+      <div>
+        <p>Usuarios registrados</p>
+        <hr />
+        <div class="graficasListas" *ngIf="!doughnutChartRegisterUsers">
+          <mat-card class="cardNumbers">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card>
+        </div>
+        <!-- Grafico -->
+        <div *ngIf="doughnutChartRegisterUsers">
+          <div>
+            <div style="display: block">
+              <canvas baseChart [data]="doughnutChartRegisterUsers" [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+              </canvas>
+            </div>
           </div>
         </div>
+        <!-- Grafico -->
+        <hr />
       </div>
-      <!-- Grafico -->
-      <hr />
-    </div>
-  </a>
-  <a href="/admin/adminUsers" class="graficasDatos">
-    <div>
-      <p>Usuarios premium</p>
-      <hr />
-      <div class="graficasListas" *ngIf="!doughnutChartPremiumUsers">
-        <mat-card class="cardNumbers">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </mat-card>
-      </div>
-      <!-- Grafico -->
-      <div *ngIf="doughnutChartPremiumUsers">
-        <div>
-          <div style="display: block">
-            <canvas baseChart [data]="doughnutChartPremiumUsers" [labels]="doughnutChartLabels"
-              [chartType]="doughnutChartType">
-            </canvas>
+    </a>
+    <a href="/admin/adminUsers" class="graficasDatos">
+      <div>
+        <p>Usuarios premium</p>
+        <hr />
+        <div class="graficasListas" *ngIf="!doughnutChartPremiumUsers">
+          <mat-card class="cardNumbers">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card>
+        </div>
+        <!-- Grafico -->
+        <div *ngIf="doughnutChartPremiumUsers">
+          <div>
+            <div style="display: block">
+              <canvas baseChart [data]="doughnutChartPremiumUsers" [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+              </canvas>
+            </div>
           </div>
         </div>
+        <!-- Grafico -->
+        <hr />
       </div>
-      <!-- Grafico -->
-      <hr />
-    </div>
-  </a>
+    </a>
 
-  <a href="/admin/adminLists" class="graficasDatos">
-    <div>
-      <p>Listas creadas</p>
-      <hr />
-      <div class="graficasListas" *ngIf="!doughnutChartCreatedLists">
-        <mat-card class="cardNumbers">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </mat-card>
-      </div>
-      <!-- Grafico -->
-      <div *ngIf="doughnutChartCreatedLists">
-        <div>
-          <div style="display: block">
-            <canvas baseChart [data]="doughnutChartCreatedLists" [labels]="doughnutChartLabels"
-              [chartType]="doughnutChartType">
-            </canvas>
+    <a href="/admin/adminLists" class="graficasDatos">
+      <div>
+        <p>Listas creadas</p>
+        <hr />
+        <div class="graficasListas" *ngIf="!doughnutChartCreatedLists">
+          <mat-card class="cardNumbers">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card>
+        </div>
+        <!-- Grafico -->
+        <div *ngIf="doughnutChartCreatedLists">
+          <div>
+            <div style="display: block">
+              <canvas baseChart [data]="doughnutChartCreatedLists" [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+              </canvas>
+            </div>
           </div>
         </div>
+        <!-- Grafico -->
+        <hr />
       </div>
-      <!-- Grafico -->
-      <hr />
-    </div>
-  </a>
-</div>
+    </a>
+  </div>
