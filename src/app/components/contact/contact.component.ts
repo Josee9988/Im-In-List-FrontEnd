@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Forms } from 'src/app/shared/classes/Forms.class';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
+import { ISendMail } from '../../shared/models/ISendMail.interface';
+import { MailService } from 'src/app/shared/services/mail.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,13 +15,14 @@ import { Captcha } from 'src/app/shared/classes/Captcha.class';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class ContactComponent extends Captcha {
+export class ContactComponent extends Captcha implements OnDestroy {
   hide: boolean;
   email: FormControl;
   asunto: FormControl;
   mensaje: FormControl;
+  private observableMail: any;
 
-  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+  constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private mailService: MailService) {
     super();
     this.hide = true;
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
@@ -31,9 +33,13 @@ export class ContactComponent extends Captcha {
 
   onSubmit(): void {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
-      // TODO: SEND THE EMAIL
-
-    } else {
+      const sendMail: ISendMail = { email: this.email.value, asunto: this.asunto.value, mensaje: this.mensaje.value };
+      this.observableMail = this.mailService.sendMail(sendMail).subscribe((Response) => {
+        if (typeof Response.lista !== 'undefined') {
+          this.errorSnackbarDisplayerService.openSnackBar('Mail enviado', SnackBarErrorType.success);
+        }
+      });
+    } else { // IF THE INPUTS ARE NOT VALID
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
     }
   }
@@ -77,6 +83,9 @@ export class ContactComponent extends Captcha {
           '';
   }
 
-
-
+  ngOnDestroy() {
+    if (this.observableMail) {
+      this.observableMail.unsubscribe();
+    }
+  }
 }
