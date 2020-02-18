@@ -34,10 +34,8 @@ export class ContactComponent extends Captcha implements OnDestroy {
   onSubmit(): void {
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       const sendMail: ISendMail = { email: this.email.value, asunto: this.asunto.value, mensaje: this.mensaje.value };
-      this.observableMail = this.mailService.sendMail(sendMail).subscribe((Response) => {
-        if (typeof Response.lista !== 'undefined') {
-          this.errorSnackbarDisplayerService.openSnackBar('Mail enviado', SnackBarErrorType.success);
-        }
+      this.observableMail = this.mailService.sendMail(sendMail).subscribe(() => {
+        this.errorSnackbarDisplayerService.openSnackBar('Mail enviado', SnackBarErrorType.success);
       });
     } else { // IF THE INPUTS ARE NOT VALID
       this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);

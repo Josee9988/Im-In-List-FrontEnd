@@ -14,7 +14,7 @@ import { catchError, tap } from 'rxjs/operators';
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class MailService {
-  private readonly MAIL_URL: string = environment.apiUrl + 'sendMail';
+  private readonly MAIL_URL: string = environment.apiUrl + 'sendEmail';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
