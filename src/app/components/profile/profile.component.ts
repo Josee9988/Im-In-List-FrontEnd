@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   nickname: string;
   email: string;
   profilePicture: string;
-  respuesta: any;
   private observableFill: any;
 
   constructor(
@@ -38,7 +37,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
    * @param Response Is the response from the API (database)
    */
-  fillData() {
+  fillData(): void {
     this.observableFill = this.userService.getDataUser().subscribe(Response => {
       this.nickname = Response.user.name;
       this.email = Response.user.email;
@@ -48,12 +47,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /**
    * Sumary: This function will close session and redirect home
    */
-  onClose() {
+  onClose(): void {
     this.refreshNavbarCommunication.next(1);
     this.router.navigate(['/home']);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.observableFill) {
       this.observableFill.unsubscribe();
     }
