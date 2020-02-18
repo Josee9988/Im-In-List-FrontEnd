@@ -19,7 +19,6 @@ import { UserService } from './../../../shared/services/user.service';
  * @author Borja Pérez Mullor <multibalcoy@gmail.com>
  */
 export class ListsTableComponent implements OnInit, OnDestroy {
-
   href: string;
   items: Array<ILista>;
   displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'participantes', 'acciones'];
@@ -33,10 +32,13 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private listaService: ListaService, private errorSnackbarDisplayerService: SnackbarDisplayerService, private router: Router, private userService: UserService) {
+  constructor(
+    private listaService: ListaService,
+    private errorSnackbarDisplayerService: SnackbarDisplayerService,
+    private router: Router,
+    private userService: UserService) {
 
   }
-
 
   ngOnInit() {
     if (this.router.url === '/admin/adminLists') {
@@ -63,8 +65,10 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    */
   fillDataListsAdmin() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.observableFillAdmin = this.listaService.getListas().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
-
+    this.observableFillAdmin = this.listaService.getListas().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+    });
   }
 
   /**
@@ -72,7 +76,10 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    */
   fillDataListsUser() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.observableFillUser = this.listaService.getListasUser().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+    this.observableFillUser = this.listaService.getListasUser().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+    });
 
   }
   /**
@@ -82,7 +89,6 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    */
   onDelete(titulo: string, URLlist: string) {
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
-
       this.observableDelete = this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
           this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
@@ -92,7 +98,6 @@ export class ListsTableComponent implements OnInit, OnDestroy {
               this.dataSource.data = this.items.filter(list => list.url !== URLlist);
             }
           });
-
         } else {
 
 
