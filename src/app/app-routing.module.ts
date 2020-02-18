@@ -20,7 +20,6 @@ import { BackofficeComponent } from './components/admin/backoffice/backoffice.co
 import { UsersTableComponent } from './components/admin/users-table/users-table.component';
 import { ListsTableComponent } from './components/admin/lists-table/lists-table.component';
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
-import { LogoutComponent } from './components/user/logout/logout.component';
 import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
 import { CookieInformationComponent } from './components/cookie-information/cookie-information.component';
 
@@ -31,7 +30,6 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', }, // no route specified (go to home)
   { path: 'home', component: HomeComponent, },
   { path: 'login', component: LoginRegisterComponent },
-  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'register', component: LoginRegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'pricing', component: PricingComponent },
@@ -65,4 +63,4 @@ export const routingComponents: Array<any> = [
   NavbarComponent, FooterComponent, NotFoundComponent, LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent, ListComponent, ContactComponent,
   BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent,
-  LogoutComponent, NotAllowedComponent, CookieInformationComponent];
+  NotAllowedComponent, CookieInformationComponent];
