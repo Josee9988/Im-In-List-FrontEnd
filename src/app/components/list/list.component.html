@@ -1,4 +1,4 @@
-<div *ngIf="isLocked()" class="password">
+<div *ngIf="isLocked" class="password">
   <mat-card>
     <mat-card-title>
       <mat-icon>lock</mat-icon> Lista protegida con contraseña
@@ -20,7 +20,7 @@
     </mat-card-content>
   </mat-card>
 </div>
-<div *ngIf="!isLocked()">
+<div *ngIf="!isLocked">
   <div class="login-register-bg" style="vertical-align:top;">
     <div class="login-register-container">
       <div class="list-title">

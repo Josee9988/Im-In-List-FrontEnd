@@ -7,7 +7,7 @@ export interface ILista {
     id?: number;
     idUsuarioCreador?: number;
     titulo: string;
-    contraseña?: string;
+    passwordLista?: string;
     descripcion: string;
     elementos?: string;
     items: Array<IListElement>;
