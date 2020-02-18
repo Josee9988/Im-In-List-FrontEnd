@@ -25,6 +25,9 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
   email: FormControl;
   password: FormControl;
   token: string;
+
+  cookieChecked: FormControl;
+
   private observableSubmit: any;
 
   constructor(
@@ -38,16 +41,17 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
 
   ngOnInit() {
     this.isHidden = true;
+    this.cookieChecked = new FormControl('', [Validators.requiredTrue]);
     this.email = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
 
     if (this.router.url.includes('register')) { // si es un formulario de registro
       this.isRegister = true;
       this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
-      this.inputs = [this.email, this.password, this.name, this.captcha];
+      this.inputs = [this.email, this.password, this.name, this.captcha, this.cookieChecked];
     } else { // si es un formulario de login
       this.isRegister = false;
-      this.inputs = [this.email, this.password];
+      this.inputs = [this.email, this.password, this.cookieChecked];
     }
   }
 
@@ -122,7 +126,7 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
   getNameErrorMessage(): string {
     return this.name.hasError('required') ? 'Debes introducir un nombre de usuario' :
       this.name.hasError('minlength') ? 'Debes de introducir un nombre de usuario con al menos 4 carácteres.' :
-        this.email.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
+        this.name.hasError('maxLength') ? 'Debes de introducir un nombre de usuario con menos de 60 carácteres.' :
           '';
   }
 

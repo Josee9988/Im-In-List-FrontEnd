@@ -48,14 +48,22 @@
             <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
           </mat-form-field>
 
+          <div class="spacer"></div>
           <!-- Captcha -->
           <div *ngIf="isRegister">
             <mat-label>Verificación humana</mat-label>
             <re-captcha name="captcha" (resolved)="onAssignCaptcha($event)"
               siteKey="6Ld6lNkUAAAAAK9t3WfGx3qHOETXLGze-4dWLAib"></re-captcha>
             <mat-error *ngIf="captcha.invalid">{{getCaptchaErrorMessage()}}</mat-error>
-            <mat-hint>Selecciona la casilla</mat-hint>
+            <mat-hint *ngIf="captcha.invalid">Selecciona la casilla</mat-hint>
           </div>
+
+          <div class="spacer"></div>
+          <!-- Cookies policy -->
+          <mat-checkbox matInput name="cookieChecked" [formControl]="cookieChecked">
+            Acepto la <a routerLink="/cookies">política de privacidad de cookies</a></mat-checkbox>
+          <mat-error *ngIf="cookieChecked.invalid">Debes aceptar la política de privacidad de cookies</mat-error>
+          <mat-hint *ngIf="cookieChecked.invalid">Selecciona la casilla</mat-hint>
 
           <!-- Submit button -->
           <div *ngIf="isRegister; then isRegisterBlockBtn else isLoginBlockBtn"></div>
