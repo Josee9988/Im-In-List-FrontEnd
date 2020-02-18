@@ -29,7 +29,6 @@ export class AuthService {
     return null;
   }
 
-
   /**
    * Summary: saves the token received from the array
    *
@@ -71,7 +70,6 @@ export class AuthService {
     const lStorageItem: string = localStorage.getItem(this.storageName);
     return this.checkGivenToken(lStorageItem);
   }
-
 
   /**
    * Summary: receives a token and checks if it seems correct, if so it will return true,

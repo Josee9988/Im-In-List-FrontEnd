@@ -9,6 +9,4 @@ import { Component } from '@angular/core';
 /**
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
-export class FooterComponent {
-  constructor() { }
-}
+export class FooterComponent { }

@@ -2,6 +2,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { Forms } from './Forms.class';
 
 export abstract class Captcha extends Forms {
+    /**
+     * The captcha formcontrol that will be created.
+     */
     public captcha: FormControl;
 
     constructor() {

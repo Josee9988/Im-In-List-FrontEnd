@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { INavbarLinks } from './inavbar-links';
+import { INavbarLinks } from './INavbarLinks.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
