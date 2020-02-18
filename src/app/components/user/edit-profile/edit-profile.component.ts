@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { Forms } from './../../shared/classes/Forms.class';
-import { UserService } from './../../shared/services/user.service';
+import { Forms } from '../../../shared/classes/Forms.class';
+import { UserService } from '../../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
