@@ -22,6 +22,7 @@ import { ListsTableComponent } from './components/admin/lists-table/lists-table.
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
+import { CookieInformationComponent } from './components/cookie-information/cookie-information.component';
 
 /**
  * all routes of which the application is composed by.
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'list', component: ListComponent },
   { path: 'list/:url', component: ListComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'cookies', component: CookieInformationComponent },
   { path: 'admin', component: BackofficeComponent, canActivate: [AdminGuard] },
   { path: 'admin/adminUsers', component: UsersTableComponent, canActivate: [AdminGuard] },
   { path: 'admin/adminLists', component: ListsTableComponent, canActivate: [AdminGuard] },
@@ -63,4 +65,4 @@ export const routingComponents: Array<any> = [
   NavbarComponent, FooterComponent, NotFoundComponent, LoginRegisterComponent, ProfileComponent,
   HomeComponent, PricingComponent, AboutUsComponent, ListComponent, ContactComponent,
   BackofficeComponent, UsersTableComponent, ListsTableComponent, EditProfileComponent,
-  LogoutComponent, NotAllowedComponent];
+  LogoutComponent, NotAllowedComponent, CookieInformationComponent];
