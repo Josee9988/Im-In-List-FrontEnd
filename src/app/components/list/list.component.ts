@@ -59,16 +59,20 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
-      this.observableGetLista = this.listaService.getLista(givenUrl).subscribe((Response) => {
-        this.list = {
-          titulo: '',
-          descripcion: '',
-          items: JSON.parse(JSON.parse(Response.elementos)),
-          url: givenUrl,
-          captcha: ''
-        };
-        this.titulo.setValue(Response.titulo);
-        this.descripcion.setValue(Response.descripcion);
+      this.observableGetLista = this.listaService.getLista(givenUrl).subscribe(Response => {
+        if (Response.message === "Error, indique la contraseña de la lista") {
+          alert("Hola");
+        } else {
+          this.list = {
+            titulo: '',
+            descripcion: '',
+            items: JSON.parse(JSON.parse(Response.elementos)),
+            url: givenUrl,
+            captcha: '',
+          };
+          this.titulo.setValue(Response.titulo);
+          this.descripcion.setValue(Response.descripcion);
+        }
       });
     } else {
       this.list = {
@@ -288,6 +292,14 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       }
     });
   }
+  /**
+   * Sumary: This function will check if the list have password
+   */
+  isLocked() {
+    return false;
+  }
+
+
 
 
   /**

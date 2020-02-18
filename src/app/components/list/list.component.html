@@ -1,4 +1,21 @@
-<div>
+<div *ngIf="isLocked()" class="password">
+  <mat-card>
+    <mat-card-title>
+      <mat-icon>lock</mat-icon> Lista protegida con contraseña
+    </mat-card-title>
+    <mat-card-content>
+      <form class="form-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" [formControl]="password" matInput>
+          <mat-hint>Introduce la contraseña</mat-hint>
+          <div class="spacer"></div>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="!isLocked()">
   <div class="login-register-bg" style="vertical-align:top;">
     <div class="login-register-container">
       <div class="list-title">

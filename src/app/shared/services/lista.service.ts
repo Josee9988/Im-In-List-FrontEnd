@@ -52,8 +52,8 @@ export class ListaService {
    * Summary: retreives one lista by an ID.
    * @param url id of the lista.
    */
-  getLista(url: string): Observable<ILista> {
-    const getUrl = `${this.LIST_URL}/${url}`;
+  getLista(url: string): Observable<any> {
+    const getUrl = `${this.LISTAS_URL}/${url}`;
     return this.http.get<any>(getUrl)
       .pipe(tap(), catchError(this.handleError<ILista>(`getLista url=${url}`)));
   }
