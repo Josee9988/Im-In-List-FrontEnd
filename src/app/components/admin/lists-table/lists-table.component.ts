@@ -83,8 +83,9 @@ export class ListsTableComponent implements OnInit, OnDestroy {
 
   }
   /**
-   * Sumary: This function is called from button on HTML, which one will delete a list from database
-   * @param nombre Param received from HTML and used to show a confirm alert to user
+   * Sumary: This function is called from button on HTML, which one will delete a list from database. Depending on role
+   * will call one function for listaService or other
+   * @param titulo Param received from HTML and used to show a confirm alert to user
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
   onDelete(titulo: string, URLlist: string) {
@@ -99,11 +100,15 @@ export class ListsTableComponent implements OnInit, OnDestroy {
             }
           });
         } else {
-
-
+          this.observableDelete = this.listaService.deleteLista(URLlist).subscribe(Respuesta => {
+            if (Respuesta.message === 'Lista eliminada correctamente') {
+              this.errorSnackbarDisplayerService.
+                openSnackBar(Response.message, SnackBarErrorType.success);
+              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+            }
+          });
         }
       });
-
     }
   }
 
@@ -124,7 +129,6 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     if (this.observableDeleteAdmin) {
       this.observableDeleteAdmin.unsubscribe();
     }
-
   }
 
 }
