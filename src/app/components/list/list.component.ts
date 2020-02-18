@@ -65,6 +65,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           descripcion: '',
           items: JSON.parse(JSON.parse(Response.elementos)),
           url: givenUrl,
+          captcha: ''
         };
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
@@ -74,6 +75,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         titulo: '',
         descripcion: '',
         items: [],
+        captcha: ''
       };
     }
 
@@ -165,6 +167,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       } else {
         this.inputs = [this.titulo, this.descripcion, this.captcha];
       }
+      this.list.captcha = this.captcha.value;
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
