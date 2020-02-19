@@ -27,6 +27,8 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
   password: FormControl;
   token: string;
 
+  submittedOnce: boolean;
+
   cookieChecked: FormControl;
 
   private observableSubmit: any;
@@ -38,6 +40,7 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
     private refreshNavbarCommunication: RefreshNavbarCommunication,
     private authService: AuthService) {
     super();
+    this.submittedOnce = false;
   }
 
   ngOnInit() {
@@ -57,6 +60,7 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
   }
 
   onSubmit(): void {
+    this.submittedOnce = true;
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       if (this.isRegister) { // REGISTER
         const registerUser: IRegisterUser =
