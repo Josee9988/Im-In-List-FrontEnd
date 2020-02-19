@@ -62,7 +62,18 @@ a {
 }
 
 //For smallest screens move button to the bottom
-@media (max-width: 450px) {
+@media (max-width: 277px) {
+  .zonaBoton {
+    margin-top: 180%;
+  }
+  .newListButton {
+    font-size: 11px;
+  }
+  .hidden {
+    display: none;
+  }
+}
+@media (min-width: 277px) and (max-width: 450px) {
   .zonaBoton {
     margin-top: 70%;
   }
