@@ -21,7 +21,7 @@ import { Location } from '@angular/common';
 export class UsersTableComponent implements OnInit, OnDestroy {
   items: Array<IUser>;
   displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'acciones'];
-  dataSource = new MatTableDataSource();
+  dataSource: any = new MatTableDataSource();
 
   private observableFill: any;
   private observableDelete: any;
@@ -37,7 +37,13 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.fillDataUsers();
+    if (this.router.url === '/admin/adminPremium') {
+      this.fillUsersPremium();
+    } else if (this.router.url === '/admin/adminRegister') {
+      this.fillUsersRegister();
+    }
+
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -51,12 +57,29 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data inside dataSource for show it on table
+   * Sumary: This function is used to fill data about premium usere inside dataSource for show it on table
    */
-  fillDataUsers(): void {
+  fillUsersPremium(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.observableFill = this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+    this.observableFill = this.userService.getUsers().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+      this.items = this.items.filter(user => user.role !== 1);
+      this.dataSource.data = this.dataSource.data.filter(user => user.role !== 1);
+    });
+  }
 
+  /**
+   * Sumary: This function is used to fill data about Register users inside dataSource for show it on tabla
+   */
+  fillUsersRegister(): void {
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.observableFill = this.userService.getUsers().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+      this.items = this.items.filter(user => user.role === 1);
+      this.dataSource.data = this.dataSource.data.filter(user => user.role === 1);
+    });
   }
 
   /**

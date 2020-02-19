@@ -8,8 +8,6 @@ export interface IUser {
     role: number;
     oldPassword?: string;
     password?: string;
-    listasCreadas: Array<number>;
-    listasParticipantes: Array<number>;
     updated_at: Date;
     created_at: Date;
 }
