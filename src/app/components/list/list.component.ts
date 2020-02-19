@@ -6,10 +6,11 @@ import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { ListaService } from 'src/app/shared/services/lista.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-list',
@@ -37,6 +38,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   submittedOnce: boolean;
   public isHidden: boolean;
   public hasPassword: boolean;
+  public passwordIsAllowed: boolean;
   private isEditing: boolean;
 
   public isLocked: boolean;
@@ -46,16 +48,24 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private listaService: ListaService,
     private route: ActivatedRoute,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.passwordAuth = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.isEditing = false;
+    this.passwordIsAllowed = true;
   }
 
   ngOnInit() {
+    console.log(!this.authService.hasToken());
+
+    if (!this.authService.hasToken()) {
+      this.passwordIsAllowed = false;
+    }
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
@@ -65,14 +75,20 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           console.log('La lista está protegida');
           this.isLocked = true;
         } else {
-          this.list = {
-            titulo: '',
-            descripcion: '',
-            items: JSON.parse(JSON.parse(Response.elementos)),
-            url: givenUrl,
-            captcha: '',
-            listaAuth: ''
-          };
+          try {
+            this.list = {
+              titulo: '',
+              descripcion: '',
+              items: JSON.parse(JSON.parse(Response.elementos)),
+              url: givenUrl,
+              captcha: '',
+              listaAuth: ''
+            };
+          } catch {
+            this.router.navigate(['/list']);
+            this.errorSnackbarDisplayerService.openSnackBar(
+              'Error al recibir el elemento, ¿es posible que no exista la lista?', SnackBarErrorType.error);
+          }
           this.titulo.setValue(Response.titulo);
           this.descripcion.setValue(Response.descripcion);
         }
@@ -303,11 +319,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         this.descripcion.setValue(Response.descripcion);
       }
     });
-
   }
-
-
-
 
   /**
    * Summary: checks if the input has any error, and if that is the case it will return a string
