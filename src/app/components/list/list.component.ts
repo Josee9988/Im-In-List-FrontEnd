@@ -34,6 +34,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   private observableGetLista: any;
   private observableSubmit: any;
 
+  submittedOnce: boolean;
   public isHidden: boolean;
   public hasPassword: boolean;
   private isEditing: boolean;
@@ -167,6 +168,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    this.submittedOnce = true;
     if (this.list.items.length > 0) {
       if (this.hasPassword && this.isEditing) { // has password and is editing
         this.inputs = [this.titulo, this.descripcion, this.password];
