@@ -41,9 +41,11 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     private location: Location) { }
 
   ngOnInit() {
-    if (this.router.url === '/admin/adminLists') {
-      // Get data from database
-      this.fillDataListsAdmin();
+    if (this.router.url === '/admin/adminPremium') {
+      // Get data from database about premium users
+      this.fillUsersPremium();
+    } else if (this.router.url === '/admin/admin') {
+      this.fillUsersRegister();
     } else {
       this.fillDataListsUser();
     }
@@ -61,9 +63,17 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data of every list for adminsinside dataSource for show it on table
+   * Sumary: This function is used to fill data of every list for admin sinside dataSource for show it on table
    */
-  fillDataListsAdmin(): void {
+  fillUsersPremium(): void {
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.observableFillAdmin = this.listaService.getListas().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+    });
+  }
+
+  fillUsersRegister(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableFillAdmin = this.listaService.getListas().subscribe(Response => {
       this.items = Response;
