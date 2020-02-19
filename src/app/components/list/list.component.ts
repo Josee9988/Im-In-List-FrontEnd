@@ -168,11 +168,16 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.list.items.length > 0) {
-      if (this.hasPassword) {
+      if (this.hasPassword && this.isEditing) { // has password and is editing
+        this.inputs = [this.titulo, this.descripcion, this.password];
+      } else if (this.hasPassword && !this.isEditing) { // has password and is creating
         this.inputs = [this.titulo, this.descripcion, this.password, this.captcha];
-      } else {
+      } else if (!this.hasPassword && this.isEditing) { // without password and its editing
+        this.inputs = [this.titulo, this.descripcion];
+      } else if (!this.hasPassword && !this.isEditing) { // without password and its creating
         this.inputs = [this.titulo, this.descripcion, this.captcha];
       }
+
       this.list.captcha = this.captcha.value;
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
@@ -221,7 +226,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
         }
 
-      } else { // IF ANY INPUT IS NOT READY
+      } else { // IF ANY INPUT IS NOT OK
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
       }
     } else {
