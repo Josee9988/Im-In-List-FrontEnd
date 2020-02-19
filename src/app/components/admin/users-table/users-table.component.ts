@@ -62,24 +62,13 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   fillUsersPremium(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableFill = this.userService.getUsers().subscribe(Response => {
-      for (const user of Response) {
-        if (user.role === 1) {
-          debugger;
-          this.items.push({
-            id: user.id,
-            name: user.name,
-          });
-          //this.dataSource.data.push(user);
-        }
-
-      }
-
 
       this.items = Response;
       this.dataSource.data = this.items;
 
-      console.log(Response);
-      debugger;
+      this.items = this.items.filter(user => user.role === 2);
+      this.dataSource.data = this.dataSource.data.filter((user) => user.role === 2);
+
     });
 
   }
