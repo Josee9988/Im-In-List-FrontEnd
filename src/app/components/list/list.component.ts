@@ -186,8 +186,8 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
           this.list.listaAuth = this.list.passwordLista;
-          this.list.url = null;
           this.observableSubmit = this.listaService.putListaRegistered(this.list).subscribe((Response) => {
+            debugger;
             if (typeof Response.lista !== 'undefined') {
               this.openDialog(Response.lista.url);
             }
