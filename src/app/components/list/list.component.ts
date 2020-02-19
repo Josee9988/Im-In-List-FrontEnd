@@ -29,6 +29,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   public titulo: FormControl;
   public descripcion: FormControl;
   public password: FormControl;
+  public passwordAuth: FormControl;
 
   private observableGetLista: any;
   private observableSubmit: any;
@@ -50,6 +51,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.passwordAuth = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.isEditing = false;
   }
 
@@ -181,7 +183,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
-      this.list.passwordLista = this.password.value;
+      this.list.passwordLista = this.passwordAuth.value;
 
       if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
@@ -296,8 +298,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           captcha: '',
           listaAuth: ''
         };
-        this.list.listaAuth = this.password.value;
-        this.password.setValue('');
+        this.list.listaAuth = this.passwordAuth.value;
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
       }
