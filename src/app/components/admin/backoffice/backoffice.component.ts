@@ -33,42 +33,12 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   public doughnutChartType: ChartType = 'doughnut';
 
   constructor(private listaService: ListaService, private userService: UserService) {
-    this.registradosEnero = 0;
-    this.registradosFebrero = 0;
-    this.registradosMarzo = 0;
-    this.registradosAbril = 0;
-    this.registradosMayo = 0;
-    this.registradosJunio = 0;
-    this.registradosJulio = 0;
-    this.registradosAgosto = 0;
-    this.registradosSeptiembre = 0;
-    this.registradosOctubre = 0;
-    this.registradosNoviembre = 0;
-    this.registradosDiciembre = 0;
-    this.premiumEnero = 0;
-    this.premiumFebrero = 0;
-    this.premiumMarzo = 0;
-    this.premiumAbril = 0;
-    this.premiumMayo = 0;
-    this.premiumJunio = 0;
-    this.premiumJulio = 0;
-    this.premiumAgosto = 0;
-    this.premiumSeptiembre = 0;
-    this.premiumOctubre = 0;
-    this.premiumNoviembre = 0;
-    this.premiumDiciembre = 0;
-    this.listasEnero = 0;
-    this.listasFebrero = 0;
-    this.listasMarzo = 0;
-    this.listasAbril = 0;
-    this.listasMayo = 0;
-    this.listasJunio = 0;
-    this.listasJulio = 0;
-    this.listasAgosto = 0;
-    this.listasSeptiembre = 0;
-    this.listasOctubre = 0;
-    this.listasNoviembre = 0;
-    this.listasDiciembre = 0;
+    for (let index = 1; index < 13; index++) {
+      this.usuariosRegistrados[index] = 0;
+      this.usuariosPremium[index] = 0;
+      this.listasCreated[index] = 0;
+    }
+
     this.currentYear = new Date().getFullYear();
   }
 
@@ -86,8 +56,22 @@ export class BackofficeComponent implements OnInit, OnDestroy {
    * @param Response Is the response from the API (database)
    */
   fillDataUsers(Response: any): void {
+    for (let index = 0; index < Response.length; index++) {
+      if (Response[index].user.role === 1) {
+        for (let mes = 1; index < 13; index++) {
+          if (Response[index].user.created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+
+          }
+        }
+      } else if (Response[index].user.role === 2) {
+
+      }
+
+    }
     for (const user of Response) {
       if (user.role === 1) {
+
+)
         debugger;
         if (user.created_at.includes(this.currentYear.toString() + '01')) {
           this.registradosEnero++;
