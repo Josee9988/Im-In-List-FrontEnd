@@ -40,7 +40,6 @@ export class LoginRegisterComponent extends Captcha implements OnInit, OnDestroy
     private refreshNavbarCommunication: RefreshNavbarCommunication,
     private authService: AuthService) {
     super();
-    this.submittedOnce = false;
   }
 
   ngOnInit() {

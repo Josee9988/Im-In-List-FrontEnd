@@ -20,6 +20,7 @@ export class ContactComponent extends Captcha implements OnDestroy {
   email: FormControl;
   asunto: FormControl;
   mensaje: FormControl;
+  submittedOnce: boolean;
   private observableMail: any;
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService, private mailService: MailService) {
@@ -32,6 +33,7 @@ export class ContactComponent extends Captcha implements OnDestroy {
   }
 
   onSubmit(): void {
+    this.submittedOnce = true;
     if (this.validateInputs()) { // IF THE INPUTS ARE VALID
       const sendMail: ISendMail =
         // tslint:disable-next-line: one-line
