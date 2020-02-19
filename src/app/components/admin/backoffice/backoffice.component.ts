@@ -15,42 +15,11 @@ import { Location } from '@angular/common';
  */
 
 export class BackofficeComponent implements OnInit, OnDestroy {
-  registradosEnero: number;
-  registradosFebrero: number;
-  registradosMarzo: number;
-  registradosAbril: number;
-  registradosMayo: number;
-  registradosJunio: number;
-  registradosJulio: number;
-  registradosAgosto: number;
-  registradosSeptiembre: number;
-  registradosOctubre: number;
-  registradosNoviembre: number;
-  registradosDiciembre: number;
-  premiumEnero: number;
-  premiumFebrero: number;
-  premiumMarzo: number;
-  premiumAbril: number;
-  premiumMayo: number;
-  premiumJunio: number;
-  premiumJulio: number;
-  premiumAgosto: number;
-  premiumSeptiembre: number;
-  premiumOctubre: number;
-  premiumNoviembre: number;
-  premiumDiciembre: number;
-  listasEnero: number;
-  listasFebrero: number;
-  listasMarzo: number;
-  listasAbril: number;
-  listasMayo: number;
-  listasJunio: number;
-  listasJulio: number;
-  listasAgosto: number;
-  listasSeptiembre: number;
-  listasOctubre: number;
-  listasNoviembre: number;
-  listasDiciembre: number;
+  currentYear: number;
+  usuariosRegistrados: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  usuariosPremium: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  listasCreated: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 
   private observableGetlista: any;
   private observableGetUser: any;
@@ -64,43 +33,9 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
-  constructor(private listaService: ListaService, private userService: UserService, private location: Location) {
-    this.registradosEnero = 0;
-    this.registradosFebrero = 0;
-    this.registradosMarzo = 0;
-    this.registradosAbril = 0;
-    this.registradosMayo = 0;
-    this.registradosJunio = 0;
-    this.registradosJulio = 0;
-    this.registradosAgosto = 0;
-    this.registradosSeptiembre = 0;
-    this.registradosOctubre = 0;
-    this.registradosNoviembre = 0;
-    this.registradosDiciembre = 0;
-    this.premiumEnero = 0;
-    this.premiumFebrero = 0;
-    this.premiumMarzo = 0;
-    this.premiumAbril = 0;
-    this.premiumMayo = 0;
-    this.premiumJunio = 0;
-    this.premiumJulio = 0;
-    this.premiumAgosto = 0;
-    this.premiumSeptiembre = 0;
-    this.premiumOctubre = 0;
-    this.premiumNoviembre = 0;
-    this.premiumDiciembre = 0;
-    this.listasEnero = 0;
-    this.listasFebrero = 0;
-    this.listasMarzo = 0;
-    this.listasAbril = 0;
-    this.listasMayo = 0;
-    this.listasJunio = 0;
-    this.listasJulio = 0;
-    this.listasAgosto = 0;
-    this.listasSeptiembre = 0;
-    this.listasOctubre = 0;
-    this.listasNoviembre = 0;
-    this.listasDiciembre = 0;
+
+  constructor(private listaService: ListaService, private userService: UserService) {
+    this.currentYear = new Date().getFullYear();
   }
 
   ngOnInit() {
@@ -109,6 +44,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableGetUser = this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
+
   }
 
   /**
@@ -116,74 +52,47 @@ export class BackofficeComponent implements OnInit, OnDestroy {
    * @param Response Is the response from the API (database)
    */
   fillDataUsers(Response: any): void {
-    for (const user of Response) {
-      if (user.role === 1) {
-        if (user.created_at.includes('2020-01')) {
-          this.registradosEnero++;
-        } else if (user.created_at.includes('2020-02')) {
-          this.registradosFebrero++;
-        } else if (user.created_at.includes('2020-03')) {
-          this.registradosMarzo++;
-        } else if (user.created_at.includes('2020-04')) {
-          this.registradosAbril++;
-        } else if (user.created_at.includes('2020-05')) {
-          this.registradosMayo++;
-        } else if (user.created_at.includes('2020-06')) {
-          this.registradosJunio++;
-        } else if (user.created_at.includes('2020-07')) {
-          this.registradosJulio++;
-        } else if (user.created_at.includes('2020-08')) {
-          this.registradosAgosto++;
-        } else if (user.created_at.includes('2020-09')) {
-          this.registradosSeptiembre++;
-        } else if (user.created_at.includes('2020-10')) {
-          this.registradosOctubre++;
-        } else if (user.created_at.includes('2020-11')) {
-          this.registradosNoviembre++;
-        } else if (user.created_at.includes('2020-12')) {
-          this.registradosDiciembre++;
+    for (let index = 0; index < Response.length; index++) {
+      if (Response[index].role === 1) {
+        for (let mes = 1; mes < 13; mes++) {
+          if (mes < 10) {
+            if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+              this.usuariosRegistrados[mes]++;
+            }
+          } else {
+            if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+              this.usuariosRegistrados[mes]++;
+            }
+          }
         }
-      } else if (user.role === 2) {
-        if (user.created_at.includes('2020-01')) {
-          this.premiumEnero++;
-        } else if (user.created_at.includes('2020-02')) {
-          this.premiumFebrero++;
-        } else if (user.created_at.includes('2020-03')) {
-          this.premiumMarzo++;
-        } else if (user.created_at.includes('2020-04')) {
-          this.premiumAbril++;
-        } else if (user.created_at.includes('2020-05')) {
-          this.premiumMayo++;
-        } else if (user.created_at.includes('2020-06')) {
-          this.premiumJunio++;
-        } else if (user.created_at.includes('2020-07')) {
-          this.premiumJulio++;
-        } else if (user.created_at.includes('2020-08')) {
-          this.premiumAgosto++;
-        } else if (user.created_at.includes('2020-09')) {
-          this.premiumSeptiembre++;
-        } else if (user.created_at.includes('2020-10')) {
-          this.premiumOctubre++;
-        } else if (user.created_at.includes('2020-11')) {
-          this.premiumNoviembre++;
-        } else if (user.created_at.includes('2020-12')) {
-          this.premiumDiciembre++;
+      } else if (Response[index].role === 2) {
+        for (let mes = 1; mes < 13; mes++) {
+          if (mes < 10) {
+            if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+              this.usuariosPremium[mes]++;
+            }
+          } else {
+            if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+              this.usuariosPremium[mes]++;
+            }
+          }
         }
       }
+
     }
     // Valores obtenidos de la base de datos para usuarios registrados
-    this.doughnutChartRegisterUsers = [
-      [this.registradosEnero, this.registradosFebrero, this.registradosMarzo, this.registradosAbril,
-      this.registradosMayo, this.registradosJunio, this.registradosJulio, this.registradosAgosto,
-      this.registradosSeptiembre, this.registradosOctubre, this.registradosNoviembre, this.registradosDiciembre],
-    ];
+    this.doughnutChartRegisterUsers =
+      [this.usuariosRegistrados[1], this.usuariosRegistrados[2], this.usuariosRegistrados[3],
+      this.usuariosRegistrados[4], this.usuariosRegistrados[5], this.usuariosRegistrados[6],
+      this.usuariosRegistrados[7], this.usuariosRegistrados[8], this.usuariosRegistrados[9],
+      this.usuariosRegistrados[10], this.usuariosRegistrados[11], this.usuariosRegistrados[12]];
 
     // Valores obtenidos de la base de datos para usuarios premium
-    this.doughnutChartPremiumUsers = [
-      [this.premiumEnero, this.premiumFebrero, this.premiumMarzo, this.premiumAbril,
-      this.premiumMayo, this.premiumJunio, this.premiumJulio, this.premiumAgosto,
-      this.premiumSeptiembre, this.premiumOctubre, this.premiumNoviembre, this.premiumDiciembre],
-    ];
+    this.doughnutChartPremiumUsers =
+      [this.usuariosPremium[1], this.usuariosPremium[2], this.usuariosPremium[3],
+      this.usuariosPremium[4], this.usuariosPremium[5], this.usuariosPremium[6],
+      this.usuariosPremium[7], this.usuariosPremium[8], this.usuariosPremium[9],
+      this.usuariosPremium[10], this.usuariosPremium[11], this.usuariosPremium[12]];
 
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
@@ -195,46 +104,34 @@ export class BackofficeComponent implements OnInit, OnDestroy {
    * Summary: Get the data passed by param and assign it to the consts for show when the lists have beencreated
    * @param Response Is the response from the API (database)
    */
+
   fillDataListas(Response: any): void {
-    for (const lista of Response) {
-      if (lista.created_at.includes('2020-01')) {
-        this.listasEnero++;
-      } else if (lista.created_at.includes('2020-02')) {
-        this.listasFebrero++;
-      } else if (lista.created_at.includes('2020-03')) {
-        this.listasMarzo++;
-      } else if (lista.created_at.includes('2020-04')) {
-        this.listasAbril++;
-      } else if (lista.created_at.includes('2020-05')) {
-        this.listasMayo++;
-      } else if (lista.created_at.includes('2020-06')) {
-        this.listasJunio++;
-      } else if (lista.created_at.includes('2020-07')) {
-        this.listasJulio++;
-      } else if (lista.created_at.includes('2020-08')) {
-        this.listasAgosto++;
-      } else if (lista.created_at.includes('2020-09')) {
-        this.listasSeptiembre++;
-      } else if (lista.created_at.includes('2020-10')) {
-        this.listasOctubre++;
-      } else if (lista.created_at.includes('2020-11')) {
-        this.listasNoviembre++;
-      } else if (lista.created_at.includes('2020-12')) {
-        this.listasDiciembre++;
+    for (let index = 0; index < Response.length; index++) {
+      for (let mes = 1; mes < 13; mes++) {
+        if (mes < 10) {
+          if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+            this.listasCreated[mes]++;
+          }
+        } else {
+          if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+            this.listasCreated[mes]++;
+          }
+        }
       }
+
+      // Clases donde se almacenerán los valores
+      this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+        'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+
+      // Valores obtenidos de la base de datos para listas creadas
+      this.doughnutChartCreatedLists = [
+        this.listasCreated[1], this.listasCreated[2], this.listasCreated[3],
+        this.listasCreated[4], this.listasCreated[5], this.listasCreated[6],
+        this.listasCreated[7], this.listasCreated[8], this.listasCreated[9],
+        this.listasCreated[10], this.listasCreated[11], this.listasCreated[12],
+      ];
     }
-
-    // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-      'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-
-    // Valores obtenidos de la base de datos para listas creadas
-    this.doughnutChartCreatedLists = [
-      [this.listasEnero, this.listasFebrero, this.listasMarzo, this.listasAbril,
-      this.listasMayo, this.listasJunio, this.listasJulio, this.listasAgosto,
-      this.listasSeptiembre, this.listasOctubre, this.listasNoviembre, this.listasDiciembre],
-    ];
   }
 
   /**
