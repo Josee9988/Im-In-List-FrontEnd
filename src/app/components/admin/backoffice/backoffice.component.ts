@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ListaService } from './../../../shared/services/lista.service';
 import { UserService } from './../../../shared/services/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-backoffice',
@@ -32,6 +33,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
+
   constructor(private listaService: ListaService, private userService: UserService) {
     this.currentYear = new Date().getFullYear();
   }
@@ -46,7 +48,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
+   * Summary: Get the data passed by param and assign it to the consts in case of the users be 1 or 2 for use the carts
    * @param Response Is the response from the API (database)
    */
   fillDataUsers(Response: any): void {
@@ -99,7 +101,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: Get the data passed by param and assign it to the consts for show when the lists have beencreated
+   * Summary: Get the data passed by param and assign it to the consts for show when the lists have beencreated
    * @param Response Is the response from the API (database)
    */
 
@@ -130,6 +132,13 @@ export class BackofficeComponent implements OnInit, OnDestroy {
         this.listasCreated[10], this.listasCreated[11], this.listasCreated[12],
       ];
     }
+  }
+
+  /**
+   * Redirects to the last URL used.
+   */
+  onGoBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy() {

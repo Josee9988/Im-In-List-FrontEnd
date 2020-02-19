@@ -7,6 +7,7 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IUser } from 'src/app/shared/models/IUsers.interface';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-users-table',
@@ -20,7 +21,7 @@ import { Router } from '@angular/router';
 export class UsersTableComponent implements OnInit, OnDestroy {
   items: Array<IUser>;
   displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'acciones'];
-  dataSource = new MatTableDataSource();
+  dataSource: any = new MatTableDataSource();
 
   private observableFill: any;
   private observableDelete: any;
@@ -31,17 +32,24 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userService: UserService,
-    private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+    private errorSnackbarDisplayerService: SnackbarDisplayerService,
+    private location: Location) {
   }
 
   ngOnInit() {
-    this.fillDataUsers();
+    if (this.router.url === '/admin/adminPremium') {
+      this.fillUsersPremium();
+    } else if (this.router.url === '/admin/adminRegister') {
+      this.fillUsersRegister();
+    }
+
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   /**
-   * Sumary: This function receive a string and filter the results which one contains that string
+   * Summary: This function receive a string and filter the results which one contains that string
    * @param filterValue Is what user introduceson the input and filter the data
    */
   applyFilter(filterValue: string): void {
@@ -49,16 +57,33 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data inside dataSource for show it on table
+   * Summary: This function is used to fill data about premium usere inside dataSource for show it on table
    */
-  fillDataUsers(): void {
+  fillUsersPremium(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.observableFill = this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
-
+    this.observableFill = this.userService.getUsers().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+      this.items = this.items.filter(user => user.role !== 1);
+      this.dataSource.data = this.dataSource.data.filter(user => user.role !== 1);
+    });
   }
 
   /**
-   * Sumary: This function is called from button on HTML, which one will delete an user from database
+   * Summary: This function is used to fill data about Register users inside dataSource for show it on tabla
+   */
+  fillUsersRegister(): void {
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.observableFill = this.userService.getUsers().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+      this.items = this.items.filter(user => user.role === 1);
+      this.dataSource.data = this.dataSource.data.filter(user => user.role === 1);
+    });
+  }
+
+  /**
+   * Summary: This function is called from button on HTML, which one will delete an user from database
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
@@ -76,11 +101,18 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
+   * Summary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
    * @param id is the ID of the user that want to be edited
    */
   onEdit(id: number): void {
     this.router.navigate(['/editProfile/' + id]);
+  }
+
+  /**
+   * Redirects to the last URL used.
+   */
+  onGoBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy() {

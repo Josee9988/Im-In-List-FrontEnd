@@ -43,7 +43,7 @@
           <mat-form-field>
             <input matInput [formControl]="descripcion" class="list-subtitle-input"
               placeholder="Tu subtítulo aquí..." />
-            <mat-error *ngIf="titulo.invalid">{{getDescripcionErrorMessage()}}</mat-error>
+            <mat-error *ngIf="descripcion.invalid">{{getDescripcionErrorMessage()}}</mat-error>
           </mat-form-field>
           <div class="form-container">
             <mat-label>Tus items:</mat-label>
@@ -143,16 +143,19 @@
           <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
 
-        <div class="spacer"></div>
-        <mat-label>Verificación humana</mat-label>
-        <re-captcha name="captcha" (resolved)="onAssignCaptcha($event)"
-          siteKey="6Ld6lNkUAAAAAK9t3WfGx3qHOETXLGze-4dWLAib"></re-captcha>
-        <mat-error *ngIf="captcha.invalid">{{getCaptchaErrorMessage()}}</mat-error>
-        <mat-hint>Selecciona la casilla</mat-hint>
+        <div *ngIf="!isEditing">
+          <div class="spacer"></div>
+          <mat-label>Verificación humana</mat-label>
+          <re-captcha name="captcha" (resolved)="onAssignCaptcha($event)"
+            siteKey="6Ld6lNkUAAAAAK9t3WfGx3qHOETXLGze-4dWLAib"></re-captcha>
+          <mat-error *ngIf="captcha.invalid && submittedOnce">{{getCaptchaErrorMessage()}}</mat-error>
+          <mat-hint>Selecciona la casilla</mat-hint>
+        </div>
 
         <!-- Submit button -->
         <button (click)="onSubmit()" class="submit-login-register hvr-pop" type="submit" matTooltip="Crea tu lista"
-          matTooltipPosition="below" mat-raised-button color="primary">Crea tu lista</button>
+          matTooltipPosition="below" mat-raised-button
+          color="primary">{{isEditing ? "Edita tu lista" : "Crea tu lista"}}</button>
       </mat-card>
     </div>
   </div>

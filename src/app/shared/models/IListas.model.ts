@@ -8,6 +8,7 @@ export interface ILista {
     idUsuarioCreador?: number;
     titulo: string;
     passwordLista?: string;
+    listaAuth?: string;
     descripcion: string;
     elementos?: string;
     items: Array<IListElement>;

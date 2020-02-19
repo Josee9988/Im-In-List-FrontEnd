@@ -8,6 +8,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 import { ILista } from 'src/app/shared/models/IListas.model';
 import { Router } from '@angular/router';
 import { UserService } from './../../../shared/services/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lists-able',
@@ -36,9 +37,8 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     private listaService: ListaService,
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private router: Router,
-    private userService: UserService) {
-
-  }
+    private userService: UserService,
+    private location: Location) { }
 
   ngOnInit() {
     if (this.router.url === '/admin/adminLists') {
@@ -53,7 +53,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function receive a string and filter the results which one contains that string
+   * Summary: This function receive a string and filter the results which one contains that string
    * @param filterValue Is what user introduceson the input and filter the data
    */
   applyFilter(filterValue: string): void {
@@ -61,7 +61,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data of every list for adminsinside dataSource for show it on table
+   * Summary: This function is used to fill data of every list for adminsinside dataSource for show it on table
    */
   fillDataListsAdmin(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
@@ -72,7 +72,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data of each user inside dataSource for show it on table
+   * Summary: This function is used to fill data of each user inside dataSource for show it on table
    */
   fillDataListsUser(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
@@ -84,7 +84,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is called from button on HTML, which one will delete a list from database. Depending on role
+   * Summary: This function is called from button on HTML, which one will delete a list from database. Depending on role
    * will call one function for listaService or other
    *
    * @param titulo Param received from HTML and used to show a confirm alert to user
@@ -121,6 +121,13 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    */
   onEdit(URLrecibida: string): void {
     this.router.navigate(['/editList/' + URLrecibida]);
+  }
+
+  /**
+   * Redirects to the last URL used.
+   */
+  onGoBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy() {

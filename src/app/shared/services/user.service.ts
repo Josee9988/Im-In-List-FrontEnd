@@ -87,7 +87,7 @@ export class UserService {
   }
 
   /**
-   * Sumary: Server answer with all the information about the user logged
+   * Summary: Server answer with all the information about the user logged
    */
   getDataUser(): Observable<any> {
     return this.http.get<IUser[]>(environment.apiUrl + 'user')
@@ -95,7 +95,7 @@ export class UserService {
   }
 
   /**
-   * Sumary: This function look for the user ID and then ask for the lists that have created that user
+   * Summary: This function look for the user ID and then ask for the lists that have created that user
    */
   getCreadas(): any {
     this.getDataUser().subscribe(Response => {
@@ -105,7 +105,7 @@ export class UserService {
   }
 
   /**
-   * Sumary: This function look for the user ID and then ask for the lists that have created that user
+   * Summary: This function look for the user ID and then ask for the lists that have created that user
    */
   getParticipadas(): any {
     this.getDataUser().subscribe(Response => {

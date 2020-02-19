@@ -118,6 +118,9 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       case 1:
         this.usuarioEditar.name = this.name.value;
         this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
+          console.log('La respuesta es -> ' + Response);
+          console.log(this.usuarioEditar);
+          debugger;
           this.errorSnackbarDisplayerService.openSnackBar('Nombre modificado correctamente!', SnackBarErrorType.success);
         });
         break;
@@ -215,7 +218,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function check if the password is the same as confirmed one
+   * Summary: This function check if the password is the same as confirmed one
    */
   checkPasswords(): boolean {
     if (this.password.value === this.confirmPassword.value) {
@@ -225,7 +228,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: If there is any error on the input, this function will return a message.
+   * Summary: If there is any error on the input, this function will return a message.
    * @return string with errors found
    */
   getEmailErrorMessage(): string {
@@ -235,7 +238,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
           '';
   }
   /**
-   * Sumary: If there is any error on the input, this function will return a message.
+   * Summary: If there is any error on the input, this function will return a message.
    * @return string with errors found
    */
   getPasswordErrorMessage(): string {
@@ -244,7 +247,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
         '';
   }
   /**
-   * Sumary: If there is any error on the input, this function will return a message.
+   * Summary: If there is any error on the input, this function will return a message.
    * @return string with errors found
    */
   getConfirmPasswordErrorMessage(): string {
@@ -261,7 +264,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: If there is any error on the input, this function will return a message.
+   * Summary: If there is any error on the input, this function will return a message.
    * @return string with errors found
    */
   getNameErrorMessage(): string {
@@ -272,7 +275,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function push the picture that user have choosed to the array of files
+   * Summary: This function push the picture that user have choosed to the array of files
    * @param picture Is the picture that user add
    */
   onSelect(picture: any): void {
@@ -280,7 +283,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function remove the picture that user have choosed to the array of files
+   * Summary: This function remove the picture that user have choosed to the array of files
    * @param picture Is the picture that user decide to remove
    */
   onRemove(picture: any): void {
@@ -288,7 +291,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function will redirect the user back
+   * Summary: This function will redirect the user back
    */
   goBack(): void {
     this.location.back();

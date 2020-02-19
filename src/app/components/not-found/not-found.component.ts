@@ -24,7 +24,7 @@ export class NotFoundComponent implements OnInit {
   /**
    * Redirects to the last URL used.
    */
-  goBack(): void {
+  onGoBack(): void {
     this.location.back();
   }
 
