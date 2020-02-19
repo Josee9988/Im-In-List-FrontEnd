@@ -38,7 +38,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    //  this.observableGetlista = this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
+    this.observableGetlista = this.listaService.getListas().subscribe(Response => this.fillDataListas(Response));
 
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableGetUser = this.userService.getUsers().subscribe(Response => this.fillDataUsers(Response));
@@ -54,15 +54,12 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       if (Response[index].role === 1) {
         for (let mes = 1; mes < 13; mes++) {
           if (mes < 10) {
-            console.log('Entro a la función');
-
             if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
-              this.usuariosRegistrados[index]++;
-
+              this.usuariosRegistrados[mes]++;
             }
           } else {
             if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
-              this.usuariosRegistrados[index]++;
+              this.usuariosRegistrados[mes]++;
             }
           }
         }
@@ -70,11 +67,11 @@ export class BackofficeComponent implements OnInit, OnDestroy {
         for (let mes = 1; mes < 13; mes++) {
           if (mes < 10) {
             if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
-              this.usuariosPremium[index]++;
+              this.usuariosPremium[mes]++;
             }
           } else {
             if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
-              this.usuariosPremium[index]++;
+              this.usuariosPremium[mes]++;
             }
           }
         }
@@ -105,48 +102,35 @@ export class BackofficeComponent implements OnInit, OnDestroy {
    * Sumary: Get the data passed by param and assign it to the consts for show when the lists have beencreated
    * @param Response Is the response from the API (database)
    */
-  /*
+
   fillDataListas(Response: any): void {
-    for (const lista of Response) {
-      if (lista.created_at.includes('2020-01')) {
-        this.listasEnero++;
-      } else if (lista.created_at.includes('2020-02')) {
-        this.listasFebrero++;
-      } else if (lista.created_at.includes('2020-03')) {
-        this.listasMarzo++;
-      } else if (lista.created_at.includes('2020-04')) {
-        this.listasAbril++;
-      } else if (lista.created_at.includes('2020-05')) {
-        this.listasMayo++;
-      } else if (lista.created_at.includes('2020-06')) {
-        this.listasJunio++;
-      } else if (lista.created_at.includes('2020-07')) {
-        this.listasJulio++;
-      } else if (lista.created_at.includes('2020-08')) {
-        this.listasAgosto++;
-      } else if (lista.created_at.includes('2020-09')) {
-        this.listasSeptiembre++;
-      } else if (lista.created_at.includes('2020-10')) {
-        this.listasOctubre++;
-      } else if (lista.created_at.includes('2020-11')) {
-        this.listasNoviembre++;
-      } else if (lista.created_at.includes('2020-12')) {
-        this.listasDiciembre++;
+    for (let index = 0; index < Response.length; index++) {
+      for (let mes = 1; mes < 13; mes++) {
+        if (mes < 10) {
+          if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+            this.listasCreated[mes]++;
+          }
+        } else {
+          if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+            this.listasCreated[mes]++;
+          }
+        }
       }
+
+      // Clases donde se almacenerán los valores
+      this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+        'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+
+      // Valores obtenidos de la base de datos para listas creadas
+      this.doughnutChartCreatedLists = [
+        this.listasCreated[1], this.listasCreated[2], this.listasCreated[3],
+        this.listasCreated[4], this.listasCreated[5], this.listasCreated[6],
+        this.listasCreated[7], this.listasCreated[8], this.listasCreated[9],
+        this.listasCreated[10], this.listasCreated[11], this.listasCreated[12],
+      ];
     }
-
-    // Clases donde se almacenerán los valores
-    this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-      'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-
-    // Valores obtenidos de la base de datos para listas creadas
-    this.doughnutChartCreatedLists = [
-      [this.listasEnero, this.listasFebrero, this.listasMarzo, this.listasAbril,
-      this.listasMayo, this.listasJunio, this.listasJulio, this.listasAgosto,
-      this.listasSeptiembre, this.listasOctubre, this.listasNoviembre, this.listasDiciembre],
-    ];
-  }*/
+  }
 
   ngOnDestroy() {
     if (this.observableGetlista) {
