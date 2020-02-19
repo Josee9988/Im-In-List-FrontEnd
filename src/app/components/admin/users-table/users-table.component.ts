@@ -37,7 +37,13 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.fillDataUsers();
+    if (this.router.url === '/admin/adminPremium') {
+      this.fillUsersPremium();
+    } else if (this.router.url === '/admin/adminRegister') {
+      //this.fillUsersRegister();
+    }
+
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -53,9 +59,28 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   /**
    * Sumary: This function is used to fill data inside dataSource for show it on table
    */
-  fillDataUsers(): void {
+  fillUsersPremium(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
-    this.observableFill = this.userService.getUsers().subscribe(Response => { this.items = Response; this.dataSource.data = this.items; });
+    this.observableFill = this.userService.getUsers().subscribe(Response => {
+      for (const user of Response) {
+        if (user.role === 1) {
+          debugger;
+          this.items.push({
+            id: user.id,
+            name: user.name,
+          });
+          //this.dataSource.data.push(user);
+        }
+
+      }
+
+
+      this.items = Response;
+      this.dataSource.data = this.items;
+
+      console.log(Response);
+      debugger;
+    });
 
   }
 
