@@ -15,42 +15,10 @@ import { UserService } from './../../../shared/services/user.service';
 
 export class BackofficeComponent implements OnInit, OnDestroy {
   currentYear: number;
-  registradosEnero: number;
-  registradosFebrero: number;
-  registradosMarzo: number;
-  registradosAbril: number;
-  registradosMayo: number;
-  registradosJunio: number;
-  registradosJulio: number;
-  registradosAgosto: number;
-  registradosSeptiembre: number;
-  registradosOctubre: number;
-  registradosNoviembre: number;
-  registradosDiciembre: number;
-  premiumEnero: number;
-  premiumFebrero: number;
-  premiumMarzo: number;
-  premiumAbril: number;
-  premiumMayo: number;
-  premiumJunio: number;
-  premiumJulio: number;
-  premiumAgosto: number;
-  premiumSeptiembre: number;
-  premiumOctubre: number;
-  premiumNoviembre: number;
-  premiumDiciembre: number;
-  listasEnero: number;
-  listasFebrero: number;
-  listasMarzo: number;
-  listasAbril: number;
-  listasMayo: number;
-  listasJunio: number;
-  listasJulio: number;
-  listasAgosto: number;
-  listasSeptiembre: number;
-  listasOctubre: number;
-  listasNoviembre: number;
-  listasDiciembre: number;
+  usuariosRegistrados: Array<number>;
+  usuariosPremium: Array<number>;
+  listasCreated: Array<number>;
+
 
   private observableGetlista: any;
   private observableGetUser: any;
@@ -120,9 +88,10 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   fillDataUsers(Response: any): void {
     for (const user of Response) {
       if (user.role === 1) {
+        debugger;
         if (user.created_at.includes(this.currentYear.toString() + '01')) {
           this.registradosEnero++;
-        } else if (user.created_at.includes(this.currentYear.toString() + '02')) {
+        } else if (user.created_at.includes('' + this.currentYear.toString() + '02')) {
           this.registradosFebrero++;
         } else if (user.created_at.includes(this.currentYear.toString() + '03')) {
           this.registradosMarzo++;
