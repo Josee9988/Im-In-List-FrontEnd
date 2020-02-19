@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { ListaService } from './../../../shared/services/lista.service';
 import { UserService } from './../../../shared/services/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-backoffice',
@@ -63,7 +64,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
 
-  constructor(private listaService: ListaService, private userService: UserService) {
+  constructor(private listaService: ListaService, private userService: UserService, private location: Location) {
     this.registradosEnero = 0;
     this.registradosFebrero = 0;
     this.registradosMarzo = 0;
@@ -234,6 +235,13 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       this.listasMayo, this.listasJunio, this.listasJulio, this.listasAgosto,
       this.listasSeptiembre, this.listasOctubre, this.listasNoviembre, this.listasDiciembre],
     ];
+  }
+
+  /**
+   * Redirects to the last URL used.
+   */
+  onGoBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy() {

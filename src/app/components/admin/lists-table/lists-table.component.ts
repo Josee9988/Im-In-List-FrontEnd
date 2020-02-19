@@ -8,6 +8,7 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 import { ILista } from 'src/app/shared/models/IListas.model';
 import { Router } from '@angular/router';
 import { UserService } from './../../../shared/services/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lists-able',
@@ -36,9 +37,8 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     private listaService: ListaService,
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private router: Router,
-    private userService: UserService) {
-
-  }
+    private userService: UserService,
+    private location: Location) { }
 
   ngOnInit() {
     if (this.router.url === '/admin/adminLists') {
@@ -121,6 +121,13 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    */
   onEdit(URLrecibida: string): void {
     this.router.navigate(['/editList/' + URLrecibida]);
+  }
+
+  /**
+   * Redirects to the last URL used.
+   */
+  onGoBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy() {

@@ -7,6 +7,7 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { IUser } from 'src/app/shared/models/IUsers.interface';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-users-table',
@@ -31,7 +32,8 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userService: UserService,
-    private errorSnackbarDisplayerService: SnackbarDisplayerService) {
+    private errorSnackbarDisplayerService: SnackbarDisplayerService,
+    private location: Location) {
   }
 
   ngOnInit() {
@@ -81,6 +83,13 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    */
   onEdit(id: number): void {
     this.router.navigate(['/editProfile/' + id]);
+  }
+
+  /**
+   * Redirects to the last URL used.
+   */
+  onGoBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy() {
