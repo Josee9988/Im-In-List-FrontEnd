@@ -53,7 +53,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function receive a string and filter the results which one contains that string
+   * Summary: This function receive a string and filter the results which one contains that string
    * @param filterValue Is what user introduceson the input and filter the data
    */
   applyFilter(filterValue: string): void {
@@ -61,7 +61,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data of every list for adminsinside dataSource for show it on table
+   * Summary: This function is used to fill data of every list for adminsinside dataSource for show it on table
    */
   fillDataListsAdmin(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
@@ -72,7 +72,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data of each user inside dataSource for show it on table
+   * Summary: This function is used to fill data of each user inside dataSource for show it on table
    */
   fillDataListsUser(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
@@ -84,7 +84,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is called from button on HTML, which one will delete a list from database. Depending on role
+   * Summary: This function is called from button on HTML, which one will delete a list from database. Depending on role
    * will call one function for listaService or other
    *
    * @param titulo Param received from HTML and used to show a confirm alert to user
