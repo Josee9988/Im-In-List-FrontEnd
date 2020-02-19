@@ -49,7 +49,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function receive a string and filter the results which one contains that string
+   * Summary: This function receive a string and filter the results which one contains that string
    * @param filterValue Is what user introduceson the input and filter the data
    */
   applyFilter(filterValue: string): void {
@@ -57,7 +57,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data about premium usere inside dataSource for show it on table
+   * Summary: This function is used to fill data about premium usere inside dataSource for show it on table
    */
   fillUsersPremium(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
@@ -70,7 +70,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data about Register users inside dataSource for show it on tabla
+   * Summary: This function is used to fill data about Register users inside dataSource for show it on tabla
    */
   fillUsersRegister(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
@@ -83,7 +83,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is called from button on HTML, which one will delete an user from database
+   * Summary: This function is called from button on HTML, which one will delete an user from database
    * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
@@ -101,7 +101,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
+   * Summary: When admin click edit button, it will redirect to editProfile with the ID of the user wanted
    * @param id is the ID of the user that want to be edited
    */
   onEdit(id: number): void {

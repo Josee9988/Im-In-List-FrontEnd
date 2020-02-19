@@ -53,7 +53,7 @@ export class ListaService {
   }
 
   /**
-   * Sumary: In case that the list is protected, will send the password that user inputed for checking if is true
+   * Summary: In case that the list is protected, will send the password that user inputed for checking if is true
    * @param url is the string of the url with password
    */
   getListaPassword(url: string): Observable<any> {
