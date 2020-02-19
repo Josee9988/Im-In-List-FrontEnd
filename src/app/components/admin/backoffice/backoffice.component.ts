@@ -120,17 +120,17 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   fillDataUsers(Response: any): void {
     for (const user of Response) {
       if (user.role === 1) {
-        if (user.created_at.includes('2020-01')) {
+        if (user.created_at.includes(this.currentYear.toString() + '01')) {
           this.registradosEnero++;
-        } else if (user.created_at.includes('2020-02')) {
+        } else if (user.created_at.includes(this.currentYear.toString() + '02')) {
           this.registradosFebrero++;
-        } else if (user.created_at.includes('2020-03')) {
+        } else if (user.created_at.includes(this.currentYear.toString() + '03')) {
           this.registradosMarzo++;
-        } else if (user.created_at.includes('2020-04')) {
+        } else if (user.created_at.includes(this.currentYear.toString() + '04')) {
           this.registradosAbril++;
-        } else if (user.created_at.includes('2020-05')) {
+        } else if (user.created_at.includes(this.currentYear.toString() + '05')) {
           this.registradosMayo++;
-        } else if (user.created_at.includes('2020-06')) {
+        } else if (user.created_at.includes(this.currentYear.toString() + '01')) {
           this.registradosJunio++;
         } else if (user.created_at.includes('2020-07')) {
           this.registradosJulio++;
