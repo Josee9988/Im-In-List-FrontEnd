@@ -21,7 +21,7 @@ import { Location } from '@angular/common';
 export class UsersTableComponent implements OnInit, OnDestroy {
   items: Array<IUser>;
   displayedColumns: string[] = ['id', 'nombre', 'email', 'rol', 'acciones'];
-  dataSource = new MatTableDataSource();
+  dataSource: any = new MatTableDataSource();
 
   private observableFill: any;
   private observableDelete: any;
@@ -67,8 +67,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
       this.dataSource.data = this.items;
 
       this.items = this.items.filter(user => user.role === 2);
-      this.dataSource.data = this.dataSource.data.filter((user) => user.role === 2);
-
+      this.dataSource.data = this.dataSource.data.filter(user => user.role === 2);
     });
 
   }
