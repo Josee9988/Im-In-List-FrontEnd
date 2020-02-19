@@ -152,7 +152,8 @@
 
         <!-- Submit button -->
         <button (click)="onSubmit()" class="submit-login-register hvr-pop" type="submit" matTooltip="Crea tu lista"
-          matTooltipPosition="below" mat-raised-button color="primary">Crea tu lista</button>
+          matTooltipPosition="below" mat-raised-button
+          color="primary">{{isEditing ? "Edita tu lista" : "Crea tu lista"}}</button>
       </mat-card>
     </div>
   </div>
