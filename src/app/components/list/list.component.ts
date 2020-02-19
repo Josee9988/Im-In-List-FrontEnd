@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-list',
@@ -70,6 +69,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
             items: JSON.parse(JSON.parse(Response.elementos)),
             url: givenUrl,
             captcha: '',
+            listaAuth: ''
           };
           this.titulo.setValue(Response.titulo);
           this.descripcion.setValue(Response.descripcion);
@@ -80,7 +80,8 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         titulo: '',
         descripcion: '',
         items: [],
-        captcha: ''
+        captcha: '',
+        listaAuth: ''
       };
     }
   }
@@ -293,12 +294,15 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           items: JSON.parse(JSON.parse(Response.elementos)),
           url: givenUrl,
           captcha: '',
+          listaAuth: ''
         };
+        this.list.listaAuth = this.password.value;
+        this.password.setValue('');
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
       }
     });
-    this.password.setValue('');
+
   }
 
 
