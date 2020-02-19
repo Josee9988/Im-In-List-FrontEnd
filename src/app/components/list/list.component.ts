@@ -9,7 +9,6 @@ import { ListaService } from 'src/app/shared/services/lista.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
 
 @Component({
@@ -46,8 +45,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private listaService: ListaService,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
-    private authService: AuthService) {
+    public dialog: MatDialog) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -57,7 +55,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
-
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
@@ -72,6 +69,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
             items: JSON.parse(JSON.parse(Response.elementos)),
             url: givenUrl,
             captcha: '',
+            listaAuth: ''
           };
           this.titulo.setValue(Response.titulo);
           this.descripcion.setValue(Response.descripcion);
@@ -82,10 +80,10 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         titulo: '',
         descripcion: '',
         items: [],
-        captcha: ''
+        captcha: '',
+        listaAuth: ''
       };
     }
-
   }
 
   /**
@@ -151,7 +149,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     } else {
       this.errorSnackbarDisplayerService.openSnackBar('No puedes hacer un subelemento del primer elemento!', SnackBarErrorType.warning);
     }
-
   }
 
   /**
@@ -188,46 +185,23 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
       if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
-          this.list.url = null;
-
-          if (this.authService.hasToken()) { // IS LOGGED IN
-            this.observableSubmit = this.listaService.putListaRegistered(this.list).subscribe((Response) => {
-              if (typeof Response.lista !== 'undefined') {
-                this.openDialog(Response.lista.url);
-              }
-              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-            });
-          } else { // NOT LOGGED IN
-            this.observableSubmit = this.listaService.putLista(this.list).subscribe((Response) => {
-              if (typeof Response.lista !== 'undefined') {
-                this.openDialog(Response.lista.url);
-              }
-              this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-            });
-          }
+          this.observableSubmit = this.listaService.putListaRegistered(this.list).subscribe((Response) => {
+            if (typeof Response.lista !== 'undefined') {
+              this.openDialog(Response.lista.url);
+            }
+            this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
+          });
 
         } else { // CREATING
+          this.list.passwordLista = this.password.value;
           this.list.url = this.list.titulo;
-          if (this.authService.hasToken()) { // IS LOGGED IN
-            this.observableSubmit = this.listaService.postListaRegistered(this.list).subscribe((Response) => {
-              if (typeof Response.lista !== 'undefined') {
-                this.openDialog(Response.lista.url);
-
-                this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-              }
-            });
-
-          } else { // NOT LOGGED IN
-            this.observableSubmit = this.listaService.postLista(this.list).subscribe((Response) => {
-              if (typeof Response.lista.url !== 'undefined') {
-                this.openDialog(Response.lista.url);
-              }
+          this.observableSubmit = this.listaService.postListaRegistered(this.list).subscribe((Response) => {
+            if (typeof Response.lista !== 'undefined') {
+              this.openDialog(Response.lista.url);
               this.errorSnackbarDisplayerService.openSnackBar('Lista guardada', SnackBarErrorType.success);
-            });
-          }
-
+            }
+          });
         }
-
       } else { // IF ANY INPUT IS NOT OK
         this.errorSnackbarDisplayerService.openSnackBar('Valores incorrectos', SnackBarErrorType.warning);
       }
@@ -320,11 +294,15 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           items: JSON.parse(JSON.parse(Response.elementos)),
           url: givenUrl,
           captcha: '',
+          listaAuth: ''
         };
+        this.list.listaAuth = this.password.value;
+        this.password.setValue('');
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
       }
     });
+
   }
 
 
