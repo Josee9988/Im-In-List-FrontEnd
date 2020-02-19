@@ -40,7 +40,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     if (this.router.url === '/admin/adminPremium') {
       this.fillUsersPremium();
     } else if (this.router.url === '/admin/adminRegister') {
-      //this.fillUsersRegister();
+      this.fillUsersRegister();
     }
 
 
@@ -57,19 +57,29 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sumary: This function is used to fill data inside dataSource for show it on table
+   * Sumary: This function is used to fill data about premium usere inside dataSource for show it on table
    */
   fillUsersPremium(): void {
     // Llamamos a la funcion que asignará todos los valores a sus variables
     this.observableFill = this.userService.getUsers().subscribe(Response => {
-
       this.items = Response;
       this.dataSource.data = this.items;
-
-      this.items = this.items.filter(user => user.role === 2);
-      this.dataSource.data = this.dataSource.data.filter(user => user.role === 2);
+      this.items = this.items.filter(user => user.role !== 1);
+      this.dataSource.data = this.dataSource.data.filter(user => user.role !== 1);
     });
+  }
 
+  /**
+   * Sumary: This function is used to fill data about Register users inside dataSource for show it on tabla
+   */
+  fillUsersRegister(): void {
+    // Llamamos a la funcion que asignará todos los valores a sus variables
+    this.observableFill = this.userService.getUsers().subscribe(Response => {
+      this.items = Response;
+      this.dataSource.data = this.items;
+      this.items = this.items.filter(user => user.role === 1);
+      this.dataSource.data = this.dataSource.data.filter(user => user.role === 1);
+    });
   }
 
   /**
