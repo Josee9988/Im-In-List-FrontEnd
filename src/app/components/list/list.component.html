@@ -124,14 +124,14 @@
           </div>
         </mat-card-content>
 
-        <mat-label>¡Añade una contraseña para que sólo tú y tus amigos la podáis editar!</mat-label>
-        <div class="spacer"></div>
-        <!-- Slider has password -->
-        <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
-          [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
-
-        <!-- Password field -->
         <div *ngIf="passwordIsAllowed">
+          <mat-label>¡Añade una contraseña para que sólo tú y tus amigos la podáis editar!</mat-label>
+          <div class="spacer"></div>
+          <!-- Slider has password -->
+          <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
+            [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
+
+          <!-- Password field -->
           <mat-form-field appearance="outline" *ngIf="hasPassword">
             <mat-label>Contraseña</mat-label>
             <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"

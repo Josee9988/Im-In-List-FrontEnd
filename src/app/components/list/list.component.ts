@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { ILista } from '../../shared/models/IListas.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-list',
@@ -50,7 +51,8 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private userService: UserService) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
@@ -61,11 +63,13 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(!this.authService.hasToken());
-
-    if (!this.authService.hasToken()) {
-      this.passwordIsAllowed = false;
-    }
+    this.list = {
+      titulo: '',
+      descripcion: '',
+      items: [],
+      captcha: '',
+      listaAuth: ''
+    };
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
@@ -93,14 +97,15 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           this.descripcion.setValue(Response.descripcion);
         }
       });
-    } else {
-      this.list = {
-        titulo: '',
-        descripcion: '',
-        items: [],
-        captcha: '',
-        listaAuth: ''
-      };
+    }
+    if (this.isEditing && this.authService.hasToken()) {
+      this.userService.getDataUser().subscribe((Response) => {
+        if (Response.user && (Response.user.id !== this.list.idUsuarioCreador || Response.user.role === 2)) {
+          this.passwordIsAllowed = false;
+        }
+      });
+    } else if (!this.authService.hasToken()) {
+      this.passwordIsAllowed = false;
     }
   }
 
