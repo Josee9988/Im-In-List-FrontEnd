@@ -17,7 +17,6 @@ import { environment } from './../../../environments/environment';
  */
 export class ListaService {
   private readonly LISTAS_URL: string = environment.apiUrl + 'listas';
-  private readonly LIST_URL: string = environment.apiUrl + 'list';
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
 
@@ -65,15 +64,6 @@ export class ListaService {
   }
 
   /**
-   * Summary: creates an lista for non registered users.
-   * @param lista the lista that will be created.
-   */
-  postLista(lista: ILista): Observable<any> {
-    return this.http.post<ILista>(this.LIST_URL, lista, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<ILista>('postLista')));
-  }
-
-  /**
    * Summary: creates an lista, for registered users.
    * @param lista the lista that will be created.
    */
@@ -81,16 +71,6 @@ export class ListaService {
     return this.http.post<ILista>(this.LISTAS_URL, lista, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('postLista')));
   }
-
-  /**
-   * Summary: modifys an existing lista.
-   * @param lista the lista that will be modified.
-   */
-  putLista(lista: ILista): Observable<any> {
-    return this.http.put(`${this.LIST_URL}/${lista.url}`, lista, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<any>('putLista')));
-  }
-
 
   /**
    * Summary: modifys an existing lista., for registered users.

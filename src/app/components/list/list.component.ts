@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-list',
@@ -55,7 +56,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
-
     const givenUrl = this.route.snapshot.paramMap.get('url');
     if (givenUrl) {
       this.isEditing = true;
@@ -83,7 +83,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         captcha: ''
       };
     }
-
   }
 
   /**
@@ -185,9 +184,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
       if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
-          this.list.listaAuth = this.list.passwordLista;
           this.observableSubmit = this.listaService.putListaRegistered(this.list).subscribe((Response) => {
-            debugger;
             if (typeof Response.lista !== 'undefined') {
               this.openDialog(Response.lista.url);
             }
@@ -195,6 +192,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           });
 
         } else { // CREATING
+          this.list.passwordLista = this.password.value;
           this.list.url = this.list.titulo;
           this.observableSubmit = this.listaService.postListaRegistered(this.list).subscribe((Response) => {
             if (typeof Response.lista !== 'undefined') {
@@ -300,6 +298,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         this.descripcion.setValue(Response.descripcion);
       }
     });
+    this.password.setValue('');
   }
 
 
