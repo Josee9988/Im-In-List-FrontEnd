@@ -118,9 +118,6 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       case 1:
         this.usuarioEditar.name = this.name.value;
         this.observableModification = this.userService.putUser(this.usuarioEditar).subscribe(Response => {
-          console.log('La respuesta es -> ' + Response);
-          console.log(this.usuarioEditar);
-          debugger;
           this.errorSnackbarDisplayerService.openSnackBar('Nombre modificado correctamente!', SnackBarErrorType.success);
         });
         break;

@@ -9,6 +9,9 @@ import { IUser } from 'src/app/shared/models/IUsers.interface';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
@@ -33,7 +36,8 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
-    private location: Location) {
+    private location: Location,
+    public dialog: MatDialog, ) {
   }
 
   ngOnInit() {
@@ -84,20 +88,40 @@ export class UsersTableComponent implements OnInit, OnDestroy {
 
   /**
    * Summary: This function is called from button on HTML, which one will delete an user from database
-   * @param nombre Param received from HTML and used to show a confirm alert to user
    * @param id Param received from HTML and used to indicade the server which user want to be delete
    */
-  onDelete(nombre: string, id: number): void {
-    if (confirm('¿Estás seguro que desea eliminar el usuario ' + nombre + '?')) {
-      this.observableDelete = this.userService.deleteUser(id).subscribe(Response => {
-        if (Response.message === 'usuario eliminada correctamente') {
-          this.errorSnackbarDisplayerService.
-            openSnackBar(Response.message, SnackBarErrorType.success);
-          this.dataSource.data = this.items.filter(user => user.id !== id);
-        }
+  onDelete(id: number): void {
+    this.observableDelete = this.userService.deleteUser(id).subscribe(Response => {
+      if (Response.message === 'usuario eliminada correctamente') {
+        this.errorSnackbarDisplayerService.
+          openSnackBar(Response.message, SnackBarErrorType.success);
+        this.dataSource.data = this.items.filter(user => user.id !== id);
       }
-      );
     }
+    );
+  }
+
+  /**
+   * Summary: This function will open an Angular Material to confirm the action
+   * @param nombre It's the name of the item that want to be deleted
+   * @param id is the url of the item that want to be deleted
+   */
+  openDialog(nombre: string, id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+      {
+        width: '50%',
+        height: '35%',
+        data: {
+          name: nombre,
+        }
+      });
+
+    dialogRef.afterClosed().subscribe(Response => {
+      if (Response === true) {
+        this.onDelete(id);
+      }
+    });
+
   }
 
   /**

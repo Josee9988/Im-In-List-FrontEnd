@@ -59,7 +59,9 @@ import { ChartsModule } from 'ng2-charts';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+
 import { ShowDialogComponent } from './components/list/show-dialog/show-dialog.component';
+import { ConfirmDialogComponent } from './components/admin/confirm-dialog/confirm-dialog.component';
 // Modulo Gauge Graph
 import { GaugeChartModule } from 'angular-gauge-chart';
 
@@ -124,11 +126,13 @@ export const imports = [BrowserModule,
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    ShowDialogComponent
+    ShowDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -141,6 +145,6 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ShowDialogComponent]
+  entryComponents: [ShowDialogComponent, ConfirmDialogComponent]
 })
 export class AppModule { }

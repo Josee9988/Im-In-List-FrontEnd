@@ -30,8 +30,8 @@
 
       <!-- Descripcion Column -->
       <ng-container matColumnDef="descripcion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hiddenDescripcion"> Descripción </th>
+        <td mat-cell *matCellDef="let element" class="hiddenDescripcion"> {{element.descripcion}} </td>
       </ng-container>
 
       <!-- Elementos Column -->
@@ -40,14 +40,9 @@
         <td mat-cell ng-maxlength="21" *matCellDef="let element">
           <button (click)="onEdit(element.url)" class="btn-show hvr-pop" type="button" matTooltip="Editar"
             matTooltipPosition="below" mat-raised-button>
-            <mat-icon>remove_red_eye</mat-icon> Ver contenido de la lista
+            <mat-icon>remove_red_eye</mat-icon>
+            <p class="hiddenVer"> Ver contenido de la lista</p>
           </button> </td>
-      </ng-container>
-
-      <!-- Participantes Column -->
-      <ng-container matColumnDef="participantes">
-        <th mat-header-cell *matHeaderCellDef> Participantes </th>
-        <td mat-cell *matCellDef="let element"> {{element.participantes}} </td>
       </ng-container>
 
       <!-- URL Column -->
@@ -60,7 +55,7 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element">
-          <button (click)="onDelete(element.titulo,element.url)" class="btn-delete hvr-pop" type="button"
+          <button (click)="openDialog(element.titulo,element.url)" class="btn-delete hvr-pop" type="button"
             matTooltip="Eliminar" matTooltipPosition="below" mat-raised-button>
             <mat-icon>delete</mat-icon>
           </button>

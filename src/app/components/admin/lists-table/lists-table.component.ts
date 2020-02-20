@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 import { UserService } from './../../../shared/services/user.service';
 import { Location } from '@angular/common';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+
 @Component({
   selector: 'app-lists-able',
   templateUrl: './lists-table.component.html',
@@ -22,7 +25,7 @@ import { Location } from '@angular/common';
 export class ListsTableComponent implements OnInit, OnDestroy {
   href: string;
   items: Array<ILista>;
-  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'participantes', 'acciones'];
+  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'acciones'];
   dataSource = new MatTableDataSource();
 
   private observableFillAdmin: any;
@@ -35,10 +38,11 @@ export class ListsTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private listaService: ListaService,
-    private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private router: Router,
     private userService: UserService,
-    private location: Location) { }
+    private location: Location,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     if (this.router.url === '/admin/adminLists') {
@@ -87,31 +91,46 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * Summary: This function is called from button on HTML, which one will delete a list from database. Depending on role
    * will call one function for listaService or other
    *
-   * @param titulo Param received from HTML and used to show a confirm alert to user
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
-  onDelete(titulo: string, URLlist: string): void {
-    if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
-      this.observableDelete = this.userService.getDataUser().subscribe(Response => {
-        if (Response.user.role === 0) {
-          this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
-            if (Respuesta.message === 'Lista eliminada correctamente') {
-              this.errorSnackbarDisplayerService.
-                openSnackBar(Response.message, SnackBarErrorType.success);
-              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
-            }
-          });
-        } else {
-          this.observableDelete = this.listaService.deleteLista(URLlist).subscribe(Respuesta => {
-            if (Respuesta.message === 'Lista eliminada correctamente') {
-              this.errorSnackbarDisplayerService.
-                openSnackBar(Response.message, SnackBarErrorType.success);
-              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
-            }
-          });
+  onDelete(URLlist: string): void {
+    this.observableDelete = this.userService.getDataUser().subscribe(Response => {
+      if (Response.user.role === 0) {
+        this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
+          if (Respuesta.message === 'Lista eliminada correctamente') {
+            this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+          }
+        });
+      } else {
+        this.observableDelete = this.listaService.deleteLista(URLlist).subscribe(Respuesta => {
+          if (Respuesta.message === 'Lista eliminada correctamente') {
+            this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+          }
+        });
+      }
+    });
+  }
+  /**
+   * Summary: This function will open an Angular Material to confirm the action
+   * @param titulo It's the name of the item that want to be deleted
+   * @param URLlist is the url of the item that want to be deleted
+   */
+  openDialog(titulo: string, URLlist: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+      {
+        width: '50%',
+        height: '35%',
+        data: {
+          name: titulo,
         }
       });
-    }
+
+    dialogRef.afterClosed().subscribe(Response => {
+      if (Response === true) {
+        this.onDelete(URLlist);
+      }
+    });
+
   }
 
   /**
