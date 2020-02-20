@@ -23,10 +23,9 @@
         </a>
 
       </li>
-      <!-- Color picker -->
-      <a (click)="onSwitchTheme()" mat-list-item class="hvr-bounce-in">
-        <mat-icon>format_color_fill</mat-icon>Tema
-      </a>
+      <div class="hvr-bounce-in">
+        <app-theme-picker></app-theme-picker>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -58,10 +57,9 @@
         </button>
       </div>
 
-      <!-- Color picker -->
-      <button (click)="onSwitchTheme()" mat-button class="hvr-bounce-in top-navbar-item">
-        <mat-icon>format_color_fill</mat-icon>Tema
-      </button>
+      <div class="hvr-bounce-in top-navbar-item">
+        <app-theme-picker></app-theme-picker>
+      </div>
 
     </mat-toolbar>
     <!-- Content -->

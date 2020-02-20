@@ -93,16 +93,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSwitchTheme(): void {
-    if (this.componentCssClass) { // IF THE DARK MODE IS SET...
-      this.componentCssClass = '';
-      document.body.className = '';
-    } else { // IF THE DARK MODE IS NOT SET
-      this.componentCssClass = 'iminlist-dark-theme';
-      document.body.className = 'iminlist-dark-theme';
-    }
-  }
-
   ngOnDestroy(): void {
     if (this.observableGetData) {
       this.observableGetData.unsubscribe();

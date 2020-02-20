@@ -4,7 +4,6 @@
 // default theme
 $my-theme-primary: mat-palette($mat-deep-purple);
 $my-theme-accent: mat-palette($mat-amber, A200, A100, A400);
-
 $my-theme: mat-light-theme($my-theme-primary, $my-theme-accent);
 
 // included in the default style
@@ -16,9 +15,6 @@ $dark-accent: mat-palette($mat-green, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-// Include the alternative theme styles inside of a block with a CSS class. You can make this
-// CSS class whatever you want. In this example, any component inside of an element with
-// `.iminlist-dark-theme` will be affected by this alternate dark theme instead of the default theme.
 $dark-bgColor: #1a1717;
 $dark-fontColor: #fefefe;
 .iminlist-dark-theme {
@@ -26,4 +22,22 @@ $dark-fontColor: #fefefe;
   background-color: $dark-bgColor !important;
   background: $dark-bgColor !important;
   color: $dark-fontColor !important;
+}
+
+// Red theme
+$red-primary: mat-palette($mat-pink);
+$red-accent: mat-palette($mat-blue-grey);
+$red-theme: mat-dark-theme($red-primary, $red-accent);
+
+.iminlist-red-theme {
+  @include angular-material-theme($red-theme);
+}
+
+// blue theme
+$blue-primary: mat-palette($mat-indigo);
+$blue-accent: mat-palette($mat-pink);
+$blue-theme: mat-dark-theme($blue-primary, $blue-accent);
+
+.iminlist-blue-theme {
+  @include angular-material-theme($blue-theme);
 }
