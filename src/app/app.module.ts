@@ -125,6 +125,7 @@ export const imports = [BrowserModule,
  */
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
+import { ThemePickerComponent } from './components/shared/theme-picker/theme-picker.component';
 
 
 @NgModule({
@@ -132,7 +133,8 @@ import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
     AppComponent,
     routingComponents,
     ShowDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ThemePickerComponent
   ],
   imports: [
     AppRoutingModule,
