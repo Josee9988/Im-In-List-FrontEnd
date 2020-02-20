@@ -25,7 +25,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class ListsTableComponent implements OnInit, OnDestroy {
   href: string;
   items: Array<ILista>;
-  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'participantes', 'acciones'];
+  displayedColumns: string[] = ['id', 'idCreador', 'titulo', 'descripcion', 'elemento', 'url', 'acciones'];
   dataSource = new MatTableDataSource();
 
   private observableFillAdmin: any;
