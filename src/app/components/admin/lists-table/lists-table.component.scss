@@ -84,3 +84,12 @@ td.mat-cell:last-of-type {
 .mat-row:nth-child(odd) {
   background-color: #f3f3f3;
 }
+.hidden {
+  display: inline;
+}
+
+@media (max-width: 815px) {
+  .hidden {
+    display: none;
+  }
+}

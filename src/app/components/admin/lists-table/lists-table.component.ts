@@ -125,14 +125,19 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * Summary: This function will open an Angular Material to confirm the action
    * @param nombre It's the name of the item that want to be deleted
    */
-  openDialog(nombre: string): boolean {
-    let userAction = false;
+  async openDialog(nombre: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
       {
         width: '50%',
         height: '35%',
         data: { name: nombre }
       });
+    return await this.answerUser(dialogRef);
+
+  }
+  async answerUser(dialogRef: any) {
+    let userAction = false;
+
     dialogRef.afterClosed().subscribe(Response => {
       userAction = Response;
       console.log('El boton devuelve:' + userAction);
