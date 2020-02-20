@@ -3,13 +3,13 @@
 </button>
 
 <mat-menu class="docs-theme-picker-menu" #themeMenu="matMenu" x-position="before">
-  <mat-grid-list cols="2">
+  <mat-grid-list cols="2" class="duwei">
     <mat-grid-tile *ngFor="let theme of themes">
       <div mat-menu-item (click)="onInstallTheme(theme.id)" [style.backgroundColor]="theme.primary"
-        style="border-radius: 50px;">
+        style="border-radius: 50px; width: 50px; height: 50px;">
         <div class="docs-theme-picker-swatch">
-          <<!--<mat-icon class="docs-theme-chosen-icon" *ngIf="currentTheme === theme">check_circle</mat-icon>-->
-            <div class="docs-theme-picker-primary" [style.background]="theme.primary"></div>
+          <mat-icon class="docs-theme-chosen-icon" *ngIf="currentTheme === theme.id">check_circle</mat-icon>
+          <div class="docs-theme-picker-primary" [style.background]="theme.primary"></div>
         </div>
       </div>
     </mat-grid-tile>

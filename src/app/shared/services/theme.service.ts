@@ -15,7 +15,7 @@ export class ThemeService {
   /**
    * Summary: returns the actual theme id.
    *
-   * @returns number | null : Number if the token was found, otherwise null.
+   * @returns number | null : Number if the theme id was found, otherwise null.
    */
   getActualTheme(): number | null {
     const lStorageItem: string = localStorage.getItem(this.storageName);
@@ -31,8 +31,10 @@ export class ThemeService {
    * @param number the theme id.
    */
   saveTheme(id: number): void {
-    this.deleteTheme();
-    localStorage.setItem(this.storageName, id.toString());
+    if (id) {
+      this.deleteTheme();
+      localStorage.setItem(this.storageName, id.toString());
+    }
   }
 
   /**

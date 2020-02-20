@@ -4,6 +4,10 @@ $theme-picker-grid-cells-per-row: 2;
 $theme-picker-swatch-size: 36px;
 $theme-picker-accent-stripe-size: 6px;
 
+.duwei {
+  padding: 10px;
+}
+
 .docs-theme-picker-menu {
   .mat-menu-content {
     padding: $theme-picker-menu-padding;
