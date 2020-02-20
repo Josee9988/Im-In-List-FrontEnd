@@ -33,6 +33,8 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
   groupPassword: FormGroup;
   role: FormControl;
 
+  isAdmin: boolean;
+
   usuarioEditar: any;
   nombreUsuario: string;
   emailUsuario: string;
@@ -77,6 +79,7 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
         }
       });
     } else {
+      this.isAdmin = false;
       this.observableInit = this.userService.getDataUser().subscribe(Response => {
         if (Response) {
           this.usuarioEditar = Response.user;
