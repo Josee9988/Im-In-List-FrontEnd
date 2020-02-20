@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-theme-picker',
@@ -6,38 +6,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./theme-picker.component.scss']
 })
 export class ThemePickerComponent {
-  currentTheme;
-
   themes = [
     {
-      primary: '#673AB7',
-      accent: '#FFC107',
-      href: 'deeppurple-amber.css',
-      isDark: false,
+      primary: '#673ab7', // default
+      id: 0
     },
     {
-      primary: '#3F51B5',
-      accent: '#E91E63',
-      href: 'indigo-pink.css',
-      isDark: false,
-      isDefault: true,
+      primary: '#1a1717', // dark theme
+      id: 1
     },
     {
       primary: '#E91E63',
-      accent: '#607D8B',
-      href: 'pink-bluegrey.css',
-      isDark: true,
+      id: 2
     },
     {
       primary: '#9C27B0',
-      accent: '#4CAF50',
-      href: 'purple-green.css',
-      isDark: true,
+      id: 3
     },
   ];
 
   constructor(
   ) {
+
+  }
+
+  installTheme(id: number) {
+    console.log(id);
 
   }
 
