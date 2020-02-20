@@ -8,6 +8,7 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-navbar',
@@ -32,8 +33,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
     private refreshNavbarCommunication: RefreshNavbarCommunication,
-    private userService: UserService) {
+    private userService: UserService, overlayContainer: OverlayContainer) {
     this.refreshNavbarCommunication.subscribe(() => this.declareNavbarElements());
+    overlayContainer.getContainerElement().classList.add('iminlist-dark-theme');
+
   }
 
   ngOnInit() {
