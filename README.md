@@ -14,13 +14,17 @@ Para crear un entorno de desarrollo local donde probar nuestra aplicación, ser�
 
 *En caso de realizar alguna modificación en los archivos, la aplicación se recargará de forma automatica.*
 
-## Code scaffolding
+## Estructuración de los componentes
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Para generar un nuevo componente en la aplicación, se deberá ejecutar el comando `ng g c components/nombre-componente` para así generar un nuevo componente. Este aparecerá dentro de una carpeta *Components* para mantener el código de forma organizada.
 
-## Build
+Tambien se pueden generar otros elementos, utilizando el comando `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Compilación
+
+Una vez haya finalizado el desarollo del código, se ejecutará el comando `ng build` el cual compilara el proyecto. 
+
+The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
