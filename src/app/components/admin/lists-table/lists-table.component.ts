@@ -120,7 +120,9 @@ export class ListsTableComponent implements OnInit, OnDestroy {
       {
         width: '50%',
         height: '35%',
-        data: { name: titulo }
+        data: {
+          name: titulo,
+        }
       });
 
     dialogRef.afterClosed().subscribe(Response => {
