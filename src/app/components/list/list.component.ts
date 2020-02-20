@@ -80,7 +80,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       this.isEditing = true;
       this.observableGetLista = this.listaService.getLista(givenUrl).subscribe(Response => {
         if (Response.message === 'Error, indique la contraseña de la lista') { // has to specify the password
-          console.log('La lista está protegida');
           this.isLocked = true;
         } else { // there is no password or is already sent and the user can retreive it
           try {

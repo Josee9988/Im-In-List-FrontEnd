@@ -38,7 +38,6 @@ export class ListsTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private listaService: ListaService,
-    private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private router: Router,
     private userService: UserService,
     private location: Location,
