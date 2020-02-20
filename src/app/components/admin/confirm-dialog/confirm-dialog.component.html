@@ -1,4 +1,7 @@
-<h2>Confirmación eliminar</h2>
-<mat-dialog-content class="dialog-content">
-
+<h2 mat-dialog-title>¿Estás seguro que deseas eliminar {{name}}?</h2>
+<mat-dialog-content class="dialog-content">Esta acción eliminará completamente el registro dela base de datos
 </mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button class="cancel" [mat-dialog-close]=false>Cancelar</button>
+  <button mat-button class="delete" [mat-dialog-close]=true>Delete</button>
+</mat-dialog-actions>

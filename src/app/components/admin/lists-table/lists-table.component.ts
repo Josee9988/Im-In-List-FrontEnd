@@ -96,7 +96,8 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
   onDelete(titulo: string, URLlist: string): void {
-    this.openDialog();
+    this.openDialog(titulo);
+
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
       this.observableDelete = this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
@@ -120,8 +121,13 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+  openDialog(nombre: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+      {
+        width: '50%',
+        height: '35%',
+        data: { name: nombre }
+      });
     dialogRef.afterClosed().subscribe(Response => {
       console.log('La respuesta es: ' + Response);
     })
