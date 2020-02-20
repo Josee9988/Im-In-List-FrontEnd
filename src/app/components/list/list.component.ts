@@ -60,26 +60,31 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     this.passwordAuth = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.isEditing = false;
     this.passwordIsAllowed = true;
-  }
-
-  ngOnInit() {
-    this.list = {
+    this.list = { // default list
       titulo: '',
       descripcion: '',
       items: [],
       captcha: '',
       listaAuth: ''
     };
+  }
+
+  ngOnInit() {
+    let listaId: number;
+    if (!this.authService.hasToken()) { // the user will not have the password field if not logged
+      this.passwordIsAllowed = false;
+    }
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
     const givenUrl = this.route.snapshot.paramMap.get('url');
-    if (givenUrl) {
+    if (givenUrl) { // if is editing
       this.isEditing = true;
       this.observableGetLista = this.listaService.getLista(givenUrl).subscribe(Response => {
-        if (Response.message === 'Error, indique la contraseña de la lista') {
+        if (Response.message === 'Error, indique la contraseña de la lista') { // has to specify the password
           console.log('La lista está protegida');
           this.isLocked = true;
-        } else {
+        } else { // there is no password or is already sent and the user can retreive it
           try {
+            listaId = Response.user_id;
             this.list = {
               titulo: '',
               descripcion: '',
@@ -95,17 +100,16 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           }
           this.titulo.setValue(Response.titulo);
           this.descripcion.setValue(Response.descripcion);
+          if (this.authService.hasToken()) { // if the user is logged in
+            this.userService.getDataUser().subscribe((ResponseUser) => {
+              // will disallow the password field if that list isn't own by the logged user or is not admin
+              if (ResponseUser.user && (ResponseUser.user.id !== listaId || ResponseUser.user.role === 2)) {
+                this.passwordIsAllowed = false;
+              }
+            });
+          }
         }
       });
-    }
-    if (this.isEditing && this.authService.hasToken()) {
-      this.userService.getDataUser().subscribe((Response) => {
-        if (Response.user && (Response.user.id !== this.list.idUsuarioCreador || Response.user.role === 2)) {
-          this.passwordIsAllowed = false;
-        }
-      });
-    } else if (!this.authService.hasToken()) {
-      this.passwordIsAllowed = false;
     }
   }
 
@@ -293,7 +297,12 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   }
 
 
-  openDialog(url: string) {
+  /**
+   * Summary: Opens the dialog angular material component.
+   *
+   * @param url url of the created/edited list.
+   */
+  openDialog(url: string): void {
     this.dialog.open(ShowDialogComponent, {
       data: {
         url
@@ -301,7 +310,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     });
   }
 
-  onPasswordSubmit() {
+  onPasswordSubmit(): void {
     const givenUrl = this.route.snapshot.paramMap.get('url');
     const listPassword = '' + givenUrl + '/' + this.password.value;
 
