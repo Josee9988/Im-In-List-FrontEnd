@@ -99,3 +99,22 @@ td.mat-cell:last-of-type {
     display: none;
   }
 }
+@media (max-width: 475px) {
+  .hiddenId {
+    display: none;
+  }
+  .btn-show {
+    min-width: 9px !important ;
+    padding: 0px 5px !important;
+  }
+}
+@media (max-width: 385px) {
+  .btn-delete {
+    min-width: 9px !important ;
+    padding: 0px 5px !important;
+  }
+  .btn-edit {
+    min-width: 9px !important ;
+    padding: 0px 5px !important;
+  }
+}
