@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'src/app/shared/services/theme.service';
 
 @Component({
   selector: 'app-theme-picker',
   templateUrl: './theme-picker.component.html',
   styleUrls: ['./theme-picker.component.scss']
 })
-export class ThemePickerComponent {
+export class ThemePickerComponent implements OnInit {
+  currentTheme: number;
   themes = [
     {
       primary: '#673ab7', // default
@@ -25,7 +27,20 @@ export class ThemePickerComponent {
     },
   ];
 
+  constructor(private themeService: ThemeService) { }
+
+  ngOnInit(): void {
+    if (this.themeService.getActualTheme() !== null) {
+      this.currentTheme = this.themeService.getActualTheme();
+      this.onInstallTheme(this.currentTheme);
+    } else {
+      this.currentTheme = 0;
+    }
+
+  }
+
   onInstallTheme(id: number) {
+    this.themeService.saveTheme(id);
     switch (id) {
       case 0: // default theme
         document.body.className = '';
@@ -43,7 +58,5 @@ export class ThemePickerComponent {
         document.body.className = '';
         break;
     }
-
   }
-
 }

@@ -65,7 +65,7 @@ import { ConfirmDialogComponent } from './components/admin/confirm-dialog/confir
 // Modulo Gauge Graph
 import { GaugeChartModule } from 'angular-gauge-chart';
 
-import { RecaptchaModule, RecaptchaV3Module, RecaptchaSettings, RECAPTCHA_SETTINGS, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 export const imports = [BrowserModule,
   BrowserAnimationsModule,
@@ -125,7 +125,7 @@ export const imports = [BrowserModule,
  */
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
-import { ThemePickerComponent } from './components/shared/theme-picker/theme-picker.component';
+import { ThemePickerComponent } from './components/shared/navbar/theme-picker/theme-picker.component';
 
 
 @NgModule({

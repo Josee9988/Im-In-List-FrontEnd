@@ -8,7 +8,7 @@ import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displ
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { RefreshNavbarCommunication } from 'src/app/shared/services/communications/refresh-navbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { ThemeService } from 'src/app/shared/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -34,7 +34,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
     private refreshNavbarCommunication: RefreshNavbarCommunication,
-    private userService: UserService) {
+    private userService: UserService,
+    private themeService: ThemeService) {
     this.refreshNavbarCommunication.subscribe(() => this.declareNavbarElements());
   }
 
@@ -85,6 +86,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * Summary: removes the authorization token, shows a message and redeclare the navbar elements.
    */
   logout(): void {
+    this.themeService.deleteTheme();
     if (this.authService.deleteAuthorizationToken()) {
       this.authService.deletePaypalToken();
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);

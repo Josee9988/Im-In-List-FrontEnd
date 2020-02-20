@@ -23,7 +23,7 @@ export class AuthService {
    * @returns string | null : String if the token was found, otherwise null.
    */
   getAuthorizationToken(): string | null {
-    if (this.hasToken) {
+    if (this.hasToken()) {
       return localStorage.getItem(this.storageName);
     }
     return null;
