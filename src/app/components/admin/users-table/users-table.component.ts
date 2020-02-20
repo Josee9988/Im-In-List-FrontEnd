@@ -9,6 +9,9 @@ import { IUser } from 'src/app/shared/models/IUsers.interface';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
@@ -98,6 +101,29 @@ export class UsersTableComponent implements OnInit, OnDestroy {
       }
       );
     }
+  }
+
+  /**
+   * Summary: This function will open an Angular Material to confirm the action
+   * @param titulo It's the name of the item that want to be deleted
+   * @param URLlist is the url of the item that want to be deleted
+   */
+  openDialog(titulo: string, URLlist: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+      {
+        width: '50%',
+        height: '35%',
+        data: {
+          name: titulo,
+        }
+      });
+
+    dialogRef.afterClosed().subscribe(Response => {
+      if (Response === true) {
+        this.onDelete(URLlist);
+      }
+    });
+
   }
 
   /**

@@ -113,7 +113,8 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   }
   /**
    * Summary: This function will open an Angular Material to confirm the action
-   * @param nombre It's the name of the item that want to be deleted
+   * @param titulo It's the name of the item that want to be deleted
+   * @param URLlist is the url of the item that want to be deleted
    */
   openDialog(titulo: string, URLlist: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
