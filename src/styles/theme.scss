@@ -23,6 +23,7 @@ $dark-bgColor: #1a1717;
 $dark-fontColor: #fefefe;
 .iminlist-dark-theme {
   @include angular-material-theme($dark-theme);
-  background-color: var(--backgroundColor) !important;
+  background-color: $dark-bgColor !important;
+  background: $dark-bgColor !important;
   color: $dark-fontColor !important;
 }
