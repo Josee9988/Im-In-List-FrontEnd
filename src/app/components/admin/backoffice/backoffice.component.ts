@@ -34,7 +34,7 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   public doughnutChartType: ChartType = 'doughnut';
 
 
-  constructor(private listaService: ListaService, private userService: UserService) {
+  constructor(private listaService: ListaService, private userService: UserService, private location: Location) {
     this.currentYear = new Date().getFullYear();
   }
 
