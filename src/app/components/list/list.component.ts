@@ -40,7 +40,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   public isHidden: boolean;
   public hasPassword: boolean;
   public passwordIsAllowed: boolean;
-  private isEditing: boolean;
+  public isEditing: boolean;
 
   public isLocked: boolean;
   windowHeight: number;
