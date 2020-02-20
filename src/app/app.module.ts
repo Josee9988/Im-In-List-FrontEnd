@@ -123,12 +123,14 @@ export const imports = [BrowserModule,
  */
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
+import { ConfirmDialogComponent } from './components/admin/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    ShowDialogComponent
+    ShowDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     AppRoutingModule,
