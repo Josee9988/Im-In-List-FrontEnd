@@ -92,58 +92,43 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * Summary: This function is called from button on HTML, which one will delete a list from database. Depending on role
    * will call one function for listaService or other
    *
-   * @param titulo Param received from HTML and used to show a confirm alert to user
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
-  onDelete(titulo: string, URLlist: string): void {
-    if (this.openDialog(titulo)) {
-      console.log('He confirmado');
-      this.observableDelete = this.userService.getDataUser().subscribe(Response => {
-        if (Response.user.role === 0) {
-          this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
-            if (Respuesta.message === 'Lista eliminada correctamente') {
-              this.errorSnackbarDisplayerService.
-                openSnackBar(Response.message, SnackBarErrorType.success);
-              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
-            }
-          });
-        } else {
-          this.observableDelete = this.listaService.deleteLista(URLlist).subscribe(Respuesta => {
-            if (Respuesta.message === 'Lista eliminada correctamente') {
-              this.errorSnackbarDisplayerService.
-                openSnackBar(Response.message, SnackBarErrorType.success);
-              this.dataSource.data = this.items.filter(list => list.url !== URLlist);
-            }
-          });
-        }
-      });
-    } else {
-      console.log('He denegado');
-    }
+  onDelete(URLlist: string): void {
+    this.observableDelete = this.userService.getDataUser().subscribe(Response => {
+      if (Response.user.role === 0) {
+        this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
+          if (Respuesta.message === 'Lista eliminada correctamente') {
+            this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+          }
+        });
+      } else {
+        this.observableDelete = this.listaService.deleteLista(URLlist).subscribe(Respuesta => {
+          if (Respuesta.message === 'Lista eliminada correctamente') {
+            this.dataSource.data = this.items.filter(list => list.url !== URLlist);
+          }
+        });
+      }
+    });
   }
   /**
    * Summary: This function will open an Angular Material to confirm the action
    * @param nombre It's the name of the item that want to be deleted
    */
-  async openDialog(nombre: string) {
+  openDialog(titulo: string, URLlist: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
       {
         width: '50%',
         height: '35%',
-        data: { name: nombre }
+        data: { name: titulo }
       });
-    return await this.answerUser(dialogRef);
-
-  }
-  async answerUser(dialogRef: any) {
-    let userAction = false;
 
     dialogRef.afterClosed().subscribe(Response => {
-      userAction = Response;
-      console.log('El boton devuelve:' + userAction);
+      if (Response === true) {
+        this.onDelete(URLlist);
+      }
     });
-    console.log('Voy a devolver ' + userAction);
-    return userAction;
+
   }
 
   /**
