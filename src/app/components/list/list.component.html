@@ -7,7 +7,7 @@
       <form class="form-container">
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input type="password" [formControl]="password" matInput>
+          <input type="password" [formControl]="passwordAuth" matInput>
           <mat-hint>Introduce la contraseña</mat-hint>
           <div class="spacer"></div>
         </mat-form-field>
@@ -124,24 +124,26 @@
           </div>
         </mat-card-content>
 
-        <mat-label>¡Añade una contraseña para que sólo tú y tus amigos la podáis editar!</mat-label>
-        <div class="spacer"></div>
-        <!-- Slider has password -->
-        <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
-          [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
+        <div *ngIf="passwordIsAllowed">
+          <mat-label>¡Añade una contraseña para que sólo tú y tus amigos la podáis editar!</mat-label>
+          <div class="spacer"></div>
+          <!-- Slider has password -->
+          <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="hasPassword"
+            [ngModelOptions]="{standalone: true}">Contraseña</mat-slide-toggle>
 
-        <!-- Password field -->
-        <mat-form-field appearance="outline" *ngIf="hasPassword">
-          <mat-label>Contraseña</mat-label>
-          <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
-            [type]="isHidden ? 'password' : 'text'" autocomplete="current-password">
-          <button mat-icon-button matSuffix (click)="isHidden = !isHidden" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="isHidden">
-            <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-hint>Introduce tu contraseña</mat-hint>
-          <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
-        </mat-form-field>
+          <!-- Password field -->
+          <mat-form-field appearance="outline" *ngIf="hasPassword">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput [formControl]="password" placeholder="Introduce tu contraseña"
+              [type]="isHidden ? 'password' : 'text'" autocomplete="current-password">
+            <button mat-icon-button matSuffix (click)="isHidden = !isHidden" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="isHidden">
+              <mat-icon>{{isHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint>Introduce tu contraseña</mat-hint>
+            <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
 
         <div *ngIf="!isEditing">
           <div class="spacer"></div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { ILista } from '../../shared/models/IListas.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -6,10 +6,12 @@ import { FormControl, Validators } from '@angular/forms';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
 import { ListaService } from 'src/app/shared/services/lista.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { Captcha } from 'src/app/shared/classes/Captcha.class';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-list',
@@ -29,6 +31,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   public titulo: FormControl;
   public descripcion: FormControl;
   public password: FormControl;
+  public passwordAuth: FormControl;
 
   private observableGetLista: any;
   private observableSubmit: any;
@@ -36,6 +39,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   submittedOnce: boolean;
   public isHidden: boolean;
   public hasPassword: boolean;
+  public passwordIsAllowed: boolean;
   private isEditing: boolean;
 
   public isLocked: boolean;
@@ -45,44 +49,67 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private listaService: ListaService,
     private route: ActivatedRoute,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router,
+    private userService: UserService) {
     super();
     this.titulo = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.descripcion = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]);
     this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.passwordAuth = new FormControl('', [Validators.required, Validators.minLength(4)]);
     this.isEditing = false;
+    this.passwordIsAllowed = true;
+    this.list = { // default list
+      titulo: '',
+      descripcion: '',
+      items: [],
+      captcha: '',
+      listaAuth: ''
+    };
   }
 
   ngOnInit() {
+    let listaId: number;
+    if (!this.authService.hasToken()) { // the user will not have the password field if not logged
+      this.passwordIsAllowed = false;
+    }
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
     const givenUrl = this.route.snapshot.paramMap.get('url');
-    if (givenUrl) {
+    if (givenUrl) { // if is editing
       this.isEditing = true;
       this.observableGetLista = this.listaService.getLista(givenUrl).subscribe(Response => {
-        if (Response.message === 'Error, indique la contraseña de la lista') {
+        if (Response.message === 'Error, indique la contraseña de la lista') { // has to specify the password
           console.log('La lista está protegida');
           this.isLocked = true;
-        } else {
-          this.list = {
-            titulo: '',
-            descripcion: '',
-            items: JSON.parse(JSON.parse(Response.elementos)),
-            url: givenUrl,
-            captcha: '',
-            listaAuth: ''
-          };
+        } else { // there is no password or is already sent and the user can retreive it
+          try {
+            listaId = Response.user_id;
+            this.list = {
+              titulo: '',
+              descripcion: '',
+              items: JSON.parse(JSON.parse(Response.elementos)),
+              url: givenUrl,
+              captcha: '',
+              listaAuth: ''
+            };
+          } catch {
+            this.router.navigate(['/list']);
+            this.errorSnackbarDisplayerService.openSnackBar(
+              'Error al recibir el elemento, ¿es posible que no exista la lista?', SnackBarErrorType.error);
+          }
           this.titulo.setValue(Response.titulo);
           this.descripcion.setValue(Response.descripcion);
+          if (this.authService.hasToken()) { // if the user is logged in
+            this.userService.getDataUser().subscribe((ResponseUser) => {
+              // will disallow the password field if that list isn't own by the logged user or is not admin
+              if (ResponseUser.user && (ResponseUser.user.id !== listaId || ResponseUser.user.role === 2)) {
+                this.passwordIsAllowed = false;
+              }
+            });
+          }
         }
       });
-    } else {
-      this.list = {
-        titulo: '',
-        descripcion: '',
-        items: [],
-        captcha: '',
-        listaAuth: ''
-      };
     }
   }
 
@@ -181,7 +208,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       this.list.titulo = this.titulo.value;
       this.list.descripcion = this.descripcion.value;
       this.list.elementos = JSON.stringify(this.list.items);
-      this.list.passwordLista = this.password.value;
+      this.list.passwordLista = this.passwordAuth.value;
 
       if (this.validateInputs()) { // IF THE INPUTS ARE VALID
         if (this.isEditing) { // EDITING
@@ -270,7 +297,12 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   }
 
 
-  openDialog(url: string) {
+  /**
+   * Summary: Opens the dialog angular material component.
+   *
+   * @param url url of the created/edited list.
+   */
+  openDialog(url: string): void {
     this.dialog.open(ShowDialogComponent, {
       data: {
         url
@@ -278,7 +310,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     });
   }
 
-  onPasswordSubmit() {
+  onPasswordSubmit(): void {
     const givenUrl = this.route.snapshot.paramMap.get('url');
     const listPassword = '' + givenUrl + '/' + this.password.value;
 
@@ -296,17 +328,12 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           captcha: '',
           listaAuth: ''
         };
-        this.list.listaAuth = this.password.value;
-        this.password.setValue('');
+        this.list.listaAuth = this.passwordAuth.value;
         this.titulo.setValue(Response.titulo);
         this.descripcion.setValue(Response.descripcion);
       }
     });
-
   }
-
-
-
 
   /**
    * Summary: checks if the input has any error, and if that is the case it will return a string
