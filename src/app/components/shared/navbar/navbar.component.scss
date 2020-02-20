@@ -76,6 +76,12 @@ img {
   padding: 0 6px;
 }
 
+@media (max-width: 768px) {
+  .top-navbar-item {
+    display: none !important;
+  }
+}
+
 @media (max-width: 882px) and (max-width: 991.99px) {
   .mat-button {
     padding: 0 3px;
@@ -89,13 +95,13 @@ img {
     display: none !important;
   }
   .top-navbar-item {
-    display: inline !important;
+    display: inline;
   }
 }
 
 @media (min-width: 992px) {
   .top-navbar-item {
-    display: inline !important;
+    display: inline;
     font-size: 14px;
   }
   .material-icons {
