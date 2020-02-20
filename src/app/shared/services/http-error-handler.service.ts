@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { SnackbarDisplayerService } from '../../shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
 import { AuthService } from './auth.service';
+import { environment } from './../../../environments/environment';
 
 /** Type of the handleError function returned by HttpErrorHandler.createHandleError */
 export type HandleError =
@@ -36,7 +37,7 @@ export class HttpErrorHandler {
       const message = this.getMessage(error);
       this.checkIfExpiredToken(error, message);
       this.errorSnackbarDisplayerService.openSnackBar(`ERROR: ${serviceName}, ${operation} failed: ${message}`, SnackBarErrorType.error);
-      if (error.status !== 401) {
+      if (error.status !== 401 && environment.production === false) {
         console.error(`HTTP_ERROR_HANDLER ERROR: ${serviceName}: ${operation}:`);
         console.error(error); // show full error to the console
       }
