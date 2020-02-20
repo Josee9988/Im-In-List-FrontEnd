@@ -318,7 +318,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
 
   onPasswordSubmit(): void {
     const givenUrl = this.route.snapshot.paramMap.get('url');
-    const listPassword = '' + givenUrl + '/' + this.password.value;
+    const listPassword = '' + givenUrl + '/' + this.passwordAuth.value;
 
     this.listaService.getListaPassword(listPassword).subscribe(Response => {
       if (Response.message === 'Error, indique la contraseña de la lista') {
