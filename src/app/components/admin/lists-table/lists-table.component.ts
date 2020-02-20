@@ -96,9 +96,8 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
   onDelete(titulo: string, URLlist: string): void {
-    this.openDialog(titulo);
-
-    if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
+    if (this.openDialog(titulo)) {
+      console.log('He confirmado');
       this.observableDelete = this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
           this.observableDeleteAdmin = this.listaService.deleteListaAdmin(URLlist).subscribe(Respuesta => {
@@ -118,10 +117,16 @@ export class ListsTableComponent implements OnInit, OnDestroy {
           });
         }
       });
+    } else {
+      console.log('He denegado');
     }
   }
-
-  openDialog(nombre: string): void {
+  /**
+   * Summary: This function will open an Angular Material to confirm the action
+   * @param nombre It's the name of the item that want to be deleted
+   */
+  openDialog(nombre: string): boolean {
+    let userAction = false;
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
       {
         width: '50%',
@@ -129,8 +134,11 @@ export class ListsTableComponent implements OnInit, OnDestroy {
         data: { name: nombre }
       });
     dialogRef.afterClosed().subscribe(Response => {
-      console.log('La respuesta es: ' + Response);
-    })
+      userAction = Response;
+      console.log('El boton devuelve:' + userAction);
+    });
+    console.log('Voy a devolver ' + userAction);
+    return userAction;
   }
 
   /**
