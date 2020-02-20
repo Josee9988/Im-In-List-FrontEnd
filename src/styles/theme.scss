@@ -25,10 +25,19 @@ $dark-fontColor: #fefefe;
 }
 
 // Red theme
-$red-primary: mat-palette($mat-red);
-$red-accent: mat-palette($mat-light-blue);
+$red-primary: mat-palette($mat-pink);
+$red-accent: mat-palette($mat-blue-grey);
 $red-theme: mat-dark-theme($red-primary, $red-accent);
 
 .iminlist-red-theme {
   @include angular-material-theme($red-theme);
+}
+
+// blue theme
+$blue-primary: mat-palette($mat-indigo);
+$blue-accent: mat-palette($mat-pink);
+$blue-theme: mat-dark-theme($blue-primary, $blue-accent);
+
+.iminlist-blue-theme {
+  @include angular-material-theme($blue-theme);
 }

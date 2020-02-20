@@ -16,39 +16,31 @@ export class ThemePickerComponent {
       id: 1
     },
     {
-      primary: '#E91E63',
+      primary: '#e91e63', // red theme
       id: 2
     },
     {
-      primary: '#9C27B0',
+      primary: '#3f51b5', // blue theme
       id: 3
     },
   ];
-
-  constructor(
-  ) {
-
-  }
 
   onInstallTheme(id: number) {
     switch (id) {
       case 0: // default theme
         document.body.className = '';
         break;
-      case 1:
+      case 1: // dark theme
         document.body.className = 'iminlist-dark-theme';
-
         break;
-
-      case 2:
-
+      case 2: // red theme
+        document.body.className = 'iminlist-red-theme';
         break;
-
-      case 3:
-
+      case 3: // blue theme
+        document.body.className = 'iminlist-blue-theme';
         break;
-
-      default:
+      default: // default theme
+        document.body.className = '';
         break;
     }
 
