@@ -6,17 +6,16 @@
     "name": "Jose Gracia",
     "email": "jgracia9988@gmail.com"
   },
-  "maintainers": [
-    {
-      "email": "jgracia9988@gmail.com",
-      "name": "Jose Gracia",
-      "url": "https://www.npmjs.com/~josee9988"
-    }
-  ],
+  "maintainers": [{
+    "email": "jgracia9988@gmail.com",
+    "name": "Jose Gracia",
+    "url": "https://www.npmjs.com/~josee9988"
+  }],
   "bugs": {
     "url": "https://github.com/Josee9988/Im-In-List-FrontEnd/issues",
     "email": "jgracia9988@gmail.com"
   },
+  "license": "LICENSE",
   "homepage": "https://github.com/Josee9988/Im-In-List-FrontEnd",
   "repository": {
     "type": "git",
