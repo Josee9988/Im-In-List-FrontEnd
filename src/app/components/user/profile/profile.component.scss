@@ -56,7 +56,7 @@ a:link {
 /** Estilo para el texto principal */
 
 h1 {
-  font-size: 3em;
+  font-size: 25px;
   font-weight: normal;
 }
 
@@ -159,8 +159,12 @@ h1 {
 }
 
 // parpadeante
+p {
+  -webkit-margin-start: 0em;
+  margin-inline-start: 0em;
+}
 .text {
-  font-size: 28px;
+  font-size: 21px;
   font-family: helvetica;
   font-weight: bold;
   color: #000000;
@@ -168,14 +172,12 @@ h1 {
   display: inline;
 }
 .parpadea {
-  animation-name: parpadeo;
-  -webkit-animation-duration: 0.4s;
-  animation-duration: 0.4s;
-  animation-iteration-count: infinite;
-
   -webkit-animation-name: parpadeo;
-
+  animation-name: parpadeo;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
   -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes parpadeo {
