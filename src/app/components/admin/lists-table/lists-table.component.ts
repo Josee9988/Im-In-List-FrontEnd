@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 import { UserService } from './../../../shared/services/user.service';
 import { Location } from '@angular/common';
 
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+
 @Component({
   selector: 'app-lists-able',
   templateUrl: './lists-table.component.html',
@@ -38,7 +41,9 @@ export class ListsTableComponent implements OnInit, OnDestroy {
     private errorSnackbarDisplayerService: SnackbarDisplayerService,
     private router: Router,
     private userService: UserService,
-    private location: Location) { }
+    private location: Location,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     if (this.router.url === '/admin/adminLists') {
@@ -91,6 +96,7 @@ export class ListsTableComponent implements OnInit, OnDestroy {
    * @param URLlist Param received from HTML and used to indicade the server which list want to be delete
    */
   onDelete(titulo: string, URLlist: string): void {
+    this.openDialog();
     if (confirm('¿Estás seguro que desea eliminar la lista ' + titulo + '?')) {
       this.observableDelete = this.userService.getDataUser().subscribe(Response => {
         if (Response.user.role === 0) {
@@ -112,6 +118,13 @@ export class ListsTableComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe(Response => {
+      console.log('La respuesta es: ' + Response);
+    })
   }
 
   /**
