@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -22,6 +22,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 export class NavbarComponent implements OnInit, OnDestroy {
   navbarLinks: Array<INavbarLinks>;
   private observableGetData: any;
+  @HostBinding('class') componentCssClass;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(
     '(max-width: 859.99px) and (orientation: portrait), ' +
@@ -33,10 +34,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private snackbarDisplayerService: SnackbarDisplayerService,
     private refreshNavbarCommunication: RefreshNavbarCommunication,
-    private userService: UserService, overlayContainer: OverlayContainer) {
+    private userService: UserService) {
     this.refreshNavbarCommunication.subscribe(() => this.declareNavbarElements());
-    overlayContainer.getContainerElement().classList.add('iminlist-dark-theme');
-
   }
 
   ngOnInit() {
@@ -91,6 +90,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.snackbarDisplayerService.openSnackBar('¡Sesión cerrada!', SnackBarErrorType.success);
       this.declareNavbarElements();
       window.location.href = '/home';
+    }
+  }
+
+  onSwitchTheme(): void {
+    if (this.componentCssClass) { // IF THE DARK MODE IS SET...
+      this.componentCssClass = '';
+    } else { // IF THE DARK MODE IS NOT SET
+      this.componentCssClass = 'iminlist-dark-theme';
     }
   }
 
