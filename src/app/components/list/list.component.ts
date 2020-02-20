@@ -102,7 +102,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           if (this.authService.hasToken()) { // if the user is logged in
             this.userService.getDataUser().subscribe((ResponseUser) => {
               // will disallow the password field if that list isn't own by the logged user or is not admin
-              if (ResponseUser.user && (ResponseUser.user.id !== listaId || ResponseUser.user.role === 2)) {
+              if (ResponseUser.user || ResponseUser.user.id !== listaId || ResponseUser.user.role === 1) {
                 this.passwordIsAllowed = false;
               }
             });
