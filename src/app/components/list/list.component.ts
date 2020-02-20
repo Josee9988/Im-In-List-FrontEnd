@@ -109,6 +109,13 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
           }
         }
       });
+    } else {
+      this.userService.getDataUser().subscribe((Response) => {
+        if (!this.authService.hasToken() || Response.user.role === 1) {
+          this.passwordIsAllowed = false;
+        }
+      });
+
     }
   }
 
