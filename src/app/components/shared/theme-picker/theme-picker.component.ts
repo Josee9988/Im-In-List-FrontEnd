@@ -30,8 +30,27 @@ export class ThemePickerComponent {
 
   }
 
-  installTheme(id: number) {
-    console.log(id);
+  onInstallTheme(id: number) {
+    switch (id) {
+      case 0: // default theme
+        document.body.className = '';
+        break;
+      case 1:
+        document.body.className = 'iminlist-dark-theme';
+
+        break;
+
+      case 2:
+
+        break;
+
+      case 3:
+
+        break;
+
+      default:
+        break;
+    }
 
   }
 
