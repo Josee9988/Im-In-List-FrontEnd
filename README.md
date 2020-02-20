@@ -2,13 +2,19 @@
 
 **I'm In List** es una aplicación la cual se ha desarrollado para facilitar la gestión y organización de todos los usuarios, creando una aplicación sencilla y amigable para que todo el publico pueda hacer uso de ella.
 
-Este proyecto ha sido generado con [Angular CLI](https://github.com/angular/angular-cli) en su versión 8.3.23.
+Desarrollada por alumnos de **2ºDAW** para el proyecto final integrador *2019-2020* con un plazo de 3 semanas lectivas de desarrollo.
+
+---
+
+## **API** 🔩
+
+El proyecto consume datos de una *API* hecha por el tercer integrante del proyecto integrador. Revisa la [documentación de la API](https://github.com/Josee9988/Im-In-List-backend)
 
 ---
 
 ## **Servidor de desarrollo** 🚀
 
-Para crear un entorno de desarrollo local donde probar nuestra aplicación, será necesario ejecutar el comando `ng serve` para así obtener un servidor de desarrollo. Una vez se estén compilados todos los modulos y configruaciónes, en su navegador preferido podrá acceder a `http://localhost:4200/` y la aplicación estará funcionando.
+Primero deberemos clonar el repositorio e instalar todas las dependencias con `npm i`. A continuación para crear un entorno de desarrollo local donde probar nuestra aplicación, será necesario ejecutar el comando `ng serve` para así obtener un servidor de desarrollo. Una vez se estén compilados todos los modulos y configruaciónes, en su navegador preferido podrá acceder a `http://127.0.0.1:4200/` y la aplicación estará funcionando.
 
 *En caso de realizar alguna modificación en los archivos, la aplicación se recargará de forma automatica.*
 
@@ -36,7 +42,7 @@ El proyecto compilado se alamcenará en la carpeta `dist/`. Utiliza el flag `--p
 
 ---
 
-## **Ejecutar preubas unitarias** ⚙️
+## **Ejecutar pruebas unitarias** ⚙️
 
 Para ejecutar las pruebas unitarias, ejecute el comando `ng test` para realizar las pruebas via [Karma](https://karma-runner.github.io).
 
@@ -56,9 +62,22 @@ Si quieres obtener más información del funcionamiento de Angular CLI puedes ej
 
 ---
 
-## Autores ✒️
+## **Contacto** ✒️
 
 Esta aplicación ha sido desarrollado por:
 
 - Jose Gracia → <jgracia9988@gmail.com>
 - Borja Pérez → <multibalcoy@gmail.com>
+
+---
+
+### **Apoya el proyecto** 🥰 🎉
+
+[![Github followers](https://img.shields.io/github/followers/Josee9988.svg?style=social)](Followers)
+[![Github stars](https://img.shields.io/github/stars/Josee9988/Im-In-List-FrontEnd.svg?style=social)](Stargazers)
+[![Github watchers](https://img.shields.io/github/watchers/Josee9988/Im-In-List-FrontEnd.svg?style=social)](Watchers)
+[![Github forks](https://img.shields.io/github/forks/Josee9988/Im-In-List-FrontEnd.svg?style=social)](Forks)
+
+---
+
+*Hecho con mucho ❤️❤️ por **[@Josee9988](https://github.com/Josee9988)** y **[@borj17](https://github.com/borj17)***
