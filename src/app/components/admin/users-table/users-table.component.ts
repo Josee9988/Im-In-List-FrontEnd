@@ -8,7 +8,6 @@ import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum
 import { IUser } from 'src/app/shared/models/IUsers.interface';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 

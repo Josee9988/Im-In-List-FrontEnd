@@ -97,7 +97,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
     // Clases donde se almacenerán los valores
     this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
       'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
   }
 
   /**

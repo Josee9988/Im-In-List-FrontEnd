@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -22,7 +22,6 @@ import { ThemeService } from 'src/app/shared/services/theme.service';
 export class NavbarComponent implements OnInit, OnDestroy {
   navbarLinks: Array<INavbarLinks>;
   private observableGetData: any;
-  @HostBinding('class') componentCssClass;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(
     '(max-width: 859.99px) and (orientation: portrait), ' +
