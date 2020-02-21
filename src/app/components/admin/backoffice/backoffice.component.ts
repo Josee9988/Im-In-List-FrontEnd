@@ -52,27 +52,27 @@ export class BackofficeComponent implements OnInit, OnDestroy {
    * @param Response Is the response from the API (database)
    */
   fillDataUsers(Response: any): void {
-    for (let index = 0; index < Response.length; index++) {
-      if (Response[index].role === 1) {
+    for (const item of Response) {
+      if (item.role === 1) {
         for (let mes = 1; mes < 13; mes++) {
           if (mes < 10) {
-            if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+            if (item.created_at.includes(this.currentYear.toString() + '-0' + mes)) {
               this.usuariosRegistrados[mes]++;
             }
           } else {
-            if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+            if (item.created_at.includes(this.currentYear.toString() + '-' + mes)) {
               this.usuariosRegistrados[mes]++;
             }
           }
         }
-      } else if (Response[index].role === 2) {
+      } else if (item.role === 2) {
         for (let mes = 1; mes < 13; mes++) {
           if (mes < 10) {
-            if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+            if (item.created_at.includes(this.currentYear.toString() + '-0' + mes)) {
               this.usuariosPremium[mes]++;
             }
           } else {
-            if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+            if (item.created_at.includes(this.currentYear.toString() + '-' + mes)) {
               this.usuariosPremium[mes]++;
             }
           }
@@ -105,14 +105,14 @@ export class BackofficeComponent implements OnInit, OnDestroy {
    */
 
   fillDataListas(Response: any): void {
-    for (let index = 0; index < Response.length; index++) {
+    for (const item of Response) {
       for (let mes = 1; mes < 13; mes++) {
         if (mes < 10) {
-          if (Response[index].created_at.includes(this.currentYear.toString() + '-0' + mes)) {
+          if (item.created_at.includes(this.currentYear.toString() + '-0' + mes)) {
             this.listasCreated[mes]++;
           }
         } else {
-          if (Response[index].created_at.includes(this.currentYear.toString() + '-' + mes)) {
+          if (item.created_at.includes(this.currentYear.toString() + '-' + mes)) {
             this.listasCreated[mes]++;
           }
         }
