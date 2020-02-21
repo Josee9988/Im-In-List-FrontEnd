@@ -2,18 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { SnackbarDisplayerService } from './snackbar-displayer.service';
 import { SnackBarErrorType } from '../enums/snackbar-error-type.enum';
-
-export interface RequestCacheEntry {
-  url: string;
-  response: HttpResponse<any>;
-  lastRead: number;
-}
-
-export abstract class RequestCache {
-  abstract get(req: HttpRequest<any>): HttpResponse<any> | undefined;
-  abstract put(req: HttpRequest<any>, response: HttpResponse<any>): void;
-}
-
+import { RequestCache } from '../classes/RequestCache.class';
+import { IRequestCacheEntry } from '../models/IRequestCacheEntry.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +15,7 @@ export abstract class RequestCache {
 export class RequestCacheWithMap implements RequestCache {
   private maxAge = 10000; // maximum cache age (ms)
 
-  cache = new Map<string, RequestCacheEntry>();
+  cache = new Map<string, IRequestCacheEntry>();
 
   constructor(private errorSnackbarDisplayerService: SnackbarDisplayerService) { }
 
