@@ -3,7 +3,8 @@
   height: 93%;
 
   /* Imagen utilizada */
-  background: url("../../../assets/images/background.jpg");
+  background: url("../../../assets/images/background.jpg") no-repeat center
+    center fixed;
 
   /* Centramos la imagen, y hacemos que no se repita */
   background-position: center;
