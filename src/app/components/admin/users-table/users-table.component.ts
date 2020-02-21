@@ -109,8 +109,8 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   openDialog(nombre: string, id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
       {
-        width: '50%',
-        height: '35%',
+        width: '70%',
+        height: '45%',
         data: {
           name: nombre,
         }

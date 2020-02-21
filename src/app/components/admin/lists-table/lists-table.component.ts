@@ -118,8 +118,8 @@ export class ListsTableComponent implements OnInit, OnDestroy {
   openDialog(titulo: string, URLlist: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent,
       {
-        width: '50%',
-        height: '35%',
+        width: '70%',
+        height: '45%',
         data: {
           name: titulo,
         }
