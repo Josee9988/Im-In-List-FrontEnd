@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/shared/services/theme.service';
+import { ITheme } from './ITheme.interface';
 
 @Component({
   selector: 'app-theme-picker',
@@ -8,39 +9,37 @@ import { ThemeService } from 'src/app/shared/services/theme.service';
 })
 export class ThemePickerComponent implements OnInit {
   currentTheme: number;
-  themes = [
-    {
-      primary: '#673ab7', // default
-      id: 0
-    },
-    {
-      primary: '#1a1717', // dark theme
-      id: 1
-    },
-    {
-      primary: '#e91e63', // red theme
-      id: 2
-    },
-    {
-      primary: '#3f51b5', // blue theme
-      id: 3
-    },
-  ];
+  themes: Array<ITheme>;
 
   constructor(private themeService: ThemeService) { }
 
   ngOnInit(): void {
+    // theme initialization
+    this.themes = [
+      { primary: '#673ab7', id: 0, descr: 'Thema: morado con ámbar' }, // default
+      { primary: '#1a1717', id: 1, descr: 'Thema oscuro: morado con verde' }, // dark theme
+      { primary: '#e91e63', id: 2, descr: 'Thema rojo con azul grisáceo' }, // red theme
+      { primary: '#3f51b5', id: 3, descr: 'Thema oscuro: azul con rosa' }, // blue theme
+    ];
+
+    // set the current theme (the default one or other if it finds the setting in the local storage)
     if (this.themeService.getActualTheme() !== null) {
       this.currentTheme = this.themeService.getActualTheme();
       this.onInstallTheme(this.currentTheme);
     } else {
       this.currentTheme = 0;
     }
-
   }
 
+  /**
+   * Summary: receives an id of the theme that will be installed, after setting the right css class
+   * on the body it will save the id on a local storage item.
+   *
+   * @param id the id of the theme received.
+   */
   onInstallTheme(id: number) {
     this.themeService.saveTheme(id);
+    this.currentTheme = id;
     switch (id) {
       case 0: // default theme
         document.body.className = '';
