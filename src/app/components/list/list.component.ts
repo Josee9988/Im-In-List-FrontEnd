@@ -72,6 +72,7 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
   ngOnInit() {
     let listaId: number;
     if (!this.authService.hasToken()) { // the user will not have the password field if not logged
+
       this.passwordIsAllowed = false;
     }
     this.windowHeight = window.innerHeight / 2.5; // asign the right PXs for the scrollable list
@@ -110,12 +111,15 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.userService.getDataUser().subscribe((Response) => {
-        if (!this.authService.hasToken() || Response.user.role === 1) {
-          this.passwordIsAllowed = false;
-        }
-      });
-
+      if (!this.authService.hasToken()) {
+        this.passwordIsAllowed = false;
+      } else {
+        this.userService.getDataUser().subscribe(Response => {
+          if (Response.user.role === 1) {
+            this.passwordIsAllowed = false;
+          }
+        });
+      }
     }
   }
 
