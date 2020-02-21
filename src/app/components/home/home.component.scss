@@ -24,7 +24,7 @@
   border: 3px solid #f1f1f1;
   /* Centramos el texto */
   position: absolute;
-  top: 42%;
+  top: 35%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -48,7 +48,6 @@ a {
 
 .zonaBoton {
   width: 100%;
-  margin-top: 20%;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
@@ -62,9 +61,33 @@ a {
   font-size: 18px;
 }
 
+/**Estilo divs**/
+.column {
+  width: 31% !important;
+  float: left;
+  margin-left: 1%;
+  background-color: #00000080;
+  border: 1px solid #f1f1f1;
+
+  img {
+    margin-left: 50%;
+    filter: invert(100%);
+    height: 12%;
+    width: 15%;
+    margin-left: 42%;
+  }
+}
+
+/* Clear floats after the columns */
+.row {
+  height: 250px;
+  width: 100%;
+  margin-top: 30%;
+}
+
 //For smallest screens move button to the bottom
 @media (max-width: 277px) {
-  .zonaBoton {
+  .row {
     margin-top: 180%;
   }
   .newListButton {
@@ -75,24 +98,21 @@ a {
   }
 }
 @media (min-width: 277px) and (max-width: 450px) {
-  .zonaBoton {
+  .row {
     margin-top: 70%;
   }
 }
 @media (min-width: 451px) and (max-width: 860px) {
-  .zonaBoton {
+  .row {
     margin-top: 40%;
   }
 }
 
 @media (min-width: 860px) and (max-width: 1220px) {
-  .zonaBoton {
+  .row {
     margin-top: 20%;
   }
 }
 
 @media (min-width: 1220) and (max-width: 1920px) {
-  .zonaBoton {
-    margin-top: 10%;
-  }
 }
