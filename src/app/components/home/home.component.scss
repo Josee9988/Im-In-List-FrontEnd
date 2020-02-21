@@ -92,6 +92,8 @@ a {
   height: 250px;
   width: 100%;
   margin-top: 30%;
+  position: absolute;
+  bottom: 0px;
 }
 
 //For smallest screens move button to the bottom
@@ -130,6 +132,8 @@ a {
     margin-top: 40%;
   }
 }
-
-@media (min-width: 1220) and (max-width: 1920px) {
+@media (max-height: 625px) {
+  .row {
+    display: none;
+  }
 }
