@@ -4,7 +4,6 @@ import { NavbarComponent } from './navbar.component';
 import { imports } from './../../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;

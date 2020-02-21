@@ -4,7 +4,6 @@ import { NotFoundComponent } from './not-found.component';
 import { imports } from './../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
   let fixture: ComponentFixture<NotFoundComponent>;

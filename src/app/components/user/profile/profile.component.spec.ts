@@ -4,7 +4,6 @@ import { ProfileComponent } from './profile.component';
 import { imports } from '../../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;

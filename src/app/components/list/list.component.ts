@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
-import { ILista } from '../../shared/models/IListas.model';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { ILista } from '../../shared/models/IListas.interface';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
@@ -302,7 +302,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     }
   }
 
-
   /**
    * Summary: Opens the dialog angular material component.
    *
@@ -316,6 +315,9 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Summary: invoked when the list has a passowrds and the user introduces it.
+   */
   onPasswordSubmit(): void {
     const givenUrl = this.route.snapshot.paramMap.get('url');
     const listPassword = '' + givenUrl + '/' + this.passwordAuth.value;

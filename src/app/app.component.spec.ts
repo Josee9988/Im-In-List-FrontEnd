@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { imports } from './app.module';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
-
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

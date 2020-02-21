@@ -4,7 +4,6 @@ $theme-picker-grid-cells-per-row: 2;
 $theme-picker-swatch-size: 36px;
 $theme-picker-accent-stripe-size: 6px;
 
-
 .docs-theme-picker-menu {
   .mat-menu-content {
     padding: $theme-picker-menu-padding;
@@ -59,5 +58,7 @@ $theme-picker-accent-stripe-size: 6px;
 }
 
 .themes-balls {
-  border-radius: 50px; width: 50px; height: 50px;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
 }

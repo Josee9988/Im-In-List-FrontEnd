@@ -4,7 +4,6 @@ import { ListsTableComponent } from './lists-table.component';
 import { imports } from './../../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('ListsTableComponent', () => {
   let component: ListsTableComponent;
   let fixture: ComponentFixture<ListsTableComponent>;

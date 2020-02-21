@@ -4,7 +4,6 @@ import { LoginRegisterComponent } from './login-register.component';
 import { imports } from './../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('LoginComponent', () => {
   let component: LoginRegisterComponent;
   let fixture: ComponentFixture<LoginRegisterComponent>;

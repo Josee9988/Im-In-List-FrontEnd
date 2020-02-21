@@ -4,7 +4,6 @@ import { EditProfileComponent } from './edit-profile.component';
 import { imports } from '../../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('EditProfileComponent', () => {
   let component: EditProfileComponent;
   let fixture: ComponentFixture<EditProfileComponent>;

@@ -7,8 +7,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorHandler } from './shared/services/http-error-handler.service';
 import { AuthService } from './shared/services/auth.service';
 
-
-import { RequestCache, RequestCacheWithMap } from './shared/services/request-cache.service';
+import { RequestCacheWithMap } from './shared/services/request-cache.service';
+import { RequestCache } from './shared/classes/RequestCache.class';
 import { httpInterceptorProviders } from './shared/http-interceptors/index';
 
 /**
@@ -119,14 +119,12 @@ export const imports = [BrowserModule,
   GaugeChartModule,
   RecaptchaModule];
 
-
 /**
  * Components
  */
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './shared/http-interceptors/auth-interceptor';
 import { ThemePickerComponent } from './components/shared/navbar/theme-picker/theme-picker.component';
-
 
 @NgModule({
   declarations: [

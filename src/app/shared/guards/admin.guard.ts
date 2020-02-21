@@ -3,7 +3,6 @@ import { CanActivate, Router } from '@angular/router';
 import { UserService } from './../../shared/services/user.service';
 import { AuthService } from './../services/auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,21 +11,21 @@ import { AuthService } from './../services/auth.service';
  */
 export class AdminGuard implements CanActivate {
 
-  constructor(private userService: UserService, private authService: AuthService, private router: Router) {
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
-  }
-
+  /**
+   * Summary: returns true or false if the logged user is admin.
+   */
   async canActivate(): Promise<boolean> {
-
     this.checkAdmin().then(() => {
       return true;
-    })
-      .catch(() => {
-      });
-
+    });
     return true;
   }
 
+  /**
+   * Summary: returns true or false if the logged user is admin. Invoked by; canActivate.
+   */
   async checkAdmin() {
     if (this.authService.hasToken()) {
       this.userService.getDataUser().subscribe(Response => {

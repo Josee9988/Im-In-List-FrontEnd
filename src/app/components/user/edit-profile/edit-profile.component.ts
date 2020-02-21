@@ -62,8 +62,6 @@ export class EditProfileComponent extends Forms implements OnInit, OnDestroy {
       password: new FormControl(''),
       confirmPassword: new FormControl('')
     });
-
-
   }
 
   ngOnInit() {
