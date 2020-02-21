@@ -2,7 +2,7 @@
 
 **I'm In List** es una aplicación la cual se ha desarrollado para facilitar la gestión y organización de todos los usuarios, creando una aplicación sencilla y amigable para que todo el publico pueda hacer uso de ella.
 
-Desarrollada por alumnos de **2ºDAW** para el proyecto final integrador *2019-2020* con un plazo de 3 semanas lectivas de desarrollo.
+Desarrollada por alumnos de **2ºDAW** para el proyecto final integrador *2019-2020* con un plazo de 3 semanas lectivas de desarrollo (31 Enero al 21 de Febrero).
 
 ---
 
@@ -70,6 +70,10 @@ Esta aplicación ha sido desarrollado por:
 - Borja Pérez → <multibalcoy@gmail.com>
 
 ---
+
+## **Información extra**
+
+- El proyecto final ha concluido con un total de **3841** líneas de código de *TypeScript*, **2061** de *scss* y **1137** de HTML en un plazo de 22 días naturales.
 
 ### **Apoya el proyecto** 🥰 🎉
 
