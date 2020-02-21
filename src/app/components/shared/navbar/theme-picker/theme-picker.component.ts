@@ -22,6 +22,7 @@ export class ThemePickerComponent implements OnInit {
       { primary: '#3f51b5', id: 3 }, // blue theme
     ];
 
+    // set the current theme (the default one or other if it finds the setting in the local storage)
     if (this.themeService.getActualTheme() !== null) {
       this.currentTheme = this.themeService.getActualTheme();
       this.onInstallTheme(this.currentTheme);
@@ -31,11 +32,10 @@ export class ThemePickerComponent implements OnInit {
   }
 
   /**
-   * Summary: it receives an id of a theme and installs it. It also saves the id of the theme
-   * in the local storage
-   * 
+   * Summary: receives an id of the theme that will be installed, after setting the right css class
+   * on the body it will save the id on a local storage item.
    *
-   * @param id the id of the theme.
+   * @param id the id of the theme received.
    */
   onInstallTheme(id: number) {
     this.themeService.saveTheme(id);
