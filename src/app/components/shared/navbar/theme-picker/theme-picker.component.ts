@@ -16,10 +16,10 @@ export class ThemePickerComponent implements OnInit {
   ngOnInit(): void {
     // theme initialization
     this.themes = [
-      { primary: '#673ab7', id: 0 }, // default
-      { primary: '#1a1717', id: 1 }, // dark theme
-      { primary: '#e91e63', id: 2 }, // red theme
-      { primary: '#3f51b5', id: 3 }, // blue theme
+      { primary: '#673ab7', id: 0, descr: 'Thema: morado con ámbar' }, // default
+      { primary: '#1a1717', id: 1, descr: 'Thema oscuro: morado con verde' }, // dark theme
+      { primary: '#e91e63', id: 2, descr: 'Thema rojo con azul grisáceo' }, // red theme
+      { primary: '#3f51b5', id: 3, descr: 'Thema oscuro: azul con rosa' }, // blue theme
     ];
 
     // set the current theme (the default one or other if it finds the setting in the local storage)
