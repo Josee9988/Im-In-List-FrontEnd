@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/shared/services/theme.service';
+import { ITheme } from './ITheme.interface';
 
 @Component({
   selector: 'app-theme-picker',
@@ -8,7 +9,7 @@ import { ThemeService } from 'src/app/shared/services/theme.service';
 })
 export class ThemePickerComponent implements OnInit {
   currentTheme: number;
-  themes = [
+  themes: Array<ITheme> = [
     {
       primary: '#673ab7', // default
       id: 0
@@ -41,6 +42,7 @@ export class ThemePickerComponent implements OnInit {
 
   onInstallTheme(id: number) {
     this.themeService.saveTheme(id);
+    this.currentTheme = id;
     switch (id) {
       case 0: // default theme
         document.body.className = '';
