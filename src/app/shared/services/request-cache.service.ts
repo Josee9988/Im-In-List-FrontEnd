@@ -14,7 +14,6 @@ export abstract class RequestCache {
   abstract put(req: HttpRequest<any>, response: HttpResponse<any>): void;
 }
 
-const maxAge = 30000; // maximum cache age (ms)
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +23,7 @@ const maxAge = 30000; // maximum cache age (ms)
  * @author Jose Gracia Berenguer <jgracia9988@gmail.com>
  */
 export class RequestCacheWithMap implements RequestCache {
+  private maxAge = 10000; // maximum cache age (ms)
 
   cache = new Map<string, RequestCacheEntry>();
 
@@ -36,7 +36,7 @@ export class RequestCacheWithMap implements RequestCache {
       return undefined;
     }
 
-    const isExpired = cached.lastRead < (Date.now() - maxAge);
+    const isExpired = cached.lastRead < (Date.now() - this.maxAge);
     const expired = isExpired ? 'expired ' : '';
     this.errorSnackbarDisplayerService.openSnackBar(`Los datos mostrados ${expired}han sido recibidos de la memoria.`,
       SnackBarErrorType.informational);
@@ -51,7 +51,7 @@ export class RequestCacheWithMap implements RequestCache {
     this.cache.set(url, entry);
 
     // remove expired cache entries
-    const expired = Date.now() - maxAge;
+    const expired = Date.now() - this.maxAge;
     // tslint:disable-next-line: no-shadowed-variable
     this.cache.forEach(entry => {
       if (entry.lastRead < expired) {

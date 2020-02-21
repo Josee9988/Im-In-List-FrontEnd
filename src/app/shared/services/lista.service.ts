@@ -19,7 +19,6 @@ export class ListaService {
   private readonly LISTAS_URL: string = environment.apiUrl + 'listas';
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-
   private handleError: HandleError;
 
   constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
@@ -86,7 +85,6 @@ export class ListaService {
    */
   deleteLista(URLlist: string): Observable<any> {
     const url = environment.apiUrl + 'listas/' + URLlist;
-
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteLista')));
   }
@@ -97,7 +95,6 @@ export class ListaService {
    */
   deleteListaAdmin(URLlist: string): Observable<any> {
     const url = environment.apiUrl + 'listasAdmin/' + URLlist;
-
     return this.http.delete<ILista>(url, this.httpOptions).pipe(
       tap(), catchError(this.handleError<ILista>('deleteListaAdmin')));
   }
