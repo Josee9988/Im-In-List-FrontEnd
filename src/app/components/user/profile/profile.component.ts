@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private refreshNavbarCommunication: RefreshNavbarCommunication) {
   }
 
-
   ngOnInit() {
     this.fillData();
   }

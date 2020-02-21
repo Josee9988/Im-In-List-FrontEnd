@@ -20,8 +20,6 @@ import { IRegisterUser } from 'src/app/shared/models/IRegister-user.interface';
 export class UserService {
   private readonly USER_URL: string = environment.apiUrl + 'users';
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-
-
   private handleError: HandleError;
 
   constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {

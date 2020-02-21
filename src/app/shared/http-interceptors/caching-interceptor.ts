@@ -7,8 +7,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { startWith, tap } from 'rxjs/operators';
 
-import { RequestCache } from '../services/request-cache.service';
-
+import { RequestCache } from '../classes/RequestCache.class';
 
 /**
  * If request is cachable (e.g., package search) and
@@ -45,7 +44,6 @@ export class CachingInterceptor implements HttpInterceptor {
             of(cachedResponse) : sendRequest(req, next, this.cache);
     }
 }
-
 
 /** Is this request cachable? */
 function isCachable(req: HttpRequest<any>) {

@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { ListaService } from './../../../shared/services/lista.service';
 import { SnackbarDisplayerService } from 'src/app/shared/services/snackbar-displayer.service';
 import { SnackBarErrorType } from 'src/app/shared/enums/snackbar-error-type.enum';
-import { ILista } from 'src/app/shared/models/IListas.model';
+import { ILista } from 'src/app/shared/models/IListas.interface';
 import { Router } from '@angular/router';
 import { UserService } from './../../../shared/services/user.service';
 import { Location } from '@angular/common';

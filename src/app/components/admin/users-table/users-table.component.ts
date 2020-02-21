@@ -47,7 +47,6 @@ export class UsersTableComponent implements OnInit, OnDestroy {
       this.fillUsersRegister();
     }
 
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

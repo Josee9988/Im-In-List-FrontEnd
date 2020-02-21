@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
-import { ILista } from '../../shared/models/IListas.model';
+import { ILista } from '../../shared/models/IListas.interface';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormControl, Validators } from '@angular/forms';
@@ -301,7 +301,6 @@ export class ListComponent extends Captcha implements OnInit, OnDestroy {
       this.errorSnackbarDisplayerService.openSnackBar(`El elemento ${newElement} ya existe.`, SnackBarErrorType.warning);
     }
   }
-
 
   /**
    * Summary: Opens the dialog angular material component.

@@ -20,10 +20,8 @@ export class BackofficeComponent implements OnInit, OnDestroy {
   usuariosPremium: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   listasCreated: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-
   private observableGetlista: any;
   private observableGetUser: any;
-
 
   doughnutChartLabels: string[];
   doughnutChartRegisterUsers: Array<any>;
@@ -32,7 +30,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
 
   // Tipo de grafico que se mostrará
   public doughnutChartType: ChartType = 'doughnut';
-
 
   constructor(
     private listaService: ListaService,
@@ -125,7 +122,6 @@ export class BackofficeComponent implements OnInit, OnDestroy {
       // Clases donde se almacenerán los valores
       this.doughnutChartLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
         'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
 
       // Valores obtenidos de la base de datos para listas creadas
       this.doughnutChartCreatedLists = [

@@ -4,7 +4,6 @@ import { ListComponent } from './list.component';
 import { imports } from './../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;

@@ -4,7 +4,6 @@ import { PricingComponent } from './pricing.component';
 import { imports } from './../../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('PricingComponent', () => {
   let component: PricingComponent;
   let fixture: ComponentFixture<PricingComponent>;

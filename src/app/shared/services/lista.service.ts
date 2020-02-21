@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { ILista } from '../models/IListas.model';
+import { ILista } from '../models/IListas.interface';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 import { environment } from './../../../environments/environment';
 
