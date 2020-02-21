@@ -18,7 +18,7 @@
 
 .textoPrincipal {
   /* Background que usaremos para destacar el texto */
-  background-color: #00000080;
+  background-color: #00000090;
 
   color: #ffffff;
   border: 3px solid #f1f1f1;
@@ -66,7 +66,7 @@ a {
   width: 31% !important;
   float: left;
   margin-left: 1%;
-  background-color: #00000080;
+  background-color: #00000090;
   border: 1px solid #f1f1f1;
 
   img {
@@ -75,6 +75,14 @@ a {
     height: 12%;
     width: 15%;
     margin-left: 42%;
+    margin-top: 2%;
+  }
+  p {
+    color: white;
+    font-size: 20px;
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: justify;
   }
 }
 
@@ -97,20 +105,28 @@ a {
     display: none;
   }
 }
-@media (min-width: 277px) and (max-width: 450px) {
-  .row {
-    margin-top: 70%;
+@media (max-width: 535px) {
+  .column {
+    display: none;
   }
 }
-@media (min-width: 451px) and (max-width: 860px) {
+@media (min-width: 535px) and (max-width: 730px) {
   .row {
-    margin-top: 40%;
+    margin-top: 80%;
+    p {
+      font-size: 15px;
+    }
+  }
+}
+@media (min-width: 730px) and (max-width: 1100px) {
+  .row {
+    margin-top: 60%;
   }
 }
 
-@media (min-width: 860px) and (max-width: 1220px) {
+@media (min-width: 1100px) and (max-width: 1440px) {
   .row {
-    margin-top: 20%;
+    margin-top: 40%;
   }
 }
 
