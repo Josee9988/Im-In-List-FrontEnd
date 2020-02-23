@@ -96,6 +96,7 @@ Esta aplicación ha sido desarrollado por:
 
 - Jose Gracia → <jgracia9988@gmail.com>
 - Borja Pérez → <multibalcoy@gmail.com>
+- Alejandro Ortega → <alexoh500@gmail.com>
 
 ---
 
