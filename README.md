@@ -46,6 +46,34 @@ El proyecto compilado se almacenará en la carpeta `dist/`. Utiliza el flag `--p
 
 Para ejecutar las pruebas unitarias, ejecute el comando `ng test` para realizar las pruebas vía [Karma](https://karma-runner.github.io).
 
+---
+
+## **Despliegue**
+
+Se ha realizado el despliegue utilizando un script sh, el cual permite desplegar en nuestro servidor staging con un usuario front el cual tiene permisos para desplegar en la carpeta /var/www/html/ImInList
+
+El mismo script, nos da la opción de desplegarlo para producción por lo que se compila en modo de producción y se despliega en el otro servidor.
+
+Los datos de los servidres son:
+#### Servidor staging:
+IP: 54.243.26.179
+
+URL: iminlist.staging.grupo04.ddaw.site
+
+Usuario: front
+
+
+#### Servidor produción:
+IP: 54.165.254.46
+
+URL: iminlist.grupo04.ddaw.site
+
+Usuario: front
+
+
+---
+
+
 ## **Wiki** 📖
 
 La principal fuente de información ha sido obtenida de la documentación oficial de [Angular](https://angular.io/docs).
