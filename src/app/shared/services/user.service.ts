@@ -69,7 +69,7 @@ export class UserService {
    */
   putUser(user: IUser): Observable<any> {
     return this.http.put(this.USER_URL + '/' + user.id, user, this.httpOptions).pipe(
-      tap(), catchError(this.handleError<any>('putLista')));
+      tap(), catchError(this.handleError<any>('putUser')));
   }
 
   /**
@@ -92,23 +92,4 @@ export class UserService {
       .pipe(tap(), catchError(this.handleError<IUser[]>('getDataUser', [])));
   }
 
-  /**
-   * Summary: This function look for the user ID and then ask for the lists that have created that user
-   */
-  getCreadas(): any {
-    this.getDataUser().subscribe(Response => {
-      return this.http.get<IUser[]>(environment.apiUrl + 'listasCreadas' + Response.user.id)
-        .pipe(tap(), catchError(this.handleError<IUser[]>('getDataUser', [])));
-    });
-  }
-
-  /**
-   * Summary: This function look for the user ID and then ask for the lists that have created that user
-   */
-  getParticipadas(): any {
-    this.getDataUser().subscribe(Response => {
-      return this.http.get<IUser[]>(environment.apiUrl + 'listasParticipadas' + Response.user.id)
-        .pipe(tap(), catchError(this.handleError<IUser[]>('getDataUser', [])));
-    });
-  }
 }
