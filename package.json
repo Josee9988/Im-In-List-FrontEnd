@@ -43,7 +43,7 @@
     "@angular/router": "~8.2.14",
     "angular-drop-image": "^1.0.8",
     "angular-gauge-chart": "^0.7.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "gauge-chart": "^0.5.3",
     "hammerjs": "^2.0.8",
     "ng-recaptcha": "^5.0.0",
